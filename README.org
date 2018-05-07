@@ -1,0 +1,149 @@
+* 需求
+ - 门口 登记
+ - 收发设备登记
+ - 手机自助办理 填信息
+ - 我们后台能看到
+
+* 功能
+** server
+** client app
+ - 登录
+ - 用户管理( supser_admin / employee )
+ - 收发一览，excel转发到微信，邮件
+ - 设备登记
+ - 扫码收发/拍照
+
+
+* Wxapp Api
+ - POST /login
+ 电话号码 + 验证码登录
+#+BEGIN_SRC sh
+POST http://localhost:3000/api/login
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Content-Type: application/json
+
+{
+ "mobile": "zhaolei",
+ "code": "778899",
+}
+
+#+END_SRC
+
+ - GET /userinfo
+ 得到本人信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/userinfo
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+
+#+END_SRC
+
+ - POST /userinfo
+ 提交本人信息
+#+BEGIN_SRC sh
+POST http://localhost:3000/api/userinfo
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Content-Type: application/json
+
+{
+ "nickname": "zhaolei"
+}
+#+END_SRC
+
+ - POST /auth/send_code
+ 发送验证码:
+#+BEGIN_SRC sh
+POST http://localhost:3000/api/auth/send_code
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Content-Type: application/json
+
+{
+ "mobile": "13614266252"
+}
+#+END_SRC
+
+ - POST /auth/verify_code
+ 验证手机号
+#+BEGIN_SRC sh
+POST http://localhost:3000/api/auth/verify_code
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Content-Type: application/json
+
+{
+ "code": "3584"
+}
+#+END_SRC
+
+- GET /contact//:contact_id
+ 取得联系人册信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/contact/5ad95d712b6347b806bd5aba
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+
+#+END_SRC
+
+- GET /contact/member/mobile//:mobile
+ 取得联系人册信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/contact/member/mobile/18624357886
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+
+#+END_SRC
+
+- GET /contact//:contact_id/:detail_id
+ 取得联系人册信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/contact/5aa8d31ca38c284d3706bfa9/5aaa03684c96786ea34ac9e2
+Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+
+#+END_SRC
+
+- GET /contents/contact/:contact_id
+ 取得联系人册信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/content/contact/5aa8d31ca38c284d3706bfa9
+
+#+END_SRC
+
+- GET /content/:content_id
+ 取得联系人册信息
+#+BEGIN_SRC sh
+GET http://localhost:3000/api/content/5ad606e14a2c2c0afd9d64f9
+
+#+END_SRC
+
+* Server Api
+** -login/logout-
+ - 不需要login界面
+ - 入口由小程序提供：“制作自己的通讯录”，浏览器打开。url含有用户的wxid以及sign，服务器端验证。
+ - 登录成功后，localstorage里记下token，以备下次登录
+*** //socket/:socket 验证token
+** contacts & items
+*** GET
+*** POST
+*** PUT
+*** DELETE
+** content
+*** GET
+*** POST
+*** PUT
+*** DELETE
+** wx user
+*** GET
+*** PUT
+** admin/acl
+ - 无需admin的schema，应该和user合并到一起
+ - 无需acl控制，仅仅 user, super_admin这2种身份
+* Deploy
+
+** 同步
+#+BEGIN_SRC sh
+rsync -avz --delete --exclude public/ --exclude node_modules/ --exclude .git  /works/projects/wxapp-redpackx/server/ test:/home/zhaolei/wxcontracts/
+#+END_SRC
+
+** 数据初始化
+#+BEGIN_SRC sh
+db.admins.insert({ "username" : "6055120@qq.com", "password" : "$2a$10$8pmfUnqXvuR5hnoMeDJzg.wpS79rROFySwtzys8wI2AsSeSUGc0uG", "create_date" : ISODate("2017-08-18T05:27:31.999Z"), "delete_flag" : false, "acl_roles" : [ "super_admin" ] });
+node  acl_script.js
+#+END_SRC
+```
+

@@ -1,0 +1,11 @@
+{
+  "indentSize": 2,
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules",
+    ".git"
+  ]
+}

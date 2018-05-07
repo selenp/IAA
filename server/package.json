@@ -1,0 +1,45 @@
+{
+  "name": "redpackx",
+  "version": "1.0.0",
+  "private": true,
+  "description": "有得玩",
+  "main": "index.js",
+  "author": "",
+  "keywords": [
+    "微信",
+    "API",
+    "weixin",
+    "wxpay",
+    "wechat"
+  ],
+  "dependencies": {
+    "@alicloud/sms-sdk": "^1.0.9",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.18.2",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "log4js": "^2.5.3",
+    "moment": "~2.22.1",
+    "moment-range": "^4.0.1",
+    "moment-timezone": "^0.5.16",
+    "mongoose": "~5.0.17",
+    "multer": "^1.3.0",
+    "node-weixin-api": "~0.5.1",
+    "node-weixin-settings": "~0.2.1",
+    "nodemailer": "^4.6.4",
+    "numeral": "^2.0.6",
+    "pinyin": "^2.8.3",
+    "print-tree": "oizhaolei/print-tree",
+    "promise-redis": "0.0.5",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
+    "rollbar": "^2.3.9",
+    "serve-favicon": "~2.5.0",
+    "sharp": "^0.20.2",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "meow": "~5.0.0"
+  },
+  "scripts": {}
+}
