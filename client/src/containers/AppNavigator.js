@@ -10,17 +10,23 @@ import {
   AsyncStorage,
 } from 'react-native';
 
-import LoginScreen from '../components/LoginScreen';
-import MainScreen from '../components/MainScreen';
-import ProfileScreen from '../components/ProfileScreen';
+import LoginScreen from '../containers/LoginScreen';
+import MainScreen from '../containers/MainScreen';
+import ProfileScreen from '../containers/ProfileScreen';
 import { addListener } from '../utils/redux';
 
-import { tokenLogin, initialUser } from '../actions/auth';
+import { tokenLogin } from '../actions/auth';
 
 export const AppNavigator = StackNavigator({
-  Main: { screen: MainScreen },
-  Login: { screen: LoginScreen },
-  Profile: { screen: ProfileScreen },
+  Main: {
+    screen: MainScreen,
+  },
+  Login: {
+    screen: LoginScreen,
+  },
+  Profile: {
+    screen: ProfileScreen,
+  },
 });
 
 class AppWithNavigationState extends React.Component {
@@ -34,16 +40,11 @@ class AppWithNavigationState extends React.Component {
 
   doTokenLogin() {
     // 每次打开页面时，做tokenLogin
-    const { loginScreen, tokenLogin, initialUser } = this.props;
+    const { loginScreen, tokenLogin } = this.props;
     // load auth
-    AsyncStorage.getItem('user').then((data) => {
-      if (data) {
-        const user = JSON.parse(data);
-        initialUser(user);
-        const { token } = user;
-        tokenLogin({
-          token,
-        });
+    AsyncStorage.getItem('token').then((token) => {
+      if (token) {
+        tokenLogin(token);
       } else if (!this.checkIsLoginScreen()) {
         loginScreen();
       }
@@ -74,7 +75,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, Ownprops) => ({
   dispatch,
   tokenLogin: info => dispatch(tokenLogin(info)),
-  initialUser: user => dispatch(initialUser(user)),
   loginScreen: params => dispatch(NavigationActions.navigate({ routeName: 'Login', params })),
 });
 

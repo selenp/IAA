@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import AppReducer from './reducers';
-import AppWithNavigationState from './navigators/AppNavigator';
+import AppWithNavigationState from './containers/AppNavigator';
 import { middleware } from './utils/redux';
 
 import api from './middlewares/api';

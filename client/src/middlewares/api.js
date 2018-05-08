@@ -8,12 +8,13 @@ function callApi(endpoint, init, token) {
   let headers = {
     'Content-Type': 'application/json',
     uniqueId: DeviceInfo.getUniqueID(),
+    ...init.headers,
   };
 
   if (token) {
     headers = {
-      ...headers,
       Authorization: `Bearer ${token}`,
+      ...headers,
     };
   }
   init.headers = new Headers(headers);
@@ -48,11 +49,7 @@ export default store => next => (action) => {
   const [requestType, successType, errorType] = types;
   next({ type: requestType });
 
-  let token = null;
-  const auth = store.getState().auth;
-  if (auth.user.token) {
-    token = auth.user.token;
-  }
+  const { token } = store.getState().auth;
   return callApi(endpoint, init, token).then(
     res => next({
       res,

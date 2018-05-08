@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -15,13 +17,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProfileScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.welcome}>
-      Profile Screen
-    </Text>
-  </View>
-);
+class ProfileScreen extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Profile Screen
+        </Text>
+      </View>
+    );
+  }
+}
 
 ProfileScreen.navigationOptions = {
   title: 'Profile',

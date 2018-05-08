@@ -2,14 +2,14 @@ import { NavigationActions } from 'react-navigation';
 
 import * as AUTH_ACTION from '../constants/auth';
 
-import { AppNavigator } from '../navigators/AppNavigator';
+import { AppNavigator } from '../containers/AppNavigator';
 
 const initialState = AppNavigator.router.getStateForAction(NavigationActions.init());
 
 const nav = (state = initialState, action) => {
   let nextState;
   switch (action.type) {
-    case AUTH_ACTION.LOGIN_SUCCESS:
+    case AUTH_ACTION.VERIFYCODE_SUCCESS:
       return AppNavigator.router.getStateForAction(
         NavigationActions.back(),
         state,

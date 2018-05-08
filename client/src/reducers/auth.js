@@ -5,11 +5,11 @@ import { AVATAR_REQUEST, AVATAR_SUCCESS, AVATAR_FAILURE } from '../constants/upl
 
 const initialState = {
   loading: false,
+  token: null,
   user: {
     mobile_no: '',
     memo: '',
     avatar: null,
-    token: '',
     funcs: {
       news: [],
       swipers: [],
@@ -34,16 +34,13 @@ const auth = (state = initialState, action) => {
         loading: true,
       };
     case ACTION.SAVE_PROFILE_SUCCESS:
-      const u1 = {
-        ...action.res.user,
-      };
-
-      AsyncStorage.setItem('user', JSON.stringify(u1));
       return {
         ...state,
         loading: false,
         just_requested: true,
-        user: u1,
+        user: {
+          ...action.res.user,
+        },
         error: '',
       };
     case ACTION.SAVE_PROFILE_FAILURE:
@@ -52,40 +49,43 @@ const auth = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
-    case ACTION.LOGIN_REQUEST:
+    case ACTION.VERIFYCODE_REQUEST:
     case ACTION.TOKEN_LOGIN_REQUEST:
     case AVATAR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ACTION.LOGIN_SUCCESS:
-    case ACTION.TOKEN_LOGIN_SUCCESS:
-      const u = {
-        ...action.res.user,
-      };
-      AsyncStorage.setItem('user', JSON.stringify(u));
-
+    case ACTION.VERIFYCODE_SUCCESS:
+      AsyncStorage.setItem('token', action.res.token);
       return {
         ...state,
         loading: false,
-        user: u,
+        user: {
+          ...action.res.user,
+        },
+        error: '',
+      };
+    case ACTION.TOKEN_LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...action.res.user,
+        },
         error: '',
       };
     case AVATAR_SUCCESS:
-      const u2 = {
-        ...state.user,
-        avatar: action.res.avatar,
-      };
-      AsyncStorage.setItem('user', JSON.stringify(u2));
-
       return {
         ...state,
         loading: false,
-        user: u2,
+        user: {
+          ...state.user,
+          avatar: action.res.avatar,
+        },
         error: '',
       };
-    case ACTION.LOGIN_FAILURE:
+    case ACTION.VERIFYCODE_FAILURE:
     case ACTION.TOKEN_LOGIN_FAILURE:
     case AVATAR_FAILURE:
       return {
@@ -99,7 +99,7 @@ const auth = (state = initialState, action) => {
         loading: true,
       };
     case ACTION.LOGOUT_SUCCESS:
-      AsyncStorage.removeItem('user');
+      AsyncStorage.removeItem('token');
       return {
         ...initialState,
         loading: false,
