@@ -57,8 +57,9 @@ body: ${JSON.stringify(req.body)}
 app.use(async (req, res, next) => {
   try {
     logger.debug('authorization:', req.headers.authorization);
-    if (req.headers.authorization) {
-      const token = req.headers.authorization;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      const token = req.headers.authorization.substring('Bearer '.length).trim();
+
       req.$token = token;
 
       const mobile = await redisClient.get(token);

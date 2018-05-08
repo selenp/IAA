@@ -17,8 +17,8 @@ const router = express.Router();
 
 /**
 # equipment信息:
-GET http://localhost:3000/api/equipment/5ae296672b6347b806bd5ae3
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+GET http://192.168.1.101:3000/api/equipment/5ae296672b6347b806bd5ae3
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/:equipment_id', async (req, res) => {
   if (!req.$wxUserInfo) {
@@ -35,8 +35,8 @@ router.get('/:equipment_id', async (req, res) => {
 });
 
 /**
-DELETE http://localhost:3000/api/equipment/5ae296672b6347b806bd5ae3
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+DELETE http://192.168.1.101:3000/api/equipment/5ae296672b6347b806bd5ae3
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.delete('/:equipment_id', async (req, res, next) => {
   if (!req.$wxUserInfo) {
@@ -53,8 +53,8 @@ router.delete('/:equipment_id', async (req, res, next) => {
 
 /**
 # equipment信息:
-GET http://localhost:3000/api/equipment/
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+GET http://192.168.1.101:3000/api/equipment/
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/', async (req, res, next) => {
   if (!req.$wxUserInfo) {
@@ -84,9 +84,9 @@ router.get('/', async (req, res, next) => {
 
 /**
 #
-POST http://localhost:3000/api/equipment/
+POST http://192.168.1.101:3000/api/equipment/
 Content-Type: application/json
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
     "_id": "5af04efcaf870dd2f190dd2a",
     "subject": "test #1"
@@ -121,10 +121,10 @@ router.post('/', async (req, res, next) => {
 
 /**
 # new user信息:
-POST http://localhost:3000/api/equipment/uploadCover
+POST http://192.168.1.101:3000/api/equipment/uploadCover
 Content-Type: application/json
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-# curl -X POST -H "Accept: application/json" -H "Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "cover=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://localhost:3000/api/equipment/uploadCover
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+# curl -X POST -H "Accept: application/json" -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "cover=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://192.168.1.101:3000/api/equipment/uploadCover
 */
 router.post('/uploadCover', upload.single('cover'), async (req, res, next) => {
   if (!req.$wxUserInfo) {

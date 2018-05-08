@@ -17,8 +17,8 @@ router.post('/log', (req, res) => {
 
 /**
 #保存用户信息
-POST http://localhost:3000/mp/token_login
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+POST http://192.168.1.101:3000/mp/token_login
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.post('/token_login', async (req, res, next) => {
   if (!req.$wxUserInfo) {
@@ -35,8 +35,8 @@ router.post('/token_login', async (req, res, next) => {
 
 /**
 # scan qrcode
-GET http://localhost:3000/mp/socket/s8fKkuCtviYyn_0dAAAB
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+GET http://192.168.1.101:3000/mp/socket/s8fKkuCtviYyn_0dAAAB
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/socket/:socket', async (req, res, next) => {
   if (!req.$wxUserInfo) {

@@ -16,15 +16,15 @@ const router = express.Router();
 const randomIntInc = (low, high) => Math.floor(Math.random() * (high - low + 1) + low);
 
 /**
-POST http://localhost:3000/api/auth/send_code
+POST http://192.168.1.101:3000/api/auth/send_code
 Content-Type: application/json
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
     "mobile": "18624357886"
 }
 #
 */
-// curl -X POST http://localhost:3000/api/auth/send_code -H "Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"-H "Content-Type: application/json" -d '{ "mobile": "18624357886"}'
+// curl -X POST http://192.168.1.101:3000/api/auth/send_code -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"-H "Content-Type: application/json" -d '{ "mobile": "18624357886"}'
 router.post('/send_code', async (req, res, next) => {
   if (!req.$wxUserInfo) {
     return next('invalid auth.');
@@ -52,16 +52,16 @@ router.post('/send_code', async (req, res, next) => {
 });
 
 /**
-POST http://localhost:3000/api/auth/verify_code
+POST http://192.168.1.101:3000/api/auth/verify_code
 Content-Type: application/json
-Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
     "code": "6446"
 }
 #
 */
 
-// curl -X POST http://localhost:3000/api/auth/verify_code -H "Authorization: JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -H "Content-Type: application/json" -d '{ "code": "111111"}'
+// curl -X POST http://192.168.1.101:3000/api/auth/verify_code -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -H "Content-Type: application/json" -d '{ "code": "111111"}'
 router.post('/verify_code', async (req, res, next) => {
   if (!req.$wxUserInfo) {
     return next('invalid auth.');
