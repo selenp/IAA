@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Icon } from 'antd-mobile';
 
 import {
   sendcode,
@@ -23,6 +29,13 @@ const styles = StyleSheet.create({
 });
 
 class LoginScreen extends Component {
+  static navigationOptions = {
+    title: '登录',
+    headerLeft: null,
+    gesturesEnabled: false,
+  };
+
+
   handleSendcode(e) {
     this.props.sendcode({
       mobile: '18624357886',
@@ -41,10 +54,10 @@ class LoginScreen extends Component {
           onPress={e => this.handleSendcode(e)}
           title="Send Code"
           />
-        <Button
-          onPress={e => this.handleVerifycode(e)}
-          title="Verify Code"
-          />
+          <Button
+            onPress={e => this.handleVerifycode(e)}
+            title="Verify Code"
+            />
       </View>
     );
   }
@@ -53,12 +66,6 @@ class LoginScreen extends Component {
 LoginScreen.propTypes = {
   sendcode: PropTypes.func.isRequired,
   verifycode: PropTypes.func.isRequired,
-};
-
-LoginScreen.navigationOptions = {
-  title: 'Log In',
-  headerLeft: null,
-  gesturesEnabled: false,
 };
 
 const mapStateToProps = state => ({

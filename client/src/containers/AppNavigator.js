@@ -3,29 +3,80 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   NavigationActions,
-  StackNavigator,
+  createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
 
 import {
+  View,
+    TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 
-import LoginScreen from '../containers/LoginScreen';
+import {
+  Icon,
+  WingBlank,
+} from 'antd-mobile';
+
 import MainScreen from '../containers/MainScreen';
-import ProfileScreen from '../containers/ProfileScreen';
+import MineScreen from '../containers/MineScreen';
+import LoginScreen from '../containers/LoginScreen';
 import { addListener } from '../utils/redux';
 
 import { tokenLogin } from '../actions/auth';
 
-export const AppNavigator = StackNavigator({
-  Main: {
+const MainScreenNavigator = createBottomTabNavigator({
+  Home: {
     screen: MainScreen,
+    path: '/main',
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: '主页',
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Icon size='lg' type={'\ue70b'} />
+      ),
+    }),
+  },
+  Mine: {
+    screen: MineScreen,
+    path: '/mine',
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: '我的',
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Icon size='lg' type={'\ue6e3'} />
+      ),
+    }),
+  },
+}, {
+  tabBarPosition: 'bottom',
+});
+MainScreenNavigator.navigationOptions = ({ navigation }) => {
+  let title, headerRight;
+  let focusedRouteName = navigation.state.routes[navigation.state.index].routeName;
+  if (focusedRouteName === 'Home') {
+    title = 'Home'; // of course in this case it's the same, but do whatever you want here
+    headerRight = (
+      <WingBlank>
+      <TouchableOpacity>
+      <Icon size='md' color="#1296db" type={'\ue738'}/>
+      </TouchableOpacity>
+      </WingBlank>
+    );
+  } else if (focusedRouteName === 'Mine') {
+    title = 'Mine';
+  }
+
+  return {
+    title,
+    headerRight,
+  };
+};
+
+export const AppNavigator = createStackNavigator({
+  Main: {
+    screen: MainScreenNavigator,
   },
   Login: {
     screen: LoginScreen,
-  },
-  Profile: {
-    screen: ProfileScreen,
   },
 });
 
@@ -64,7 +115,7 @@ class AppWithNavigationState extends React.Component {
           state: nav,
           addListener,
         }}
-      />
+        />
     );
   }
 }
