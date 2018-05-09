@@ -3,30 +3,23 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import {
-  Button,
+  ActivityIndicator,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { Icon } from 'antd-mobile';
+import {
+  Button,
+  List,
+  InputItem,
+  WhiteSpace,
+  Icon,
+} from 'antd-mobile';
 
 import {
   sendcode,
   verifycode,
 } from '../actions/auth';
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -35,7 +28,36 @@ class LoginScreen extends Component {
     gesturesEnabled: false,
   };
 
+  state = {
+    mobileError: false,
+    mobile: '',
+    codeError: false,
+    code: '',
+  }
 
+  handleMobile = (value) =>{
+    this.setState({
+      mobileError: !(/1\d{10}$/).test(value),
+    });
+    console.log(value, !(/1\d{10}$/).test(value));
+  }
+
+  handleCode =(value) =>{
+    this.setState({
+      codeError: !(/\d{4}$/).test(value),
+    });
+  }
+
+    onMobileErrorClick = () => {
+    if (this.state.mobileError) {
+      Toast.info('Please enter 11 digits');
+    }
+  }
+    onCodeErrorClick = () => {
+    if (this.state.codeError) {
+      Toast.info('Please enter 4 digits');
+    }
+  }
   handleSendcode(e) {
     this.props.sendcode({
       mobile: '18624357886',
@@ -48,17 +70,34 @@ class LoginScreen extends Component {
     });
   }
   render() {
+    const { loading, error } = this.props.auth;
     return (
-      <View style={styles.container}>
-        <Button
-          onPress={e => this.handleSendcode(e)}
-          title="Send Code"
-          />
+        <List renderHeader={() => '登录'}>
+          { loading &&
+            <ActivityIndicator />
+            }
+          <InputItem
+            type="digit"
+            pattern="/^1\d{10}$/"
+            error={this.state.mobileError}
+            onErrorClick={this.onMobileErrorClick}
+            onChange={this.handleMobile}
+            placeholder="186 1234 1234"
+          >手机号码</InputItem>
+          <InputItem
+            type="digit"
+            pattern="[0-9]{4}"
+            error={this.state.codeError}
+            onErrorClick={this.onCodeErrorClick}
+            placeholder="短信验证码"
+            onChange={this.handleCode}
+            >验证码</InputItem>
+          <WhiteSpace/>
           <Button
-            onPress={e => this.handleVerifycode(e)}
-            title="Verify Code"
-            />
-      </View>
+            type="primary"
+            onClick={e => this.handleVerifycode(e)}
+            >登录</Button>
+        </List>
     );
   }
 }

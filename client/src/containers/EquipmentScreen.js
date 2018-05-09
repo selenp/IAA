@@ -25,7 +25,7 @@ import {
 const Step = Steps.Step;
 
 import arrayTreeFilter from 'array-tree-filter';
-import  district from './district';
+import  district from '../data/district';
 
 import {
   fetchEquipment,

@@ -5,28 +5,12 @@ import { AVATAR_REQUEST, AVATAR_SUCCESS, AVATAR_FAILURE } from '../constants/upl
 
 const initialState = {
   loading: false,
-  token: null,
-  user: {
-    mobile_no: '',
-    memo: '',
-    avatar: null,
-    funcs: {
-      news: [],
-      swipers: [],
-      shortcuts: [],
-      applications: [],
-      wallet: [],
-    },
-    badge: {},
-    ecard: {
-      balance: 0,
-    },
-  },
+  user: null,
   just_requested: false,
   error: '',
 };
 
-const auth = async (state = initialState, action) => {
+const auth =  (state = initialState, action) => {
   switch (action.type) {
     case ACTION.SAVE_PROFILE_REQUEST:
       return {
@@ -57,7 +41,7 @@ const auth = async (state = initialState, action) => {
         loading: true,
       };
     case ACTION.VERIFYCODE_SUCCESS:
-      await AsyncStorage.setItem('token', action.res.token);
+       AsyncStorage.setItem('token', action.res.token);
       return {
         ...state,
         loading: false,
@@ -99,7 +83,7 @@ const auth = async (state = initialState, action) => {
         loading: true,
       };
     case ACTION.LOGOUT_SUCCESS:
-      await AsyncStorage.removeItem('token');
+       AsyncStorage.removeItem('token');
       return {
         ...initialState,
         loading: false,

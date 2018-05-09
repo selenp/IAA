@@ -5,9 +5,6 @@ import * as ACTION from '../constants/equipment';
 export const fetchEquipments = () => ({
   [CALL_API]: {
     endpoint: '/api/equipment',
-    init: {
-      method: 'GET',
-    },
     types: [
       ACTION.FETCH_EQUIPMENTS_REQUEST,
       ACTION.FETCH_EQUIPMENTS_SUCCESS,
@@ -19,9 +16,6 @@ export const fetchEquipments = () => ({
 export const fetchEquipment = _id => ({
   [CALL_API]: {
     endpoint: `/api/equipment/${_id}`,
-    init: {
-      method: 'GET',
-    },
     types: [
       ACTION.FETCH_EQUIPMENT_REQUEST,
       ACTION.FETCH_EQUIPMENT_SUCCESS,

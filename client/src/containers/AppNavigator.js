@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 
 import {
+  Text,
   View,
   TouchableOpacity,
   AsyncStorage,
@@ -23,6 +24,7 @@ import MainScreen from '../containers/MainScreen';
 import MineScreen from '../containers/MineScreen';
 import LoginScreen from '../containers/LoginScreen';
 import ScanScreen from '../containers/ScanScreen';
+import UsersScreen from '../containers/UsersScreen';
 
 import { addListener } from '../utils/redux';
 
@@ -96,6 +98,9 @@ export const AppNavigator = createStackNavigator({
   Scan: {
     screen: ScanScreen,
   },
+  Users: {
+    screen: UsersScreen,
+  },
 });
 
 class AppWithNavigationState extends React.Component {
@@ -103,7 +108,7 @@ class AppWithNavigationState extends React.Component {
     dispatch: PropTypes.func.isRequired,
     nav: PropTypes.object.isRequired,
   };
-  componentDidMount() {
+  componentWillMount() {
     this.doTokenLogin();
   }
 
@@ -125,7 +130,7 @@ class AppWithNavigationState extends React.Component {
   }
 
   render() {
-    const { dispatch, nav } = this.props;
+    const { dispatch, nav, auth } = this.props;
     return (
       <AppNavigator
         navigation={{
@@ -140,6 +145,7 @@ class AppWithNavigationState extends React.Component {
 
 const mapStateToProps = state => ({
   nav: state.nav,
+  auth: state.auth,
 });
 const mapDispatchToProps = (dispatch, Ownprops) => ({
   dispatch,

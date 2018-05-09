@@ -36,7 +36,7 @@ const callApi = async (endpoint, init, token) => {
 
       return json;
     }));
-}
+};
 
 export const CALL_API = Symbol('Call API');
 
