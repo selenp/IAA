@@ -24,9 +24,9 @@ import {
   fetchUsers,
 } from '../actions/user';
 
-class UsersScreen extends Component {
+class StatisticsScreen extends Component {
   static navigationOptions = {
-    title: '用户管理',
+    title: '数据统计',
   };
   constructor(props) {
     super(props);
@@ -74,4 +74,4 @@ const mapDispatchToProps = dispatch => ({
   userScreen: params => dispatch(NavigationActions.navigate({ routeName: 'User', params })),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(StatisticsScreen);

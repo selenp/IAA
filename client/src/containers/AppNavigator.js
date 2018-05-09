@@ -25,6 +25,7 @@ import MineScreen from '../containers/MineScreen';
 import LoginScreen from '../containers/LoginScreen';
 import ScanScreen from '../containers/ScanScreen';
 import UsersScreen from '../containers/UsersScreen';
+import StatisticsScreen from '../containers/StatisticsScreen';
 
 import { addListener } from '../utils/redux';
 
@@ -64,13 +65,13 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Scan')}
           >
-          <Icon size='md' color="#1296db" type={'\ue722'}/>
+          <Icon size='md' color="#1296db" type={'\ue62e'}/>
         </TouchableOpacity>
       <WingBlank>
         <TouchableOpacity
           onPress={() => navigation.navigate('Equipment')}
           >
-          <Icon size='md' color="#1296db" type={'\ue738'}/>
+          <Icon size='md' color="#1296db" type={'\ue641'}/>
         </TouchableOpacity>
       </WingBlank>
       </View>
@@ -100,6 +101,9 @@ export const AppNavigator = createStackNavigator({
   },
   Users: {
     screen: UsersScreen,
+  },
+  Statistics: {
+    screen: StatisticsScreen,
   },
 });
 

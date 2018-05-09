@@ -74,7 +74,6 @@ class EquipmentScreen extends Component {
       }, () => {
         this.forceUpdate();
       });
-      return true;
     }
 
     return false;
@@ -130,11 +129,14 @@ class EquipmentScreen extends Component {
           您好。。。。。。
         </NoticeBar>
         <WhiteSpace/>
-        <Steps>
-          <Step status="finish" title="Step 1" icon={<Icon size='md' color="#1296db" type={'\ue72d'} />} />
-          <Step status="error" title="Step 2" icon={<Icon size='md' color="#f00" type={'\ue72d'} />} />
-          <Step status="process" title="Step 3" icon={<Icon size='md' color="#555" type={'\ue7db'} />} />
-        </Steps>
+        <List>
+          <Steps>
+            <Step status="finish" title="Step 1" icon={<Icon size='md' color="#1296db" type={'\ue72d'} />} />
+            <Step status="error" title="Step 2" icon={<Icon size='md' color="#f00" type={'\ue72d'} />} />
+            <Step status="process" title="Step 3" icon={<Icon size='md' color="#555" type={'\ue7db'} />} />
+          </Steps>
+        </List>
+        <WhiteSpace/>
         <List>
           <InputItem
             clear
@@ -166,7 +168,7 @@ class EquipmentScreen extends Component {
             </List.Item>
           </Picker>
         </List>
-        <List renderHeader={() => '拍照'}>
+        <List renderHeader={() => '上传照片'}>
           <ImagePicker
             files={files}
             onChange={this.onChange}

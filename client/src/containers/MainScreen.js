@@ -63,7 +63,7 @@ class MainScreen extends Component {
                     _id: item._id,
                   })
                 }}
-                thumb={(<Icon size="md" color="#1296db" type={'\ue737'} />)}
+                thumb={(<Icon size="md" color="#1296db" type={'\ue715'} />)}
                 >
                 {item.subject}
                 <Brief>{item.create_date}</Brief>

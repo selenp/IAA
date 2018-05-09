@@ -38,7 +38,7 @@ class MineScreen extends Component {
         <List className="my-list">
           <Item
             arrow="horizontal"
-            thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+            thumb={(<Icon size="lg" color="#1296db" type={'\ue716'} />)}
             multipleLine
             onClick={() => {}}
           >
@@ -89,7 +89,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
-  statisticScreen: params => dispatch(NavigationActions.navigate({ routeName: 'Statistic', params })),
+  statisticScreen: params => dispatch(NavigationActions.navigate({ routeName: 'Statistics', params })),
   usersScreen: params => dispatch(NavigationActions.navigate({ routeName: 'Users', params })),
 });
 
