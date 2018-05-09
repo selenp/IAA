@@ -17,7 +17,7 @@ const router = express.Router();
 
 /**
 # equipment信息:
-GET http://192.168.1.101:3000/api/equipment/5ae296672b6347b806bd5ae3
+GET http://192.168.1.101:3000/api/equipment/5af2537b5611846381335108
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/:equipment_id', async (req, res) => {
@@ -30,7 +30,7 @@ router.get('/:equipment_id', async (req, res) => {
 
   res.json({
     success: true,
-    equipment,
+    data: equipment,
   });
 });
 

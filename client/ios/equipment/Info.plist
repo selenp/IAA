@@ -34,6 +34,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>需要相机权限，拍照或者扫描二维码</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要打开相册，用于上传头像等</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

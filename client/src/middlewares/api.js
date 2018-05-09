@@ -1,10 +1,12 @@
+import { AsyncStorage } from 'react-native';
+
 import DeviceInfo from 'react-native-device-info';
 import constants from '../constants/';
 
 const Symbol = require('es6-symbol');
 
 // middleware： 简化fetch处理， 并且加上token
-function callApi(endpoint, init, token) {
+const callApi = async (endpoint, init, token) => {
   let headers = {
     'Content-Type': 'application/json',
     uniqueId: DeviceInfo.getUniqueID(),
@@ -22,6 +24,8 @@ function callApi(endpoint, init, token) {
   if (!endpoint.startsWith(constants.REMOTE_URL)) {
     endpoint = `${constants.REMOTE_URL}${endpoint}`;
   }
+  console.log('fetch', endpoint, init);
+
   return fetch(endpoint, init)
     .then(res => res.json().then((json) => {
       if (!res.ok) {
@@ -36,7 +40,7 @@ function callApi(endpoint, init, token) {
 
 export const CALL_API = Symbol('Call API');
 
-export default store => next => (action) => {
+export default store => next => async (action) => {
   const callAPI = action[CALL_API];
 
   // So the middleware doesn't get applied to every single action
@@ -49,8 +53,8 @@ export default store => next => (action) => {
   const [requestType, successType, errorType] = types;
   next({ type: requestType });
 
-  const { token } = store.getState().auth;
-  return callApi(endpoint, init, token).then(
+  const token = await AsyncStorage.getItem('token');
+  return await callApi(endpoint, init, token).then(
     res => next({
       res,
       type: successType,

@@ -1,55 +1,33 @@
 import * as ACTION from '../constants/equipment';
 
 const INITIAL_STATE = {
-  equipments: [],
-  equipment: null,
+  data: null,
   error: null,
   loading: false,
-  modifying: false,
-  modified: false,
+  saving: false,
+  just_saved: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ACTION.FETCH_EQUIPMENTS_REQUEST:
-      return {
-        ...state,
-        equipments: [],
-        error: null,
-        loading: true,
-      };
-    case ACTION.FETCH_EQUIPMENTS_SUCCESS:
-      return {
-        ...state,
-        equipments: action.res.data,
-        error: null,
-        loading: false,
-      };
-    case ACTION.FETCH_EQUIPMENTS_FAILURE:
-      return {
-        ...state,
-        equipments: [],
-        error: action.error,
-        loading: false,
-      };
     case ACTION.FETCH_EQUIPMENT_REQUEST:
       return {
         ...state,
-        equipment: null,
+        data: null,
         error: null,
         loading: true,
       };
     case ACTION.FETCH_EQUIPMENT_SUCCESS:
       return {
         ...state,
-        equipment: action.res.data,
+        data: action.res.data,
         error: null,
         loading: false,
       };
     case ACTION.FETCH_EQUIPMENT_FAILURE:
       return {
         ...state,
-        equipment: null,
+        data: null,
         error: action.error,
         loading: false,
       };
@@ -57,28 +35,28 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: null,
-        modifying: true,
-        modified: false,
+        saving: true,
+        just_saved: false,
       };
     case ACTION.MODIFY_EQUIPMENT_SUCCESS:
       return {
         ...state,
         error: null,
-        equipment: action.res.data,
-        modifying: false,
-        modified: true,
+        data: action.res.data,
+        saving: false,
+        just_saved: true,
       };
     case ACTION.MODIFY_EQUIPMENT_FAILURE:
       return {
         ...state,
         error: action.error,
-        modifying: false,
-        modified: false,
+        saving: false,
+        just_saved: false,
       };
     case ACTION.MODIFY_EQUIPMENT_RESET:
       return {
         ...state,
-        modified: false,
+        just_saved: false,
       };
     default:
       return state;

@@ -26,7 +26,7 @@ const initialState = {
   error: '',
 };
 
-const auth = (state = initialState, action) => {
+const auth = async (state = initialState, action) => {
   switch (action.type) {
     case ACTION.SAVE_PROFILE_REQUEST:
       return {
@@ -57,7 +57,7 @@ const auth = (state = initialState, action) => {
         loading: true,
       };
     case ACTION.VERIFYCODE_SUCCESS:
-      AsyncStorage.setItem('token', action.res.token);
+      await AsyncStorage.setItem('token', action.res.token);
       return {
         ...state,
         loading: false,
@@ -99,7 +99,7 @@ const auth = (state = initialState, action) => {
         loading: true,
       };
     case ACTION.LOGOUT_SUCCESS:
-      AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('token');
       return {
         ...initialState,
         loading: false,

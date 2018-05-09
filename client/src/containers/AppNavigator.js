@@ -9,7 +9,7 @@ import {
 
 import {
   View,
-    TouchableOpacity,
+  TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 
@@ -22,6 +22,8 @@ import EquipmentScreen from '../containers/EquipmentScreen';
 import MainScreen from '../containers/MainScreen';
 import MineScreen from '../containers/MineScreen';
 import LoginScreen from '../containers/LoginScreen';
+import ScanScreen from '../containers/ScanScreen';
+
 import { addListener } from '../utils/redux';
 
 import { tokenLogin } from '../actions/auth';
@@ -56,6 +58,12 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
   if (focusedRouteName === 'Home') {
     title = 'Home'; // of course in this case it's the same, but do whatever you want here
     headerRight = (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Scan')}
+          >
+          <Icon size='md' color="#1296db" type={'\ue722'}/>
+        </TouchableOpacity>
       <WingBlank>
         <TouchableOpacity
           onPress={() => navigation.navigate('Equipment')}
@@ -63,6 +71,7 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
           <Icon size='md' color="#1296db" type={'\ue738'}/>
         </TouchableOpacity>
       </WingBlank>
+      </View>
     );
   } else if (focusedRouteName === 'Mine') {
     title = 'Mine';
@@ -83,6 +92,9 @@ export const AppNavigator = createStackNavigator({
   },
   Equipment: {
     screen: EquipmentScreen,
+  },
+  Scan: {
+    screen: ScanScreen,
   },
 });
 

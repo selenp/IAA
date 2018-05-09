@@ -32,7 +32,7 @@ export const fetchEquipment = _id => ({
 
 export const modifyEquipment = data => ({
   [CALL_API]: {
-    endpoint: '/equipment',
+    endpoint: '/api/equipment',
     init: {
       method: 'POST',
       body: JSON.stringify(data),
