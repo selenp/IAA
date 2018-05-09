@@ -12,6 +12,7 @@ import {
   WhiteSpace,
   Button,
 } from 'antd-mobile';
+
 const Item = List.Item;
 
 const data = [{
@@ -26,16 +27,16 @@ class MainScreen extends Component {
     super(props);
   }
   render() {
-    return  (
+    return (
       <List className="my-list">
         {
           data.map(item => (
             <Item
               key={item._id}
               arrow="horizontal"
-              thumb={(<Icon size='md' color="#1296db" type={'\ue737'} />)}
-              onClick={e => {}}
-              >
+              thumb={(<Icon size="md" color="#1296db" type={'\ue737'} />)}
+              onClick={(e) => {}}
+            >
               {item.text}
             </Item>
           ))

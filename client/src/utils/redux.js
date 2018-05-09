@@ -4,10 +4,10 @@ import {
 } from 'react-navigation-redux-helpers';
 
 const middleware = createReactNavigationReduxMiddleware(
-  "root",
+  'root',
   state => state.nav,
 );
-const addListener = createReduxBoundAddListener("root");
+const addListener = createReduxBoundAddListener('root');
 
 export {
   middleware,

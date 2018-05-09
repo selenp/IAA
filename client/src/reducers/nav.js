@@ -31,5 +31,5 @@ const nav = (state = initialState, action) => {
   }
   // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
-}
+};
 export default nav;

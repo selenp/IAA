@@ -18,6 +18,7 @@ import {
   WingBlank,
 } from 'antd-mobile';
 
+import EquipmentScreen from '../containers/EquipmentScreen';
 import MainScreen from '../containers/MainScreen';
 import MineScreen from '../containers/MineScreen';
 import LoginScreen from '../containers/LoginScreen';
@@ -32,7 +33,7 @@ const MainScreenNavigator = createBottomTabNavigator({
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: '主页',
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon size='lg' type={'\ue70b'} />
+        <Icon size='lg' color={tintColor} type={'\ue750'} />
       ),
     }),
   },
@@ -42,7 +43,7 @@ const MainScreenNavigator = createBottomTabNavigator({
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: '我的',
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon size='lg' type={'\ue6e3'} />
+        <Icon size='lg' color={tintColor} type={'\ue6e2'} />
       ),
     }),
   },
@@ -56,9 +57,11 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
     title = 'Home'; // of course in this case it's the same, but do whatever you want here
     headerRight = (
       <WingBlank>
-      <TouchableOpacity>
-      <Icon size='md' color="#1296db" type={'\ue738'}/>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Equipment')}
+          >
+          <Icon size='md' color="#1296db" type={'\ue738'}/>
+        </TouchableOpacity>
       </WingBlank>
     );
   } else if (focusedRouteName === 'Mine') {
@@ -77,6 +80,9 @@ export const AppNavigator = createStackNavigator({
   },
   Login: {
     screen: LoginScreen,
+  },
+  Equipment: {
+    screen: EquipmentScreen,
   },
 });
 
