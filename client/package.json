@@ -16,6 +16,7 @@
     "react-native-app-link": "^0.4.0",
     "react-native-config": "^0.11.1",
     "react-native-device-info": "^0.21.5",
+    "react-native-event-listeners": "^1.0.3",
     "react-native-fs": "^2.8.5",
     "react-native-photo-upload": "Xinaction/react-native-photo-upload",
     "react-native-smart-barcode": "oizhaolei/react-native-smart-barcode#cn",

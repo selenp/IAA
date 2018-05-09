@@ -2,34 +2,48 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { NavigationActions } from 'react-navigation';
+import { EventRegister } from 'react-native-event-listeners';
 
 import {
   ActivityIndicator,
-  Text,
-  ScrollView,
+  AsyncStorage,
 } from 'react-native';
 import {
-  Button,
   Icon,
   List,
-  Toast,
-  WhiteSpace,
-  WingBlank,
 } from 'antd-mobile';
 
-const Item = List.Item;
-const Brief = Item.Brief;
+import { VERIFYCODE_SUCCESS } from '../constants/auth';
+import { MODIFY_EQUIPMENT_SUCCESS } from '../constants/equipment';
 
 import {
   fetchEquipments,
 } from '../actions/equipment';
 
+const Item = List.Item;
+const Brief = Item.Brief;
+
 class MainScreen extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    const refreshData =  (data) => {
+      this.props.fetchEquipments('delete_flag=false');
+    };
+
+    this.listener1 = EventRegister.addEventListener(VERIFYCODE_SUCCESS, refreshData);
+    this.listener2 = EventRegister.addEventListener(MODIFY_EQUIPMENT_SUCCESS, refreshData);
   }
+
   componentDidMount() {
-    this.props.fetchEquipments('delete_flag=false');
+    AsyncStorage.getItem('token').then((token) => {
+      if (token) {
+        this.props.fetchEquipments('delete_flag=false');
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    EventRegister.removeEventListener(this.listener2);
+    EventRegister.removeEventListener(this.listener2);
   }
   render() {
     const {list, loading } = this.props.equipments;

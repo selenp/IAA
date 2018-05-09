@@ -58,7 +58,7 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
   let title, headerRight;
   let focusedRouteName = navigation.state.routes[navigation.state.index].routeName;
   if (focusedRouteName === 'Home') {
-    title = 'Home'; // of course in this case it's the same, but do whatever you want here
+    title = '主页'; // of course in this case it's the same, but do whatever you want here
     headerRight = (
         <View style={{ flex: 1, flexDirection: 'row' }}>
         <TouchableOpacity
@@ -76,7 +76,7 @@ MainScreenNavigator.navigationOptions = ({ navigation }) => {
       </View>
     );
   } else if (focusedRouteName === 'Mine') {
-    title = 'Mine';
+    title = '我的';
   }
 
   return {

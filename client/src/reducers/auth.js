@@ -1,3 +1,4 @@
+import { EventRegister } from 'react-native-event-listeners';
 import { AsyncStorage } from 'react-native';
 
 import * as ACTION from '../constants/auth';
@@ -41,13 +42,12 @@ const auth =  (state = initialState, action) => {
         loading: true,
       };
     case ACTION.VERIFYCODE_SUCCESS:
-       AsyncStorage.setItem('token', action.res.token);
+      AsyncStorage.setItem('token', action.res.token, () => {
+        EventRegister.emit(ACTION.VERIFYCODE_SUCCESS);
+      });
       return {
         ...state,
         loading: false,
-        user: {
-          ...action.res.user,
-        },
         error: '',
       };
     case ACTION.TOKEN_LOGIN_SUCCESS:
@@ -113,11 +113,6 @@ const auth =  (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error,
-      };
-    case ACTION.INITIAL_USER:
-      return {
-        ...state,
-        user: action.user,
       };
     default:
       return state;

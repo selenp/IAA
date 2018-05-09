@@ -21,15 +21,16 @@ import {
   WhiteSpace,
   WingBlank,
 } from 'antd-mobile';
+import { EventRegister } from 'react-native-event-listeners';
 
 const Step = Steps.Step;
 
 import arrayTreeFilter from 'array-tree-filter';
 import  district from '../data/district';
+import { MODIFY_EQUIPMENT_SUCCESS } from '../constants/equipment';
 
 import {
   fetchEquipment,
-  fetchEquipments,
   modifyEquipment,
   resetModifyEquipment,
 } from '../actions/equipment';
@@ -105,10 +106,11 @@ class EquipmentScreen extends Component {
 
     this.state.toastTimer = setTimeout(() => {
       this.props.resetModifyEquipment();
-      // go back
 
+      // go back
       this.props.dispatch(NavigationActions.back());
-      this.props.fetchEquipments('delete_flag=false');
+
+      EventRegister.emit(MODIFY_EQUIPMENT_SUCCESS)
     }, 2000);
   }
 
@@ -209,7 +211,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   modifyEquipment: info => dispatch(modifyEquipment(info)),
   resetModifyEquipment: () => dispatch(resetModifyEquipment()),
   fetchEquipment: _id => dispatch(fetchEquipment(_id)),
-  fetchEquipments: criteria => dispatch(fetchEquipments(criteria)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EquipmentScreen);

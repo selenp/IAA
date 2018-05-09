@@ -72,8 +72,3 @@ export const logout = () => ({
     ],
   },
 });
-
-export const initialUser = user => ({
-  type: ACTION.INITIAL_USER,
-  user,
-});
