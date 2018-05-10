@@ -17,7 +17,7 @@ const router = express.Router();
 
 /**
 # equipment信息:
-GET http://192.168.1.101:3000/api/equipment/5af2537b5611846381335108
+GET http://localhost:3000/api/equipment/5af2537b5611846381335108
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/:equipment_id', async (req, res) => {
@@ -35,7 +35,7 @@ router.get('/:equipment_id', async (req, res) => {
 });
 
 /**
-DELETE http://192.168.1.101:3000/api/equipment/5ae296672b6347b806bd5ae3
+DELETE http://localhost:3000/api/equipment/5ae296672b6347b806bd5ae3
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.delete('/:equipment_id', async (req, res, next) => {
@@ -53,7 +53,7 @@ router.delete('/:equipment_id', async (req, res, next) => {
 
 /**
 # equipment信息:
-GET http://192.168.1.101:3000/api/equipment/
+GET http://localhost:3000/api/equipment/
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/', async (req, res, next) => {
@@ -84,7 +84,7 @@ router.get('/', async (req, res, next) => {
 
 /**
 #
-POST http://192.168.1.101:3000/api/equipment/
+POST http://localhost:3000/api/equipment/
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
@@ -121,10 +121,10 @@ router.post('/', async (req, res, next) => {
 
 /**
 # new user信息:
-POST http://192.168.1.101:3000/api/equipment/uploadCover
+POST http://localhost:3000/api/equipment/uploadCover
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-# curl -X POST -H "Accept: application/json" -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "cover=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://192.168.1.101:3000/api/equipment/uploadCover
+# curl -X POST -H "Accept: application/json" -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "cover=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://localhost:3000/api/equipment/uploadCover
 */
 router.post('/uploadCover', upload.single('cover'), async (req, res, next) => {
   if (!req.$wxUserInfo) {

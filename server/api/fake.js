@@ -13,7 +13,7 @@ const redisClient = redis.createClient(config.redis);
 const router = express.Router();
 
 /**
-GET http://192.168.1.101:3000/api/fake/18624357886
+GET http://localhost:3000/api/fake/18624357886
 */
 router.get('/:mobile', async (req, res, next) => {
   const mobile = req.params.mobile;

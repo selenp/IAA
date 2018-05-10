@@ -21,7 +21,7 @@ const token_seconds = 60 * 60 * 24 * 7;
 const randomIntInc = (low, high) => Math.floor(Math.random() * (high - low + 1) + low);
 
 /**
-POST http://192.168.1.101:3000/api/auth/send_code
+POST http://localhost:3000/api/auth/send_code
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
@@ -29,7 +29,7 @@ Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3
 }
 #
 */
-// curl -X POST http://192.168.1.101:3000/api/auth/send_code -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"-H "Content-Type: application/json" -d '{ "mobile": "18624357886"}'
+// curl -X POST http://localhost:3000/api/auth/send_code -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"-H "Content-Type: application/json" -d '{ "mobile": "18624357886"}'
 router.post('/send_code', async (req, res, next) => {
   const { mobile } = req.body;
   const tpl_id = 'SMS_134135117';
@@ -54,7 +54,7 @@ router.post('/send_code', async (req, res, next) => {
 });
 
 /**
-POST http://192.168.1.101:3000/api/auth/verify_code
+POST http://localhost:3000/api/auth/verify_code
 Content-Type: application/json
 {
     "mobile": "18624357886",
@@ -63,7 +63,7 @@ Content-Type: application/json
 #
 */
 
-// curl -X POST http://192.168.1.101:3000/api/auth/verify_code -H "Content-Type: application/json" -d '{ "mobile": "18624357886", "code": "20180508"}'
+// curl -X POST http://localhost:3000/api/auth/verify_code -H "Content-Type: application/json" -d '{ "mobile": "18624357886", "code": "20180508"}'
 router.post('/verify_code', async (req, res, next) => {
   const { mobile, code } = req.body;
 
@@ -94,7 +94,7 @@ router.post('/verify_code', async (req, res, next) => {
   });
 });
 
-// curl http://192.168.1.101:3000/api/auth/logout -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"
+// curl http://localhost:3000/api/auth/logout -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH"
 router.all('/logout', async (req, res, next) => {
   await redisClient.del(req.$token);
   res.json({

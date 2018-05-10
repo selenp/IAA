@@ -25,7 +25,7 @@ router.post('/log', (req, res) => {
 
 /**
 # 获取用户信息
-GET http://192.168.1.101:3000/api/account/
+GET http://localhost:3000/api/account/
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/', async (req, res, next) => {
@@ -44,7 +44,7 @@ router.get('/', async (req, res, next) => {
 
 /**
 # 保存用户信息
-POST http://192.168.1.101:3000/api/
+POST http://localhost:3000/api/
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
@@ -78,10 +78,10 @@ router.post('/', async (req, res, next) => {
 
 /**
 # new user avatar
-POST http://192.168.1.101:3000/api/account/uploadAvatar
+POST http://localhost:3000/api/account/uploadAvatar
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-# curl -X POST -H "Accept: application/json" -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "avatar=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://192.168.1.101:3000/api/account/uploadAvatar
+# curl -X POST -H "Accept: application/json" -H "Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH" -F "avatar=@/Users/zhaolei/Desktop/IMG_0861.JPG" http://localhost:3000/api/account/uploadAvatar
 */
 router.post('/uploadAvatar', upload.single('avatar'), async (req, res, next) => {
   if (!req.$wxUserInfo) {

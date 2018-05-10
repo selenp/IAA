@@ -9,7 +9,7 @@ module.exports = {
   id: 'equipment',
   title: '设备收发管理',
   desc: '抢红包',
-  url: 'https://test.tttalk.org',
+  url: 'https://localhost',
 
   app: {
     id: 'wxddb62c6db1df9080',

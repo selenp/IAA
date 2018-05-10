@@ -18,7 +18,7 @@
  - POST /login
  电话号码 + 验证码登录
 #+BEGIN_SRC sh
-POST http://192.168.1.101:3000/api/login
+POST http://localhost:3000/api/login
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 Content-Type: application/json
 
@@ -32,7 +32,7 @@ Content-Type: application/json
  - GET /userinfo
  得到本人信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/userinfo
+GET http://localhost:3000/api/userinfo
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 
 #+END_SRC
@@ -40,7 +40,7 @@ Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3
  - POST /userinfo
  提交本人信息
 #+BEGIN_SRC sh
-POST http://192.168.1.101:3000/api/userinfo
+POST http://localhost:3000/api/userinfo
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 Content-Type: application/json
 
@@ -52,7 +52,7 @@ Content-Type: application/json
  - POST /auth/send_code
  发送验证码:
 #+BEGIN_SRC sh
-POST http://192.168.1.101:3000/api/auth/send_code
+POST http://localhost:3000/api/auth/send_code
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 Content-Type: application/json
 
@@ -64,7 +64,7 @@ Content-Type: application/json
  - POST /auth/verify_code
  验证手机号
 #+BEGIN_SRC sh
-POST http://192.168.1.101:3000/api/auth/verify_code
+POST http://localhost:3000/api/auth/verify_code
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 Content-Type: application/json
 
@@ -76,7 +76,7 @@ Content-Type: application/json
 - GET /contact//:contact_id
  取得联系人册信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/contact/5ad95d712b6347b806bd5aba
+GET http://localhost:3000/api/contact/5ad95d712b6347b806bd5aba
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 
 #+END_SRC
@@ -84,7 +84,7 @@ Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3
 - GET /contact/member/mobile//:mobile
  取得联系人册信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/contact/member/mobile/18624357886
+GET http://localhost:3000/api/contact/member/mobile/18624357886
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 
 #+END_SRC
@@ -92,7 +92,7 @@ Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3
 - GET /contact//:contact_id/:detail_id
  取得联系人册信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/contact/5aa8d31ca38c284d3706bfa9/5aaa03684c96786ea34ac9e2
+GET http://localhost:3000/api/contact/5aa8d31ca38c284d3706bfa9/5aaa03684c96786ea34ac9e2
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 
 #+END_SRC
@@ -100,14 +100,14 @@ Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3
 - GET /contents/contact/:contact_id
  取得联系人册信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/content/contact/5aa8d31ca38c284d3706bfa9
+GET http://localhost:3000/api/content/contact/5aa8d31ca38c284d3706bfa9
 
 #+END_SRC
 
 - GET /content/:content_id
  取得联系人册信息
 #+BEGIN_SRC sh
-GET http://192.168.1.101:3000/api/content/5ad606e14a2c2c0afd9d64f9
+GET http://localhost:3000/api/content/5ad606e14a2c2c0afd9d64f9
 
 #+END_SRC
 

@@ -7,6 +7,7 @@ import { EventRegister } from 'react-native-event-listeners';
 import {
   ActivityIndicator,
   AsyncStorage,
+  ScrollView,
 } from 'react-native';
 import {
   Icon,
@@ -48,6 +49,7 @@ class MainScreen extends Component {
   render() {
     const {list, loading } = this.props.equipments;
     return (
+      <ScrollView>
       <List className="my-list">
         { loading &&
           <ActivityIndicator />
@@ -71,6 +73,7 @@ class MainScreen extends Component {
             ))
           }
       </List>
+      </ScrollView>
     );
   }
 }

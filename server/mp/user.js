@@ -10,7 +10,7 @@ const router = express.Router();
 
 /**
 # user信息:
-GET http://192.168.1.101:3000/mp/user/18624357886
+GET http://localhost:3000/mp/user/18624357886
 */
 router.get('/:mobile', async (req, res) => {
   const { mobile } = req.params;
@@ -24,7 +24,7 @@ router.get('/:mobile', async (req, res) => {
 
 /**
 # user信息:
-DELETE http://192.168.1.101:3000/mp/user/18624357886
+DELETE http://localhost:3000/mp/user/18624357886
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.delete('/:mobile', async (req, res, next) => {
@@ -42,7 +42,7 @@ router.delete('/:mobile', async (req, res, next) => {
 
 /**
 # all user信息:
-GET http://192.168.1.101:3000/mp/user/?page=1
+GET http://localhost:3000/mp/user/?page=1
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
 router.get('/', async (req, res, next) => {
@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
 
 /**
 # new user信息:
-POST http://192.168.1.101:3000/mp/user/
+POST http://localhost:3000/mp/user/
 Content-Type: application/json
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 {
