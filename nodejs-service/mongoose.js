@@ -18,16 +18,18 @@ conn.on('error', console.error.bind(console, 'mongo connection error.'));
 
 // User:用户一览
 const userSchema = mongoose.Schema({
-  _id: String,  // mobile
-  nickName: String,
+  _id: String,  // eid
+  mobile: String,
+  fullname: String,
   avatarUrl: {
     type: String,
     default: 'http://youdewan-test.oss-cn-hangzhou.aliyuncs.com/wx/tabbar-icon/my-o.svg',
   },
   role: {
     type: String,
-    default: 'user',
-  }, //'user' or 'super_admin'
+    default: 'employee',
+    enum: ['employee', 'super_admin'],
+  }, //'employee' or 'super_admin'
   memo: String,
   delete_flag: {
     type: Boolean,
@@ -39,42 +41,37 @@ const userSchema = mongoose.Schema({
   },
 });
 
-//Equipment表
-const equipmentSchema = mongoose.Schema({
-  owner: {
+//Workstation IO表
+const workstationSchema = mongoose.Schema({
+  take_eid: String,
+  status: {
     type: String,
-    ref: 'User',
-    index: true,
-  },
-  cover: String,
-  subject: String,
-  abstract: String,
-  items: [{
-    mobile: String,  // mobile
-    user: {
-      type: String,
-      ref: 'User',
-      index: true,
-    }, // 可以为空，以_id为准
-    equipmentName: String,
-    pinyin: {
-      type: String,
-      default: '#',
-    }, // 拼音首字母，排序用
-    equipmentTitle: String,
-    equipmentTitle2: String,
-    properties: mongoose.Schema.Types.Mixed, // [{prop_key, prop_value}]
-    create_date: {
-      type: Date,
-      default: Date.now,
-    },
-  }],
+    default: 'take',
+    enum: ['take', 'return'],
+  }, //
+  department: String,
+  serial_no: String,
+  computer_name: String,
+  project_name: String,
+  mouse: Number,
+  keyboard: Number,
+  bag: Number,
+  power: Number,
+  lock: Number,
+  display: Number,
+  vga_adapter: Number,
+  lan_cable: Number,
+  it_eid: Number,
+  memo: String,
   create_date: {
     type: Date,
     default: Date.now,
   },
+  return_eid: String,
+  return_date: {
+    type: Date,
+  },
 });
 
-
 exports.User = mongoose.model('User', userSchema);
-exports.Equipment = mongoose.model('Equipment', equipmentSchema);
+exports.Workstation = mongoose.model('Workstation', workstationSchema);

@@ -12,9 +12,9 @@ const router = express.Router();
 # user信息:
 GET http://localhost:3000/mp/user/18624357886
 */
-router.get('/:mobile', async (req, res) => {
-  const { mobile } = req.params;
-  const user = await mdb.User.findById(mobile);
+router.get('/:eid', async (req, res) => {
+  const { eid } = req.params;
+  const user = await mdb.User.findById(eid);
 
   res.json({
     success: true,
@@ -27,13 +27,13 @@ router.get('/:mobile', async (req, res) => {
 DELETE http://localhost:3000/mp/user/18624357886
 Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
 */
-router.delete('/:mobile', async (req, res, next) => {
+router.delete('/:eid', async (req, res, next) => {
   if (!req.$wxUserInfo || req.$wxUserInfo.role !== 'super_admin') {
     return next('invalid auth.');
   }
 
-  const mobile = req.params.mobile;
-  const user = await mdb.User.findByIdAndRemove(mobile);
+  const eid = req.params.eid;
+  const user = await mdb.User.findByIdAndRemove(eid);
   res.json({
     success: true,
     data: user,
