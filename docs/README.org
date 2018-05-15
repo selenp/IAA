@@ -1,44 +1,3 @@
-* 前台端Web模块
- - ipad上运行，浏览器页面程序
- - 主页面为“领”“还”大按钮页面
-
-** 领设备
- - 用户填写相关信息，并确认免责条款，签字，日期
- - IT填写，确认，并且签字
-
-** 还设备
- - 找到当时领设备的数据，进行归还
- - 可以新建归还
-
-** 手写签字
- - 参照 http://szimek.github.io/signature_pad/
- - https://jsfiddle.net/szimek/d6a78gwq/
-* 管理员端Web模块
-** 设备进出一览
- - 可以增删改查
- - 可以进行excel的导入导出
-** CANCELLED 管理员一览
-   CLOSED: [2018-05-11 Fri 14:21]
-   :LOGBOOK:
-   - State "CANCELLED"  from              [2018-05-11 Fri 14:21]
-   :END:
- - 简易登录
- - 管理员增删改查，授权
-
-* 开发
-- 后端开发用java，数据库为MS SQL，Web服务器为IIS
-- 前端页面为javascript + html的h5页面，页面能适应手机、pad、pc的浏览器
-
- IT人员收到通过别的系统得到相关指示，进行机器准备，随后通知相关用户，然后用户会前来领取设备，过一段时间后用户会来归还该设备
-
-
-归还：
-正常离职的
-更换的
-
-
-
-
 * 页面流程
 
 ** 主页面
@@ -80,151 +39,106 @@
  [[./a2.png]]
 
 
-* 需求
+
+* <2018-05-15 Tue>需求
  - 门口 登记
  - 收发设备登记
  - 手机自助办理 填信息
  - 我们后台能看到
 
+* <2018-05-11 Tue>
+** 前台端Web模块
+  - ipad上运行，浏览器页面程序
+  - 主页面为“领”“还”大按钮页面
+
+*** 领设备
+  - 用户填写相关信息，并确认免责条款，签字，日期
+  - IT填写，确认，并且签字
+
+*** 还设备
+  - 找到当时领设备的数据，进行归还
+  - 可以新建归还
+
+*** 手写签字
+  - 参照 http://szimek.github.io/signature_pad/
+  - https://jsfiddle.net/szimek/d6a78gwq/
+** 管理员端Web模块
+*** 设备进出一览
+  - 可以增删改查
+  - 可以进行excel的导入导出
+*** CANCELLED 管理员一览
+    CLOSED: [2018-05-11 Fri 14:21]
+    :LOGBOOK:
+    - State "CANCELLED"  from              [2018-05-11 Fri 14:21]
+    :END:
+  - 简易登录
+  - 管理员增删改查，授权
+
+** 开发
+ - 后端开发用java，数据库为MS SQL，Web服务器为IIS
+ - 前端页面为javascript + html的h5页面，页面能适应手机、pad、pc的浏览器
+
+  IT人员收到通过别的系统得到相关指示，进行机器准备，随后通知相关用户，然后用户会前来领取设备，过一段时间后用户会来归还该设备
+
+
+ 归还：
+ 正常离职的
+ 更换的
+
+
+
+
+
 * 功能
-** server
 ** client app
- - 登录
- - 用户管理( supser_admin / employee )
- - 收发一览，excel转发到微信，邮件
- - 设备登记
- - 扫码收发/拍照
+ - 收发一览
+ - 图片上载
+ - excel
 
-* Wxapp Api
- - POST /login
- 电话号码 + 验证码登录
+* API
+ - POST /equipment
+ 提交取还
 #+BEGIN_SRC sh
-POST http://localhost:3000/api/login
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+POST http://localhost:8080/equipment/
 Content-Type: application/json
 
 {
- "mobile": "zhaolei",
- "code": "778899",
+"id": 2,
+ "fullname": "zhaolei",
+ "projectName": "B ProjectName"
 }
-
 #+END_SRC
 
- - GET /userinfo
- 得到本人信息
+ - GET /equipment//
+ 取还列表
 #+BEGIN_SRC sh
-GET http://localhost:3000/api/userinfo
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-
+GET http://localhost:8080/equipment/?a=1
 #+END_SRC
 
- - POST /userinfo
- 提交本人信息
+ - GET /equipment/dictionary
+数据字典
 #+BEGIN_SRC sh
-POST http://localhost:3000/api/userinfo
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
+GET http://localhost:8080/equipment/dictionary
+#+END_SRC
+
+ - GET /equipment//:id
+ 某一次取还
+#+BEGIN_SRC sh
+GET http://localhost:8080/equipment/3
+#+END_SRC
+
+ - POST /equipment/signature
+ 上载签名图片
+#+BEGIN_SRC sh
+POST http://localhost:8080/equipment/1/signature
 Content-Type: application/json
 
-{
- "nickname": "zhaolei"
-}
+data:image/png;base64,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
 #+END_SRC
 
- - POST /auth/send_code
- 发送验证码:
-#+BEGIN_SRC sh
-POST http://localhost:3000/api/auth/send_code
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-Content-Type: application/json
-
-{
- "mobile": "13614266252"
-}
-#+END_SRC
-
- - POST /auth/verify_code
- 验证手机号
-#+BEGIN_SRC sh
-POST http://localhost:3000/api/auth/verify_code
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-Content-Type: application/json
-
-{
- "code": "3584"
-}
-#+END_SRC
-
-- GET /contact//:contact_id
- 取得联系人册信息
-#+BEGIN_SRC sh
-GET http://localhost:3000/api/contact/5ad95d712b6347b806bd5aba
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-
-#+END_SRC
-
-- GET /contact/member/mobile//:mobile
- 取得联系人册信息
-#+BEGIN_SRC sh
-GET http://localhost:3000/api/contact/member/mobile/18624357886
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-
-#+END_SRC
-
-- GET /contact//:contact_id/:detail_id
- 取得联系人册信息
-#+BEGIN_SRC sh
-GET http://localhost:3000/api/contact/5aa8d31ca38c284d3706bfa9/5aaa03684c96786ea34ac9e2
-Authorization: Bearer JDJhJDEwJHBIYzhUMFNteGVJcnF0WW1KYy9HZmVVYk1sd1dKR3VKSHNxZ3gvWXp6cWxOWGN0TDNzS2lH
-
-#+END_SRC
-
-- GET /contents/contact/:contact_id
- 取得联系人册信息
-#+BEGIN_SRC sh
-GET http://localhost:3000/api/content/contact/5aa8d31ca38c284d3706bfa9
-
-#+END_SRC
-
-- GET /content/:content_id
- 取得联系人册信息
-#+BEGIN_SRC sh
-GET http://localhost:3000/api/content/5ad606e14a2c2c0afd9d64f9
-
-#+END_SRC
-
-* Server Api
-** -login/logout-
- - 不需要login界面
- - 入口由小程序提供：“制作自己的通讯录”，浏览器打开。url含有用户的wxid以及sign，服务器端验证。
- - 登录成功后，localstorage里记下token，以备下次登录
-*** //socket/:socket 验证token
-** contacts & items
-*** GET
-*** POST
-*** PUT
-*** DELETE
-** content
-*** GET
-*** POST
-*** PUT
-*** DELETE
-** wx user
-*** GET
-*** PUT
-** admin/acl
- - 无需admin的schema，应该和user合并到一起
- - 无需acl控制，仅仅 user, super_admin这2种身份
 * Deploy
 
 ** 同步
 #+BEGIN_SRC sh
 rsync -avz --delete --exclude public/ --exclude node_modules/ --exclude .git  /works/projects/wxapp-redpackx/server/ test:/home/zhaolei/wxcontracts/
 #+END_SRC
-
-** 数据初始化
-#+BEGIN_SRC sh
-db.admins.insert({ "username" : "6055120@qq.com", "password" : "$2a$10$8pmfUnqXvuR5hnoMeDJzg.wpS79rROFySwtzys8wI2AsSeSUGc0uG", "create_date" : ISODate("2017-08-18T05:27:31.999Z"), "delete_flag" : false, "acl_roles" : [ "super_admin" ] });
-node  acl_script.js
-#+END_SRC
-```
-
