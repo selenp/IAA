@@ -17,6 +17,7 @@ public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String progress; //borrow, return
 
     //	姓名(EID)
     private String eid;
@@ -50,6 +51,19 @@ public class Equipment {
     private Boolean lanCable;
     //	签名图片 signature_image
     private String signatureImage;
+    
+    //	电源适配器&电源线 AC Power Adapter & Power cord(TBD)
+    private Boolean returnAcPowerAdapter;
+    //	电脑锁 Security Cable (210CNY)
+    private Boolean returnSecurityCable;
+    //	电脑包 Bag(174CNY)
+    private Boolean returnBag;
+    //	鼠标 Mouse(105CNY)
+    private Boolean returnMouse;
+    //	网线 Lan Cable(10CNY/M)
+    private Boolean returnLanCable;
+    //	签名图片 signature_image
+    private String returnSignatureImage;
     //  返还人 returned_by
     private String returnBy;
     //	日期 return_date
@@ -67,6 +81,14 @@ public class Equipment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getProgress() {
+        return progress;
+    }
+
+    public void setProgress(String progress) {
+        this.progress = progress;
     }
 
     public String getEid() {
@@ -235,6 +257,74 @@ public class Equipment {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Boolean getAcPowerAdapter() {
+        return acPowerAdapter;
+    }
+
+    public Boolean getSecurityCable() {
+        return securityCable;
+    }
+
+    public Boolean getBag() {
+        return bag;
+    }
+
+    public Boolean getMouse() {
+        return mouse;
+    }
+
+    public Boolean getLanCable() {
+        return lanCable;
+    }
+
+    public Boolean getReturnAcPowerAdapter() {
+        return returnAcPowerAdapter;
+    }
+
+    public void setReturnAcPowerAdapter(Boolean returnAcPowerAdapter) {
+        this.returnAcPowerAdapter = returnAcPowerAdapter;
+    }
+
+    public Boolean getReturnSecurityCable() {
+        return returnSecurityCable;
+    }
+
+    public void setReturnSecurityCable(Boolean returnSecurityCable) {
+        this.returnSecurityCable = returnSecurityCable;
+    }
+
+    public Boolean getReturnBag() {
+        return returnBag;
+    }
+
+    public void setReturnBag(Boolean returnBag) {
+        this.returnBag = returnBag;
+    }
+
+    public Boolean getReturnMouse() {
+        return returnMouse;
+    }
+
+    public void setReturnMouse(Boolean returnMouse) {
+        this.returnMouse = returnMouse;
+    }
+
+    public Boolean getReturnLanCable() {
+        return returnLanCable;
+    }
+
+    public void setReturnLanCable(Boolean returnLanCable) {
+        this.returnLanCable = returnLanCable;
+    }
+
+    public String getReturnSignatureImage() {
+        return returnSignatureImage;
+    }
+
+    public void setReturnSignatureImage(String returnSignatureImage) {
+        this.returnSignatureImage = returnSignatureImage;
     }
 }
 

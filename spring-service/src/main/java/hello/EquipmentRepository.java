@@ -12,9 +12,10 @@ public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
 
     @Query("select distinct projectName from Equipment where projectName is not null")
     Iterable<String> findProjectNames();
+
     @Query("select distinct businessUnit from Equipment where businessUnit is not null")
     Iterable<String> findBusinessUnits();
+
     @Query("select distinct laptopModel from Equipment where laptopModel is not null")
     Iterable<String> findLaptopModels();
-
 }
