@@ -60,6 +60,18 @@ public class EquipmentController {
         return e;
     }
 
+    @PostMapping(path = "/api-login-account")
+    public @ResponseBody
+    String loginAccount() {
+        return "{\"status\":\"ok\",\"type\":\"account\",\"currentAuthority\":\"admin\"}";
+    }
+
+    @GetMapping(path = "/currentUser")
+    public @ResponseBody
+    String currentUser() {
+
+        return "{\"name\":\"Serati Ma\",\"avatar\":\"https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png\",\"userid\":\"00000001\",\"notifyCount\":12}";
+    }
     @GetMapping(path = "/dictionary")
     public @ResponseBody
     Map<String, Iterable<String>> dictionary() {
