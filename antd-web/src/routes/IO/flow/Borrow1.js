@@ -38,12 +38,28 @@ class Step1 extends React.PureComponent {
         }
       });
     };
+    const onITStaffForm = () => {
+          dispatch({
+            type: 'io/saveData',
+            payload: {
+              eid: '',
+              fullname: 'IT Staff',
+              sapNumber: '',
+              projectName: '',
+              businessUnit: '',
+              location: '',
+              remarks: '',
+            },
+          });
+          dispatch(routerRedux.push('/io/borrow/confirm'));
+    };
     // TODO
     return (
       <Fragment>
         <InfoForm
           styles={styles}
           onValidateForm={onValidateForm}
+          onITStaffForm={onITStaffForm}
           getFieldDecorator={getFieldDecorator}
           formItemLayout={formItemLayout}
           businessUnits={businessUnits}

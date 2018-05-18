@@ -16,12 +16,13 @@ const InfoForm = ({
   styles,
   getFieldDecorator,
   onValidateForm,
+  onITStaffForm,
   formItemLayout,
   projectNames,
   businessUnits,
 }) => (
-  <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-    <Form.Item {...formItemLayout} label="*EID">
+  <Form layout="horizontal" className={styles.stepForm}>
+    <Form.Item {...formItemLayout} label="EID">
       {getFieldDecorator('eid', {
               rules: [
                 {
@@ -39,7 +40,7 @@ const InfoForm = ({
       {getFieldDecorator('sapNumber', {
             })(<Input placeholder="请输入员工号" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*项目">
+    <Form.Item {...formItemLayout} label="项目">
       {getFieldDecorator('projectName', {
               rules: [
                 {
@@ -61,7 +62,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*部门">
+    <Form.Item {...formItemLayout} label="部门">
       {getFieldDecorator('businessUnit', {
               rules: [
                 {
@@ -83,7 +84,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*办公地点">
+    <Form.Item {...formItemLayout} label="办公地点">
       {getFieldDecorator('location', {
               rules: [
                 {
@@ -93,7 +94,7 @@ const InfoForm = ({
               ],
             })(<Input placeholder="请输入办公地点" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*生效日期">
+    <Form.Item {...formItemLayout} label="生效日期">
       {getFieldDecorator('effectiveDate', {
               rules: [
                 {
@@ -134,6 +135,9 @@ const InfoForm = ({
     >
       <Button type="primary" onClick={onValidateForm}>
               下一步
+      </Button>
+      <Button type="danger" onClick={onITStaffForm}>
+              IT人员领取设备，点击此按钮
       </Button>
     </Form.Item>
   </Form>

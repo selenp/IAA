@@ -39,7 +39,7 @@ const ConfirmForm = ({
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
-    <Form.Item {...formItemLayout} label="*资产编号">
+    <Form.Item {...formItemLayout} label="资产编号">
       {getFieldDecorator('assetTag', {
               rules: [
                 {
@@ -49,7 +49,7 @@ const ConfirmForm = ({
               ],
             })(<Input placeholder="请输入资产编号" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*序列号">
+    <Form.Item {...formItemLayout} label="序列号">
       {getFieldDecorator('serialTag', {
               rules: [
                 {
@@ -59,7 +59,7 @@ const ConfirmForm = ({
               ],
             })(<Input placeholder="请输入序列号" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="*笔记本型号">
+    <Form.Item {...formItemLayout} label="笔记本型号">
       {getFieldDecorator('laptopModel', {
               rules: [
                 {

@@ -49,7 +49,7 @@ class UserLayout extends React.PureComponent {
                   <span className={styles.title}>设备取还</span>
                 </Link>
               </div>
-              <div className={styles.desc}>埃森哲大连 - 设备领取、归还 - 无纸化办公实验版</div>
+              <div className={styles.desc}>^^^^ - 设备领取、归还 - 无纸化办公实验版</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
