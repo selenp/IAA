@@ -108,14 +108,18 @@ class BasicLayout extends React.PureComponent {
     this.props.dispatch({
       type: 'user/fetchCurrent',
     });
+    this.props.dispatch({
+      type: 'dictionary/fetchDictionaryData',
+    });
   }
+
   componentWillUnmount() {
     unenquireScreen(this.enquireHandler);
   }
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant IO';
+    let title = 'Ant Delivery';
     let currRouterData = null;
     // match params path
     Object.keys(routerData).forEach(key => {
@@ -124,7 +128,7 @@ class BasicLayout extends React.PureComponent {
       }
     });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant IO`;
+      title = `${currRouterData.name} - Ant Delivery`;
     }
     return title;
   }

@@ -11,7 +11,7 @@ const links = [
   {
     key: 'io',
     title: '设备取还',
-    href: '/io/main',
+    href: '/delivery/main',
   },
   {
     key: 'login',
@@ -65,7 +65,7 @@ class UserLayout extends React.PureComponent {
           </div>
         <div className={styles.globalFooter}>
         <div className={styles.links}>
-            <Link to="/io/main">设备取还</Link>
+            <Link to="/delivery/main">设备取还</Link>
             <Link to="/user/login">管理员登录</Link>
           </div>
         </div>

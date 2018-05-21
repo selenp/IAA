@@ -1,9 +1,10 @@
 import request from '../utils/request';
+import { REMOTE_URL } from '../utils/utils';
 
 export async function query() {
   return request('/api/users');
 }
 
 export async function queryCurrent() {
-  return request('http://39.106.104.75:3050/equipment/currentUser');
+  return request(`${REMOTE_URL}/account/currentUser`);
 }

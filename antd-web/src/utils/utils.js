@@ -159,3 +159,11 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-
 export function isUrl(path) {
   return reg.test(path);
 }
+
+
+const REMOTE_URL = 'http://localhost:3050';
+const FILE_URL = 'http://localhost:3022';
+export {
+  REMOTE_URL,
+  FILE_URL,
+};

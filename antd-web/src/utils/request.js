@@ -43,10 +43,13 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  const defaultOptions = {
-    credentials: 'include',
+  const token = localStorage.getItem('antd-pro-token');
+
+  const newOptions = { ...options };
+  newOptions.headers = {
+    'Authorization': `Bearer ${token}`,
+    ...newOptions.headers,
   };
-  const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {

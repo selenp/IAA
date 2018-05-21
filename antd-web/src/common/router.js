@@ -70,34 +70,40 @@ function getFlatMenuData(menus) {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
+      component: dynamicWrapper(app, ['user', 'login', 'dictionary'], () => import('../layouts/BasicLayout')),
     },
-    '/equipments/list': {
-      component: dynamicWrapper(app, ['equipments'], () => import('../routes/Equipments/List')),
+    '/deliveries/list': {
+      component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Equipments/List')),
     },
-    '/io/main': {
-      component: dynamicWrapper(app, [], () => import('../routes/IO/MainMenu')),
+    '/dictionaries/list': {
+      component: dynamicWrapper(app, ['dictionaries'], () => import('../routes/Dictionaries/List')),
     },
-    '/io/borrow': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Borrow')),
+    '/admins/list': {
+      component: dynamicWrapper(app, ['admins'], () => import('../routes/Admins/List')),
     },
-    '/io/borrow/info': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Borrow1')),
+    '/delivery/main': {
+      component: dynamicWrapper(app, [], () => import('../routes/Delivery/MainMenu')),
     },
-    '/io/borrow/confirm': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Borrow2')),
+    '/delivery/borrow': {
+      component: dynamicWrapper(app, ['delivery', 'dictionary'], () => import('../routes/Delivery/flow/Borrow')),
     },
-    '/io/borrow/result': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Borrow3')),
+    '/delivery/borrow/info': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow1')),
     },
-    '/io/return-equipment': {
-      component: dynamicWrapper(app, ['equipments'], () => import('../routes/IO/ReturnList')),
+    '/delivery/borrow/confirm': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow2')),
     },
-    '/io/return/confirm/:id': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Return2')),
+    '/delivery/borrow/result': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow3')),
     },
-    '/io/return/result': {
-      component: dynamicWrapper(app, ['io'], () => import('../routes/IO/flow/Return3')),
+    '/delivery/return-delivery': {
+      component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Delivery/ReturnList')),
+    },
+    '/delivery/return/confirm/:id': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return2')),
+    },
+    '/delivery/return/result': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return3')),
     },
     '/exception/403': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),

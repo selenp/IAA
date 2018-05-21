@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import moment from 'moment';
 import {
   Badge,
   Icon,
@@ -10,7 +9,8 @@ import {
   Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import SimpleSearchForm from '../IO/SimpleSearchForm';
+import SimpleSearchForm from '../Delivery/SimpleSearchForm';
+import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
 
@@ -23,16 +23,21 @@ const progress = {
   return: '已归还',
 };
 
-@connect(({ equipments, loading }) => ({
-  equipments,
-  loading: loading.models.equipments,
+@connect(({ deliveries, loading }) => ({
+  deliveries,
+  loading: loading.models.deliveries,
 }))
 @Form.create()
 export default class TableList extends PureComponent {
+  state = {
+    eid: '',
+    page: 0,
+    size: 10,
+  };
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'equipments/fetch',
+      type: 'deliveries/fetch',
     });
   }
 
@@ -40,7 +45,7 @@ export default class TableList extends PureComponent {
     const { form, dispatch } = this.props;
     form.resetFields();
     dispatch({
-      type: 'equipments/xlsx',
+      type: 'deliveries/xlsx',
       payload: {},
     });
   };
@@ -53,16 +58,24 @@ export default class TableList extends PureComponent {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
 
-      const values = {
+      this.setState({
         ...fieldsValue,
-        updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
-      };
-
-      dispatch({
-        type: 'equipments/fetch',
-        payload: values,
-      });
+      }, () => dispatch({
+        type: 'deliveries/fetch',
+        payload: this.state,
+      }));
     });
+  };
+
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'deliveries/fetch',
+      payload: this.state,
+    }));
   };
 
   renderSimpleForm() {
@@ -78,7 +91,7 @@ export default class TableList extends PureComponent {
   }
 
   render() {
-    const { equipments: { data: { list, pagination } }, loading } = this.props;
+    const { deliveries: { data: { list, pagination } }, loading } = this.props;
 
     const paginationProps = {
       showSizeChanger: true,
@@ -88,14 +101,25 @@ export default class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '借出日期',
-        dataIndex: 'created_date',
+        title: '借出时间',
+        dataIndex: 'effectiveDate',
         render: (val, row) => (
-          <a href={`http://39.106.104.75:3022/images/${row.signatureImage}`} target="_blank">
-            {moment(val).format('YYYY-MM-DD HH:mm')}
+          <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+            {val}
             <Icon type="export" />
           </a>
         ),
+      },
+      {
+        title: '设备编号',
+        dataIndex: 'assetTag',
+      },
+      {
+        title: '状态',
+        dataIndex: 'progress',
+        render(val) {
+          return <Badge status={progressMap[val]} text={progress[val]} />;
+        },
       },
       {
         title: 'EID/姓名',
@@ -112,24 +136,17 @@ export default class TableList extends PureComponent {
         },
       },
       {
-        title: '状态',
-        dataIndex: 'progress',
-        render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
-        },
-      },
-      {
         title: '归还时间',
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
-            <Link to={`/io/return/confirm/${row.id}`}>
+            <Link to={`/delivery/return/confirm/${row.id}`}>
               待归还
               <Icon type="desktop" />
             </Link>
           ) : (
-            <a href={`http://39.106.104.75:3022/images/${row.returnSignatureImage}`} target="_blank">
-              {moment(val).format('YYYY-MM-DD HH:mm')}
+            <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
+              {val}
               <Icon type="export" />
             </a>
           );
@@ -150,6 +167,7 @@ export default class TableList extends PureComponent {
               dataSource={list}
               pagination={paginationProps}
               rowKey="id"
+              onChange={this.onChange}
               columns={columns}
             />
           </div>

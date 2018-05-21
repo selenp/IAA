@@ -3,8 +3,18 @@ import { isUrl } from '../utils/utils';
 const menuData = [
   {
     name: '设备取还',
-    icon: 'profile',
-    path: '/equipments/list',
+    icon: 'solution',
+    path: '/deliveries/list',
+  },
+  {
+    name: '数据字典',
+    icon: 'database',
+    path: '/dictionaries/list',
+  },
+  {
+    name: '用户管理',
+    icon: 'user',
+    path: '/admins/list',
   },
   {
     name: '账户',
