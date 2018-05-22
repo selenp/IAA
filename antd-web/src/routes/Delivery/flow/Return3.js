@@ -18,6 +18,17 @@ class Step3 extends React.PureComponent {
     }
   }
 
+  onFinish () {
+    const { dispatch, data } = this.props;
+    const image = this.signaturePad.toDataURL("image/png");
+    dispatch({
+      type: 'delivery/uploadDeliverySignature',
+      id: data.id,
+      io: 'return',
+      payload: image,
+    });
+  };
+
   redrawCanvas () {
     const { data } = this.props;
     const ctx = this.signaturePad.canvas.getContext("2d");
@@ -43,17 +54,7 @@ class Step3 extends React.PureComponent {
 
 
   render() {
-    const { dispatch, data, submitting } = this.props;
-    const onFinish = () => {
-      const image = this.signaturePad.toDataURL("image/png");
-      dispatch({
-        type: 'delivery/uploadDeliverySignature',
-        id: data.id,
-        io: 'return',
-        payload: image,
-      });
-    };
-
+    const { submitting } = this.props;
     const actions = (
       <Fragment>
         <Button

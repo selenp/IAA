@@ -93,16 +93,6 @@ const InfoForm = ({
               ],
             })(<Input placeholder="请输入办公地点" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="生效日期">
-      {getFieldDecorator('effectiveDate', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入生效日期',
-                },
-              ],
-      })(<DatePicker format="YYYY-MM-DD" />)}
-    </Form.Item>
     <Form.Item
       {...formItemLayout}
       label={

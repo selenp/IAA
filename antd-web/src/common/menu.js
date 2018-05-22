@@ -2,7 +2,7 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
-    name: '普通用户设备取还',
+    name: '设备取还一览',
     icon: 'solution',
     path: '/deliveries/list',
   },

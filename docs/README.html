@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-05-21 Mon 09:36 -->
+<!-- 2018-05-22 Tue 17:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -233,80 +233,217 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb4074e9">1. <span class="timestamp-wrapper"><span class="timestamp">&lt;2018-05-18 Fri&gt;</span></span></a>
+<li><a href="#org76493c8">1. 页面流程</a>
 <ul>
-<li><a href="#org81f5510">1.1. 当前系统，界面改善</a></li>
-<li><a href="#org075b48f">1.2. 用户角色</a></li>
-<li><a href="#orgf7917f2">1.3. 用例 Case 1</a></li>
+<li><a href="#orgd0a12d9">1.1. 主页面</a></li>
+<li><a href="#orgbcbf0ad">1.2. 领取设备</a>
+<ul>
+<li><a href="#org79555d2">1.2.1. 领取人 填写信息</a></li>
+<li><a href="#orgc00435d">1.2.2. IT部门 填写设备信息</a></li>
+<li><a href="#org3d46ba1">1.2.3. 双方确认并签字，发邮件</a></li>
+</ul>
+</li>
+<li><a href="#org09bcef4">1.3. 归还设备</a></li>
+<li><a href="#orgb25fbf2">1.4. 查询页面</a></li>
+<li><a href="#org1154556">1.5. 管理员</a>
+<ul>
+<li><a href="#org6e665aa">1.5.1. 登录</a></li>
+<li><a href="#orgc602cba">1.5.2. 设备取还一览</a></li>
+<li><a href="#org008961e">1.5.3. IT用户设备取还</a></li>
+<li><a href="#org141fe45">1.5.4. IT用户设备取还: 确定双方</a></li>
+<li><a href="#org8d2fb44">1.5.5. IT用户设备取还: 设备明细</a></li>
+<li><a href="#org3ea54de">1.5.6. IT用户设备取还: 双方签字，发邮件</a></li>
+<li><a href="#orgf2b10dd">1.5.7. 用户管理</a></li>
+<li><a href="#orgdb3f272">1.5.8. 数据字典管理</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb4074e9" class="outline-2">
-<h2 id="orgb4074e9"><span class="section-number-2">1</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2018-05-18 Fri&gt;</span></span></h2>
+<div id="outline-container-org76493c8" class="outline-2">
+<h2 id="org76493c8"><span class="section-number-2">1</span> 页面流程</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org81f5510" class="outline-3">
-<h3 id="org81f5510"><span class="section-number-3">1.1</span> 当前系统，界面改善</h3>
+<div id="outline-container-orgd0a12d9" class="outline-3">
+<h3 id="orgd0a12d9"><span class="section-number-3">1.1</span> 主页面</h3>
 <div class="outline-text-3" id="text-1-1">
-<ul class="org-ul">
-<li>选择楼，楼层，座位号</li>
-<li>台式机 / 笔记本  的要有区别</li>
-<li>管理员后台能整理数据字典</li>
-<li>修改成特定区域能签名</li>
-<li>IT的话，可以批量领取</li>
-<li>当天处理不了的，还回去</li>
-<li>IT用户 与 普通用户，重合度已经不打了， 业务上脱离开</li>
-</ul>
+
+<div class="figure">
+<p><img src="./main.png" alt="main.png" width="800px" />
+</p>
 </div>
 </div>
-<div id="outline-container-org075b48f" class="outline-3">
-<h3 id="org075b48f"><span class="section-number-3">1.2</span> 用户角色</h3>
+</div>
+
+<div id="outline-container-orgbcbf0ad" class="outline-3">
+<h3 id="orgbcbf0ad"><span class="section-number-3">1.2</span> 领取设备</h3>
 <div class="outline-text-3" id="text-1-2">
-<ul class="org-ul">
-<li>系统管理员</li>
-</ul>
 <p>
-用户、角色、权限、其它数据整理等
+领取流程，共3个页面
 </p>
-<ul class="org-ul">
-<li>asset管理员</li>
-</ul>
-<p>
-按照预约，备货
-</p>
-<ul class="org-ul">
-<li>IT</li>
-</ul>
-<p>
-预约、领取、归还
-</p>
-<ul class="org-ul">
-<li>普通用户</li>
-</ul>
-<p>
-领取
+</div>
+<div id="outline-container-org79555d2" class="outline-4">
+<h4 id="org79555d2"><span class="section-number-4">1.2.1</span> 领取人 填写信息</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+<div class="figure">
+<p><img src="./b1.png" alt="b1.png" width="800px" />
 </p>
 </div>
 </div>
-<div id="outline-container-orgf7917f2" class="outline-3">
-<h3 id="orgf7917f2"><span class="section-number-3">1.3</span> 用例 Case 1</h3>
+</div>
+
+<div id="outline-container-orgc00435d" class="outline-4">
+<h4 id="orgc00435d"><span class="section-number-4">1.2.2</span> IT部门 填写设备信息</h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+<div class="figure">
+<p><img src="./b2.png" alt="b2.png" width="800px" />
+</p>
+</div>
+<ul class="org-ul">
+<li>其中：部门、项目可选择，可输入，数据还可以在后台维护</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org3d46ba1" class="outline-4">
+<h4 id="org3d46ba1"><span class="section-number-4">1.2.3</span> 双方确认并签字，发邮件</h4>
+<div class="outline-text-4" id="text-1-2-3">
+
+<div class="figure">
+<p><img src="./b3.png" alt="b3.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org09bcef4" class="outline-3">
+<h3 id="org09bcef4"><span class="section-number-3">1.3</span> 归还设备</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
-<li>faming预约 -》 预约功能</li>
-<li>IT准备 -》 根据数据准备设备</li>
-<li>IT领取这批设备，签名，发邮件</li>
-<li>部分设备（因为某些事由）还回去</li>
-<li>excel报表下载，供各种计算</li>
+<li>先查询领取记录，没有的话“新建”也可</li>
+<li>根据记录，可以查看从前的签名图片</li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-orgb25fbf2" class="outline-3">
+<h3 id="orgb25fbf2"><span class="section-number-3">1.4</span> 查询页面</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><img src="./r1.png" alt="r1.png" width="800px" />
+</p>
+</div>
+
+<p>
+随后的归还流程，与“领取”基本一致
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1154556" class="outline-3">
+<h3 id="org1154556"><span class="section-number-3">1.5</span> 管理员</h3>
+<div class="outline-text-3" id="text-1-5">
+</div>
+<div id="outline-container-org6e665aa" class="outline-4">
+<h4 id="org6e665aa"><span class="section-number-4">1.5.1</span> 登录</h4>
+<div class="outline-text-4" id="text-1-5-1">
+
+<div class="figure">
+<p><img src="./a1.png" alt="a1.png" width="800px" />
+</p>
+</div>
+<ul class="org-ul">
+<li>账户：zhaolei / zhaoleipass</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc602cba" class="outline-4">
+<h4 id="orgc602cba"><span class="section-number-4">1.5.2</span> 设备取还一览</h4>
+<div class="outline-text-4" id="text-1-5-2">
+
+<div class="figure">
+<p><img src="./d1.png" alt="d1.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org008961e" class="outline-4">
+<h4 id="org008961e"><span class="section-number-4">1.5.3</span> IT用户设备取还</h4>
+<div class="outline-text-4" id="text-1-5-3">
+
+<div class="figure">
+<p><img src="./t1.png" alt="t1.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org141fe45" class="outline-4">
+<h4 id="org141fe45"><span class="section-number-4">1.5.4</span> IT用户设备取还: 确定双方</h4>
+<div class="outline-text-4" id="text-1-5-4">
+
+<div class="figure">
+<p><img src="./t2.png" alt="t2.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8d2fb44" class="outline-4">
+<h4 id="org8d2fb44"><span class="section-number-4">1.5.5</span> IT用户设备取还: 设备明细</h4>
+<div class="outline-text-4" id="text-1-5-5">
+
+<div class="figure">
+<p><img src="./t3.png" alt="t3.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3ea54de" class="outline-4">
+<h4 id="org3ea54de"><span class="section-number-4">1.5.6</span> IT用户设备取还: 双方签字，发邮件</h4>
+<div class="outline-text-4" id="text-1-5-6">
+
+<div class="figure">
+<p><img src="./t4.png" alt="t4.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf2b10dd" class="outline-4">
+<h4 id="orgf2b10dd"><span class="section-number-4">1.5.7</span> 用户管理</h4>
+<div class="outline-text-4" id="text-1-5-7">
+
+<div class="figure">
+<p><img src="./u1.png" alt="u1.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb3f272" class="outline-4">
+<h4 id="orgdb3f272"><span class="section-number-4">1.5.8</span> 数据字典管理</h4>
+<div class="outline-text-4" id="text-1-5-8">
+
+<div class="figure">
+<p><img src="./dic1.png" alt="dic1.png" width="800px" />
+</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Lei Zhao</p>
-<p class="date">Created: 2018-05-21 Mon 09:36</p>
+<p class="date">Created: 2018-05-22 Tue 17:33</p>
 <p class="validation"></p>
 </div>
 </body>

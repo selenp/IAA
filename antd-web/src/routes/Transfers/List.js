@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+import moment from 'moment';
 import {
   Row,
   Col,
@@ -113,7 +114,7 @@ export default class TableList extends PureComponent {
               <Link to="/transfer/borrow">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-    设备取还
+    IT设备取还
                 </Button>
               </Link>
             </span>
@@ -139,10 +140,10 @@ export default class TableList extends PureComponent {
         render: (val, row) => (
           row.signatureImage ? (
             <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
-              {val}
+              {moment(val).format('YYYY-MM-DD HH:mm')}
               <Icon type="export" />
             </a>
-) : <div>{val}</div>
+          ) : <div>{moment(val).format('YYYY-MM-DD HH:mm')}</div>
         ),
       },
       {
