@@ -1,6 +1,7 @@
 package com.ruptech.equipment;
 
 import com.ruptech.equipment.entity.Delivery;
+import com.ruptech.equipment.entity.TransferEvent;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -11,13 +12,14 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.StringUtils;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class XlsxUtils {
 
-    public static void delivery2Xlsx(Iterable<Delivery> equipments, String signatureUrl, String signaturePath, String fileName) throws IOException {
+    public static void delivery2Xlsx(Iterable<Delivery> events, String ofUrl, String ofPath, String fileName) throws IOException {
         String[] columns = {
                 "姓名(EID)",
                 "Name",
@@ -54,7 +56,7 @@ public class XlsxUtils {
         CreationHelper createHelper = workbook.getCreationHelper();
 
         // Create a Sheet
-        Sheet sheet = workbook.createSheet("Employee");
+        Sheet sheet = workbook.createSheet("Delivery");
 
         // Create a Font for styling header cells
         Font headerFont = workbook.createFont();
@@ -82,7 +84,7 @@ public class XlsxUtils {
 
         // Create Other rows and cells with employees data
         int rowNum = 1;
-        for (Delivery e : equipments) {
+        for (Delivery e : events) {
             Row row = sheet.createRow(rowNum++);
 
             row.createCell(0).setCellValue(null2Empty(e.getEid()));
@@ -100,13 +102,13 @@ public class XlsxUtils {
             row.createCell(12).setCellValue(null2Empty(e.getBag()));
             row.createCell(13).setCellValue(null2Empty(e.getMouse()));
             row.createCell(14).setCellValue(null2Empty(e.getLanCable()));
-            row.createCell(15).setCellValue(signatureUrl + null2Empty(e.getSignatureImage()));
+            row.createCell(15).setCellValue(ofUrl + null2Empty(e.getSignatureImage()));
             row.createCell(16).setCellValue(null2Empty(e.getReturnAcPowerAdapter()));
             row.createCell(17).setCellValue(null2Empty(e.getReturnSecurityCable()));
             row.createCell(18).setCellValue(null2Empty(e.getReturnBag()));
             row.createCell(19).setCellValue(null2Empty(e.getReturnMouse()));
             row.createCell(20).setCellValue(null2Empty(e.getReturnLanCable()));
-            row.createCell(21).setCellValue(signatureUrl + null2Empty(e.getReturnSignatureImage()));
+            row.createCell(21).setCellValue(ofUrl + null2Empty(e.getReturnSignatureImage()));
             row.createCell(22).setCellValue(null2Empty(e.getReturnBy()));
             row.createCell(23).setCellValue(null2Empty(e.getReturnDate()));
             row.createCell(24).setCellValue(null2Empty(e.getReceivedBy()));
@@ -120,7 +122,76 @@ public class XlsxUtils {
         }
 
         // Write the output to a file
-        FileOutputStream fileOut = new FileOutputStream(signaturePath + fileName);
+        FileOutputStream fileOut = new FileOutputStream(ofPath + fileName);
+        workbook.write(fileOut);
+        fileOut.close();
+
+        // Closing the workbook
+        workbook.close();
+    }
+
+    public static void transferEvent2Xlsx(Iterable<TransferEvent> events, String ofUrl, String ofPath, String fileName) throws IOException {
+        String[] columns = {
+                "自EID",
+                "至EID",
+                "有效日期 Effective Date",
+                "资产编号Asset Tag",
+                "领取签名图片 signature_image",
+                "备注 remarks"
+        };
+        Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+        /* CreationHelper helps us create instances for various things like DataFormat,
+           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+        CreationHelper createHelper = workbook.getCreationHelper();
+
+        // Create a Sheet
+        Sheet sheet = workbook.createSheet("Transfer");
+
+        // Create a Font for styling header cells
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+        headerFont.setColor(IndexedColors.RED.getIndex());
+
+        // Create a CellStyle with the font
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+
+        // Create a Row
+        Row headerRow = sheet.createRow(0);
+
+        // Creating cells
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+            cell.setCellStyle(headerCellStyle);
+        }
+
+        // Create Cell Style for formatting Date
+        CellStyle dateCellStyle = workbook.createCellStyle();
+        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+
+        // Create Other rows and cells with employees data
+        int rowNum = 1;
+        for (TransferEvent e : events) {
+            Row row = sheet.createRow(rowNum++);
+
+            row.createCell(0).setCellValue(null2Empty(e.getEid()));
+            row.createCell(1).setCellValue(null2Empty(e.getOwnerEid()));
+            row.createCell(2).setCellValue(null2Empty(e.getEffectiveDate()));
+            row.createCell(3).setCellValue(null2Empty(e.getAssetTags()));
+            row.createCell(4).setCellValue(ofUrl + null2Empty(e.getSignatureImage()));
+            row.createCell(5).setCellValue(null2Empty(e.getRemarks()));
+        }
+
+        // Resize all columns to fit the content size
+        for (int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Write the output to a file
+        FileOutputStream fileOut = new FileOutputStream(ofPath + fileName);
         workbook.write(fileOut);
         fileOut.close();
 
@@ -129,7 +200,7 @@ public class XlsxUtils {
     }
 
     private static String null2Empty(Object o) {
-        if (o == null)
+        if (StringUtils.isEmpty(o))
             return "";
         else
             return o.toString();

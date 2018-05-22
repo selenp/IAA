@@ -24,7 +24,7 @@ const formItemLayout = {
 class Step2 extends React.PureComponent {
   componentDidMount() {
       this.props.dispatch({
-        type: 'io/fetch',
+        type: 'delivery/fetch',
         id: this.props.match.params.id,
       });
   }
@@ -38,7 +38,7 @@ class Step2 extends React.PureComponent {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'io/submitDelivery',
+            type: 'delivery/submitDelivery',
             payload: {
               ...data,
               ...values,

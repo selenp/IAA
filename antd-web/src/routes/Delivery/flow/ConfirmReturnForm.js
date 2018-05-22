@@ -16,7 +16,7 @@ const ConfirmForm = ({
   submitting,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="EID">
+    <Form.Item {...formItemLayout} label="eid">
       {data.eid}
     </Form.Item>
     <Form.Item {...formItemLayout} label="姓名">
@@ -101,7 +101,7 @@ const ConfirmForm = ({
       label=""
     >
       <Button type="primary" onClick={onValidateForm} loading={submitting}>
-        下一步
+        保存
       </Button>
     </Form.Item>
   </Form>

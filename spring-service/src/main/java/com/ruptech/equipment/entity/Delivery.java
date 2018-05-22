@@ -1,6 +1,7 @@
 package com.ruptech.equipment.entity;
 
-import java.text.DateFormat;
+import org.springframework.util.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,17 +19,10 @@ import javax.persistence.Table;
 })
 public class Delivery {
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    @PrePersist
-    void preInsert() {
-        if (this.effectiveDate == null)
-            this.effectiveDate = sdf.format(new Date());
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String progress; //borrow, return
-
     //	姓名(EID)
     private String eid;
     // Name
@@ -61,7 +55,6 @@ public class Delivery {
     private Boolean lanCable;
     //	签名图片 signature_image
     private String signatureImage;
-
     //	电源适配器&电源线 AC Power Adapter & Power cord(TBD)
     private Boolean returnAcPowerAdapter;
     //	电脑锁 Security Cable (210CNY)
@@ -84,6 +77,12 @@ public class Delivery {
     private String referenceNumber;
     //	备注 remarks
     private String remarks;
+
+    @PrePersist
+    void preInsert() {
+        if (StringUtils.isEmpty(this.effectiveDate))
+            this.effectiveDate = sdf.format(new Date());
+    }
 
     public Long getId() {
         return id;

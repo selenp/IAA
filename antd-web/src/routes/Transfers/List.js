@@ -1,45 +1,67 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import {
-  Button,
-  Card,
+  Row,
   Col,
   Form,
-  Icon,
   Input,
-  Row,
+  Icon,
+  Button,
+  Badge,
+  Card,
   Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
 
 const FormItem = Form.Item;
 
-@connect(({ dictionaries, loading }) => ({
-  dictionaries,
-  loading: loading.models.dictionaries,
+const progressMap = {
+  borrow:'processing',
+  return: 'success',
+};
+const progress = {
+  borrow:'已领取',
+  return: '已归还',
+};
+
+@connect(({ transfers, loading }) => ({
+  transfers,
+  loading: loading.models.transfers,
 }))
 @Form.create()
 export default class TableList extends PureComponent {
   state = {
-    group: '',
+    eid: '',
     page: 0,
     size: 10,
   };
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'dictionaries/fetch',
+      type: 'transfers/fetch',
     });
   }
+
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'transfers/fetch',
+      payload: this.state,
+    }));
+  };
 
   handleXlsx = () => {
     const { form, dispatch } = this.props;
     form.resetFields();
     dispatch({
-      type: 'dictionaries/xlsx',
+      type: 'transfers/xlsx',
       payload: {},
     });
   };
@@ -55,21 +77,10 @@ export default class TableList extends PureComponent {
       this.setState({
         ...fieldsValue,
       }, () => dispatch({
-        type: 'dictionaries/fetch',
+        type: 'transfers/fetch',
         payload: this.state,
       }));
     });
-  };
-
-  onChange = ({current, pageSize}) => {
-    const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'dictionaries/fetch',
-      payload: this.state,
-    }));
   };
 
   renderSimpleForm() {
@@ -78,15 +89,15 @@ export default class TableList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="类别">
-              {getFieldDecorator('category', {
+            <FormItem label="eid">
+              {getFieldDecorator('eid', {
               rules: [
                 {
                   required: true,
-                  message: '请输入类别',
+                  message: '请输入eid',
                 },
               ],
-            })(<Input placeholder="请输入类别" />)}
+            })(<Input placeholder="请输入eid" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -99,6 +110,12 @@ export default class TableList extends PureComponent {
                 <Icon type="download" />
     xlsx下载
               </Button>
+              <Link to="/transfer/borrow">
+                <Button style={{ marginLeft: 8 }}>
+                  <Icon type="plus" />
+    设备取还
+                </Button>
+              </Link>
             </span>
           </Col>
         </Row>
@@ -107,7 +124,7 @@ export default class TableList extends PureComponent {
   }
 
   render() {
-    const { dictionaries: { data: { list, pagination } }, loading } = this.props;
+    const { transfers: { data: { list, pagination } }, loading } = this.props;
 
     const paginationProps = {
       showSizeChanger: true,
@@ -117,41 +134,45 @@ export default class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '类别',
-        dataIndex: 'category',
+        title: '时间',
+        dataIndex: 'effectiveDate',
+        render: (val, row) => (
+          row.signatureImage ? (
+            <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+              {val}
+              <Icon type="export" />
+            </a>
+) : <div>{val}</div>
+        ),
       },
       {
-        title: '值',
-        dataIndex: 'data',
-        render: (val, row) => {
-          return (
-            <Link to={`/dictionaries/${row.id}`}>
-              {val}
-            </Link>
-          );
+        title: '自eid',
+        dataIndex: 'ownerEid',
+      },
+      {
+        title: '至eid',
+        dataIndex: 'eid',
+      },
+      {
+        title: '状态',
+        dataIndex: 'status',
+        render(val) {
+          return <Badge status={progressMap[val]} text={progress[val]} />;
         },
       },
       {
-        title: '操作',
-        render: (val, row) => (
-          <Fragment>
-            <a onClick={() => this.props.dispatch({
-              type: 'dictionaries/delete',
-              id: row.id,
-            })}
-            >
-            删除
-              <Icon type="delete" />
-            </a>
-          </Fragment>
-        ),
+        title: '设备编号',
+        dataIndex: 'assetTags',
+        render: (val) => val.split(',').map(v => (
+          <div key={v}>{v}</div>
+          )),
       },
     ];
 
     return (
       <PageHeaderLayout
-        title="数据字典"
-        content="数据字典的管理。"
+        title="设备取还"
+        content="IT设备取还流程。"
       >
         <Card bordered={false}>
           <div className={styles.tableList}>

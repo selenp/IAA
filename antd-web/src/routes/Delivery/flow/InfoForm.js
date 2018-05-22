@@ -21,19 +21,19 @@ const InfoForm = ({
   businessUnits,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="EID">
+    <Form.Item {...formItemLayout} label="eid">
       {getFieldDecorator('eid', {
               rules: [
                 {
                   required: true,
-                  message: '请输入您的EID',
+                  message: '请输入您的eid',
                 },
               ],
-            })(<Input placeholder="请输入EID" />)}
+            })(<Input placeholder="请输入eid" />)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="姓名">
       {getFieldDecorator('fullname', {
-            })(<Input placeholder="请输入EID" />)}
+            })(<Input placeholder="请输入eid" />)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="员工号 Sap Number">
       {getFieldDecorator('sapNumber', {

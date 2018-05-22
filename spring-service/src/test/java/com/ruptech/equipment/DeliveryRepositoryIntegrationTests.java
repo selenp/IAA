@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class DeliveryRepositoryIntegrationTests {
             @Override
             public Predicate toPredicate(Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<Predicate>();
-                if (eid != null) {
+                if (!StringUtils.isEmpty(eid)) {
                     list.add(cb.equal(root.get("eid").as(String.class), eid));
                 }
 

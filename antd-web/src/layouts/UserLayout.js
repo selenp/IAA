@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'dva';
 import { Link, Redirect, Switch, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
@@ -26,7 +27,17 @@ const copyright = (
   </Fragment>
 );
 
+@connect(({ dictionary, loading }) => ({
+  dictionary,
+  loading: loading.models.dictionary,
+}))
 class UserLayout extends React.PureComponent {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'dictionary/fetchDictionaryData',
+    });
+  }
+
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;

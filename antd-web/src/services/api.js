@@ -40,21 +40,52 @@ export async function fakeSubmitForm(params) {
     body: params,
   });
 }
-
+// delivery
 export async function submitDelivery(params) {
   return request(`${REMOTE_URL}/delivery/`, {
     method: 'POST',
     body: params,
   });
 }
-
 export async function queryDeliveries(params) {
   return request(`${REMOTE_URL}/delivery/?${stringify(params)}`);
 }
-
 export async function downloadDeliveries(params) {
   return request(`${REMOTE_URL}/delivery/xlsx?${stringify(params)}`);
 }
+export async function uploadDeliverySignature(id, io, image) {
+  return request(`${REMOTE_URL}/delivery/${id}/${io}/signature`, {
+    method: 'POST',
+    body: image,
+  });
+}
+export async function fetchDelivery(id) {
+  return request(`${REMOTE_URL}/delivery/${id}`);
+}
+
+// transfer
+export async function submitTransfer(params) {
+  return request(`${REMOTE_URL}/transfer-event/`, {
+    method: 'POST',
+    body: params,
+  });
+}
+export async function queryTransfers(params) {
+  return request(`${REMOTE_URL}/transfer-event/?${stringify(params)}`);
+}
+export async function downloadTransfers(params) {
+  return request(`${REMOTE_URL}/transfer-event/xlsx?${stringify(params)}`);
+}
+export async function fetchTransfer(id) {
+  return request(`${REMOTE_URL}/transfer-event/${id}`);
+}
+export async function uploadTransferSignature(id, io, image) {
+  return request(`${REMOTE_URL}/transfer-event/${id}/${io}/signature`, {
+    method: 'POST',
+    body: image,
+  });
+}
+
 
 export async function queryAdmins(params) {
   return request(`${REMOTE_URL}/admin/?${stringify(params)}`);
@@ -72,19 +103,14 @@ export async function downloadDictionaries(params) {
   return request(`${REMOTE_URL}/dictionary/xlsx?${stringify(params)}`);
 }
 
-export async function uploadSignature(id, io, image) {
-  return request(`${REMOTE_URL}/delivery/${id}/${io}/signature`, {
-    method: 'POST',
-    body: image,
-  });
-}
-
-export async function fetchDelivery(id) {
-  return request(`${REMOTE_URL}/delivery/${id}`);
-}
-
-export async function fetchDictionary() {
+export async function fetchDictionaryData() {
   return request(`${REMOTE_URL}/dictionary/_all`);
+}
+
+export async function deleteDictionary(id) {
+  return request(`${REMOTE_URL}/dictionary/${id}`, {
+    method: 'DELETE',
+  });
 }
 
 export async function fakeChartData() {

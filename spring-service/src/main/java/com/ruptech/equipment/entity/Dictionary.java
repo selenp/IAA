@@ -20,12 +20,21 @@ public class Dictionary {
     private String category;
 
     private String data;
+    private int rank = 0;
 
     public static Dictionary as(String category, String data) {
         Dictionary dictionary = new Dictionary();
         dictionary.setCategory(category);
         dictionary.setData(data);
         return dictionary;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public Integer getId() {
@@ -50,6 +59,11 @@ public class Dictionary {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public Dictionary rankUp() {
+        rank++;
+        return this;
     }
 }
 

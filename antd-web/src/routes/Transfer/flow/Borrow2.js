@@ -24,20 +24,21 @@ class Step2 extends React.PureComponent {
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onPrev = () => {
-      dispatch(routerRedux.push('/delivery/step-form'));
+      dispatch(routerRedux.push('/transfer/step-form'));
     };
     const onValidateForm = e => {
       e.preventDefault();
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'delivery/submitDelivery',
+            type: 'transfer/submitTransfer',
             payload: {
               ...data,
               ...values,
-              progress: 'borrow',
+              assetTags: values.assetTags.join(','),
+              status: 'borrow',
             },
-            next: '/delivery/borrow/result',
+            next: '/transfer/borrow/result',
           });
         }
       });
@@ -58,7 +59,7 @@ class Step2 extends React.PureComponent {
   }
 }
 
-export default connect(({ delivery, loading }) => ({
-  submitting: loading.effects['delivery/submitDelivery'],
-  data: delivery.step,
+export default connect(({ transfer, loading }) => ({
+  submitting: loading.effects['transfer/submitTransfer'],
+  data: transfer.step,
 }))(Step2);

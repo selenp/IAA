@@ -2,26 +2,21 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import {
-  Badge,
-  Icon,
-  Card,
+  Row,
+  Col,
   Form,
+  Input,
+  Icon,
+  Button,
+  Avatar,
+  Card,
   Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import SimpleSearchForm from '../Delivery/SimpleSearchForm';
-import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
 
-const progressMap = {
-  borrow:'processing',
-  return: 'success',
-};
-const progress = {
-  borrow:'已领取',
-  return: '已归还',
-};
+const FormItem = Form.Item;
 
 @connect(({ admins, loading }) => ({
   admins,
@@ -30,7 +25,7 @@ const progress = {
 @Form.create()
 export default class TableList extends PureComponent {
   state = {
-    eid: '',
+    userid: '',
     page: 0,
     size: 10,
   };
@@ -40,6 +35,17 @@ export default class TableList extends PureComponent {
       type: 'admins/fetch',
     });
   }
+
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'admins/fetch',
+      payload: this.state,
+    }));
+  };
 
   handleXlsx = () => {
     const { form, dispatch } = this.props;
@@ -67,26 +73,43 @@ export default class TableList extends PureComponent {
     });
   };
 
-  onChange = ({current, pageSize}) => {
-    const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'admins/fetch',
-      payload: this.state,
-    }));
-  };
-
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <SimpleSearchForm
-        styles={styles}
-        getFieldDecorator={getFieldDecorator}
-        handleSearch={this.handleSearch}
-        handleXlsx={this.handleXlsx}
-      />
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="eid">
+              {getFieldDecorator('userid', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入eid',
+                  },
+                ],
+              })(<Input placeholder="请输入eid" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
+                <Icon type="search" />
+        查询
+              </Button>
+              <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
+                <Icon type="download" />
+        xlsx下载
+              </Button>
+              <Link to="/admin/new">
+                <Button style={{ marginLeft: 8 }}>
+                  <Icon type="plus" />
+        新增
+                </Button>
+              </Link>
+            </span>
+          </Col>
+        </Row>
+      </Form>
     );
   }
 
@@ -101,63 +124,35 @@ export default class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '借出时间',
-        dataIndex: 'effectiveDate',
+        title: 'eid',
+        dataIndex: 'userid',
         render: (val, row) => (
-          <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+          <Link to={`/user/${row.id}`}>
             {val}
-            <Icon type="export" />
-          </a>
+          </Link>
         ),
       },
       {
-        title: '设备编号',
-        dataIndex: 'assetTag',
+        title: '姓名',
+        dataIndex: 'fullname',
       },
       {
-        title: '状态',
-        dataIndex: 'progress',
+        title: '头像',
+        dataIndex: 'avatar',
         render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
+          return <Avatar size="large" className={styles.avatar} src={val} />;
         },
       },
       {
-        title: 'EID/姓名',
-        dataIndex: 'eid',
-        render(val, row) {
-          return <span>{row.eid} / {row.fullname}</span>;
-        },
-      },
-      {
-        title: '项目/部门',
-        dataIndex: 'id',
-        render(val, row) {
-          return <span>{row.projectName} / {row.businessUnit}</span>;
-        },
-      },
-      {
-        title: '归还时间',
-        dataIndex: 'returnDate',
-        render: (val, row) => {
-          return row.progress === 'borrow' ? (
-            <Link to={`/delivery/return/confirm/${row.id}`}>
-              待归还
-              <Icon type="desktop" />
-            </Link>
-          ) : (
-            <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
-              {val}
-              <Icon type="export" />
-            </a>
-          );
-        },
+        title: 'Current Token',
+        dataIndex: 'token',
       },
     ];
 
     return (
       <PageHeaderLayout
-        title="设备取还"
-        content="设备取还的查询。"
+        title="用户管理"
+        content="系统用户的增删改查、权限管理。"
       >
         <Card bordered={false}>
           <div className={styles.tableList}>

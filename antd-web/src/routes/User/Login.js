@@ -55,14 +55,14 @@ export default class LoginPage extends Component {
               login.type === 'account' &&
               !login.submitting &&
               this.renderMessage('账户或密码错误')}
-            <UserName name="userid" placeholder="您的EID" />
+            <UserName name="userid" placeholder="您的eid" />
             <Password name="password" placeholder="密码" />
           </Tab>
           <Tab key="scan" tab="扫码登录">
-                <QRCode
-                  value={`https://test.tttalk.org/mp/socket/a-fake-socket`}
-                  size={360}
-                />
+            <QRCode
+              value="https://test.tttalk.org/mp/socket/a-fake-socket"
+              size={360}
+            />
           </Tab>
           <Submit loading={submitting}>登录</Submit>
         </Login>

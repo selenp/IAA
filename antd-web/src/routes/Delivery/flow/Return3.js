@@ -9,14 +9,18 @@ import Result from 'components/Result';
 import styles from './style.less';
 
 import formImage from './Laptop-of-Accountability-Form.png';
-import formImageIT from './Laptop-of-Accountability-IT.png';
 
 class Step3 extends React.PureComponent {
 
   componentDidMount() {
+    this.bgImage.onload = () => {
+      this.redrawCanvas()
+    }
+  }
+
+  redrawCanvas () {
     const { data } = this.props;
     const ctx = this.signaturePad.canvas.getContext("2d");
-    this.bgImage.onload = () => {
       ctx.drawImage(this.bgImage, 0, 0);
       ctx.font = "16px Courier";
       ctx.fillText(data.eid, 210, 125);
@@ -35,9 +39,6 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.bag?'Yes':'No', 390, 420);
       ctx.fillText(data.mouse?'Yes':'No', 390, 455);
       ctx.fillText(data.lanCable?'Yes':'No', 390, 480);
-
-      // ...
-    }
   }
 
 
@@ -46,7 +47,7 @@ class Step3 extends React.PureComponent {
     const onFinish = () => {
       const image = this.signaturePad.toDataURL("image/png");
       dispatch({
-        type: 'delivery/uploadSignature',
+        type: 'delivery/uploadDeliverySignature',
         id: data.id,
         io: 'return',
         payload: image,
@@ -56,8 +57,12 @@ class Step3 extends React.PureComponent {
     const actions = (
       <Fragment>
         <Button
+          onClick={() => this.redrawCanvas()}
+        >擦掉重签
+        </Button>
+        <Button
           type="primary"
-          onClick={onFinish}
+          onClick={() => this.onFinish()}
           loading={submitting}
         >签名完毕
         </Button>
@@ -67,8 +72,8 @@ class Step3 extends React.PureComponent {
       <Result
         type="success"
         description={(
-          <div className={data.fullname === 'IT Staff' ? styles.sigWrapper2 : styles.sigWrapper}>
-            <img src={data.fullname === 'IT Staff' ? formImageIT : formImage}  ref={(ref) => this.bgImage = ref} />
+          <div className={styles.sigWrapper}>
+            <img src={formImage}  ref={(ref) => this.bgImage = ref} />
             <SignaturePad ref={(ref) => this.signaturePad = ref} />
           </div>
         )}

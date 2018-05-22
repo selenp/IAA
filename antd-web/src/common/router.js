@@ -73,7 +73,10 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['user', 'login', 'dictionary'], () => import('../layouts/BasicLayout')),
     },
     '/deliveries/list': {
-      component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Equipments/List')),
+      component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Deliveries/List')),
+    },
+    '/transfers/list': {
+      component: dynamicWrapper(app, ['transfers'], () => import('../routes/Transfers/List')),
     },
     '/dictionaries/list': {
       component: dynamicWrapper(app, ['dictionaries'], () => import('../routes/Dictionaries/List')),
@@ -85,10 +88,10 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/Delivery/MainMenu')),
     },
     '/delivery/borrow': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () => import('../routes/Delivery/flow/Borrow')),
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow')),
     },
     '/delivery/borrow/info': {
-      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow1')),
+      component: dynamicWrapper(app, ['delivery', 'dictionary'], () => import('../routes/Delivery/flow/Borrow1')),
     },
     '/delivery/borrow/confirm': {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow2')),
@@ -104,6 +107,18 @@ export const getRouterData = app => {
     },
     '/delivery/return/result': {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return3')),
+    },
+    '/transfer/borrow': {
+      component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow')),
+    },
+    '/transfer/borrow/info': {
+      component: dynamicWrapper(app, ['transfer', 'user'], () => import('../routes/Transfer/flow/Borrow1')),
+    },
+    '/transfer/borrow/confirm': {
+      component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow2')),
+    },
+    '/transfer/borrow/result': {
+      component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow3')),
     },
     '/exception/403': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),

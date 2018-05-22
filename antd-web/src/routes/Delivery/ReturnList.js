@@ -96,10 +96,12 @@ export default class ResturnList extends PureComponent {
         title: '借出时间',
         dataIndex: 'effectiveDate',
         render: (val, row) => (
-          <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
-            {val}
-            <Icon type="export" />
-          </a>
+          row.signatureImage ? (
+            <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+              {val}
+              <Icon type="export" />
+            </a>
+) : <div>{val}</div>
         ),
       },
       {
@@ -114,7 +116,7 @@ export default class ResturnList extends PureComponent {
         },
       },
       {
-        title: 'EID/姓名',
+        title: 'eid/姓名',
         dataIndex: 'eid',
         render(val, row) {
           return <span>{row.eid} / {row.fullname}</span>;
@@ -137,10 +139,12 @@ export default class ResturnList extends PureComponent {
               <Icon type="desktop" />
             </Link>
           ) : (
-            <a href={`${FILE_URL}/images/${row.returnSignatureImage}`} target="_blank">
-              {val}
-              <Icon type="export" />
-            </a>
+            row.returnSignatureImage ? (
+              <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
+                {val}
+                <Icon type="export" />
+              </a>
+) : <div>{val}</div>
           );
         },
       },

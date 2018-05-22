@@ -38,6 +38,9 @@ public class AccountController {
     @Value("${admin.password.sha256.key}")
     private String keyString;
 
+    /**
+     * Login
+     */
     @PostMapping(path = "/api-login-account")
     public @ResponseBody
     Map<String, String> login(@RequestBody Admin d) throws Exception {
@@ -67,11 +70,15 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "no auth");
     }
 
+    /**
+     * Current Account
+     */
     @GetMapping(path = "/currentUser")
     public @ResponseBody
     Admin currentUser(@RequestHeader("Authorization") String authorization) {
-        if (authorization.length() > 7) {
-            String token = authorization.substring(7);
+        String prefix = "Bearer ";
+        if (authorization.length() > prefix.length()) {
+            String token = authorization.substring(prefix.length());
             Specification<Admin> spec = (Specification<Admin>) (root, query, cb) -> {
                 query.where(cb.equal(root.get("token").as(String.class), token));
                 return query.getRestriction();

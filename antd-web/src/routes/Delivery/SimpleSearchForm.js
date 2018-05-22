@@ -19,15 +19,15 @@ const SimpleSearchForm = ({
   <Form onSubmit={handleSearch} layout="inline">
     <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
       <Col md={8} sm={24}>
-        <FormItem label="EID">
+        <FormItem label="eid">
           {getFieldDecorator('eid', {
               rules: [
                 {
                   required: true,
-                  message: '请输入EID',
+                  message: '请输入eid',
                 },
               ],
-            })(<Input placeholder="请输入EID" />)}
+            })(<Input placeholder="请输入eid" />)}
         </FormItem>
       </Col>
       <Col md={8} sm={24}>
@@ -38,7 +38,7 @@ const SimpleSearchForm = ({
           </Button>
           {
       handleXlsx && (
-      <Button style={{ marginLeft: 8 }} onClick={handleXlsx}>
+      <Button type="dashed" style={{ marginLeft: 8 }} onClick={handleXlsx}>
         <Icon type="download" />
     xlsx下载
       </Button>

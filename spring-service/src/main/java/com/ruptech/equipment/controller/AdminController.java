@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ import javax.persistence.criteria.Predicate;
 @CrossOrigin(
         allowCredentials = "true",
         origins = "*",
-        methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT},
+        methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.DELETE},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/admin")
@@ -40,10 +41,13 @@ public class AdminController {
     @Value("${admin.password.sha256.key}")
     private String keyString;
 
+    /**
+     * Create or Modify a User
+     */
     @PostMapping(path = "/") // Map ONLY GET Requests
     public @ResponseBody
     Admin post(@RequestBody Admin d) {
-        if (d.getPassword() != null) {
+        if (!StringUtils.isEmpty(d.getPassword())) {
             try {
                 d.setPassword(EncrypeUtils.sha256(d.getPassword(), keyString));
             } catch (Exception e) {
@@ -54,6 +58,9 @@ public class AdminController {
         return d;
     }
 
+    /**
+     * User Pagination
+     */
     @GetMapping(path = "/")
     public @ResponseBody
     Page<Admin> getAll(
@@ -62,7 +69,7 @@ public class AdminController {
             @RequestParam(required = false, defaultValue = "10") int size) {
         Page<Admin> admins = this.adminRepository.findAll((Specification<Admin>) (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
-            if (userid != null) {
+            if (!StringUtils.isEmpty(userid)) {
                 list.add(cb.equal(root.get("userid").as(String.class), userid));
             }
 

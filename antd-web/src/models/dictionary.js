@@ -1,6 +1,6 @@
 import { compact } from 'lodash';
 import {
-  fetchDictionary,
+  fetchDictionaryData,
 } from '../services/api';
 
 export default {
@@ -13,7 +13,7 @@ export default {
 
   effects: {
     *fetchDictionaryData(_, { call, put }) {
-      const response = yield call(fetchDictionary);
+      const response = yield call(fetchDictionaryData);
       yield put({
         type: 'init',
         payload: response,

@@ -2,17 +2,22 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import {
-  Badge,
-  Icon,
-  Card,
+  Row,
+  Col,
   Form,
+  Input,
+  Icon,
+  Button,
+  Badge,
+  Card,
   Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import SimpleSearchForm from '../Delivery/SimpleSearchForm';
 import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
+
+const FormItem = Form.Item;
 
 const progressMap = {
   borrow:'processing',
@@ -41,6 +46,17 @@ export default class TableList extends PureComponent {
     });
   }
 
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'deliveries/fetch',
+      payload: this.state,
+    }));
+  };
+
   handleXlsx = () => {
     const { form, dispatch } = this.props;
     form.resetFields();
@@ -67,26 +83,49 @@ export default class TableList extends PureComponent {
     });
   };
 
-  onChange = ({current, pageSize}) => {
-    const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'deliveries/fetch',
-      payload: this.state,
-    }));
-  };
-
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <SimpleSearchForm
-        styles={styles}
-        getFieldDecorator={getFieldDecorator}
-        handleSearch={this.handleSearch}
-        handleXlsx={this.handleXlsx}
-      />
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="eid">
+              {getFieldDecorator('eid', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入eid',
+                },
+              ],
+            })(<Input placeholder="请输入eid" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
+                <Icon type="search" />
+   查询
+              </Button>
+              <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
+                <Icon type="download" />
+    xlsx下载
+              </Button>
+              <Link to="/delivery/borrow">
+                <Button style={{ marginLeft: 8 }}>
+                  <Icon type="plus" />
+    领取设备
+                </Button>
+              </Link>
+              <Link to="/delivery/borrow">
+                <Button style={{ marginLeft: 8 }}>
+                  <Icon type="plus" />
+    归还设备
+                </Button>
+              </Link>
+            </span>
+          </Col>
+        </Row>
+      </Form>
     );
   }
 
@@ -104,10 +143,12 @@ export default class TableList extends PureComponent {
         title: '借出时间',
         dataIndex: 'effectiveDate',
         render: (val, row) => (
-          <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
-            {val}
-            <Icon type="export" />
-          </a>
+          row.signatureImage ? (
+            <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+              {val}
+              <Icon type="export" />
+            </a>
+) : <div>{val}</div>
         ),
       },
       {
@@ -122,7 +163,7 @@ export default class TableList extends PureComponent {
         },
       },
       {
-        title: 'EID/姓名',
+        title: 'eid/姓名',
         dataIndex: 'eid',
         render(val, row) {
           return <span>{row.eid} / {row.fullname}</span>;
@@ -145,10 +186,12 @@ export default class TableList extends PureComponent {
               <Icon type="desktop" />
             </Link>
           ) : (
-            <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
-              {val}
-              <Icon type="export" />
-            </a>
+            row.returnSignatureImage ? (
+              <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
+                {val}
+                <Icon type="export" />
+              </a>
+            ) : <div>{val}</div>
           );
         },
       },

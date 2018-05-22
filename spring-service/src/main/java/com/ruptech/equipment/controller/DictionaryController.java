@@ -1,17 +1,18 @@
 package com.ruptech.equipment.controller;
 
-import com.ruptech.equipment.entity.Admin;
 import com.ruptech.equipment.entity.Dictionary;
 import com.ruptech.equipment.respository.DictionaryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ import javax.persistence.criteria.Predicate;
 @CrossOrigin(
         allowCredentials = "true",
         origins = "*",
-        methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT},
+        methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.DELETE},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/dictionary")
@@ -37,6 +38,15 @@ public class DictionaryController {
     @Autowired
     private DictionaryRepository dictionaryRepository;
 
+    @DeleteMapping(path = "/{id}")
+    public @ResponseBody
+    void get(@PathVariable Integer id) {
+        dictionaryRepository.deleteById(id);
+    }
+
+    /**
+     * 所有数据、字典格式
+     */
     @GetMapping(path = "/_all")
     public @ResponseBody
     Map<String, Iterable<String>> dictionary() {
@@ -77,7 +87,7 @@ public class DictionaryController {
             @RequestParam(required = false, defaultValue = "10") int size) {
         Page<Dictionary> admins = this.dictionaryRepository.findAll((Specification<Dictionary>) (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
-            if (category != null) {
+            if (!StringUtils.isEmpty(category)) {
                 list.add(cb.equal(root.get("category").as(String.class), category));
             }
 
