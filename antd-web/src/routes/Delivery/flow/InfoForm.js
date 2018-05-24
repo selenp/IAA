@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  DatePicker,
   Form,
   Input,
   Select,
@@ -21,19 +20,19 @@ const InfoForm = ({
   businessUnits,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="eid">
+    <Form.Item {...formItemLayout} label="EID">
       {getFieldDecorator('eid', {
               rules: [
                 {
                   required: true,
-                  message: '请输入您的eid',
+                  message: '请输入您的EID',
                 },
               ],
-            })(<Input placeholder="请输入eid" />)}
+            })(<Input placeholder="请输入EID" />)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="姓名">
       {getFieldDecorator('fullname', {
-            })(<Input placeholder="请输入eid" />)}
+            })(<Input placeholder="请输入EID" />)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="员工号 Sap Number">
       {getFieldDecorator('sapNumber', {
@@ -83,15 +82,35 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="办公地点">
-      {getFieldDecorator('location', {
+    <Form.Item {...formItemLayout} label="楼">
+      {getFieldDecorator('locationBuilding', {
               rules: [
                 {
                   required: true,
-                  message: '请输入办公地点',
+                  message: '请输入您办公地点的楼号',
                 },
               ],
-            })(<Input placeholder="请输入办公地点" />)}
+            })(<Input placeholder="请输入您办公地点的楼号" />)}
+    </Form.Item>
+    <Form.Item {...formItemLayout} label="楼层">
+      {getFieldDecorator('locationFloor', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入您办公地点的楼层',
+                },
+              ],
+            })(<Input placeholder="请输入您办公地点的楼层" />)}
+    </Form.Item>
+    <Form.Item {...formItemLayout} label="座位号">
+      {getFieldDecorator('locationSeat', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入您办公地点的座位号',
+                },
+              ],
+            })(<Input placeholder="请输入您办公地点的座位号" />)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}

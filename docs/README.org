@@ -1,21 +1,20 @@
+#+HTML_HEAD:  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1" />
+#+HTML_HEAD: <style type="text/css">img{ max-width:98%; width: 800px }</style>
+
 * 页面流程
 
 ** 主页面
- #+attr_html: :width 800px
  [[./main.png]]
 
 ** 领取设备
 领取流程，共3个页面
 *** 领取人 填写信息
- #+attr_html: :width 800px
  [[./b1.png]]
 
 *** IT部门 填写设备信息
- #+attr_html: :width 800px
  [[./b2.png]]
  - 其中：部门、项目可选择，可输入，数据还可以在后台维护
 *** 双方确认并签字，发邮件
- #+attr_html: :width 800px
  [[./b3.png]]
 
 ** 归还设备
@@ -23,7 +22,6 @@
  - 根据记录，可以查看从前的签名图片
 
 ** 查询页面
-#+attr_html: :width 800px
 [[./r1.png]]
 
 随后的归还流程，与“领取”基本一致
@@ -31,35 +29,27 @@
 ** 管理员
 
 *** 登录
- #+attr_html: :width 800px
  [[./a1.png]]
  - 账户：zhaolei / zhaoleipass
 *** 设备取还一览
- #+attr_html: :width 800px
  [[./d1.png]]
 
 *** IT用户设备取还
- #+attr_html: :width 800px
  [[./t1.png]]
 
 *** IT用户设备取还: 确定双方
- #+attr_html: :width 800px
  [[./t2.png]]
 
 *** IT用户设备取还: 设备明细
-#+attr_html: :width 800px
  [[./t3.png]]
 
 *** IT用户设备取还: 双方签字，发邮件
-#+attr_html: :width 800px
  [[./t4.png]]
 
 *** 用户管理
-#+attr_html: :width 800px
  [[./u1.png]]
 
 *** 数据字典管理
-#+attr_html: :width 800px
  [[./dic1.png]]
 
 * <2018-05-15 Tue>需求
@@ -107,7 +97,6 @@
  正常离职的
  更换的
 
-
 * <2018-05-16 Wed>
  http://39.106.104.75:3022/#/delivery/main
 ** 发设备里面没有区分“IT领设备”和“用户领设备”，IT领设备不需要签那个声明，只需要签字就行
@@ -129,22 +118,44 @@
 
 * <2018-05-18 Fri>
 ** 基于当前演示的系统，需要做的改善
- - 选择楼，楼层，座位号
- - 台式机 / 笔记本  的要有区别
- - 管理员后台能整理数据字典
- - 修改成特定区域能签名
- - IT的话，可以批量领取
- - IT用户 与 普通用户，重合度已经不大了， 业务上分开
- - 当天处理不了的，还回去
- - 新建“归还”
-** 用户角色
- - 系统管理员
+*** DONE 选择楼，楼层，座位号
+    CLOSED: [2018-05-24 Thu 09:38]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+    :END:
+*** DONE 台式机 / 笔记本  的要有区别
+    CLOSED: [2018-05-24 Thu 10:05]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:05]
+    :END:
+*** DONE 管理员后台能整理数据字典
+    CLOSED: [2018-05-22 Tue 23:22]
+*** DONE 修改成特定区域能签名 -> 可擦除
+    CLOSED: [2018-05-22 Tue 23:22]
+*** DONE IT的话，可以批量领取
+    CLOSED: [2018-05-22 Tue 23:22]
+*** DONE IT用户 与 普通用户，重合度已经不大了， 业务上分开
+    CLOSED: [2018-05-22 Tue 23:22]
+*** DONE IT当天处理不了的，还回去
+    CLOSED: [2018-05-22 Tue 23:22]
+*** DONE 新建“归还”
+    CLOSED: [2018-05-24 Thu 09:38]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+    :END:
+** DONE 用户管理
+   CLOSED: [2018-05-24 Thu 10:52]
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:52]
+   - State "NEXT"       from "DONE"       [2018-05-24 Thu 10:43]
+   :END:
+*** 系统管理员
  用户、角色、权限、其它数据整理等
- - asset管理员
+*** asset管理员
 按照预约，备货
- - IT
+*** IT
 预约、领取、归还、签字
- - 普通用户
+*** 普通用户
 领取、归还、签字
 ** 用例 Case 1
  - faming 预约
@@ -177,7 +188,7 @@ Content-Type: application/json
   - currentUser
 #+BEGIN_SRC sh
 GET http://39.106.104.75:3050/account/currentUser
-Authorization: Bearer IznWaEd1FT0cHXxW+9W0wnitLeBGMSalAgPGTwYcw6g=
+Authorization: Bearer SgxwdORcnzpCjfZ3eLqMwAQf7Qsc0w204bhWehIobvI=
 #+END_SRC
 
 ** ADMIN
@@ -332,7 +343,7 @@ DELETE http://39.106.104.75:3050/dictionary/5
 ** 同步
 #+BEGIN_SRC sh
 gradle build
-scp build/libs/gs-accessing-data-h2-0.1.0522.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
+scp build/libs/gs-accessing-data-h2-0.1.0524.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
 java -jar build/libs/gs-accessing-data-h2-0.1.0522.jar
 
 rm -rf dist/; npm run build;  rsync -avz /works/projects/accenture/equipment/antd-web/dist/ yidalize_no1:/usr/share/nginx/html/yida-lize-file/

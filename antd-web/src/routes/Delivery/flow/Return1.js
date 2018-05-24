@@ -21,20 +21,20 @@ const formItemLayout = {
 class Step1 extends React.PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'transfer/initData',
+      type: 'delivery/initData',
     });
   }
   render() {
-    const { form, dispatch, currentUser } = this.props;
+    const { form, dispatch, businessUnits, projectNames } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'transfer/saveData',
+            type: 'delivery/saveData',
             payload: values,
           });
-          dispatch(routerRedux.push('/transfer/borrow/confirm'));
+          dispatch(routerRedux.push('/delivery/return/confirm'));
         }
       });
     };
@@ -46,7 +46,8 @@ class Step1 extends React.PureComponent {
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
           formItemLayout={formItemLayout}
-          currentUser={currentUser}
+          businessUnits={businessUnits}
+          projectNames={projectNames}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
@@ -61,6 +62,7 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+export default connect(({ dictionary }) => ({
+  businessUnits: dictionary.businessUnits,
+  projectNames: dictionary.projectNames,
 }))(Step1);

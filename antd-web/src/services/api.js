@@ -90,6 +90,20 @@ export async function uploadTransferSignature(id, io, image) {
 export async function queryAdmins(params) {
   return request(`${REMOTE_URL}/admin/?${stringify(params)}`);
 }
+export async function queryAdmin(id) {
+  return request(`${REMOTE_URL}/admin/${id}`);
+}
+export async function deleteAdmin(id) {
+  return request(`${REMOTE_URL}/admin/${id}`, {
+    method: 'DELETE',
+  });
+}
+export async function submitAdmin(params) {
+  return request(`${REMOTE_URL}/admin`, {
+    method: 'POST',
+    body: params,
+  });
+}
 
 export async function downloadAdmins(params) {
   return request(`${REMOTE_URL}/admin/xlsx?${stringify(params)}`);

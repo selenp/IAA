@@ -38,7 +38,7 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.fullname, 210, 150);
       ctx.fillText(data.projectName, 210, 175);
       ctx.fillText(data.businessUnit, 210, 200);
-      ctx.fillText(data.location, 210, 225);
+      ctx.fillText(`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`, 210, 225);
       ctx.fillText(moment(data.effectiveDate).format('YYYY-MM-DD HH:mm'), 210, 250);
 
       ctx.fillText(data.assetTag, 590, 125);

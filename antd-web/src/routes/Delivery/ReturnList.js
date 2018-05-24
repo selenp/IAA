@@ -117,7 +117,7 @@ export default class ResturnList extends PureComponent {
         },
       },
       {
-        title: 'eid/姓名',
+        title: 'EID/姓名',
         dataIndex: 'eid',
         render(val, row) {
           return <span>{row.eid} / {row.fullname}</span>;
@@ -135,7 +135,7 @@ export default class ResturnList extends PureComponent {
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
-            <Link to={`/delivery/return/confirm/${row.id}`}>
+            <Link to={`/delivery/return/confirmData/${row.id}`}>
               待归还
               <Icon type="desktop" />
             </Link>

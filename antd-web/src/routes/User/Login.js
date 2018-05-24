@@ -55,7 +55,7 @@ export default class LoginPage extends Component {
               login.type === 'account' &&
               !login.submitting &&
               this.renderMessage('账户或密码错误')}
-            <UserName name="userid" placeholder="您的eid" />
+            <UserName name="userid" placeholder="您的EID" />
             <Password name="password" placeholder="密码" />
           </Tab>
           <Tab key="scan" tab="扫码登录">

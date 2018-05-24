@@ -20,26 +20,26 @@ const InfoForm = ({
   currentUser,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="自eid">
+    <Form.Item {...formItemLayout} label="自EID">
       {getFieldDecorator('ownerEid', {
             initialValue: currentUser.userid,
               rules: [
                 {
                   required: true,
-                  message: '请输入eid',
+                  message: '请输入EID',
                 },
               ],
-      })(<Input placeholder="请输入eid" />)}
+      })(<Input placeholder="请输入EID" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="至eid">
+    <Form.Item {...formItemLayout} label="至EID">
       {getFieldDecorator('eid', {
               rules: [
                 {
                   required: true,
-                  message: '请输入eid',
+                  message: '请输入EID',
                 },
               ],
-            })(<Input placeholder="请输入eid" />)}
+            })(<Input placeholder="请输入EID" />)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}

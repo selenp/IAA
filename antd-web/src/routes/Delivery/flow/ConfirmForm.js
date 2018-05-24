@@ -4,8 +4,10 @@ import {
   Divider,
   Form,
   Input,
+  Radio,
   Switch,
 } from 'antd';
+const RadioGroup = Radio.Group;
 
 const ConfirmForm = ({
   styles,
@@ -17,7 +19,7 @@ const ConfirmForm = ({
   submitting,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="eid">
+    <Form.Item {...formItemLayout} label="EID">
       {data.eid}
     </Form.Item>
     <Form.Item {...formItemLayout} label="姓名">
@@ -33,12 +35,25 @@ const ConfirmForm = ({
       {data.businessUnit}
     </Form.Item>
     <Form.Item {...formItemLayout} label="办公地点">
-      {data.location}
+      {`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`}
     </Form.Item>
     <Form.Item {...formItemLayout} label="备注">
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
+    <Form.Item {...formItemLayout} label="机型">
+      {getFieldDecorator('machineType', {
+              rules: [
+                {
+                  required: true,
+                  message: '请选择台式机或者笔记本',
+                },
+              ],
+      })(<RadioGroup >
+        <Radio value="laptop">台式机</Radio>
+        <Radio value="notebook">笔记本</Radio>
+      </RadioGroup>)}
+    </Form.Item>
     <Form.Item {...formItemLayout} label="资产编号">
       {getFieldDecorator('assetTag', {
               rules: [

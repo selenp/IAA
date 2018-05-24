@@ -15,7 +15,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'gs-accessing-data-h2'
-    version = '0.1.0522'
+    version = '0.1.0524'
 }
 
 repositories {
@@ -27,6 +27,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-mail")
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compile "org.apache.poi:poi-ooxml:3.17"

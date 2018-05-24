@@ -25,7 +25,7 @@ public class TransferEvent {
     private String status; //borrow, return
     //	姓名(EID)
     private String eid;
-    //  有效日期 Effective Date
+    //  日期 Effective Date
     private String effectiveDate;
     //	资产编号Asset Tag
     private String assetTags;

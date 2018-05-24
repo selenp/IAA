@@ -40,7 +40,7 @@ public class DictionaryController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
-    void get(@PathVariable Integer id) {
+    void delete(@PathVariable Integer id) {
         dictionaryRepository.deleteById(id);
     }
 

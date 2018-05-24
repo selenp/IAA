@@ -19,6 +19,11 @@ const formItemLayout = {
 
 @Form.create()
 class Step1 extends React.PureComponent {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'delivery/initData',
+    });
+  }
   render() {
     const { form, dispatch, businessUnits, projectNames } = this.props;
     const { getFieldDecorator, validateFields } = form;

@@ -160,9 +160,8 @@ export function isUrl(path) {
   return reg.test(path);
 }
 
-
-const REMOTE_URL = 'http://localhost:3050';
-const FILE_URL = 'http://localhost:3022';
+const REMOTE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3050' : 'http://localhost:3050';
+const FILE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'http://localhost:3022';
 export {
   REMOTE_URL,
   FILE_URL,

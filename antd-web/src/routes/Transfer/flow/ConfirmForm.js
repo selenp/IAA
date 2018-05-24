@@ -19,10 +19,10 @@ const ConfirmForm = ({
   submitting,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label="自eid">
+    <Form.Item {...formItemLayout} label="自EID">
       {data.ownerEid}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="至eid">
+    <Form.Item {...formItemLayout} label="至EID">
       {data.eid}
     </Form.Item>
     <Form.Item {...formItemLayout} label="备注">

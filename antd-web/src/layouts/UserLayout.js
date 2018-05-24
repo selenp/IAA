@@ -8,19 +8,6 @@ import styles from './UserLayout.less';
 import logo from '../assets/logo.svg';
 import { getRoutes } from '../utils/utils';
 
-const links = [
-  {
-    key: 'io',
-    title: '设备取还',
-    href: '/delivery/main',
-  },
-  {
-    key: 'login',
-    title: '管理员登录',
-    href: '/user/login',
-  },
-];
-
 const copyright = (
   <Fragment>
     Copyright <Icon type="copyright" /> 2018
@@ -74,12 +61,13 @@ class UserLayout extends React.PureComponent {
               <Redirect exact from="/user" to="/user/login" />
             </Switch>
           </div>
-        <div className={styles.globalFooter}>
-        <div className={styles.links}>
-            <Link to="/delivery/main">设备取还</Link>
-            <Link to="/user/login">管理员登录</Link>
+          <div className={styles.globalFooter}>
+            <div className={styles.links}>
+              <Link to="/delivery/main">设备取还</Link>
+              <Link to="/">管理员登录</Link>
+              <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">使用说明</a>
+            </div>
           </div>
-        </div>
         </div>
       </DocumentTitle>
     );

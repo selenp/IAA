@@ -27,7 +27,7 @@ public class XlsxUtils {
                 "项目名 Project Name",
                 "部门 Business Unit",
                 "办公地点 Location",
-                "有效日期 Effective Date",
+                "日期 Effective Date",
                 "资产编号Asset Tag",
                 "序列号Serial Tag",
                 "笔记本型号Laptop Model",
@@ -134,7 +134,7 @@ public class XlsxUtils {
         String[] columns = {
                 "自EID",
                 "至EID",
-                "有效日期 Effective Date",
+                "日期 Effective Date",
                 "资产编号Asset Tag",
                 "领取签名图片 signature_image",
                 "备注 remarks"

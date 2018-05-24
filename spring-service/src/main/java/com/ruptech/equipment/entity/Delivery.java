@@ -1,16 +1,10 @@
 package com.ruptech.equipment.entity;
 
-import org.springframework.util.StringUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +12,6 @@ import javax.persistence.Table;
         @Index(name = "IDX_Delivery_eid", columnList = "eid"),
 })
 public class Delivery {
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -34,9 +27,13 @@ public class Delivery {
     //  部门 Business Unit
     private String businessUnit;
     //  办公地点 Location
-    private String location;
-    //  有效日期 Effective Date
+    private String locationBuilding;
+    private String locationFloor;
+    private String locationSeat;
+    //  日期 Effective Date
     private String effectiveDate;
+
+    private String machineType;
     //	资产编号Asset Tag
     private String assetTag;
     //  序列号Serial Tag
@@ -77,12 +74,6 @@ public class Delivery {
     private String referenceNumber;
     //	备注 remarks
     private String remarks;
-
-    @PrePersist
-    void preInsert() {
-        if (StringUtils.isEmpty(this.effectiveDate))
-            this.effectiveDate = sdf.format(new Date());
-    }
 
     public Long getId() {
         return id;
@@ -140,12 +131,28 @@ public class Delivery {
         this.businessUnit = businessUnit;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocationBuilding() {
+        return locationBuilding;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationBuilding(String locationBuilding) {
+        this.locationBuilding = locationBuilding;
+    }
+
+    public String getLocationFloor() {
+        return locationFloor;
+    }
+
+    public void setLocationFloor(String locationFloor) {
+        this.locationFloor = locationFloor;
+    }
+
+    public String getLocationSeat() {
+        return locationSeat;
+    }
+
+    public void setLocationSeat(String locationSeat) {
+        this.locationSeat = locationSeat;
     }
 
     public String getEffectiveDate() {
@@ -334,6 +341,18 @@ public class Delivery {
 
     public void setReturnSignatureImage(String returnSignatureImage) {
         this.returnSignatureImage = returnSignatureImage;
+    }
+
+    public String getMachineType() {
+        return machineType;
+    }
+
+    public void setMachineType(String machineType) {
+        this.machineType = machineType;
+    }
+
+    public String getLocation() {
+        return String.format("%s-%s-%s", locationBuilding, locationFloor, locationSeat);
     }
 }
 

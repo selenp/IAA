@@ -9,10 +9,16 @@ import com.ruptech.equipment.respository.DictionaryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.MailParseException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,13 +31,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.criteria.Predicate;
 
 @Controller
@@ -103,7 +114,7 @@ public class DeliveryController {
     Delivery signature(@PathVariable Long id, @PathVariable String io, @RequestBody String data
     ) throws Exception {
         String imageName = String.format("delivery-%d-%s.png", id, io);
-        ImageUtils.saveImg(imageName, data, ofPath);
+        File toFile = ImageUtils.saveImg(imageName, data, ofPath);
 
         //save data to  signatureImage
         Delivery e = deliveryRepository.findById(id).get();
@@ -114,9 +125,37 @@ public class DeliveryController {
         }
         deliveryRepository.save(e);
 
+        // sendMail();
         return e;
     }
 
+//    public void sendMail() {
+//        SimpleMailMessage msg = new SimpleMailMessage();
+//
+//        msg.setTo("6055120@qq.com");
+//        msg.setSubject("テストメール");
+//        msg.setText("Spring Boot より本文送信");
+//
+//        this.sender.send(msg);
+//    }
+//    public void sendMimeMail(File image) {
+//        MimeMessage message = this.sender.createMimeMessage();
+//
+//        try{
+//            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+//
+//            helper.setTo("6055120@qq.com");
+//            helper.setSubject("テストメール");
+//            helper.setText("Spring Boot より本文送信");
+//
+//            FileSystemResource file = new FileSystemResource(image);
+//            helper.addAttachment(file.getFilename(), file);
+//
+//        }catch (MessagingException e) {
+//            throw new MailParseException(e);
+//        }
+//        sender.send(message);
+//    }
     @GetMapping(path = "/{id}")
     public @ResponseBody
     Optional<Delivery> get(@PathVariable Long id) {

@@ -84,6 +84,9 @@ export const getRouterData = app => {
     '/admins/list': {
       component: dynamicWrapper(app, ['admins'], () => import('../routes/Admins/List')),
     },
+    '/admin/:_id': {
+      component: dynamicWrapper(app, ['admin'], () => import('../routes/Admins/Admin')),
+    },
     '/delivery/main': {
       component: dynamicWrapper(app, [], () => import('../routes/Delivery/MainMenu')),
     },
@@ -102,7 +105,16 @@ export const getRouterData = app => {
     '/delivery/return-delivery': {
       component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Delivery/ReturnList')),
     },
-    '/delivery/return/confirm/:id': {
+    '/delivery/return': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return')),
+    },
+    '/delivery/return/info': {
+      component: dynamicWrapper(app, ['delivery', 'dictionary'], () => import('../routes/Delivery/flow/Return1')),
+    },
+    '/delivery/return/confirmData/:id': {
+      component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/ReturnData')),
+    },
+    '/delivery/return/confirm': {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return2')),
     },
     '/delivery/return/result': {
