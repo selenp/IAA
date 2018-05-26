@@ -12,15 +12,22 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        type: trace
   h2:
     console:
       path: /h2-console
       enabled: true
-mail:
-  password: tttalk0507)%)&
-  port: 587
-  host: smtp.qiye.163.com
-  username: no-reply04@accounts.tttalk.org
+  mail:
+    host: smtp.qiye.163.com
+    username: 'no-reply04@accounts.tttalk.org'
+    password: 'tttalk0507)%)&'
+    port: 587
+    properties:
+      mail:
+        smtp:
+            auth: true
+            starttls:
+                enable: true
 online:
   files:
     path: /usr/share/nginx/html/yida-lize-file/images/
@@ -29,3 +36,5 @@ admin:
   password:
     sha256:
       key: equipment
+system:
+  emails: 6055120@qq.com,oizhaolei@qq.com

@@ -1,9 +1,7 @@
 package com.ruptech.equipment.controller;
 
 import com.ruptech.equipment.entity.Dictionary;
-import com.ruptech.equipment.respository.DictionaryRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.criteria.Predicate;
 
@@ -33,10 +29,7 @@ import javax.persistence.criteria.Predicate;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/dictionary")
-public class DictionaryController {
-
-    @Autowired
-    private DictionaryRepository dictionaryRepository;
+public class DictionaryController extends AccountController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
@@ -49,26 +42,8 @@ public class DictionaryController {
      */
     @GetMapping(path = "/_all")
     public @ResponseBody
-    Map<String, Iterable<String>> dictionary() {
-        Iterable<Dictionary> projectNames = dictionaryRepository.findAll((root, query, cb) -> {
-            query.where(cb.equal(root.get("category").as(String.class), "projectName"));
-            return query.getRestriction();
-        });
-        Iterable<Dictionary> businessUnits = dictionaryRepository.findAll((root, query, cb) -> {
-            query.where(cb.equal(root.get("category").as(String.class), "businessUnit"));
-            return query.getRestriction();
-        });
-        Iterable<Dictionary> laptopModels = dictionaryRepository.findAll((root, query, cb) -> {
-            query.where(cb.equal(root.get("category").as(String.class), "laptopModel"));
-            return query.getRestriction();
-        });
-
-        Map<String, Iterable<String>> dic = new HashMap();
-        dic.put("projectNames", dataList(projectNames));
-        dic.put("businessUnits", dataList(businessUnits));
-        dic.put("laptopModels", dataList(laptopModels));
-
-        return dic;
+    Iterable<Dictionary> dictionary() {
+        return this.dictionaryRepository.findAll();
     }
 
     private Iterable<String> dataList(Iterable<Dictionary> list) {

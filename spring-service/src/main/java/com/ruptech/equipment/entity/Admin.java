@@ -1,10 +1,14 @@
 package com.ruptech.equipment.entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +17,7 @@ import javax.persistence.Table;
         @Index(name = "IDX_admin_name", columnList = "userid", unique = true),
 })
 public class Admin {
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -22,6 +27,14 @@ public class Admin {
     private String password;
     private String fullname;
     private String avatar;
+    private String roles; //"assert manager", "assert distributor"
+    private String createdDate;
+
+    @PrePersist
+    void preInsert() {
+        if (this.createdDate == null)
+            this.createdDate = sdf.format(new Date());
+    }
 
     public String getPassword() {
         return password;
@@ -71,7 +84,13 @@ public class Admin {
         this.avatar = avatar;
     }
 
+    public String getRoles() {
+        return roles;
+    }
 
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 }
 
 

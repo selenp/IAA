@@ -2,24 +2,42 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
-    name: '设备取还一览',
+    icon: 'dashboard',
+    name: 'Dashboard',
+    path: 'dashboard/workplace',
+  },
+  {
+    name: '任务',
+    icon: 'calendar',
+    path: 'tasks',
+  },
+  {
+    name: '普通用户设备取还',
     icon: 'solution',
-    path: '/deliveries/list',
+    path: 'deliveries/list',
   },
   {
-    name: 'IT用户设备取还',
+    name: 'IT设备取还',
     icon: 'calculator',
-    path: '/transfers/list',
+    path: 'transfers/list',
   },
   {
-    name: '数据字典',
-    icon: 'database',
-    path: '/dictionaries/list',
-  },
-  {
-    name: '用户管理',
-    icon: 'user',
-    path: '/admins/list',
+    name: '系统管理',
+    icon: 'calculator',
+    path: 'system',
+    children: [
+      {
+        name: '数据字典',
+        icon: 'database',
+        path: 'dictionaries/list',
+      },
+      {
+        name: '用户管理',
+        icon: 'user',
+        authority: 'admin',
+        path: 'admins',
+      },
+    ],
   },
   {
     name: '账户',

@@ -50,9 +50,6 @@ export async function submitDelivery(params) {
 export async function queryDeliveries(params) {
   return request(`${REMOTE_URL}/delivery/?${stringify(params)}`);
 }
-export async function downloadDeliveries(params) {
-  return request(`${REMOTE_URL}/delivery/xlsx?${stringify(params)}`);
-}
 export async function uploadDeliverySignature(id, io, image) {
   return request(`${REMOTE_URL}/delivery/${id}/${io}/signature`, {
     method: 'POST',
@@ -72,9 +69,6 @@ export async function submitTransfer(params) {
 }
 export async function queryTransfers(params) {
   return request(`${REMOTE_URL}/transfer-event/?${stringify(params)}`);
-}
-export async function downloadTransfers(params) {
-  return request(`${REMOTE_URL}/transfer-event/xlsx?${stringify(params)}`);
 }
 export async function fetchTransfer(id) {
   return request(`${REMOTE_URL}/transfer-event/${id}`);
@@ -99,31 +93,43 @@ export async function deleteAdmin(id) {
   });
 }
 export async function submitAdmin(params) {
-  return request(`${REMOTE_URL}/admin`, {
+  return request(`${REMOTE_URL}/admin/`, {
     method: 'POST',
     body: params,
   });
 }
 
-export async function downloadAdmins(params) {
-  return request(`${REMOTE_URL}/admin/xlsx?${stringify(params)}`);
-}
 
 export async function queryDictionaries(params) {
   return request(`${REMOTE_URL}/dictionary/?${stringify(params)}`);
 }
 
-export async function downloadDictionaries(params) {
-  return request(`${REMOTE_URL}/dictionary/xlsx?${stringify(params)}`);
-}
-
-export async function fetchDictionaryData() {
+export async function allDictionaries() {
   return request(`${REMOTE_URL}/dictionary/_all`);
 }
 
 export async function deleteDictionary(id) {
   return request(`${REMOTE_URL}/dictionary/${id}`, {
     method: 'DELETE',
+  });
+}
+
+//tasks
+export async function queryTasks(params) {
+  return request(`${REMOTE_URL}/task/?${stringify(params)}`);
+}
+export async function queryTask(id) {
+  return request(`${REMOTE_URL}/task/${id}`);
+}
+export async function deleteTask(id) {
+  return request(`${REMOTE_URL}/task/${id}`, {
+    method: 'DELETE',
+  });
+}
+export async function submitTask(params) {
+  return request(`${REMOTE_URL}/task/`, {
+    method: 'POST',
+    body: params,
   });
 }
 

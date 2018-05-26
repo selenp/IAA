@@ -20,6 +20,7 @@ public class Dictionary {
     private String category;
 
     private String data;
+    private String desc;
     private int rank = 0;
 
     public static Dictionary as(String category, String data) {
@@ -27,6 +28,14 @@ public class Dictionary {
         dictionary.setCategory(category);
         dictionary.setData(data);
         return dictionary;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getRank() {

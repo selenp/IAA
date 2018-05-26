@@ -8,7 +8,7 @@ import Result from 'components/Result';
 
 import styles from './style.less';
 
-import formImage from './Laptop-of-Accountability-Form.png';
+import formImageIT from './Laptop-of-Accountability-IT.png';
 
 class Step3 extends React.PureComponent {
 
@@ -20,41 +20,40 @@ class Step3 extends React.PureComponent {
 
   onFinish () {
     const { dispatch, data } = this.props;
+
     const image = this.signaturePad.toDataURL("image/png");
     dispatch({
-      type: 'delivery/uploadDeliverySignature',
+      type: 'transfer/uploadTransferSignature',
       id: data.id,
-      io: 'return',
+      io: 'borrow',
       payload: image,
     });
-  };
+  }
 
   redrawCanvas () {
     const { data } = this.props;
-    const ctx = this.signaturePad.canvas.getContext("2d");
+      const ctx = this.signaturePad.canvas.getContext("2d");
       ctx.drawImage(this.bgImage, 0, 0);
       ctx.font = "16px Courier";
-      ctx.fillText(data.eid, 210, 125);
-      ctx.fillText(data.fullname, 210, 150);
-      ctx.fillText(data.projectName, 210, 175);
-      ctx.fillText(data.businessUnit, 210, 200);
-      ctx.fillText(`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`, 210, 225);
-      ctx.fillText(moment(data.effectiveDate).format('YYYY-MM-DD HH:mm'), 210, 250);
+      ctx.fillText(data.ownerEid, 210, 130);
+      ctx.fillText(moment(data.effectiveDate).format('YYYY-MM-DD HH:mm'), 210, 150);
 
-      ctx.fillText(data.assetTag, 590, 125);
-      ctx.fillText(data.serialTag, 590, 175);
-      ctx.fillText(data.laptopModel, 590, 225);
+      ctx.fillText(data.eid, 590, 130);
 
-      ctx.fillText(data.acPowerAdapter?'Yes':'No', 390, 350);
-      ctx.fillText(data.securityCable?'Yes':'No', 390, 385);
-      ctx.fillText(data.bag?'Yes':'No', 390, 420);
-      ctx.fillText(data.mouse?'Yes':'No', 390, 455);
-      ctx.fillText(data.lanCable?'Yes':'No', 390, 480);
+      // assert tags
+      if (data.assetTags) {
+        const tags = data.assetTags.split(',');
+        for (const i in tags) {
+          const tag = tags[i];
+
+          ctx.fillText(tag, (i % 2 === 0 ? 110 : 480), 215 + parseInt(i/2, 10) * 35);
+        }
+      }
   }
-
 
   render() {
     const { submitting } = this.props;
+
     const actions = (
       <Fragment>
         <Button
@@ -72,10 +71,12 @@ class Step3 extends React.PureComponent {
     return (
       <Result
         type="success"
+        style={{width: '100%'}}
         description={(
           <div className={styles.sigWrapper}>
-            <img src={formImage}  ref={(ref) => this.bgImage = ref} />
+            <img src={formImageIT}  ref={(ref) => this.bgImage = ref} />
             <SignaturePad ref={(ref) => this.signaturePad = ref} />
+            <div className={styles.signatureCover} />
           </div>
         )}
         actions={actions}
@@ -84,6 +85,7 @@ class Step3 extends React.PureComponent {
   }
 }
 
-export default connect(({ delivery }) => ({
-  data: delivery.step,
+export default connect(({ transfer, loading }) => ({
+  data: transfer.step,
+  submitting: loading.effects['transfer/uploadTransferSignature'],
 }))(Step3);

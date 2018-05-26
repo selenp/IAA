@@ -109,7 +109,7 @@ class BasicLayout extends React.PureComponent {
       type: 'user/fetchCurrent',
     });
     this.props.dispatch({
-      type: 'dictionary/fetchDictionaryData',
+      type: 'dictionary/allDictionaries',
     });
   }
 

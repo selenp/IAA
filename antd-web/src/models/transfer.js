@@ -47,6 +47,7 @@ export default {
     initData(state, { payload }) {
       return {
         step: {
+          ...payload,
         },
       };
     },

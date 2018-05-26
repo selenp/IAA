@@ -3,22 +3,17 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
 import {
-  Row,
-  Col,
-  Form,
-  Input,
-  Icon,
-  Button,
   Badge,
+  Icon,
   Card,
+  Form,
   Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import SimpleSearchForm from './SimpleSearchForm';
 import { FILE_URL } from '../../utils/utils';
 
-import styles from './List.less';
-
-const FormItem = Form.Item;
+import styles from './ReturnList.less';
 
 const progressMap = {
   borrow:'processing',
@@ -34,7 +29,7 @@ const progress = {
   loading: loading.models.deliveries,
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+export default class ResturnList extends PureComponent {
   state = {
     eid: '',
     page: 0,
@@ -42,30 +37,12 @@ export default class TableList extends PureComponent {
   };
   componentDidMount() {
     const { dispatch } = this.props;
+    // init data
     dispatch({
-      type: 'deliveries/fetch',
+      type: 'deliveries/initData',
+      payload: [],
     });
   }
-
-  onChange = ({current, pageSize}) => {
-    const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'deliveries/fetch',
-      payload: this.state,
-    }));
-  };
-
-  handleXlsx = () => {
-    const { form, dispatch } = this.props;
-    form.resetFields();
-    dispatch({
-      type: 'deliveries/xlsx',
-      payload: {},
-    });
-  };
 
   handleSearch = e => {
     e.preventDefault();
@@ -78,55 +55,31 @@ export default class TableList extends PureComponent {
       this.setState({
         ...fieldsValue,
       }, () => dispatch({
-        type: 'deliveries/fetch',
+        type: 'deliveries/fetchList',
         payload: this.state,
       }));
     });
   };
 
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'deliveries/fetchList',
+      payload: this.state,
+    }));
+  };
+
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="EID">
-              {getFieldDecorator('eid', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入EID',
-                },
-              ],
-            })(<Input placeholder="请输入EID" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">
-                <Icon type="search" />
-   查询
-              </Button>
-              <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
-                <Icon type="download" />
-    xlsx下载
-              </Button>
-              <Link to="/delivery/borrow">
-                <Button style={{ marginLeft: 8 }}>
-                  <Icon type="plus" />
-    领取设备
-                </Button>
-              </Link>
-              <Link to="/delivery/borrow">
-                <Button style={{ marginLeft: 8 }}>
-                  <Icon type="plus" />
-    归还设备
-                </Button>
-              </Link>
-            </span>
-          </Col>
-        </Row>
-      </Form>
+      <SimpleSearchForm
+        styles={styles}
+        getFieldDecorator={getFieldDecorator}
+        handleSearch={this.handleSearch}
+      />
     );
   }
 
@@ -146,10 +99,10 @@ export default class TableList extends PureComponent {
         render: (val, row) => (
           row.signatureImage ? (
             <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
-              {moment(val).format('YYYY-MM-DD HH:mm')}
+              {val && moment(val).format('YYYY-MM-DD HH:mm')}
               <Icon type="export" />
             </a>
-          ) : <div>{moment(val).format('YYYY-MM-DD HH:mm')}</div>
+          ) : <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
         ),
       },
       {
@@ -164,7 +117,7 @@ export default class TableList extends PureComponent {
         },
       },
       {
-        title: 'eid/姓名',
+        title: 'EID/姓名',
         dataIndex: 'eid',
         render(val, row) {
           return <span>{row.eid} / {row.fullname}</span>;
@@ -182,17 +135,17 @@ export default class TableList extends PureComponent {
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
-            <Link to={`/delivery/return/confirm/${row.id}`}>
+            <Link to={`/delivery/return/confirmData/${row.id}`}>
               待归还
               <Icon type="desktop" />
             </Link>
           ) : (
             row.returnSignatureImage ? (
-              <a href={`${FILE_URL}!/images/${row.returnSignatureImage}`} target="_blank">
-                {moment(val).format('YYYY-MM-DD HH:mm')}
+              <a href={`${FILE_URL}/images/${row.returnSignatureImage}`} target="_blank">
+                {val && moment(val).format('YYYY-MM-DD HH:mm')}
                 <Icon type="export" />
               </a>
-            ) : <div>{moment(val).format('YYYY-MM-DD HH:mm')}</div>
+            ) : <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
           );
         },
       },
@@ -200,8 +153,8 @@ export default class TableList extends PureComponent {
 
     return (
       <PageHeaderLayout
-        title="设备取还"
-        content="设备取还的查询。"
+        title="设备归还"
+        content="操作不熟悉的用户，请在IT人员的指导下完成。"
       >
         <Card bordered={false}>
           <div className={styles.tableList}>

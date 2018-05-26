@@ -15,17 +15,17 @@ export default {
       const response = yield call(queryAdmin, id);
       yield put({
         type: 'admin',
-        payload: response.data,
+        payload: response,
       });
     },
     * submit({ payload }, { call, put }) {
       const response = yield call(submitAdmin, payload);
       yield put({
         type: 'admin',
-        payload: response.data,
+        payload: response,
       });
       message.success('提交成功');
-      yield put(routerRedux.push(`/admins`));
+      yield put(routerRedux.push(`/system/admins`));
     },
   },
 

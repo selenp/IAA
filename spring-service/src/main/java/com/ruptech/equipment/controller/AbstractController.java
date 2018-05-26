@@ -1,0 +1,87 @@
+package com.ruptech.equipment.controller;
+
+import com.ruptech.equipment.entity.Admin;
+import com.ruptech.equipment.entity.Dictionary;
+import com.ruptech.equipment.respository.AdminRepository;
+import com.ruptech.equipment.respository.DeliveryRepository;
+import com.ruptech.equipment.respository.DictionaryRepository;
+import com.ruptech.equipment.respository.TaskRepository;
+import com.ruptech.equipment.respository.TransferEventRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.criteria.Predicate;
+
+class AbstractController {
+    @Value("${admin.password.sha256.key}")
+    String keyString;
+    @Value("${online.files.path}")
+    String ofPath;
+    @Value("${online.files.url}")
+    String ofUrl;
+    @Value("${system.emails}")
+    String systemEmails;
+    @Value("${spring.mail.username}")
+    String fromEmail;
+
+    @Autowired
+    AdminRepository adminRepository;
+    @Autowired
+    DictionaryRepository dictionaryRepository;
+
+    @Autowired
+    DeliveryRepository deliveryRepository;
+
+    @Autowired
+    JavaMailSender sender;
+    @Autowired
+    TaskRepository taskRepository;
+    @Autowired
+    TransferEventRepository transferEventRepository;
+
+
+    Admin ensureAuthorization(JpaSpecificationExecutor<Admin> adminRepository, String authorization) {
+        String prefix = "Bearer ";
+        if (authorization.length() > prefix.length()) {
+            String token = authorization.substring(prefix.length());
+            Specification<Admin> spec = (Specification<Admin>) (root, query, cb) -> {
+                query.where(cb.equal(root.get("token").as(String.class), token));
+                return query.getRestriction();
+            };
+            Optional<Admin> optAccount = adminRepository.findOne(spec);
+            if (optAccount.isPresent()) {
+                return optAccount.get();
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "no auth");
+    }
+
+
+    void mergeDictionary(DictionaryRepository dictionaryRepository, String category, String data) {
+        Specification<Dictionary> spec = (Specification<Dictionary>) (root, query, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+            list.add(cb.equal(root.get("category").as(String.class), category));
+            list.add(cb.equal(root.get("data").as(String.class), data));
+
+            Predicate[] p2 = new Predicate[list.size()];
+            query.where(cb.and(list.toArray(p2)));
+            return query.getRestriction();
+        };
+        Optional<Dictionary> optDic = dictionaryRepository.findOne(spec);
+        if (optDic.isPresent()) {
+            dictionaryRepository.save(optDic.get().rankUp());
+        } else {
+            dictionaryRepository.save(Dictionary.as(category, data));
+        }
+    }
+}

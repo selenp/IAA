@@ -5,6 +5,8 @@ import {
   Divider,
 } from 'antd';
 import { routerRedux } from 'dva/router';
+import { groupBy, map } from 'lodash';
+
 import styles from './style.less';
 import InfoForm from './InfoForm';
 
@@ -21,20 +23,20 @@ const formItemLayout = {
 class Step1 extends React.PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'transfer/initData',
+      type: 'delivery/initData',
     });
   }
   render() {
-    const { form, dispatch, currentUser } = this.props;
+    const { form, dispatch, businessUnits, projectNames } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'transfer/saveData',
+            type: 'delivery/saveData',
             payload: values,
           });
-          dispatch(routerRedux.push('/transfer/borrow/confirm'));
+          dispatch(routerRedux.push('/delivery/borrow/confirm'));
         }
       });
     };
@@ -46,7 +48,8 @@ class Step1 extends React.PureComponent {
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
           formItemLayout={formItemLayout}
-          currentUser={currentUser}
+          businessUnits={businessUnits}
+          projectNames={projectNames}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
@@ -61,6 +64,7 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+export default connect(({ dictionary }) => ({
+  businessUnits: map(groupBy(dictionary.data, 'category').businessUnit, v =>v.data),
+  projectNames: map(groupBy(dictionary.data, 'category').projectName, v =>v.data),
 }))(Step1);

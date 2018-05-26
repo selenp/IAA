@@ -1,11 +1,8 @@
 package com.ruptech.equipment.controller;
 
-import com.ruptech.equipment.EncrypeUtils;
+import com.ruptech.equipment.EncryptUtils;
 import com.ruptech.equipment.entity.Admin;
-import com.ruptech.equipment.respository.AdminRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -37,12 +34,7 @@ import javax.persistence.criteria.Predicate;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/admin")
-public class AdminController {
-    @Autowired
-    private AdminRepository adminRepository;
-
-    @Value("${admin.password.sha256.key}")
-    private String keyString;
+public class AdminController extends AbstractController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
@@ -64,12 +56,17 @@ public class AdminController {
     Admin post(@RequestBody Admin d) {
         if (!StringUtils.isEmpty(d.getPassword())) {
             try {
-                d.setPassword(EncrypeUtils.sha256(d.getPassword(), keyString));
+                d.setPassword(EncryptUtils.sha256(d.getPassword(), keyString));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         adminRepository.save(d);
+
+        String[] roles = d.getRoles().split(",");
+        for (String role : roles) {
+            mergeDictionary(dictionaryRepository, "role", role);
+        }
         return d;
     }
 

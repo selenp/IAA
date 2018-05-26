@@ -7,12 +7,14 @@ import {
   Radio,
   Switch,
 } from 'antd';
+
 const RadioGroup = Radio.Group;
 
 const ConfirmForm = ({
   styles,
   data,
   getFieldDecorator,
+  getFieldValue,
   onValidateForm,
   formItemLayout,
   onPrev,
@@ -41,19 +43,6 @@ const ConfirmForm = ({
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
-    <Form.Item {...formItemLayout} label="机型">
-      {getFieldDecorator('machineType', {
-              rules: [
-                {
-                  required: true,
-                  message: '请选择台式机或者笔记本',
-                },
-              ],
-      })(<RadioGroup >
-        <Radio value="laptop">台式机</Radio>
-        <Radio value="notebook">笔记本</Radio>
-      </RadioGroup>)}
-    </Form.Item>
     <Form.Item {...formItemLayout} label="资产编号">
       {getFieldDecorator('assetTag', {
               rules: [
@@ -74,41 +63,87 @@ const ConfirmForm = ({
               ],
             })(<Input placeholder="请输入序列号" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="笔记本型号">
-      {getFieldDecorator('laptopModel', {
+    <Form.Item {...formItemLayout} label="机型">
+      {getFieldDecorator('machineType', {
               rules: [
                 {
                   required: true,
-                  message: '请输入笔记本型号',
+                  message: '请选择台式机或者笔记本',
                 },
               ],
-            })(<Input placeholder="请输入笔记本型号" />)}
+      })(<RadioGroup >
+        <Radio value="laptop">台式机</Radio>
+        <Radio value="notebook">笔记本</Radio>
+      </RadioGroup>)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="电源适配器&电源线" >
-      {getFieldDecorator('acPowerAdapter')(
-        <Switch />
-          )}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label="电脑锁" >
-      {getFieldDecorator('securityCable')(
-        <Switch />
+    {
+      getFieldValue('machineType') === 'notebook' &&
+        (
+        <Form.Item
+          {...formItemLayout}
+          label="笔记本型号"
+        >
+          {getFieldDecorator('laptopModel', {
+          rules: [
+            {
+              required: true,
+              message: '请输入笔记本型号',
+            },
+          ],
+        })(<Input
+          placeholder="请输入笔记本型号"
+        />)}
+        </Form.Item>
+)
+    }
+    {
+      getFieldValue('machineType') === 'notebook' &&
+      (
+      <Form.Item
+        {...formItemLayout}
+        label="电源适配器&电源线"
+      >
+        {getFieldDecorator('acPowerAdapter')(
+          <Switch />
+    )}
+      </Form.Item>
+)
+    }
+    {
+      getFieldValue('machineType') === 'laptop' &&
+      (
+      <Form.Item {...formItemLayout} label="电脑锁" >
+        {getFieldDecorator('securityCable')(
+          <Switch />
         )}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label="电脑包" >
-      {getFieldDecorator('bag')(
-        <Switch />
+      </Form.Item>
+)
+    }
+    {
+      getFieldValue('machineType') === 'notebook' &&
+      (
+      <Form.Item {...formItemLayout} label="电脑包" >
+        {getFieldDecorator('bag')(
+          <Switch />
         )}
-    </Form.Item>
+      </Form.Item>
+)
+  }
     <Form.Item {...formItemLayout} label="鼠标" >
       {getFieldDecorator('mouse')(
         <Switch />
         )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="网线" >
-      {getFieldDecorator('lanCable')(
-        <Switch />
+    {
+      getFieldValue('machineType') === 'laptop' &&
+      (
+      <Form.Item {...formItemLayout} label="网线" >
+        {getFieldDecorator('lanCable')(
+          <Switch />
         )}
-    </Form.Item>
+      </Form.Item>
+)
+    }
     <Divider style={{ margin: '24px 0' }} />
     <Form.Item
       style={{ marginBottom: 8 }}

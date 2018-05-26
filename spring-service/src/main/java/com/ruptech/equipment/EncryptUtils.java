@@ -8,7 +8,7 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-public class EncrypeUtils {
+public class EncryptUtils {
 
     public static String sha256(String s, String keyString)
             throws UnsupportedEncodingException, NoSuchAlgorithmException,

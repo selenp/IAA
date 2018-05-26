@@ -24,7 +24,7 @@ class Step3 extends React.PureComponent {
     dispatch({
       type: 'delivery/uploadDeliverySignature',
       id: data.id,
-      io: 'borrow',
+      io: 'return',
       payload: image,
     });
   };
@@ -39,7 +39,7 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.projectName, 210, 175);
       ctx.fillText(data.businessUnit, 210, 200);
       ctx.fillText(`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`, 210, 225);
-      ctx.fillText(moment(data.effectiveDate).format('YYYY-MM-DD HH:mm'), 210, 250);
+      ctx.fillText(moment(data.returnDate).format('YYYY-MM-DD HH:mm'), 210, 250);
 
       ctx.fillText(data.assetTag, 590, 125);
       ctx.fillText(data.serialTag, 590, 175);
@@ -72,10 +72,12 @@ class Step3 extends React.PureComponent {
     return (
       <Result
         type="success"
+        style={{width: '100%'}}
         description={(
           <div className={styles.sigWrapper}>
-            <img src={formImage} ref={(ref) => this.bgImage = ref} />
+            <img src={formImage}  ref={(ref) => this.bgImage = ref} />
             <SignaturePad ref={(ref) => this.signaturePad = ref} />
+            <div className={styles.signatureCover} />
           </div>
         )}
         actions={actions}

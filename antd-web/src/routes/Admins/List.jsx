@@ -32,7 +32,7 @@ export default class TableList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'admins/fetch',
+      type: 'admins/fetchList',
     });
   }
 
@@ -42,18 +42,9 @@ export default class TableList extends PureComponent {
       page: current - 1,
       size: pageSize,
     }, () => dispatch({
-      type: 'admins/fetch',
+      type: 'admins/fetchList',
       payload: this.state,
     }));
-  };
-
-  handleXlsx = () => {
-    const { form, dispatch } = this.props;
-    form.resetFields();
-    dispatch({
-      type: 'admins/xlsx',
-      payload: {},
-    });
   };
 
   handleSearch = e => {
@@ -67,7 +58,7 @@ export default class TableList extends PureComponent {
       this.setState({
         ...fieldsValue,
       }, () => dispatch({
-        type: 'admins/fetch',
+        type: 'admins/fetchList',
         payload: this.state,
       }));
     });
@@ -83,7 +74,6 @@ export default class TableList extends PureComponent {
               {getFieldDecorator('userid', {
                 rules: [
                   {
-                    required: true,
                     message: '请输入EID',
                   },
                 ],
@@ -96,11 +86,7 @@ export default class TableList extends PureComponent {
                 <Icon type="search" />
         查询
               </Button>
-              <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
-                <Icon type="download" />
-        xlsx下载
-              </Button>
-              <Link to="/admin/new">
+              <Link to="/system/admin/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
         新增
@@ -124,17 +110,13 @@ export default class TableList extends PureComponent {
 
     const columns = [
       {
-        title: 'eid',
+        title: 'EID',
         dataIndex: 'userid',
         render: (val, row) => (
-          <Link to={`/user/${row.id}`}>
+          <Link to={`/system/admin/${row.id}`}>
             {val}
           </Link>
         ),
-      },
-      {
-        title: '姓名',
-        dataIndex: 'fullname',
       },
       {
         title: '头像',
@@ -144,8 +126,15 @@ export default class TableList extends PureComponent {
         },
       },
       {
-        title: 'Current Token',
-        dataIndex: 'token',
+        title: '姓名',
+        dataIndex: 'fullname',
+      },
+      {
+        title: '角色',
+        dataIndex: 'roles',
+        render(val) {
+          return val.split(',').map(v => (<div key={v}>{v}</div>));
+        },
       },
     ];
 

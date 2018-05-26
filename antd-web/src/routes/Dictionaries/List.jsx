@@ -31,18 +31,9 @@ export default class TableList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'dictionaries/fetch',
+      type: 'dictionaries/fetchList',
     });
   }
-
-  handleXlsx = () => {
-    const { form, dispatch } = this.props;
-    form.resetFields();
-    dispatch({
-      type: 'dictionaries/xlsx',
-      payload: {},
-    });
-  };
 
   handleSearch = e => {
     e.preventDefault();
@@ -55,7 +46,7 @@ export default class TableList extends PureComponent {
       this.setState({
         ...fieldsValue,
       }, () => dispatch({
-        type: 'dictionaries/fetch',
+        type: 'dictionaries/fetchList',
         payload: this.state,
       }));
     });
@@ -67,7 +58,7 @@ export default class TableList extends PureComponent {
       page: current - 1,
       size: pageSize,
     }, () => dispatch({
-      type: 'dictionaries/fetch',
+      type: 'dictionaries/fetchList',
       payload: this.state,
     }));
   };
@@ -82,7 +73,6 @@ export default class TableList extends PureComponent {
               {getFieldDecorator('category', {
               rules: [
                 {
-                  required: true,
                   message: '请输入类别',
                 },
               ],
@@ -94,10 +84,6 @@ export default class TableList extends PureComponent {
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
    查询
-              </Button>
-              <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
-                <Icon type="download" />
-    xlsx下载
               </Button>
             </span>
           </Col>
@@ -125,7 +111,7 @@ export default class TableList extends PureComponent {
         dataIndex: 'data',
         render: (val, row) => {
           return (
-            <Link to={`/dictionaries/${row.id}`}>
+            <Link to={`/system/dictionaries/${row.id}`}>
               {val}
             </Link>
           );

@@ -15,7 +15,6 @@ const SimpleSearchForm = ({
   styles,
   getFieldDecorator,
   handleSearch,
-  handleXlsx,
 }) => (
   <Form onSubmit={handleSearch} layout="inline">
     <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -37,20 +36,12 @@ const SimpleSearchForm = ({
             <Icon type="search" />
     查询
           </Button>
-          {
-      handleXlsx && (
-      <Button type="dashed" style={{ marginLeft: 8 }} onClick={handleXlsx}>
-        <Icon type="download" />
-          xlsx下载
-      </Button>
-      )
-    }
-    <Link to="/delivery/return">
-    <Button style={{ marginLeft: 8 }}>
-    <Icon type="plus" />
+          <Link to="/delivery/return">
+            <Button style={{ marginLeft: 8 }}>
+              <Icon type="plus" />
     设备归还
-  </Button>
-    </Link>
+            </Button>
+          </Link>
         </span>
       </Col>
     </Row>

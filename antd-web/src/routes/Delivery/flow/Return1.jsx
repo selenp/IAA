@@ -5,6 +5,8 @@ import {
   Divider,
 } from 'antd';
 import { routerRedux } from 'dva/router';
+import { groupBy, map } from 'lodash';
+
 import styles from './style.less';
 import InfoForm from './InfoForm';
 
@@ -63,6 +65,6 @@ class Step1 extends React.PureComponent {
 }
 
 export default connect(({ dictionary }) => ({
-  businessUnits: dictionary.businessUnits,
-  projectNames: dictionary.projectNames,
+  businessUnits: map(groupBy(dictionary.data, 'category').businessUnit, v =>v.data),
+  projectNames: map(groupBy(dictionary.data, 'category').projectName, v =>v.data),
 }))(Step1);

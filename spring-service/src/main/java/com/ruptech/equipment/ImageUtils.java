@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 public class ImageUtils {
-    public static File saveImg(String imageName, String data, String ofPath) throws IOException {
+    public static File saveImage(String imageName, String data, String ofPath) throws IOException {
         String partSeparator = ",";
         String encodedImg = data.replaceAll("\"", "").trim().split(partSeparator)[1];
 

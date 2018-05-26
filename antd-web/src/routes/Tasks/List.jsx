@@ -1,73 +1,63 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import moment from 'moment';
 import {
   Row,
   Col,
+  List,
   Form,
   Input,
   Icon,
   Button,
-  Badge,
   Card,
-  Table,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
+import TaskItem from '../../components/TaskItem.jsx';
 
 const FormItem = Form.Item;
 
-const progressMap = {
-  borrow:'processing',
-  return: 'success',
-};
-const progress = {
-  borrow:'已领取',
-  return: '已归还',
-};
-
-@connect(({ transfers, loading }) => ({
-  transfers,
-  loading: loading.models.transfers,
+@connect(({ tasks, loading }) => ({
+  tasks,
+  loading: loading.models.tasks,
 }))
 @Form.create()
 export default class TableList extends PureComponent {
   state = {
-    eid: '',
     page: 0,
     size: 10,
   };
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'transfers/fetch',
+      type: 'tasks/fetchList',
+      payload: this.state,
     });
   }
 
-  onChange = ({current, pageSize}) => {
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'tasks/initData',
+    });
+  }
+
+  fetchMore = () => {
     const { dispatch } = this.props;
     this.setState({
-      page: current - 1,
-      size: pageSize,
+      page: this.state.page + 1,
     }, () => dispatch({
-      type: 'transfers/fetch',
+      type: 'tasks/fetchList',
       payload: this.state,
     }));
   };
 
-  handleXlsx = () => {
-    const { form, dispatch } = this.props;
-    form.resetFields();
-    dispatch({
-      type: 'transfers/xlsx',
-      payload: {},
-    });
+  handleXlsx = (e) => {
+    this.handleSearch(e, {xlsx: true});
   };
 
-  handleSearch = e => {
+  handleSearch (e, { xlsx }) {
     e.preventDefault();
 
     const { dispatch, form } = this.props;
@@ -75,26 +65,44 @@ export default class TableList extends PureComponent {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
 
+      dispatch({
+        type: 'tasks/initData',
+      });
+
       this.setState({
         ...fieldsValue,
+        xlsx,
       }, () => dispatch({
-        type: 'transfers/fetch',
+        type: xlsx ? 'tasks/xlsx' : 'tasks/fetchList',
         payload: this.state,
       }));
     });
   };
 
+  changeProgress(item, progress) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/submit',
+      payload: {
+        ...item,
+        progress,
+      },
+    });
+
+    item.progress = progress;
+    this.forceUpdate();
+  }
+
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
+      <Form onSubmit={e => this.handleSearch(e, {xlsx: false})} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="EID">
               {getFieldDecorator('eid', {
               rules: [
                 {
-                  required: true,
                   message: '请输入EID',
                 },
               ],
@@ -109,12 +117,12 @@ export default class TableList extends PureComponent {
               </Button>
               <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
                 <Icon type="download" />
-    xlsx下载
+    下载
               </Button>
-              <Link to="/transfer/borrow">
+              <Link to="/task/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-    IT设备取还
+    任务
                 </Button>
               </Link>
             </span>
@@ -123,68 +131,42 @@ export default class TableList extends PureComponent {
       </Form>
     );
   }
-
   render() {
-    const { transfers: { data: { list, pagination } }, loading } = this.props;
+    const { tasks: { data: { list, pagination } }, loading } = this.props;
 
-    const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      ...pagination,
-    };
-
-    const columns = [
-      {
-        title: '时间',
-        dataIndex: 'effectiveDate',
-        render: (val, row) => (
-          row.signatureImage ? (
-            <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
-              {moment(val).format('YYYY-MM-DD HH:mm')}
-              <Icon type="export" />
-            </a>
-          ) : <div>{moment(val).format('YYYY-MM-DD HH:mm')}</div>
-        ),
-      },
-      {
-        title: '自EID',
-        dataIndex: 'ownerEid',
-      },
-      {
-        title: '至EID',
-        dataIndex: 'eid',
-      },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
-        },
-      },
-      {
-        title: '设备编号',
-        dataIndex: 'assetTags',
-        render: (val) => val.split(',').map(v => (
-          <div key={v}>{v}</div>
-          )),
-      },
-    ];
+    const loadMore =
+      pagination.total > list.length ? (
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <Button onClick={this.fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
+            {loading ? (
+              <span>
+                <Icon type="loading" /> 加载中...
+              </span>
+            ) : (
+              '加载更多'
+            )}
+          </Button>
+        </div>
+      ) : null;
 
     return (
       <PageHeaderLayout
-        title="设备取还"
-        content="IT设备取还流程。"
+        title="任务"
+        content="任务流程。"
       >
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>
-            <Table
-              loading={loading}
-              dataSource={list}
-              pagination={paginationProps}
+            <List
+              size="large"
+              loading={list.length === 0 ? loading : false}
               rowKey="id"
-              onChange={this.onChange}
-              columns={columns}
+              itemLayout="vertical"
+              loadMore={loadMore}
+              dataSource={list}
+              renderItem={item => (
+                <TaskItem item={item} changeProgress={(task, progress) => this.changeProgress(task, progress)} />
+            )}
             />
           </div>
         </Card>

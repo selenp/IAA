@@ -4,44 +4,35 @@ import { routerRedux } from 'dva/router';
 import {
   Button,
   Card,
+  DatePicker,
   Form,
   Input,
   Select,
 } from 'antd';
+import moment from 'moment';
 import { groupBy, map } from 'lodash';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
 
-import styles from './Admin.less';
+import styles from './Task.less';
 
 const { Option } = Select;
-
 const FormItem = Form.Item;
+const { TextArea } = Input;
 
 const { Description } = DescriptionList;
 
-const avatars = [
-  'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/psOgztMplJMGpVEqfcgF.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ZpBqSxLxVEXfcUNoPKrz.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/laiEnJdGHVOhJrUShBaJ.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/UrQsqscbKEpNuJcvBZBu.png',
-];
-
-@connect(({ admin, loading, dictionary }) => ({
-  admin,
-  loading: loading.effects['admin/fetch'],
-  submitting: loading.effects['admin/submit'],
+@connect(({ task, user, loading, dictionary }) => ({
+  currentUser: user.currentUser,
+  task,
+  loading: loading.effects['task/fetch'],
+  submitting: loading.effects['task/submit'],
   roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
+  task_categories: map(groupBy(dictionary.data, 'category').task_category, v => v.data),
 }))
 @Form.create()
-export default class Admin extends PureComponent {
+export default class Task extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -49,8 +40,6 @@ export default class Admin extends PureComponent {
       this.state = {
         editing: true,
         data: {
-          userid: "",
-          fullname: '',
         },
       };
     } else {
@@ -64,7 +53,7 @@ export default class Admin extends PureComponent {
   componentDidMount() {
     if (this.props.match.params.id !== 'new') {
       this.props.dispatch({
-        type: 'admin/fetch',
+        type: 'task/fetch',
         id: this.props.match.params.id,
       });
     }
@@ -72,50 +61,41 @@ export default class Admin extends PureComponent {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    const { form, dispatch, currentUser } = this.props;
+    form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.props.dispatch({
-          type: 'admin/submit',
+        dispatch({
+          type: 'task/submit',
           payload: {
             ...values,
-            roles: values.roles.join(','),
-            avatar: avatars[Math.floor(Math.random()*avatars.length)],
+            eid: currentUser.userid,
+            progress: 'reserved',
             id: this.props.match.params.id === 'new' ? null : this.props.match.params.id,
           },
+          redirect: `/tasks`,
         });
       }
     });
   }
 
   renderView() {
-    const { admin: { data } } = this.props;
+    const { task: { data } } = this.props;
 
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term="姓名">{data.fullname}</Description>
-          <Description term="eid">{data.userid}</Description>
-          <Description term="角色">{data.roles}</Description>
+          <Description term="主题">{data.category}</Description>
+          <Description term="状态">{data.progress}</Description>
+          <Description term="截止日期">{moment(data.dueDate).format('YYYY-MM-DD HH:mm')}</Description>
         </DescriptionList>
+        {data.content}
       </Card>
     );
   }
 
   renderEdit() {
-    const { submitting, roles} = this.props;
+    const { submitting, roles, task_categories } = this.props;
     const { getFieldDecorator } = this.props.form;
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 12 },
-        md: { span: 10 },
-      },
-    };
 
     const submitFormLayout = {
       wrapperCol: {
@@ -123,7 +103,6 @@ export default class Admin extends PureComponent {
         sm: { span: 10, offset: 7 },
       },
     };
-
     return (
       <Card bordered={false}>
         <Form
@@ -131,61 +110,73 @@ export default class Admin extends PureComponent {
           style={{ marginTop: 8 }}
         >
           <FormItem
-            {...formItemLayout}
-            label={<span>姓名</span>}
+            label={<span>截止日期</span>}
           >
-            {getFieldDecorator('fullname', {
-          initialValue: this.state.data.fullname,
+            {getFieldDecorator('dueDate', {
+              initialValue: moment(this.state.data.dueDate),
           rules: [{
             required: true,
-            message: '请输入姓名',
+            message: '请输入截止日期',
           }],
-            })(
-              <Input placeholder="请输入姓名" />
+              })(
+                <DatePicker
+                  showTime
+                  format="YYYY-MM-DD HH:mm"
+                  placeholder="请输入截止日期"
+                />
         )}
           </FormItem>
           <FormItem
-            {...formItemLayout}
-            label={<span>EID</span>}
+            label={<span>主题</span>}
           >
-            {getFieldDecorator('userid', {
-          initialValue: this.state.data.userid,
-          rules: [{
-            required: true,
-            message: '请输入EID',
+            {getFieldDecorator('category', {
+              initialValue: this.state.data.category,
+              rules: [{
+                required: true,
+                message: '请输入或选择主题',
           }],
         })(
-          <Input placeholder="请输入EID" />
+          <Select
+            mode="combobox"
+            style={{ width: '100%' }}
+            placeholder="请输入或选择主题"
+          >
+            {
+                  task_categories.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+          </Select>
         )}
           </FormItem>
           <FormItem
-            {...formItemLayout}
-            label={<span>密码</span>}
+            label={<span>内容</span>}
           >
-            {getFieldDecorator('password', {
-          initialValue: this.state.data.password,
-          rules: [{
-            required: true,
-            message: '请输入密码',
+            {getFieldDecorator('content', {
+              initialValue: this.state.data.content,
+              rules: [{
+                required: true,
+                message: '请输入内容',
           }],
-            })(
-              <Input placeholder="请输入密码" type="password" />
+        })(
+          <TextArea rows={20}  placeholder="请输入内容" />
         )}
           </FormItem>
-          <Form.Item {...formItemLayout} label="角色">
-            {getFieldDecorator('roles', {
-              initialValue: this.state.data.roles ? this.state.data.roles.split(',') : null,
+          <Form.Item
+            label="指派给角色"
+          >
+            {getFieldDecorator('assignToRole', {
+          initialValue: this.state.data.assignToRole,
               rules: [
                 {
                   required: true,
-                  message: '请输入角色',
+                  message: '请选择角色',
                 },
               ],
             })(
               <Select
-                mode="tags"
                 style={{ width: '100%' }}
-                placeholder="请输入或选择角色"
+                placeholder="请选择角色"
               >
                 {
                   roles.map(d => (
@@ -210,7 +201,7 @@ export default class Admin extends PureComponent {
             {
         (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
-            onClick={e => this.props.dispatch(routerRedux.push('/system/admins'))}
+            onClick={e => this.props.dispatch(routerRedux.push('/tasks'))}
           >返回
           </Button>
         )
@@ -230,7 +221,7 @@ export default class Admin extends PureComponent {
               type="primary"
               onClick={e => this.setState({
                 editing: true,
-                data: this.props.admin.data,
+                data: this.props.task.data,
               })}
             >修改
             </Button>
@@ -240,7 +231,7 @@ export default class Admin extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title="模块详细页面"
+        title="详细页面"
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

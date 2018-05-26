@@ -1,4 +1,4 @@
-import { downloadAdmins, queryAdmins } from '../services/api';
+import { queryAdmins } from '../services/api';
 import { message } from 'antd';
 import { FILE_URL } from '../utils/utils';
 
@@ -13,7 +13,7 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    *fetchList({ payload }, { call, put }) {
       const response = yield call(queryAdmins, payload);
       yield put({
         type: 'save',
@@ -21,7 +21,7 @@ export default {
       });
     },
     *xlsx({ payload }, { call }) {
-      const response = yield call(downloadAdmins, payload);
+      const response = yield call(queryAdmins, payload);
       message.success('文件下载中。。。');
 
       document.location = `${FILE_URL}/images/${response.fileName}`;

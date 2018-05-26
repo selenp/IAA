@@ -23,7 +23,7 @@ const formItemLayout = {
 class Step2 extends React.PureComponent {
   render() {
     const { form, data, dispatch, submitting } = this.props;
-    const { getFieldDecorator, validateFields } = form;
+    const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onPrev = () => {
       dispatch(routerRedux.push('/delivery/borrow/info'));
     };
@@ -51,6 +51,7 @@ class Step2 extends React.PureComponent {
           data={data}
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
+          getFieldValue={getFieldValue}
           formItemLayout={formItemLayout}
           onPrev={onPrev}
           submitting={submitting}

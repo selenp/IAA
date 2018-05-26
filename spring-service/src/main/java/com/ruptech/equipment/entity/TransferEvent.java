@@ -22,6 +22,7 @@ public class TransferEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String status; //borrow, return
     //	姓名(EID)
     private String eid;
@@ -37,6 +38,7 @@ public class TransferEvent {
     private String remarks;
     //	操作者姓名(EID)
     private String ownerEid;
+    private Integer taskId;
 
     public String getOwnerEid() {
         return ownerEid;
@@ -106,6 +108,29 @@ public class TransferEvent {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    @Override
+    public String toString() {
+        return "TransferEvent{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", eid='" + eid + '\'' +
+                ", effectiveDate='" + effectiveDate + '\'' +
+                ", assetTags='" + assetTags + '\'' +
+                ", signatureImage='" + signatureImage + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", ownerEid='" + ownerEid + '\'' +
+                ", taskId=" + taskId +
+                '}';
     }
 }
 

@@ -1,11 +1,8 @@
 package com.ruptech.equipment.controller;
 
-import com.ruptech.equipment.EncrypeUtils;
+import com.ruptech.equipment.EncryptUtils;
 import com.ruptech.equipment.entity.Admin;
-import com.ruptech.equipment.respository.AdminRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,12 +28,7 @@ import java.util.Optional;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/account")
-public class AccountController {
-    @Autowired
-    private AdminRepository adminRepository;
-
-    @Value("${admin.password.sha256.key}")
-    private String keyString;
+public class AccountController extends AbstractController {
 
     /**
      * Login
@@ -54,10 +46,10 @@ public class AccountController {
         Optional<Admin> optAccount = adminRepository.findOne(spec);
 
         Map<String, String> map = new HashMap();
-        String hash = EncrypeUtils.sha256(password, keyString);
+        String hash = EncryptUtils.sha256(password, keyString);
         Admin account = optAccount.get();
         if (account.getPassword().equals(hash)) {
-            String token = EncrypeUtils.sha256(account.getUserid() + System.currentTimeMillis(), keyString);
+            String token = EncryptUtils.sha256(account.getUserid() + System.currentTimeMillis(), keyString);
             account.setToken(token);
             adminRepository.save(account);
 
@@ -76,18 +68,7 @@ public class AccountController {
     @GetMapping(path = "/currentUser")
     public @ResponseBody
     Admin currentUser(@RequestHeader("Authorization") String authorization) {
-        String prefix = "Bearer ";
-        if (authorization.length() > prefix.length()) {
-            String token = authorization.substring(prefix.length());
-            Specification<Admin> spec = (Specification<Admin>) (root, query, cb) -> {
-                query.where(cb.equal(root.get("token").as(String.class), token));
-                return query.getRestriction();
-            };
-            Optional<Admin> optAccount = adminRepository.findOne(spec);
-            if (optAccount.isPresent()) {
-                return optAccount.get();
-            }
-        }
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "no auth");
+        return ensureAuthorization(adminRepository, authorization);
     }
+
 }

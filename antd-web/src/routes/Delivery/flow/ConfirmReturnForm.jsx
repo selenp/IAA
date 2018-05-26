@@ -7,6 +7,7 @@ import {
   Radio,
   Switch,
 } from 'antd';
+
 const RadioGroup = Radio.Group;
 
 const ConfirmForm = ({
@@ -41,10 +42,13 @@ const ConfirmForm = ({
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
-    {data.machineType ? <Form.Item {...formItemLayout} label="机型">
-      {data.machineType}
-    </Form.Item> : <Form.Item {...formItemLayout} label="机型">
-      {getFieldDecorator('machineType', {
+    {data.machineType ? (
+      <Form.Item {...formItemLayout} label="机型">
+        {data.machineType}
+      </Form.Item>
+) : (
+  <Form.Item {...formItemLayout} label="机型">
+    {getFieldDecorator('machineType', {
               rules: [
                 {
                   required: true,
@@ -54,12 +58,16 @@ const ConfirmForm = ({
       })(<RadioGroup >
         <Radio value="laptop">台式机</Radio>
         <Radio value="notebook">笔记本</Radio>
-      </RadioGroup>)}
-    </Form.Item>}
-    {data.assetTag ? <Form.Item {...formItemLayout} label="资产编号">
-      {data.assetTag}
-    </Form.Item> : <Form.Item {...formItemLayout} label="资产编号">
-      {getFieldDecorator('assetTag', {
+         </RadioGroup>)}
+  </Form.Item>
+)}
+    {data.assetTag ? (
+      <Form.Item {...formItemLayout} label="资产编号">
+        {data.assetTag}
+      </Form.Item>
+) : (
+  <Form.Item {...formItemLayout} label="资产编号">
+    {getFieldDecorator('assetTag', {
               rules: [
                 {
                   required: true,
@@ -67,11 +75,15 @@ const ConfirmForm = ({
                 },
               ],
             })(<Input placeholder="请输入资产编号" />)}
-    </Form.Item>}
-    {data.serialTag ? <Form.Item {...formItemLayout} label="序列号">
-      {data.serialTag}
-     </Form.Item> : <Form.Item {...formItemLayout} label="序列号">
-      {getFieldDecorator('serialTag', {
+  </Form.Item>
+)}
+    {data.serialTag ? (
+      <Form.Item {...formItemLayout} label="序列号">
+        {data.serialTag}
+      </Form.Item>
+) : (
+  <Form.Item {...formItemLayout} label="序列号">
+    {getFieldDecorator('serialTag', {
               rules: [
                 {
                   required: true,
@@ -79,11 +91,15 @@ const ConfirmForm = ({
                 },
               ],
             })(<Input placeholder="请输入序列号" />)}
-    </Form.Item>}
-    {data.laptopModel ? <Form.Item {...formItemLayout} label="笔记本型号">
-      {data.laptopModel}
-     </Form.Item> : <Form.Item {...formItemLayout} label="笔记本型号">
-      {getFieldDecorator('laptopModel', {
+  </Form.Item>
+)}
+    {data.laptopModel ? (
+      <Form.Item {...formItemLayout} label="笔记本型号">
+        {data.laptopModel}
+      </Form.Item>
+) : (
+  <Form.Item {...formItemLayout} label="笔记本型号">
+    {getFieldDecorator('laptopModel', {
               rules: [
                 {
                   required: true,
@@ -91,22 +107,33 @@ const ConfirmForm = ({
                 },
               ],
             })(<Input placeholder="请输入笔记本型号" />)}
-    </Form.Item>}
-    {data.assetTag && <Form.Item {...formItemLayout} label="电源适配器&电源线" >
+  </Form.Item>
+)}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label="电源适配器&电源线" >
       {data.acPowerAdapter?'Yes':'No'}
-    </Form.Item>}
-    {data.assetTag && <Form.Item {...formItemLayout} label="电脑锁" >
+    </Form.Item>
+)}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label="电脑锁" >
       {data.securityCable?'Yes':'No'}
-      </Form.Item>}
-    {data.assetTag && <Form.Item {...formItemLayout} label="电脑包" >
+    </Form.Item>
+)}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label="电脑包" >
       {data.bag?'Yes':'No'}
-      </Form.Item>}
-    {data.assetTag && <Form.Item {...formItemLayout} label="鼠标" >
+    </Form.Item>
+)}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label="鼠标" >
       {data.mouse?'Yes':'No'}
-      </Form.Item>}
-    {data.assetTag && <Form.Item {...formItemLayout} label="网线" >
+    </Form.Item>
+)}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label="网线" >
       {data.lanCable?'Yes':'No'}
-      </Form.Item>}
+    </Form.Item>
+)}
     {
       !data.assetTag && <div>没有借取记录</div>
     }
@@ -148,9 +175,11 @@ const ConfirmForm = ({
           }}
       label=""
     >
-    {onPrev && <Button onClick={onPrev} style={{ margin: 8 }}>
+      {onPrev && (
+      <Button onClick={onPrev} style={{ margin: 8 }}>
         上一步
-       </Button>}
+      </Button>
+)}
       <Button type="primary" onClick={onValidateForm} loading={submitting}>
         保存
       </Button>

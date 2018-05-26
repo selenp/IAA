@@ -21,7 +21,7 @@ const copyright = (
 class UserLayout extends React.PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'dictionary/fetchDictionaryData',
+      type: 'dictionary/allDictionaries',
     });
   }
 

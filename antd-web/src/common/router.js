@@ -70,21 +70,30 @@ function getFlatMenuData(menus) {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['user', 'login', 'dictionary'], () => import('../layouts/BasicLayout')),
+      component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
+    },
+    '/dashboard/workplace': {
+      component: dynamicWrapper(app, ['tasks', 'user'], () => import('../routes/Dashboard/Workplace')),
     },
     '/deliveries/list': {
       component: dynamicWrapper(app, ['deliveries'], () => import('../routes/Deliveries/List')),
     },
+    '/tasks': {
+      component: dynamicWrapper(app, ['tasks'], () => import('../routes/Tasks/List')),
+    },
+    '/task/:id': {
+      component: dynamicWrapper(app, ['task', 'user' ], () => import('../routes/Tasks/Task')),
+    },
     '/transfers/list': {
       component: dynamicWrapper(app, ['transfers'], () => import('../routes/Transfers/List')),
     },
-    '/dictionaries/list': {
+    '/system/dictionaries/list': {
       component: dynamicWrapper(app, ['dictionaries'], () => import('../routes/Dictionaries/List')),
     },
-    '/admins/list': {
+    '/system/admins': {
       component: dynamicWrapper(app, ['admins'], () => import('../routes/Admins/List')),
     },
-    '/admin/:_id': {
+    '/system/admin/:id': {
       component: dynamicWrapper(app, ['admin'], () => import('../routes/Admins/Admin')),
     },
     '/delivery/main': {
@@ -124,7 +133,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow')),
     },
     '/transfer/borrow/info': {
-      component: dynamicWrapper(app, ['transfer', 'user'], () => import('../routes/Transfer/flow/Borrow1')),
+      component: dynamicWrapper(app, ['transfer', 'user', 'task'], () => import('../routes/Transfer/flow/Borrow1')),
     },
     '/transfer/borrow/confirm': {
       component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow2')),

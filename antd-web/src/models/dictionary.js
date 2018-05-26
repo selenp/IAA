@@ -1,19 +1,17 @@
-import { compact } from 'lodash';
 import {
-  fetchDictionaryData,
+  allDictionaries,
 } from '../services/api';
 
 export default {
   namespace: 'dictionary',
 
   state: {
-    businessUnits:[],
-    projectNames:[],
+    data:{},
   },
 
   effects: {
-    *fetchDictionaryData(_, { call, put }) {
-      const response = yield call(fetchDictionaryData);
+    *allDictionaries(_, { call, put }) {
+      const response = yield call(allDictionaries);
       yield put({
         type: 'init',
         payload: response,
@@ -24,8 +22,7 @@ export default {
   reducers: {
     init(state, { payload }) {
       return {
-        businessUnits: compact(payload.businessUnits),
-        projectNames: compact(payload.projectNames),
+        data: payload,
       };
     },
   },
