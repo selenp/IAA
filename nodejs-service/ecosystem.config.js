@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'wxcontracts',
+    name: 'equipment',
     script: 'app.js',
     node_args: '--harmony',
     exec_mode: 'fork',

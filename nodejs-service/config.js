@@ -32,7 +32,11 @@ module.exports = {
       return Math.max(options.attempt * 100, 3000);
     },
   },
-  smtp: 'smtp://kefu%40ydw123.cn:AliTest12301@smtp.ydw123.cn',
+  smtp: {
+    host: 'smtp.qiye.163.com',
+    user: 'no-reply04@accounts.tttalk.org',
+    pass: 'tttalk0507)%)&',
+  },
 
   pageSize: 20,
 
