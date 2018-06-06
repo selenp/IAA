@@ -16,24 +16,31 @@ const formItemLayout = {
     span: 19,
   },
 };
+const getQuery = (location, param) => {
+    let v = null
+    if (location.search && location.search.startsWith('?')) {
+      v = location.search.split(/[\?#&]/).reduce((s, c) => { const t = c.split('='); s[t[0]] = t[1]; return s; }, {})[param];
+      if (v)
+        v=decodeURIComponent(v);
+    }
+    return v;
+};
 
 @Form.create()
 class Step1 extends React.PureComponent {
-  state={
-  };
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    const {location, dispatch} = this.props;
+    const {dispatch, location} = this.props;
 
     // search string
-    let taskId = null;
-    if (location.search && location.search.startsWith('?')) {
-       taskId = location.search.split(/[\?#&]/).reduce((s, c) => { const t = c.split('='); s[t[0]] = t[1]; return s; }, {}).task;
+    const taskId = getQuery(location, 'task');
+    if (taskId) {
       dispatch({
         type: 'task/fetch',
         id: taskId,
-      });
-      this.setState({
-        taskId,
       });
     }
 
@@ -44,6 +51,13 @@ class Step1 extends React.PureComponent {
       },
     });
   }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/initData',
+    });
+  }
+
   render() {
     const { form, dispatch, currentUser, task } = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -70,7 +84,7 @@ class Step1 extends React.PureComponent {
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         {
-          this.state.taskId && (
+          task && task.eid && (
           <div className={styles.desc}>
             <h3>说明</h3>
             <h4>{`${task.eid}: ${task.category}`}</h4>

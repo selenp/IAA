@@ -1,5 +1,7 @@
-.idea
 .gradle
+.idea
 build
 gradle
 local.properties
+logs
+target

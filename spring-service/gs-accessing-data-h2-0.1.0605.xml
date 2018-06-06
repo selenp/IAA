@@ -1,0 +1,23 @@
+<!--
+ This is an example of a minimal Windows Service Wrapper configuration, which includes only mandatiory options.
+ 
+ This configuration file should be placed near the WinSW executable, the name should be the same.
+ E.g. for myapp.exe the configuration file name should be myapp.xml
+ 
+ You can find more information about the configuration options here: https://github.com/kohsuke/winsw/blob/master/doc/xmlConfigFile.md
+ Full example: https://github.com/kohsuke/winsw/blob/sample-config-file/examples/allOptions.xml
+-->
+<configuration>
+  
+  <!-- ID of the service. It should be unique accross the Windows system-->
+  <id>gs-accessing-data-h2-0.1.0605</id>
+  <!-- Display name of the service -->
+  <name>IAA</name>
+  <!-- Service description -->
+  <description>IAA Windows Service</description>
+  
+  <!-- Path to the executable, which should be started -->
+  <executable>java</executable>
+  <arguments>-jar gs-accessing-data-h2-0.1.0605.jar</arguments>
+
+</configuration>

@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 import { routerRedux } from 'dva/router';
+import { groupBy, map } from 'lodash';
 
 import ConfirmForm from './ConfirmReturnForm';
 import styles from './style.less';
@@ -22,8 +23,15 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
-    const { form, data, dispatch, submitting } = this.props;
-    const { getFieldDecorator, validateFields } = form;
+    const {
+      form,
+      data,
+      dispatch,
+      submitting,
+      notebookModels,
+      monitorSizes,
+    } = this.props;
+    const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onPrev = () => {
       dispatch(routerRedux.push('/delivery/return/info'));
     };
@@ -38,6 +46,7 @@ class Step2 extends React.PureComponent {
               ...values,
               returnDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'return',
+              monitorSize: values.monitorSize.join(','),
             },
             next: '/delivery/return/result',
           });
@@ -51,16 +60,21 @@ class Step2 extends React.PureComponent {
           data={data}
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
+          getFieldValue={getFieldValue}
           formItemLayout={formItemLayout}
           onPrev={onPrev}
           submitting={submitting}
+          notebookModels={notebookModels}
+          monitorSizes={monitorSizes}
         />
       </Fragment>
     );
   }
 }
 
-export default connect(({ delivery, loading }) => ({
+export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
+  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v =>v.data),
+  monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
 }))(Step2);

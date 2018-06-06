@@ -27,7 +27,14 @@ class Step1 extends React.PureComponent {
     });
   }
   render() {
-    const { form, dispatch, businessUnits, projectNames } = this.props;
+    const {
+      form,
+      dispatch,
+      businessUnits,
+      projectNames,
+      locationBuildings,
+      locationFloors,
+    } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
       validateFields((err, values) => {
@@ -50,6 +57,8 @@ class Step1 extends React.PureComponent {
           formItemLayout={formItemLayout}
           businessUnits={businessUnits}
           projectNames={projectNames}
+          locationBuildings={locationBuildings}
+          locationFloors={locationFloors}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
@@ -67,4 +76,6 @@ class Step1 extends React.PureComponent {
 export default connect(({ dictionary }) => ({
   businessUnits: map(groupBy(dictionary.data, 'category').businessUnit, v =>v.data),
   projectNames: map(groupBy(dictionary.data, 'category').projectName, v =>v.data),
+  locationBuildings: map(groupBy(dictionary.data, 'category').locationBuilding, v =>v.data),
+  locationFloors: map(groupBy(dictionary.data, 'category').locationFloor, v =>v.data),
 }))(Step1);

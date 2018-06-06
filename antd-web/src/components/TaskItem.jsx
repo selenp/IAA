@@ -45,6 +45,7 @@ const TaskItem = ({item, changeProgress}) => (
   <List.Item
     key={item.id}
     actions={[<MoreBtn item={item} changeProgress={changeProgress} />]}
+    style={{ marginLeft: 20 }}
   >
     <List.Item.Meta
       title={

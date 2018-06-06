@@ -1,0 +1,6 @@
+# .projectile ignore file
+
+node_modules
+build
+dist
+

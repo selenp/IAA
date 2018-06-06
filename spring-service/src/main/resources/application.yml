@@ -2,9 +2,9 @@ server:
   port: 3050
 spring:
   datasource:
-    password: sa
-    url: jdbc:h2:~/accenture-h2/equipment2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:~/accenture-h2/equipment;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
+    password: sa
   jpa:
     show-sql: true
     hibernate:
@@ -18,10 +18,10 @@ spring:
       path: /h2-console
       enabled: true
   mail:
-    host: smtp.qiye.163.com
-    username: 'no-reply04@accounts.tttalk.org'
     password: 'tttalk0507)%)&'
     port: 587
+    host: smtp.qiye.163.com
+    username: 'no-reply04@accounts.tttalk.org'
     properties:
       mail:
         smtp:
@@ -30,8 +30,8 @@ spring:
                 enable: true
 online:
   files:
-    path: /usr/share/nginx/html/yida-lize-file/images/
-    url: http://39.106.104.75:3022/images/
+    path: /tmp/
+    url: http://localhost:3022/images/
 admin:
   password:
     sha256:

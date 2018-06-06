@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="true" scanPeriod="60 seconds">
     <contextName>logback</contextName>
-    <property name="log.path" value="/tmp/log" />
+    <property name="log.path" value="./logs" />
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -25,5 +25,5 @@
     </root>
 
     <!-- logback为java中的包 -->
-    <logger name="com.ruptech.equipment" />
+    <logger name="com.accenture.svc.dir.iaa" />
 </configuration>

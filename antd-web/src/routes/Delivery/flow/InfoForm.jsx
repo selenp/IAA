@@ -18,6 +18,8 @@ const InfoForm = ({
   formItemLayout,
   projectNames,
   businessUnits,
+  locationBuildings,
+  locationFloors,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label="EID">
@@ -90,7 +92,19 @@ const InfoForm = ({
                   message: '请输入您办公地点的楼号',
                 },
               ],
-            })(<Input placeholder="请输入您办公地点的楼号" />)}
+            })(
+              <Select
+                mode="combobox"
+                style={{ width: '100%' }}
+                placeholder="请输入或选择办公地点的楼号"
+              >
+                {
+                  locationBuildings.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+              </Select>
+            )}
     </Form.Item>
     <Form.Item {...formItemLayout} label="楼层">
       {getFieldDecorator('locationFloor', {
@@ -100,7 +114,19 @@ const InfoForm = ({
                   message: '请输入您办公地点的楼层',
                 },
               ],
-            })(<Input placeholder="请输入您办公地点的楼层" />)}
+      })(
+        <Select
+          mode="combobox"
+          style={{ width: '100%' }}
+          placeholder="请输入或选择办公地点的楼层"
+        >
+          {
+                  locationFloors.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+        </Select>
+              )}
     </Form.Item>
     <Form.Item {...formItemLayout} label="座位号">
       {getFieldDecorator('locationSeat', {

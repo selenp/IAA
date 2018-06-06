@@ -2,43 +2,67 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import {
-  Row,
+  Avatar,
+  Button,
+  Card,
   Col,
   Form,
-  Input,
   Icon,
-  Button,
-  Avatar,
-  Card,
+  Input,
+  Row,
+  Select,
   Table,
 } from 'antd';
+import { groupBy, map } from 'lodash';
+
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './List.less';
 
+const { Option } = Select;
 const FormItem = Form.Item;
+const getQuery = (location, param) => {
+    let v = null
+    if (location.search && location.search.startsWith('?')) {
+      v = location.search.split(/[\?#&]/).reduce((s, c) => { const t = c.split('='); s[t[0]] = t[1]; return s; }, {})[param];
+      if (v)
+        v=decodeURIComponent(v);
+    }
+    return v;
+};
 
-@connect(({ admins, loading }) => ({
+@connect(({ admins, loading, dictionary }) => ({
   admins,
   loading: loading.models.admins,
+  roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
 }))
 @Form.create()
 export default class TableList extends PureComponent {
-  state = {
-    userid: '',
-    page: 0,
-    size: 10,
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: 0,
+      size: 10,
+    };
+  }
+
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, location } = this.props;
     dispatch({
       type: 'admins/fetchList',
+      payload: {
+        ...this.state,
+        role: getQuery(location, 'role'),
+      },
     });
   }
 
   onChange = ({current, pageSize}) => {
     const { dispatch } = this.props;
     this.setState({
+      ...this.state,
       page: current - 1,
       size: pageSize,
     }, () => dispatch({
@@ -47,10 +71,14 @@ export default class TableList extends PureComponent {
     }));
   };
 
+
   handleSearch = e => {
     e.preventDefault();
 
-    const { dispatch, form } = this.props;
+    const {
+      dispatch,
+      form,
+    } = this.props;
 
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -65,6 +93,10 @@ export default class TableList extends PureComponent {
   };
 
   renderSimpleForm() {
+    const {
+      roles,
+      location,
+    } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
@@ -78,6 +110,30 @@ export default class TableList extends PureComponent {
                   },
                 ],
               })(<Input placeholder="请输入EID" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="角色">
+              {getFieldDecorator('role', {
+                initialValue: getQuery(location, 'role'),
+                rules: [
+                  {
+                    message: '请选择角色',
+                  },
+                ],
+              })(
+                <Select
+                  style={{ width: '100%' }}
+                  mode="combobox"
+                  placeholder="请选择角色"
+                >
+                  {
+                  roles.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+                </Select>
+              )}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -133,7 +189,13 @@ export default class TableList extends PureComponent {
         title: '角色',
         dataIndex: 'roles',
         render(val) {
-          return val.split(',').map(v => (<div key={v}>{v}</div>));
+          return val.split(',').map(v => (
+            <div key={v} >
+              <Link to={`/system/admins/?role=${v}`} >
+                {v}
+              </Link>
+            </div>
+          ));
         },
       },
     ];

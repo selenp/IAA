@@ -98,7 +98,7 @@ export default class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="任务"
+              title="相关任务"
               loading={tasksLoading}
             >
               <List

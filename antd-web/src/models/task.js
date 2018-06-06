@@ -39,5 +39,11 @@ export default {
         data: payload,
       };
     },
+    initData() {
+      return {
+        data: {
+        },
+      };
+    },
   },
 };

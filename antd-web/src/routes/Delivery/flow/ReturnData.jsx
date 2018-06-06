@@ -5,6 +5,7 @@ import {
   Form,
 } from 'antd';
 import moment from 'moment';
+import { groupBy, map } from 'lodash';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import ConfirmForm from './ConfirmReturnForm';
@@ -31,8 +32,15 @@ class Step2 extends React.PureComponent {
 
 
   render() {
-    const { form, data, dispatch, submitting } = this.props;
-    const { getFieldDecorator, validateFields } = form;
+    const {
+      form,
+      data,
+      dispatch,
+      submitting,
+      notebookModels,
+      monitorSizes,
+    } = this.props;
+    const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onValidateForm = e => {
       e.preventDefault();
       validateFields((err, values) => {
@@ -64,8 +72,11 @@ class Step2 extends React.PureComponent {
             data={data}
             onValidateForm={onValidateForm}
             getFieldDecorator={getFieldDecorator}
+            getFieldValue={getFieldValue}
             formItemLayout={formItemLayout}
             submitting={submitting}
+            notebookModels={notebookModels}
+            monitorSizes={monitorSizes}
           />
           )
         }
@@ -76,7 +87,9 @@ class Step2 extends React.PureComponent {
   }
 }
 
-export default connect(({ delivery, loading }) => ({
+export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/fetch'],
   data: delivery.step,
+  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v =>v.data),
+  monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
 }))(Step2);

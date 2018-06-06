@@ -5,10 +5,12 @@ import {
   Form,
   Input,
   Radio,
+  Select,
   Switch,
 } from 'antd';
 
 const RadioGroup = Radio.Group;
+const { Option } = Select;
 
 const ConfirmForm = ({
   styles,
@@ -19,6 +21,8 @@ const ConfirmForm = ({
   formItemLayout,
   onPrev,
   submitting,
+  notebookModels,
+  monitorSizes,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label="EID">
@@ -63,19 +67,58 @@ const ConfirmForm = ({
               ],
             })(<Input placeholder="请输入序列号" />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="机型">
-      {getFieldDecorator('machineType', {
-              rules: [
+    {
+      data.machineType ? (
+        <Form.Item {...formItemLayout} label="机型">
+          {data.machineType}
+        </Form.Item>
+      ) : (
+        <Form.Item {...formItemLayout} label="机型">
+          {getFieldDecorator('machineType', {
+            rules: [
+              {
+                required: true,
+                message: '请选择台式机或者笔记本',
+              },
+            ],
+            })(
+              <RadioGroup >
+                <Radio value="laptop">台式机</Radio>
+                <Radio value="notebook">笔记本</Radio>
+              </RadioGroup>
+          )}
+        </Form.Item>
+      )}
+    {
+      getFieldValue('machineType') === 'laptop' &&
+        (
+        <Form.Item
+          {...formItemLayout}
+          label="显示器"
+        >
+          {getFieldDecorator('monitorSize', {
+          rules: [
+            {
+              required: true,
+              message: '请输入显示器的尺寸，可以输入多个',
+            },
+          ],
+            })(
+              <Select
+                mode="tags"
+                style={{ width: '100%' }}
+                placeholder="19, 21"
+              >
                 {
-                  required: true,
-                  message: '请选择台式机或者笔记本',
-                },
-              ],
-      })(<RadioGroup >
-        <Radio value="laptop">台式机</Radio>
-        <Radio value="notebook">笔记本</Radio>
-      </RadioGroup>)}
-    </Form.Item>
+                  monitorSizes.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+              </Select>
+          )}
+        </Form.Item>
+)
+    }
     {
       getFieldValue('machineType') === 'notebook' &&
         (
@@ -83,16 +126,26 @@ const ConfirmForm = ({
           {...formItemLayout}
           label="笔记本型号"
         >
-          {getFieldDecorator('laptopModel', {
+          {getFieldDecorator('notebookModel', {
           rules: [
             {
               required: true,
               message: '请输入笔记本型号',
             },
           ],
-        })(<Input
-          placeholder="请输入笔记本型号"
-        />)}
+            })(
+              <Select
+                mode="combobox"
+                style={{ width: '100%' }}
+                placeholder="请输入或选择笔记本型号"
+              >
+                {
+                  notebookModels.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+              </Select>
+          )}
         </Form.Item>
 )
     }
@@ -110,7 +163,7 @@ const ConfirmForm = ({
 )
     }
     {
-      getFieldValue('machineType') === 'laptop' &&
+      getFieldValue('machineType') === 'notebook' &&
       (
       <Form.Item {...formItemLayout} label="电脑锁" >
         {getFieldDecorator('securityCable')(
@@ -129,11 +182,26 @@ const ConfirmForm = ({
       </Form.Item>
 )
   }
-    <Form.Item {...formItemLayout} label="鼠标" >
-      {getFieldDecorator('mouse')(
-        <Switch />
+    {
+      getFieldValue('machineType') === 'notebook' &&
+      (
+      <Form.Item {...formItemLayout} label="鼠标" >
+        {getFieldDecorator('mouse')(
+          <Switch />
         )}
-    </Form.Item>
+      </Form.Item>
+)
+  }
+    {
+      getFieldValue('machineType') === 'laptop' &&
+      (
+      <Form.Item {...formItemLayout} label="键盘鼠标" >
+        {getFieldDecorator('mouseKeyboard')(
+          <Switch />
+        )}
+      </Form.Item>
+)
+  }
     {
       getFieldValue('machineType') === 'laptop' &&
       (

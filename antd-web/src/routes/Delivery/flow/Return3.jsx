@@ -43,12 +43,12 @@ class Step3 extends React.PureComponent {
 
       ctx.fillText(data.assetTag, 590, 125);
       ctx.fillText(data.serialTag, 590, 175);
-      ctx.fillText(data.laptopModel, 590, 225);
+      ctx.fillText(data.notebookModel, 590, 225);
 
       ctx.fillText(data.acPowerAdapter?'Yes':'No', 390, 350);
       ctx.fillText(data.securityCable?'Yes':'No', 390, 385);
       ctx.fillText(data.bag?'Yes':'No', 390, 420);
-      ctx.fillText(data.mouse?'Yes':'No', 390, 455);
+      ctx.fillText(data.mouseKeyboard?'Yes':'No', 390, 455);
       ctx.fillText(data.lanCable?'Yes':'No', 390, 480);
   }
 

@@ -1,0 +1,12 @@
+package "终端" <<iPad/PC>> {
+    [浏览器]
+}
+
+package "Web Server" <<IIS>> {
+    [浏览器] - [前端界面] : <<HTTP>>
+    [浏览器] - [java api] : <<REST>>
+}
+
+package "数据库" <<Database>> {
+    [java api] ..> [MSSQL]
+}

@@ -36,7 +36,6 @@ class Step2 extends React.PureComponent {
               ...data,
               ...values,
               assetTags: values.assetTags.join(','),
-              status: 'borrow',
             },
             next: '/transfer/borrow/result',
           });

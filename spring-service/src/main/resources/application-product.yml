@@ -1,0 +1,37 @@
+server:
+  port: 3050
+spring:
+  datasource:
+    username: Guop1ng123
+    password: iaa
+    url: jdbc:sqlserver://localhost:1433;databaseName=iaa
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        type: trace
+        default_schema: schema
+  mail:
+    username: 'is.isa.china.iw.assetmanagement@accenture.com'
+    host: 10.254.161.152
+    port: 25
+    properties:
+      mail:
+        smtp:
+            auth: false
+            starttls:
+                enable: false
+online:
+  files:
+    path: d:/website/front-end/artifacts/
+    url: https://dlcgvva1001.dir.svc.accenture.com/artifacts/
+admin:
+  password:
+    sha256:
+      key: equipment
+system:
+  emails: is.isa.china.iw.assetmanagement@accenture.com

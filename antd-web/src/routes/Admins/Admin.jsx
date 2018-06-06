@@ -132,20 +132,6 @@ export default class Admin extends PureComponent {
         >
           <FormItem
             {...formItemLayout}
-            label={<span>姓名</span>}
-          >
-            {getFieldDecorator('fullname', {
-          initialValue: this.state.data.fullname,
-          rules: [{
-            required: true,
-            message: '请输入姓名',
-          }],
-            })(
-              <Input placeholder="请输入姓名" />
-        )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
             label={<span>EID</span>}
           >
             {getFieldDecorator('userid', {
@@ -174,7 +160,7 @@ export default class Admin extends PureComponent {
           </FormItem>
           <Form.Item {...formItemLayout} label="角色">
             {getFieldDecorator('roles', {
-              initialValue: this.state.data.roles ? this.state.data.roles.split(',') : null,
+              initialValue: this.state.data.roles ? this.state.data.roles.split(',') : [],
               rules: [
                 {
                   required: true,
@@ -195,8 +181,22 @@ export default class Admin extends PureComponent {
               </Select>
             )}
           </Form.Item>
+          <FormItem
+            {...formItemLayout}
+            label={<span>姓名</span>}
+          >
+            {getFieldDecorator('fullname', {
+          initialValue: this.state.data.fullname,
+          rules: [{
+            required: true,
+            message: '请输入姓名',
+          }],
+            })(
+              <Input placeholder="请输入姓名" />
+        )}
+          </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary" htmlType="submit" loading={submitting}> 提交 </Button>
+            <Button type="primary" loading={submitting}> 提交 </Button>
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button

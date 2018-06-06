@@ -40,7 +40,7 @@ class Step3 extends React.PureComponent {
 
       ctx.fillText(data.eid, 590, 130);
 
-      // assert tags
+      // asset tags
       if (data.assetTags) {
         const tags = data.assetTags.split(',');
         for (const i in tags) {
