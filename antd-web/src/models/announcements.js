@@ -1,9 +1,9 @@
-import { queryDeliveries } from '../services/api';
+import { queryEntities } from '../services/api';
 import { message } from 'antd';
 import { FILE_URL } from '../utils/utils';
 
 export default {
-  namespace: 'deliveries',
+  namespace: 'announcements',
 
   state: {
     data: {
@@ -14,14 +14,14 @@ export default {
 
   effects: {
     *fetchList({ payload }, { call, put }) {
-      const response = yield call(queryDeliveries, payload);
+      const response = yield call(queryEntities, 'announcement', payload);
       yield put({
         type: 'save',
         payload: response,
       });
     },
     *xlsx({ payload }, { call }) {
-      const response = yield call(queryDeliveries, payload);
+      const response = yield call(queryEntities, 'announcement', payload);
       message.success('文件下载中。。。');
 
       document.location = `${FILE_URL}/${response.fileName}`;
@@ -33,7 +33,7 @@ export default {
       return {
         ...state,
         data: {
-          list: payload.content,
+          list: [...state.data.list, ...payload.content],
           pagination: {
             current: payload.pageable.pageNumber + 1,
             total: payload.totalElements,

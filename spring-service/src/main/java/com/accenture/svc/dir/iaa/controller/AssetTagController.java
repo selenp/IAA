@@ -1,14 +1,12 @@
 package com.accenture.svc.dir.iaa.controller;
 
-import com.accenture.svc.dir.iaa.entity.Dictionary;
+import com.accenture.svc.dir.iaa.entity.AssetTagHistory;
+import com.accenture.svc.dir.iaa.entity.Delivery;
+import com.accenture.svc.dir.iaa.entity.TransferEvent;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,48 +26,42 @@ import javax.persistence.criteria.Predicate;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.DELETE},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/api/dictionary")
-public class DictionaryController extends AccountController {
-
-    @DeleteMapping(path = "/{id}")
-    public @ResponseBody
-    void delete(@PathVariable Integer id) {
-        dictionaryRepository.deleteById(id);
-    }
-
+@RequestMapping(path = "/api/assettag")
+public class AssetTagController extends AbstractController {
     /**
-     * 所有数据、字典格式
+     * Pagination
      */
-    @GetMapping(path = "/_all")
+    @GetMapping(path = "/{assetTag}")
     public @ResponseBody
-    Iterable<Dictionary> dictionary() {
-        return this.dictionaryRepository.findAll();
-    }
-
-    private Iterable<String> dataList(Iterable<Dictionary> list) {
-        List<String> dataList = new ArrayList<>();
-        for (Dictionary d : list) {
-            dataList.add(d.getData());
-        }
-        return dataList;
-    }
-
-    @GetMapping(path = "/")
-    public @ResponseBody
-    Page<Dictionary> getAll(
-            @RequestParam(required = false) String category,
+    List<AssetTagHistory> getAll(
+            @PathVariable String assetTag,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<Dictionary> admins = this.dictionaryRepository.findAll((Specification<Dictionary>) (root, query, cb) -> {
+        List<TransferEvent> transferEvents = this.transferEventRepository.findAll((Specification<TransferEvent>) (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
-            if (!StringUtils.isEmpty(category)) {
-                list.add(cb.equal(root.get("category").as(String.class), category));
-            }
+            list.add(cb.like(root.get("assetTags").as(String.class), "%" + assetTag + "%"));
 
             Predicate[] p2 = new Predicate[list.size()];
             query.where(cb.and(list.toArray(p2)));
             return query.getRestriction();
-        }, PageRequest.of(page, size));
-        return admins;
+        });
+        List<Delivery> deliverys = this.deliveryRepository.findAll((Specification<Delivery>) (root, query, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+            list.add(cb.equal(root.get("assetTag").as(String.class), assetTag));
+
+            Predicate[] p2 = new Predicate[list.size()];
+            query.where(cb.and(list.toArray(p2)));
+            return query.getRestriction();
+        });
+
+        List<AssetTagHistory> his = new ArrayList<>(deliverys.size());
+        for (Delivery delivery:deliverys) {
+            his.addAll(AssetTagHistory.from(delivery));
+        }
+        for (TransferEvent transferEvent:transferEvents) {
+            his.add(AssetTagHistory.from(transferEvent));
+        }
+        return his;
     }
+
 }

@@ -24,12 +24,12 @@ export default {
       const response = yield call(queryTransfers, payload);
       message.success('文件下载中。。。');
 
-      document.location = `${FILE_URL}/images/${response.fileName}`;
+      document.location = `${FILE_URL}/${response.fileName}`;
     },
   },
 
   reducers: {
-    save(state, {payload}) {
+    save(state, { payload }) {
       return {
         ...state,
         data: {

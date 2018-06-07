@@ -2,13 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
-import {
-  Badge,
-  Icon,
-  Card,
-  Form,
-  Table,
-} from 'antd';
+import { Badge, Icon, Card, Form, Table } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import SimpleSearchForm from './SimpleSearchForm';
 import { FILE_URL } from '../../utils/utils';
@@ -16,11 +10,11 @@ import { FILE_URL } from '../../utils/utils';
 import styles from './ReturnList.less';
 
 const progressMap = {
-  borrow:'processing',
+  borrow: 'processing',
   return: 'success',
 };
 const progress = {
-  borrow:'已领取',
+  borrow: '已领取',
   return: '已归还',
 };
 
@@ -52,24 +46,32 @@ export default class ResturnList extends PureComponent {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
 
-      this.setState({
-        ...fieldsValue,
-      }, () => dispatch({
-        type: 'deliveries/fetchList',
-        payload: this.state,
-      }));
+      this.setState(
+        {
+          ...fieldsValue,
+        },
+        () =>
+          dispatch({
+            type: 'deliveries/fetchList',
+            payload: this.state,
+          })
+      );
     });
   };
 
-  onChange = ({current, pageSize}) => {
+  onChange = ({ current, pageSize }) => {
     const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'deliveries/fetchList',
-      payload: this.state,
-    }));
+    this.setState(
+      {
+        page: current - 1,
+        size: pageSize,
+      },
+      () =>
+        dispatch({
+          type: 'deliveries/fetchList',
+          payload: this.state,
+        })
+    );
   };
 
   renderSimpleForm() {
@@ -84,7 +86,12 @@ export default class ResturnList extends PureComponent {
   }
 
   render() {
-    const { deliveries: { data: { list, pagination } }, loading } = this.props;
+    const {
+      deliveries: {
+        data: { list, pagination },
+      },
+      loading,
+    } = this.props;
 
     const paginationProps = {
       showSizeChanger: true,
@@ -95,19 +102,21 @@ export default class ResturnList extends PureComponent {
     const columns = [
       {
         title: '借出时间',
-        dataIndex: 'effectiveDate',
-        render: (val, row) => (
+        dataIndex: 'borrowDate',
+        render: (val, row) =>
           row.signatureImage ? (
-            <a href={`${FILE_URL}/images/${row.signatureImage}`} target="_blank">
+            <a href={`${FILE_URL}/${row.signatureImage}`} target="_blank">
               {val && moment(val).format('YYYY-MM-DD HH:mm')}
               <Icon type="export" />
             </a>
-          ) : <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
-        ),
+          ) : (
+            <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
+          ),
       },
       {
         title: '设备编号',
         dataIndex: 'assetTag',
+        render: v => <Link to={`/assettag/${v}`}>{v}</Link>,
       },
       {
         title: '状态',
@@ -120,14 +129,22 @@ export default class ResturnList extends PureComponent {
         title: 'EID/姓名',
         dataIndex: 'eid',
         render(val, row) {
-          return <span>{row.eid} / {row.fullname}</span>;
+          return (
+            <span>
+              {row.eid} / {row.fullname}
+            </span>
+          );
         },
       },
       {
         title: '项目/部门',
         dataIndex: 'id',
         render(val, row) {
-          return <span>{row.projectName} / {row.businessUnit}</span>;
+          return (
+            <span>
+              {row.projectName} / {row.businessUnit}
+            </span>
+          );
         },
       },
       {
@@ -139,23 +156,20 @@ export default class ResturnList extends PureComponent {
               待归还
               <Icon type="desktop" />
             </Link>
+          ) : row.returnSignatureImage ? (
+            <a href={`${FILE_URL}/${row.returnSignatureImage}`} target="_blank">
+              {val && moment(val).format('YYYY-MM-DD HH:mm')}
+              <Icon type="export" />
+            </a>
           ) : (
-            row.returnSignatureImage ? (
-              <a href={`${FILE_URL}/images/${row.returnSignatureImage}`} target="_blank">
-                {val && moment(val).format('YYYY-MM-DD HH:mm')}
-                <Icon type="export" />
-              </a>
-            ) : <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
+            <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
           );
         },
       },
     ];
 
     return (
-      <PageHeaderLayout
-        title="设备归还"
-        content="操作不熟悉的用户，请在IT人员的指导下完成。"
-      >
+      <PageHeaderLayout title="设备归还" content="操作不熟悉的用户，请在IT人员的指导下完成。">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

@@ -80,7 +80,6 @@ export async function uploadTransferSignature(id, io, image) {
   });
 }
 
-
 export async function queryAdmins(params) {
   return request(`${REMOTE_URL}/admin/?${stringify(params)}`);
 }
@@ -99,7 +98,6 @@ export async function submitAdmin(params) {
   });
 }
 
-
 export async function queryDictionaries(params) {
   return request(`${REMOTE_URL}/dictionary/?${stringify(params)}`);
 }
@@ -114,7 +112,7 @@ export async function deleteDictionary(id) {
   });
 }
 
-//tasks
+// tasks
 export async function queryTasks(params) {
   return request(`${REMOTE_URL}/task/?${stringify(params)}`);
 }
@@ -131,6 +129,29 @@ export async function submitTask(params) {
     method: 'POST',
     body: params,
   });
+}
+
+// entities
+export async function queryEntities(name, params) {
+  return request(`${REMOTE_URL}/${name}/?${stringify(params)}`);
+}
+export async function queryEntity(name, id) {
+  return request(`${REMOTE_URL}/${name}/${id}`);
+}
+export async function deleteEntity(name, id) {
+  return request(`${REMOTE_URL}/${name}/${id}`, {
+    method: 'DELETE',
+  });
+}
+export async function submitEntity(name, params) {
+  return request(`${REMOTE_URL}/${name}/`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function queryAssetTag(assettag) {
+  return request(`${REMOTE_URL}/assettag/${assettag}`);
 }
 
 export async function fakeChartData() {

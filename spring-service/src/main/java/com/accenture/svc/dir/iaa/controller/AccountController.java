@@ -27,7 +27,7 @@ import java.util.Optional;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/account")
+@RequestMapping(path = "/api/account")
 public class AccountController extends AbstractController {
 
     /**

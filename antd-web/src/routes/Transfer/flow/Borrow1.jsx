@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import {
-  Form,
-  Divider,
-} from 'antd';
+import { Form, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 import InfoForm from './InfoForm';
@@ -17,13 +14,16 @@ const formItemLayout = {
   },
 };
 const getQuery = (location, param) => {
-    let v = null
-    if (location.search && location.search.startsWith('?')) {
-      v = location.search.split(/[\?#&]/).reduce((s, c) => { const t = c.split('='); s[t[0]] = t[1]; return s; }, {})[param];
-      if (v)
-        v=decodeURIComponent(v);
-    }
-    return v;
+  let v = '';
+  if (location.search && location.search.startsWith('?')) {
+    v = location.search.split(/[\?#&]/).reduce((s, c) => {
+      const t = c.split('=');
+      s[t[0]] = t[1];
+      return s;
+    }, {})[param];
+    v = v ? decodeURIComponent(v) : '';
+  }
+  return v;
 };
 
 @Form.create()
@@ -33,7 +33,7 @@ class Step1 extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {dispatch, location} = this.props;
+    const { dispatch, location } = this.props;
 
     // search string
     const taskId = getQuery(location, 'task');
@@ -83,15 +83,14 @@ class Step1 extends React.PureComponent {
           currentUser={currentUser}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
-        {
-          task && task.eid && (
-          <div className={styles.desc}>
-            <h3>说明</h3>
-            <h4>{`${task.eid}: ${task.category}`}</h4>
-            <pre>{task.content}</pre>
-          </div>
-          )
-        }
+        {task &&
+          task.eid && (
+            <div className={styles.desc}>
+              <h3>说明</h3>
+              <h4>{`${task.eid}: ${task.category}`}</h4>
+              <pre>{task.content}</pre>
+            </div>
+          )}
       </Fragment>
     );
   }

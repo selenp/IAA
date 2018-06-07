@@ -15,7 +15,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(indexes = {
-        @Index(name = "IDX_Transfer_eid", columnList = "eid"),
+        @Index(name = "IDX_Transfer_toEid", columnList = "toEid"),
+        @Index(name = "IDX_Transfer_fromEid", columnList = "fromEid"),
 })
 public class TransferEvent {
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -25,9 +26,9 @@ public class TransferEvent {
 
     private String status; //borrow, return
     //	姓名(EID)
-    private String eid;
+    private String toEid;
     //  日期 Effective Date
-    private String effectiveDate;
+    private String borrowDate;
     //	资产编号Asset Tag
     private String assetTags;
 
@@ -37,21 +38,21 @@ public class TransferEvent {
     //	备注 remarks
     private String remarks;
     //	操作者姓名(EID)
-    private String ownerEid;
+    private String fromEid;
     private Integer taskId;
 
-    public String getOwnerEid() {
-        return ownerEid;
+    public String getFromEid() {
+        return fromEid;
     }
 
-    public void setOwnerEid(String ownerEid) {
-        this.ownerEid = ownerEid;
+    public void setFromEid(String fromEid) {
+        this.fromEid = fromEid;
     }
 
     @PrePersist
     void preInsert() {
-        if (StringUtils.isEmpty(this.effectiveDate))
-            this.effectiveDate = sdf.format(new Date());
+        if (StringUtils.isEmpty(this.borrowDate))
+            this.borrowDate = sdf.format(new Date());
     }
 
     public Long getId() {
@@ -70,20 +71,20 @@ public class TransferEvent {
         this.status = status;
     }
 
-    public String getEid() {
-        return eid;
+    public String getToEid() {
+        return toEid;
     }
 
-    public void setEid(String eid) {
-        this.eid = eid;
+    public void setToEid(String toEid) {
+        this.toEid = toEid;
     }
 
-    public String getEffectiveDate() {
-        return effectiveDate;
+    public String getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setEffectiveDate(String effectiveDate) {
-        this.effectiveDate = effectiveDate;
+    public void setBorrowDate(String borrowDate) {
+        this.borrowDate = borrowDate;
     }
 
     public String getAssetTags() {
@@ -123,12 +124,12 @@ public class TransferEvent {
         return "TransferEvent{" +
                 "id=" + id +
                 ", status='" + status + '\'' +
-                ", eid='" + eid + '\'' +
-                ", effectiveDate='" + effectiveDate + '\'' +
+                ", eid='" + toEid + '\'' +
+                ", borrowDate='" + borrowDate + '\'' +
                 ", assetTags='" + assetTags + '\'' +
                 ", signatureImage='" + signatureImage + '\'' +
                 ", remarks='" + remarks + '\'' +
-                ", ownerEid='" + ownerEid + '\'' +
+                ", fromEid='" + fromEid + '\'' +
                 ", taskId=" + taskId +
                 '}';
     }

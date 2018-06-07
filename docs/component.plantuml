@@ -3,7 +3,7 @@ package "终端" <<iPad/PC>> {
 }
 
 package "Web Server" <<IIS>> {
-    [浏览器] - [前端界面] : <<HTTP>>
+    [浏览器] - [前端页面] : <<HTTP>>
     [浏览器] - [java api] : <<REST>>
 }
 

@@ -1,9 +1,9 @@
 package com.accenture.svc.dir.iaa.controller;
 
 import com.accenture.svc.dir.iaa.XlsxUtils;
-import com.accenture.svc.dir.iaa.entity.Admin;
 import com.accenture.svc.dir.iaa.XlsxWriter;
-import com.accenture.svc.dir.iaa.entity.Task;
+import com.accenture.svc.dir.iaa.entity.Admin;
+import com.accenture.svc.dir.iaa.entity.Announcement;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,19 +40,19 @@ import javax.persistence.criteria.Predicate;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/api/task")
-public class TaskController extends AccountController {
+@RequestMapping(path = "/api/announcement")
+public class AnnouncementController extends AbstractController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
     void delete(@PathVariable Integer id) {
-        taskRepository.deleteById(id);
+        announcementRepository.deleteById(id);
     }
 
     @GetMapping(path = "/{id}")
     public @ResponseBody
-    Optional<Task> get(@PathVariable Integer id) {
-        return taskRepository.findById(id);
+    Optional<Announcement> get(@PathVariable Integer id) {
+        return announcementRepository.findById(id);
     }
 
     /**
@@ -60,11 +60,9 @@ public class TaskController extends AccountController {
      */
     @PostMapping(path = "/")
     public @ResponseBody
-    Task post(
-            @RequestBody Task d) {
-        taskRepository.save(d);
-
-        mergeDictionary(dictionaryRepository, "task_category", d.getCategory());
+    Announcement post(
+            @RequestBody Announcement d) {
+        announcementRepository.save(d);
         return d;
     }
 
@@ -76,14 +74,11 @@ public class TaskController extends AccountController {
     Object getAll(
             @RequestHeader("Authorization") String authorization,
             @RequestParam(required = false) String eid,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String progresses,
             @RequestParam(required = false, defaultValue = "false") boolean xlsx,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) throws IOException {
         Admin admin = ensureAuthorization(adminRepository, authorization);
-
-        Specification<Task> spec = (root, query, cb) -> {
+        Specification<Announcement> spec = (root, query, cb) -> {
             List<Predicate> orList = new ArrayList<>();
             orList.add(cb.equal(root.get("eid").as(String.class), admin.getUserid()));
 
@@ -100,58 +95,38 @@ public class TaskController extends AccountController {
             if (!StringUtils.isEmpty(eid)) {
                 list.add(cb.equal(root.get("eid").as(String.class), eid));
             }
-            if (!StringUtils.isEmpty(category)) {
-                list.add(cb.equal(root.get("category").as(String.class), category));
-            }
-            if (!StringUtils.isEmpty(progresses)) {
-                List<Predicate> or2List = new ArrayList<>();
-                String[] ps = progresses.split(",");
-                for (String progress : ps) {
-                    or2List.add(cb.equal(root.get("progress").as(String.class), progress));
-                }
-                Predicate[] p2 = new Predicate[or2List.size()];
-                Predicate or2 = cb.or(or2List.toArray(p2));
-
-                list.add(or2);
-            }
 
             Predicate[] p2 = new Predicate[list.size()];
             query.where(cb.and(list.toArray(p2)));
             return query.getRestriction();
         };
         if (xlsx) {
-            Iterable<Task> tasks = taskRepository.findAll();
-            String fileName = "poi-generated-task.xlsx";
-            XlsxUtils.write2Xlsx(new File(ofPath, fileName), new XlsxWriter<Task>() {
+            Iterable<Announcement> announcements = announcementRepository.findAll();
+            String fileName = "poi-generated-announcement.xlsx";
+            XlsxUtils.write2Xlsx(new File(ofPath, fileName), new XlsxWriter<Announcement>() {
                 @Override
                 public String[] getHeaders() {
                     return new String[]{
                             "EID",
                             "日期",
-                            "截止日期",
                             "内容",
-                            "进度",
                     };
                 }
 
                 @Override
-                public Iterable<Task> getIterableData() {
-                    return tasks;
+                public Iterable<Announcement> getIterableData() {
+                    return announcements;
                 }
 
                 @Override
-                public Object getValue(int colIndex, Task data) {
+                public Object getValue(int colIndex, Announcement data) {
                     switch (colIndex) {
                         case 0:
                             return data.getEid();
                         case 1:
                             return data.getCreatedDate();
                         case 2:
-                            return data.getDueDate();
-                        case 3:
                             return data.getContent();
-                        case 4:
-                            return data.getProgress();
                         default:
                             return "";
                     }
@@ -163,8 +138,8 @@ public class TaskController extends AccountController {
             return map;
         } else {
             PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("id")));
-            Page<Task> tasks = this.taskRepository.findAll(spec, pageable);
-            return tasks;
+            Page<Announcement> announcements = this.announcementRepository.findAll(spec, pageable);
+            return announcements;
         }
     }
 

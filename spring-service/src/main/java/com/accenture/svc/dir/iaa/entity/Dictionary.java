@@ -20,7 +20,7 @@ public class Dictionary {
     private String category;
 
     private String data;
-    private String desc;
+    private String memo;
     private int rank = 0;
 
     public static Dictionary as(String category, String data) {
@@ -30,12 +30,12 @@ public class Dictionary {
         return dictionary;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getMemo() {
+        return memo;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     public int getRank() {

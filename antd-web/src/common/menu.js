@@ -8,8 +8,13 @@ const menuData = [
   },
   {
     name: '任务',
-    icon: 'calendar',
+    icon: 'schedule',
     path: 'tasks',
+  },
+  {
+    name: '通知',
+    icon: 'info',
+    path: 'announcements',
   },
   {
     name: '普通用户设备取还',
@@ -23,7 +28,7 @@ const menuData = [
   },
   {
     name: '系统管理',
-    icon: 'calculator',
+    icon: 'tool',
     path: 'system',
     children: [
       {

@@ -33,7 +33,7 @@ import javax.persistence.criteria.Predicate;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.DELETE},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/admin")
+@RequestMapping(path = "/api/admin")
 public class AdminController extends AbstractController {
 
     @DeleteMapping(path = "/{id}")

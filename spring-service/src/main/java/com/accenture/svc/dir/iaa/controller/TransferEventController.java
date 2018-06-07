@@ -46,7 +46,7 @@ import javax.persistence.criteria.Predicate;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/transfer-event")
+@RequestMapping(path = "/api/transfer-event")
 public class TransferEventController extends AccountController {
 
     Log log = LogFactory.getLog(TransferEventController.class);
@@ -78,14 +78,14 @@ public class TransferEventController extends AccountController {
             @RequestBody String data) throws Exception {
         TransferEvent e = transferEventRepository.findById(id).get();
 
-        String imageName = String.format("%s/transfer-%s-%s-%d-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), e.getEid(), id, io);
+        String imageName = String.format("%s/transfer-%s-%s-%d-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), e.getToEid(), id, io);
         File image = ImageUtils.saveImage(imageName, data, ofPath);
 
         //save data to  signatureImage
         e.setSignatureImage(imageName);
         transferEventRepository.save(e);
 
-        sendMail(new String[]{Utils.eid2Email(e.getEid()), Utils.eid2Email(e.getOwnerEid())}, image);
+        sendMail(new String[]{Utils.eid2Email(e.getToEid()), Utils.eid2Email(e.getFromEid())}, image);
         return e;
     }
 
@@ -124,8 +124,8 @@ public class TransferEventController extends AccountController {
         Specification<TransferEvent> spec = (root, query, cb) -> {
             if (!StringUtils.isEmpty(eid)) {
                 List<Predicate> list = new ArrayList<>();
-                list.add(cb.equal(root.get("eid").as(String.class), eid));
-                list.add(cb.equal(root.get("ownerEid").as(String.class), eid));
+                list.add(cb.equal(root.get("fromEid").as(String.class), eid));
+                list.add(cb.equal(root.get("toEid").as(String.class), eid));
                 Predicate[] p2 = new Predicate[list.size()];
                 query.where(cb.or(list.toArray(p2)));
             }
@@ -157,11 +157,11 @@ public class TransferEventController extends AccountController {
                 public Object getValue(int colIndex, TransferEvent data) {
                     switch (colIndex) {
                         case 0:
-                            return data.getEid();
+                            return data.getFromEid();
                         case 1:
-                            return data.getOwnerEid();
+                            return data.getToEid();
                         case 2:
-                            return data.getEffectiveDate();
+                            return data.getBorrowDate();
                         case 3:
                             return data.getAssetTags();
                         case 4:

@@ -1,15 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import {
-  Form,
-} from 'antd';
+import { Form } from 'antd';
 import moment from 'moment';
 import { routerRedux } from 'dva/router';
 import { groupBy, map } from 'lodash';
 
 import ConfirmForm from './ConfirmForm';
 import styles from './style.less';
-
 
 const formItemLayout = {
   labelCol: {
@@ -23,14 +20,7 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
-    const {
-      form,
-      data,
-      dispatch,
-      submitting,
-      notebookModels,
-      monitorSizes,
-    } = this.props;
+    const { form, data, dispatch, submitting, notebookModels, monitorSizes } = this.props;
     const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onPrev = () => {
       dispatch(routerRedux.push('/delivery/borrow/info'));
@@ -44,7 +34,7 @@ class Step2 extends React.PureComponent {
             payload: {
               ...data,
               ...values,
-              effectiveDate: moment().format('YYYY-MM-DD HH:mm'),
+              borrowDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'borrow',
               monitorSize: values.monitorSize.join(','),
             },
@@ -75,6 +65,6 @@ class Step2 extends React.PureComponent {
 export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
-  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v =>v.data),
-  monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
+  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v => v.data),
+  monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v => v.data),
 }))(Step2);

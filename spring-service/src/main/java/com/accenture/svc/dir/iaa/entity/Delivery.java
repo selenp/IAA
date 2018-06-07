@@ -31,7 +31,7 @@ public class Delivery {
     private String locationFloor;
     private String locationSeat;
     //  日期 Effective Date
-    private String effectiveDate;
+    private String borrowDate;
 
     private String machineType;
     //	资产编号Asset Tag
@@ -158,12 +158,12 @@ public class Delivery {
         this.locationSeat = locationSeat;
     }
 
-    public String getEffectiveDate() {
-        return effectiveDate;
+    public String getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setEffectiveDate(String effectiveDate) {
-        this.effectiveDate = effectiveDate;
+    public void setBorrowDate(String borrowDate) {
+        this.borrowDate = borrowDate;
     }
 
     public String getAssetTag() {

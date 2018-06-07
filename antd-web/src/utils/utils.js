@@ -160,9 +160,12 @@ export function isUrl(path) {
   return reg.test(path);
 }
 
-const REMOTE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3050' : 'https://dlcgvva1001.dir.svc.accenture.com';
-const FILE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://dlcgvva1001.dir.svc.accenture.com/artifacts/';
-export {
-  REMOTE_URL,
-  FILE_URL,
-};
+const REMOTE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3050/api'
+    : 'https://dlcgvva1001.dir.svc.accenture.com/api';
+const FILE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3022'
+    : 'https://dlcgvva1001.dir.svc.accenture.com/artifacts/';
+export { REMOTE_URL, FILE_URL };

@@ -1,51 +1,54 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import moment from 'moment';
-import { Row, Col, Form, Input, Icon, Button, Badge, Card, Table } from 'antd';
+import { Row, Col, List, Form, Input, Icon, Button, Card } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { FILE_URL } from '../../utils/utils';
 
 import styles from './List.less';
+import AnnouncementItem from '../../components/AnnouncementItem.jsx';
 
 const FormItem = Form.Item;
 
-const progressMap = {
-  borrow: 'processing',
-  return: 'success',
-};
-const progress = {
-  borrow: '已领取',
-  return: '已归还',
-};
-
-@connect(({ transfers, loading }) => ({
-  transfers,
-  loading: loading.models.transfers,
+@connect(({ announcements, user, loading }) => ({
+  currentUser: user.currentUser,
+  announcements,
+  loading: loading.models.announcements,
 }))
 @Form.create()
 export default class TableList extends PureComponent {
-  state = {
-    page: 0,
-    size: 10,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      eid: props.currentUser.userid,
+      page: 0,
+      size: 10,
+    };
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'transfers/fetchList',
+      type: 'announcements/fetchList',
+      payload: this.state,
     });
   }
 
-  onChange = ({ current, pageSize }) => {
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'announcements/initData',
+    });
+  }
+
+  fetchMore = () => {
     const { dispatch } = this.props;
     this.setState(
       {
-        page: current - 1,
-        size: pageSize,
+        page: this.state.page + 1,
       },
       () =>
         dispatch({
-          type: 'transfers/fetchList',
+          type: 'announcements/fetchList',
           payload: this.state,
         })
     );
@@ -63,6 +66,10 @@ export default class TableList extends PureComponent {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
 
+      dispatch({
+        type: 'announcements/initData',
+      });
+
       this.setState(
         {
           ...fieldsValue,
@@ -70,11 +77,25 @@ export default class TableList extends PureComponent {
         },
         () =>
           dispatch({
-            type: xlsx ? 'transfers/xlsx' : 'transfers/fetchList',
+            type: xlsx ? 'announcements/xlsx' : 'announcements/fetchList',
             payload: this.state,
           })
       );
     });
+  }
+
+  changeProgress(item, progress) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'announcement/submit',
+      payload: {
+        ...item,
+        progress,
+      },
+    });
+
+    item.progress = progress;
+    this.forceUpdate();
   }
 
   renderSimpleForm() {
@@ -103,10 +124,10 @@ export default class TableList extends PureComponent {
                 <Icon type="download" />
                 下载
               </Button>
-              <Link to="/transfer/borrow">
+              <Link to="/announcement/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  IT设备取还
+                  通知
                 </Button>
               </Link>
             </span>
@@ -115,75 +136,42 @@ export default class TableList extends PureComponent {
       </Form>
     );
   }
-
   render() {
     const {
-      transfers: {
+      announcements: {
         data: { list, pagination },
       },
       loading,
     } = this.props;
 
-    const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      ...pagination,
-    };
-
-    const columns = [
-      {
-        title: '时间',
-        dataIndex: 'borrowDate',
-        render: (val, row) =>
-          row.signatureImage ? (
-            <a href={`${FILE_URL}/${row.signatureImage}`} target="_blank">
-              {val && moment(val).format('YYYY-MM-DD HH:mm')}
-              <Icon type="export" />
-            </a>
-          ) : (
-            <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
-          ),
-      },
-      {
-        title: '设备编号',
-        dataIndex: 'assetTags',
-        render(val) {
-          return val.split(',').map(v => (
-            <div key={v}>
-              <Link to={`/assettag/${v}`}>{v}</Link>
-            </div>
-          ));
-        },
-      },
-      {
-        title: '自EID',
-        dataIndex: 'fromEid',
-      },
-      {
-        title: '至EID',
-        dataIndex: 'toEid',
-      },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
-        },
-      },
-    ];
+    const loadMore =
+      pagination.total > list.length ? (
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <Button onClick={this.fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
+            {loading ? (
+              <span>
+                <Icon type="loading" /> 加载中...
+              </span>
+            ) : (
+              '加载更多'
+            )}
+          </Button>
+        </div>
+      ) : null;
 
     return (
-      <PageHeaderLayout title="设备取还" content="IT设备取还流程。">
+      <PageHeaderLayout title="通知" content="我发布的通知。">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>
-            <Table
-              loading={loading}
-              dataSource={list}
-              pagination={paginationProps}
+            <List
+              size="large"
+              loading={list.length === 0 ? loading : false}
               rowKey="id"
-              onChange={this.onChange}
-              columns={columns}
+              itemLayout="vertical"
+              loadMore={loadMore}
+              dataSource={list}
+              renderItem={item => <AnnouncementItem item={item} />}
             />
           </div>
         </Card>

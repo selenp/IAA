@@ -43,7 +43,7 @@ import javax.persistence.criteria.Predicate;
         methods = {RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PUT},
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
-@RequestMapping(path = "/delivery")
+@RequestMapping(path = "/api/delivery")
 public class DeliveryController extends AbstractController {
 
     @PostMapping(path = "/")
@@ -132,7 +132,7 @@ public class DeliveryController extends AbstractController {
             }
             if (!StringUtils.isEmpty(dateRange)) {
                 String[] range = dateRange.split(",");
-                list.add(cb.between(root.get("effectiveDate").as(String.class), range[0] + " 00:00:00", range[1] + "23:59:59"));
+                list.add(cb.between(root.get("borrowDate").as(String.class), range[0] + " 00:00:00", range[1] + "23:59:59"));
             }
 
             Predicate[] p2 = new Predicate[list.size()];
@@ -198,7 +198,7 @@ public class DeliveryController extends AbstractController {
                         case 5:
                             return data.getLocation();
                         case 6:
-                            return data.getEffectiveDate();
+                            return data.getBorrowDate();
                         case 7:
                             return data.getAssetTag();
                         case 8:

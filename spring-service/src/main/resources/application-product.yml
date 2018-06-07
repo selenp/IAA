@@ -2,8 +2,8 @@ server:
   port: 3050
 spring:
   datasource:
-    username: Guop1ng123
-    password: iaa
+    username: iaa
+    password: Guop1ng1234
     url: jdbc:sqlserver://localhost:1433;databaseName=iaa
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
@@ -14,7 +14,6 @@ spring:
       hibernate:
         format_sql: true
         type: trace
-        default_schema: schema
   mail:
     username: 'is.isa.china.iw.assetmanagement@accenture.com'
     host: 10.254.161.152

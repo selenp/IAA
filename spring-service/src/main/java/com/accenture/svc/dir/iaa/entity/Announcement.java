@@ -38,14 +38,6 @@ public class Announcement {
             this.deleteFlag=false;
     }
 
-    public static SimpleDateFormat getSdf() {
-        return sdf;
-    }
-
-    public static void setSdf(SimpleDateFormat sdf) {
-        Announcement.sdf = sdf;
-    }
-
     public Integer getId() {
         return id;
     }

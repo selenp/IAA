@@ -3,6 +3,7 @@ package com.accenture.svc.dir.iaa.controller;
 import com.accenture.svc.dir.iaa.entity.Admin;
 import com.accenture.svc.dir.iaa.entity.Dictionary;
 import com.accenture.svc.dir.iaa.respository.AdminRepository;
+import com.accenture.svc.dir.iaa.respository.AnnouncementRepository;
 import com.accenture.svc.dir.iaa.respository.DictionaryRepository;
 import com.accenture.svc.dir.iaa.respository.TransferEventRepository;
 import com.accenture.svc.dir.iaa.respository.DeliveryRepository;
@@ -48,6 +49,8 @@ class AbstractController {
     JavaMailSender sender;
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
+    AnnouncementRepository announcementRepository;
     @Autowired
     TransferEventRepository transferEventRepository;
 
