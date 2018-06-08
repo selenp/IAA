@@ -1,13 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'dva/router';
+import { translate } from "react-i18next";
+
 import {
   Button,
   Row,
   Col,
 } from 'antd';
 
-export default class MainMenu extends Component {
+class MainMenu extends Component {
   render() {
+    const { t } = this.props;
     const topColResponsiveProps = {
       xs: 24,
       sm: 12,
@@ -26,7 +29,7 @@ export default class MainMenu extends Component {
                 type="primary"
                 icon="download"
                 style={{width: '100%', height: 182, fontSize: 24}}
-              >领取设备
+                >{t("领取设备")}
               </Button>
             </Link>
           </Col>
@@ -36,7 +39,7 @@ export default class MainMenu extends Component {
                 type="success"
                 icon="upload"
                 style={{width: '100%', height: 182, fontSize: 24}}
-              >归还设备
+                >{t("归还设备")}
               </Button>
             </Link>
           </Col>
@@ -45,3 +48,5 @@ export default class MainMenu extends Component {
     );
   }
 }
+
+export default translate("translations")(MainMenu);

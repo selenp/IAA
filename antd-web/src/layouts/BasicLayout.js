@@ -8,6 +8,7 @@ import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import pathToRegexp from 'path-to-regexp';
 import { enquireScreen, unenquireScreen } from 'enquire-js';
+import { translate } from "react-i18next";
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import SiderMenu from '../components/SiderMenu';
@@ -16,6 +17,7 @@ import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.png';
+import styles from './UserLayout.less';
 
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -184,6 +186,11 @@ class BasicLayout extends React.PureComponent {
     }
   };
   render() {
+    const { t, i18n } = this.props;
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
+
     const {
       currentUser,
       collapsed,
@@ -242,17 +249,12 @@ class BasicLayout extends React.PureComponent {
               <Route render={NotFound} />
             </Switch>
           </Content>
-          <Footer style={{ padding: 0 }}>
-            <GlobalFooter
-              links={[
-              ]}
-              copyright={
-                <Fragment>
-                  Copyright <Icon type="copyright" /> 2018
-                </Fragment>
-              }
-            />
-          </Footer>
+          <div className={styles.globalFooter}>
+            <div className={styles.links}>
+              <button onClick={() => changeLanguage("en")}>{t("en")}</button>
+              <button onClick={() => changeLanguage("zh")}>{t("zh")}</button>
+            </div>
+          </div>
         </Layout>
       </Layout>
     );
@@ -272,4 +274,4 @@ export default connect(({ user, global, loading }) => ({
   collapsed: global.collapsed,
   fetchingNotices: loading.effects['global/fetchNotices'],
   notices: global.notices,
-}))(BasicLayout);
+}))(translate("translations")(BasicLayout));

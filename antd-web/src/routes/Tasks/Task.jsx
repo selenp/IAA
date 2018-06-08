@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Button, Card, DatePicker, Form, Input, Select } from 'antd';
@@ -25,7 +26,7 @@ const { Description } = DescriptionList;
   taskCategories: map(groupBy(dictionary.data, 'category').task_category, v => v.data),
 }))
 @Form.create()
-export default class Task extends PureComponent {
+class Task extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -184,6 +185,7 @@ export default class Task extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const action = (
       <div>
         {!this.state.editing && (
@@ -208,3 +210,5 @@ export default class Task extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(Task);

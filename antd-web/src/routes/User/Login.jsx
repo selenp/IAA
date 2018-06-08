@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Checkbox, Alert, Icon } from 'antd';
@@ -13,7 +14,7 @@ const { Tab, UserName, Password, Submit } = Login;
   login,
   submitting: loading.effects['login/login'],
 }))
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   state = {
     type: 'account',
   };
@@ -45,6 +46,7 @@ export default class LoginPage extends Component {
   };
 
   render() {
+    const { t } = this.props;
     const { login, submitting } = this.props;
     const { type } = this.state;
     return (
@@ -75,3 +77,5 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+export default translate("translations")(LoginPage);

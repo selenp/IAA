@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import {
@@ -22,7 +23,7 @@ const FormItem = Form.Item;
   loading: loading.models.dictionaries,
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+class TableList extends PureComponent {
   state = {
     group: '',
     page: 0,
@@ -93,6 +94,7 @@ export default class TableList extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { dictionaries: { data: { list, pagination } }, loading } = this.props;
 
     const paginationProps = {
@@ -160,3 +162,5 @@ export default class TableList extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TableList);

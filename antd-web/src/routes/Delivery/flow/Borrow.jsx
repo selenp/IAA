@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { translate } from "react-i18next";
 import { Route, Redirect, Switch } from 'dva/router';
 import { Card, Steps } from 'antd';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -8,7 +9,7 @@ import styles from '../style.less';
 
 const { Step } = Steps;
 
-export default class StepForm extends PureComponent {
+class StepForm extends PureComponent {
   getCurrentStep() {
     const { location } = this.props;
     const { pathname } = location;
@@ -25,6 +26,7 @@ export default class StepForm extends PureComponent {
     }
   }
   render() {
+    const { t } = this.props;
     const { match, routerData } = this.props;
     return (
       <PageHeaderLayout
@@ -56,3 +58,5 @@ export default class StepForm extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(StepForm);

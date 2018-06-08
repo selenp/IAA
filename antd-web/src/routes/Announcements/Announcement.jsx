@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Button, Card, Form, Input, Select } from 'antd';
@@ -24,7 +25,7 @@ const { Description } = DescriptionList;
   roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
 }))
 @Form.create()
-export default class Announcement extends PureComponent {
+class Announcement extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -157,6 +158,7 @@ export default class Announcement extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const action = (
       <div>
         {!this.state.editing && (
@@ -181,3 +183,5 @@ export default class Announcement extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(Announcement);

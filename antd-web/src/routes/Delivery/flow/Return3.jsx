@@ -8,7 +8,7 @@ import Result from 'components/Result';
 
 import styles from './style.less';
 
-import formImage from '../../../assets/template-delivery-borrow.png';
+import formImage from '../../../assets/template-delivery-return.png';
 
 class Step3 extends React.PureComponent {
   componentDidMount() {
@@ -46,7 +46,7 @@ class Step3 extends React.PureComponent {
     ctx.fillText(data.assetTag, 180, 293);
     ctx.fillText(data.serialTag, 520, 293);
 
-    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 610, 313);
+    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 611, 312);
 
     if (data.machineType === 'notebook') {
       ctx.fillText(data.notebookModel, 180, 330);
@@ -57,12 +57,12 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.returnBag ? '*' : '', 342, 457);
     } else if (data.machineType === 'laptop') {
       ctx.fillText(data.returnMonitorSize ? '*' : '', 600, 360);
-      ctx.fillText(data.returnMouseKeyboard ? '*' : '', 673, 395);
-      ctx.fillText(data.returnLanCable ? '*' : '', 673, 425);
+      ctx.fillText(data.returnMouseKeyboard ? '*' : '', 673, 396);
+      ctx.fillText(data.returnLanCable ? '*' : '', 673, 426);
     }
 
 
-    ctx.fillText(moment(data.borrowDate).format('YYYY-MM-DD HH:mm'), 185, 955);
+    ctx.fillText(moment(data.returnDate).format('YYYY-MM-DD HH:mm'), 185, 955);
   }
 
   render() {

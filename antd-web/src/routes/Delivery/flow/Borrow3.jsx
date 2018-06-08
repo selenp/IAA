@@ -46,7 +46,7 @@ class Step3 extends React.PureComponent {
     ctx.fillText(data.assetTag, 180, 293);
     ctx.fillText(data.serialTag, 520, 293);
 
-    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 610, 313);
+    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 611, 312);
 
     if (data.machineType === 'notebook') {
       ctx.fillText(data.notebookModel, 180, 330);
@@ -56,9 +56,9 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.mouse ? '*' : '', 342, 425);
       ctx.fillText(data.bag ? '*' : '', 342, 457);
     } else if (data.machineType === 'laptop') {
-      ctx.fillText(data.monitorSize ? '*' : '', 600, 360);
-      ctx.fillText(data.mouseKeyboard ? '*' : '', 673, 395);
-      ctx.fillText(data.lanCable ? '*' : '', 673, 425);
+      ctx.fillText(data.monitorSize, 600, 360);
+      ctx.fillText(data.mouseKeyboard ? '*' : '', 673, 396);
+      ctx.fillText(data.lanCable ? '*' : '', 673, 426);
     }
 
 

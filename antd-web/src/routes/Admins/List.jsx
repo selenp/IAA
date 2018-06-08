@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Avatar, Button, Card, Col, Form, Icon, Input, Row, Select, Table } from 'antd';
@@ -29,7 +30,7 @@ const getQuery = (location, param) => {
   roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+class TableList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -140,6 +141,7 @@ export default class TableList extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const {
       admins: {
         data: { list, pagination },
@@ -202,3 +204,5 @@ export default class TableList extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TableList);

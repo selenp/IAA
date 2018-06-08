@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import {
@@ -41,7 +42,7 @@ const avatars = [
   roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
 }))
 @Form.create()
-export default class Admin extends PureComponent {
+class Admin extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -222,6 +223,7 @@ export default class Admin extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const action = (
       <div>
         {
@@ -248,3 +250,5 @@ export default class Admin extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(Admin);

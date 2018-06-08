@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { Layout, Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'dva/router';
@@ -49,7 +50,7 @@ export const getMeunMatchKeys = (flatMenuKeys, paths) =>
         flatMenuKeys.filter(item => pathToRegexp(item).test(path))
     )), []);
 
-export default class SiderMenu extends PureComponent {
+class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.menus = props.menuData;
@@ -80,6 +81,8 @@ export default class SiderMenu extends PureComponent {
    * @memberof SiderMenu
    */
   getMenuItemPath = item => {
+    const { t } = this.props;
+
     const itemPath = this.conversionPath(item.path);
     const icon = getIcon(item.icon);
     const { target, name } = item;
@@ -88,7 +91,7 @@ export default class SiderMenu extends PureComponent {
       return (
         <a href={itemPath} target={target}>
           {icon}
-          <span>{name}</span>
+          <span>{t(name)}</span>
         </a>
       );
     }
@@ -106,7 +109,7 @@ export default class SiderMenu extends PureComponent {
         }
       >
         {icon}
-        <span>{name}</span>
+        <span>{t(name)}</span>
       </Link>
     );
   };
@@ -114,6 +117,8 @@ export default class SiderMenu extends PureComponent {
    * get SubMenu or Item
    */
   getSubMenuOrItem = item => {
+    const { t } = this.props;
+
     if (item.children && item.children.some(child => child.name)) {
       const childrenItems = this.getNavMenuItems(item.children);
       // 当无子菜单时就不展示菜单
@@ -124,10 +129,10 @@ export default class SiderMenu extends PureComponent {
               item.icon ? (
                 <span>
                   {getIcon(item.icon)}
-                  <span>{item.name}</span>
+                  <span>{t(item.name)}</span>
                 </span>
               ) : (
-                item.name
+                t(item.name)
               )
             }
             key={item.path}
@@ -235,3 +240,5 @@ export default class SiderMenu extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(SiderMenu);

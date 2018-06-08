@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
@@ -13,7 +14,7 @@ import styles from './List.less';
   loading: loading.models.assetTag,
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+class TableList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -40,6 +41,7 @@ export default class TableList extends PureComponent {
   };
 
   render() {
+    const { t } = this.props;
     const {
       assetTag: { history },
       loading,
@@ -89,3 +91,5 @@ export default class TableList extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TableList);

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
@@ -38,7 +39,7 @@ const progress = {
   loading: loading.models.deliveries,
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+class TableList extends PureComponent {
   state = {
     expandForm: false,
     page: 0,
@@ -185,6 +186,7 @@ export default class TableList extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const {
       deliveries: {
         data: { list, pagination },
@@ -286,3 +288,5 @@ export default class TableList extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TableList);

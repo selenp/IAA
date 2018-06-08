@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { Button, Spin, Card } from 'antd';
 import { connect } from 'dva';
 import styles from './style.less';
@@ -6,7 +7,7 @@ import styles from './style.less';
 @connect(state => ({
   isloading: state.error.isloading,
 }))
-export default class TriggerException extends PureComponent {
+class TriggerException extends PureComponent {
   state = {
     isloading: false,
   };
@@ -22,6 +23,7 @@ export default class TriggerException extends PureComponent {
     });
   };
   render() {
+    const { t } = this.props;
     return (
       <Card>
         <Spin spinning={this.state.isloading} wrapperClassName={styles.trigger}>
@@ -42,3 +44,5 @@ export default class TriggerException extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TriggerException);

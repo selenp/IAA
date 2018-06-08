@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col, List, Form, Input, Icon, Button, Card } from 'antd';
@@ -15,7 +16,7 @@ const FormItem = Form.Item;
   loading: loading.models.announcements,
 }))
 @Form.create()
-export default class TableList extends PureComponent {
+class TableList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -137,6 +138,7 @@ export default class TableList extends PureComponent {
     );
   }
   render() {
+    const { t } = this.props;
     const {
       announcements: {
         data: { list, pagination },
@@ -179,3 +181,5 @@ export default class TableList extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(TableList);

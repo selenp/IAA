@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Avatar, Card, Col, List, Row } from 'antd';
 
@@ -14,7 +15,7 @@ import TaskItem from '../../components/TaskItem.jsx';
   announcements,
   announcementsLoading: loading.effects['announcements/fetchList'],
 }))
-export default class Workplace extends PureComponent {
+class Workplace extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -56,6 +57,7 @@ export default class Workplace extends PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { currentUser, tasksLoading, tasks, announcementsLoading, announcements } = this.props;
 
     const pageHeaderContent = (
@@ -132,3 +134,5 @@ export default class Workplace extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(Workplace);

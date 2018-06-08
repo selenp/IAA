@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import { Link, Redirect, Switch, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
+import { translate } from "react-i18next";
+
 import GlobalFooter from '../components/GlobalFooter';
 import styles from './UserLayout.less';
 import logo from '../assets/logo.png';
@@ -35,6 +37,11 @@ class UserLayout extends React.PureComponent {
     return title;
   }
   render() {
+    const { t, i18n } = this.props;
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
+
     const { routerData, match } = this.props;
     return (
       <DocumentTitle title={this.getPageTitle()}>
@@ -44,10 +51,10 @@ class UserLayout extends React.PureComponent {
               <div className={styles.header}>
                 <Link to="/">
                   <img alt="logo" className={styles.logo} src={logo} />
-                  <span className={styles.title}>IAA</span>
+                  <span className={styles.title}>{t("IAA")}</span>
                 </Link>
               </div>
-              <div className={styles.desc}>设备领取、归还 - 智能资产管理助手 - 无纸化办公实验版</div>
+              <div className={styles.desc}>{t("设备领取、归还 - 智能资产管理助手 - 无纸化办公实验版")}</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
@@ -67,6 +74,10 @@ class UserLayout extends React.PureComponent {
               <Link to="/">管理员登录</Link>
               <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">使用说明</a>
             </div>
+            <div className={styles.links}>
+              <button onClick={() => changeLanguage("en")}>{t("en")}</button>
+              <button onClick={() => changeLanguage("zh")}>{t("zh")}</button>
+            </div>
           </div>
         </div>
       </DocumentTitle>
@@ -74,4 +85,4 @@ class UserLayout extends React.PureComponent {
   }
 }
 
-export default UserLayout;
+export default translate("translations")(UserLayout);
