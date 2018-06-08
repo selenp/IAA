@@ -20,11 +20,13 @@ const menuData = [
     name: '普通用户设备取还',
     icon: 'solution',
     path: 'deliveries/list',
+    authority: (currentAuthority) => currentAuthority.split(',').indexOf('asset manager') > -1 ,
   },
   {
     name: 'IT设备取还',
     icon: 'calculator',
     path: 'transfers/list',
+    authority: (currentAuthority) => currentAuthority.split(',').indexOf('it staff') > -1 ,
   },
   {
     name: '系统管理',
@@ -34,12 +36,13 @@ const menuData = [
       {
         name: '数据字典',
         icon: 'database',
+        authority: (currentAuthority) => currentAuthority.split(',').indexOf('super admin') > -1 ,
         path: 'dictionaries/list',
       },
       {
         name: '用户管理',
         icon: 'user',
-        authority: 'admin',
+        authority: (currentAuthority) => currentAuthority.split(',').indexOf('super admin') > -1 ,
         path: 'admins',
       },
     ],

@@ -20,7 +20,7 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
-    const { form, data, dispatch, submitting, notebookModels, monitorSizes } = this.props;
+    const { form, data, dispatch, submitting, laptopModels, monitorSizes } = this.props;
     const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onPrev = () => {
       dispatch(routerRedux.push('/delivery/borrow/info'));
@@ -36,7 +36,7 @@ class Step2 extends React.PureComponent {
               ...values,
               borrowDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'borrow',
-              monitorSize: values.machineType === 'laptop' ? values.monitorSize.join(',') : null,
+              monitorSize: values.machineType === 'desktop' ? values.monitorSize.join(',') : null,
             },
             next: '/delivery/borrow/result',
           });
@@ -54,7 +54,7 @@ class Step2 extends React.PureComponent {
           formItemLayout={formItemLayout}
           onPrev={onPrev}
           submitting={submitting}
-          notebookModels={notebookModels}
+          laptopModels={laptopModels}
           monitorSizes={monitorSizes}
         />
       </Fragment>
@@ -65,6 +65,6 @@ class Step2 extends React.PureComponent {
 export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
-  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v => v.data),
+  laptopModels: map(groupBy(dictionary.data, 'category').laptopModel, v => v.data),
   monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v => v.data),
 }))(Step2);

@@ -50,11 +50,11 @@ class UserLayout extends React.PureComponent {
             <div className={styles.top}>
               <div className={styles.header}>
                 <Link to="/">
-                  <img alt="logo" className={styles.logo} src={logo} />
                   <span className={styles.title}>{t("IAA")}</span>
+                  <img alt="logo" className={styles.logo} src={logo} />
                 </Link>
               </div>
-              <div className={styles.desc}>{t("设备领取、归还 - 智能资产管理助手 - 无纸化办公实验版")}</div>
+              <div className={styles.desc}>{t("智能资产管理助手 - 设备领取、归还 - 无纸化办公实验版")}</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (

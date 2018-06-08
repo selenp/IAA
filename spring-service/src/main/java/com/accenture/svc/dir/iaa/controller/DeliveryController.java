@@ -55,7 +55,7 @@ public class DeliveryController extends AbstractController {
         //加入到数据字典
         mergeDictionary(dictionaryRepository, "projectName", "项目", e.getProjectName());
         mergeDictionary(dictionaryRepository, "businessUnit", "部门", e.getBusinessUnit());
-        mergeDictionary(dictionaryRepository, "notebookModel", "笔记本型号", e.getNotebookModel());
+        mergeDictionary(dictionaryRepository, "laptopModel", "笔记本型号", e.getLaptopModel());
         mergeDictionary(dictionaryRepository, "locationBuilding", "楼号", e.getLocationBuilding());
         mergeDictionary(dictionaryRepository, "locationFloor", "楼层", e.getLocationFloor());
         return e;
@@ -204,7 +204,7 @@ public class DeliveryController extends AbstractController {
                         case 8:
                             return data.getSerialTag();
                         case 9:
-                            return data.getNotebookModel();
+                            return data.getLaptopModel();
                         case 10:
                             return data.getAcPowerAdapter();
                         case 11:

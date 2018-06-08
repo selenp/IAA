@@ -10,7 +10,7 @@
 <configuration>
   
   <!-- ID of the service. It should be unique accross the Windows system-->
-  <id>gs-accessing-data-h2-0.1.0605</id>
+  <id>gs-accessing-data-h2-0.1.0608</id>
   <!-- Display name of the service -->
   <name>IAA</name>
   <!-- Service description -->
@@ -18,6 +18,6 @@
   
   <!-- Path to the executable, which should be started -->
   <executable>java</executable>
-  <arguments>-jar gs-accessing-data-h2-0.1.0605.jar</arguments>
+  <arguments>-jar gs-accessing-data-h2-0.1.0608.jar</arguments>
 
 </configuration>

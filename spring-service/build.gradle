@@ -15,7 +15,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'gs-accessing-data-h2'
-    version = '0.1.0605'
+    version = '0.1.0608'
 }
 
 repositories {

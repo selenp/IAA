@@ -46,16 +46,16 @@ class Step3 extends React.PureComponent {
     ctx.fillText(data.assetTag, 180, 293);
     ctx.fillText(data.serialTag, 520, 293);
 
-    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 611, 312);
+    ctx.fillText('*', data.machineType === 'laptop' ? 277 : 611, 312);
 
-    if (data.machineType === 'notebook') {
-      ctx.fillText(data.notebookModel, 180, 330);
+    if (data.machineType === 'laptop') {
+      ctx.fillText(data.laptopModel, 180, 330);
 
       ctx.fillText(data.returnAcPowerAdapter ? '*' : '', 342, 360);
       ctx.fillText(data.returnSecurityCable ? '*' : '', 342, 395);
       ctx.fillText(data.returnMouse ? '*' : '', 342, 425);
       ctx.fillText(data.returnBag ? '*' : '', 342, 457);
-    } else if (data.machineType === 'laptop') {
+    } else if (data.machineType === 'desktop') {
       ctx.fillText(data.returnMonitorSize ? '*' : '', 600, 360);
       ctx.fillText(data.returnMouseKeyboard ? '*' : '', 673, 396);
       ctx.fillText(data.returnLanCable ? '*' : '', 673, 426);

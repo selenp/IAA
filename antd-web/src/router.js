@@ -30,7 +30,10 @@ function RouterConfig({ history, app }) {
             <AuthorizedRoute
               path="/"
               render={props => <BasicLayout {...props} />}
-              authority={['admin']}
+              authority={(currentAuthority) => {
+                const roles = currentAuthority.split(',');
+                return roles.indexOf('asset manager') > -1 || roles.indexOf('super admin') > -1 || roles.indexOf('it staff') > -1;
+              }}
               redirectPath="/user/login"
               />
           </Switch>

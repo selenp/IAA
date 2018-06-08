@@ -56,7 +56,7 @@ public class AccountController extends AbstractController {
             map.put("status", "ok");
             map.put("type", "account");
             map.put("token", token);
-            map.put("currentAuthority", "admin");
+            map.put("currentAuthority", account.getRoles());
             return map;
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "no auth");

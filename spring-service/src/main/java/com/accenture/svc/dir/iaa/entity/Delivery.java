@@ -39,7 +39,7 @@ public class Delivery {
     //  序列号Serial Tag
     private String serialTag;
     //	笔记本型号Laptop Model
-    private String notebookModel;
+    private String laptopModel;
     private String monitorSize;
     //	电源适配器&电源线 AC Power Adapter & Power cord(TBD)
     private Boolean acPowerAdapter;
@@ -186,8 +186,8 @@ public class Delivery {
     }
 
 
-    public void setNotebookModel(String notebookModel) {
-        this.notebookModel = notebookModel;
+    public void setLaptopModel(String laptopModel) {
+        this.laptopModel = laptopModel;
     }
 
     public Boolean isAcPowerAdapter() {
@@ -358,8 +358,8 @@ public class Delivery {
         return String.format("%s-%s-%s", locationBuilding, locationFloor, locationSeat);
     }
 
-    public String getNotebookModel() {
-        return notebookModel;
+    public String getLaptopModel() {
+        return laptopModel;
     }
 
     public Boolean getMouse() {

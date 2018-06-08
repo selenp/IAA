@@ -28,7 +28,7 @@ class Step2 extends React.PureComponent {
       data,
       dispatch,
       submitting,
-      notebookModels,
+      laptopModels,
       monitorSizes,
     } = this.props;
     const { getFieldDecorator, getFieldValue, validateFields } = form;
@@ -46,7 +46,7 @@ class Step2 extends React.PureComponent {
               ...values,
               returnDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'return',
-              monitorSize: values.machineType === 'laptop' ? values.returnMonitorSize.join(',') : null,
+              monitorSize: values.machineType === 'desktop' ? values.returnMonitorSize.join(',') : null,
             },
             next: '/delivery/return/result',
           });
@@ -64,7 +64,7 @@ class Step2 extends React.PureComponent {
           formItemLayout={formItemLayout}
           onPrev={onPrev}
           submitting={submitting}
-          notebookModels={notebookModels}
+          laptopModels={laptopModels}
           monitorSizes={monitorSizes}
         />
       </Fragment>
@@ -75,6 +75,6 @@ class Step2 extends React.PureComponent {
 export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
-  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v =>v.data),
+  laptopModels: map(groupBy(dictionary.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
 }))(Step2);

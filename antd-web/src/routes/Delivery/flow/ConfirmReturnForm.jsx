@@ -21,7 +21,7 @@ const ConfirmForm = ({
   formItemLayout,
   onPrev,
   submitting,
-  notebookModels,
+  laptopModels,
   monitorSizes,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
@@ -99,21 +99,21 @@ const ConfirmForm = ({
           ],
           })(
           <RadioGroup >
-            <Radio value="laptop">台式机</Radio>
-            <Radio value="notebook">笔记本</Radio>
+            <Radio value="desktop">台式机</Radio>
+            <Radio value="laptop">笔记本</Radio>
           </RadioGroup>
         )}
       </Form.Item>
     )}
   {
-    (getFieldValue('machineType') === 'notebook' || data.machineType === 'notebook') && (
-      data.notebookModel ? (
+    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') && (
+      data.laptopModel ? (
         <Form.Item {...formItemLayout} label="笔记本型号">
-          {data.notebookModel}
+          {data.laptopModel}
         </Form.Item>
       ) : (
         <Form.Item {...formItemLayout} label="笔记本型号">
-          {getFieldDecorator('notebookModel', {
+          {getFieldDecorator('laptopModel', {
             rules: [
               {
                 required: true,
@@ -127,7 +127,7 @@ const ConfirmForm = ({
               placeholder="请输入或选择笔记本型号"
               >
               {
-                notebookModels.map(d => (
+                laptopModels.map(d => (
                   <Option key={d}>{d}</Option>
                 ))
               }
@@ -165,7 +165,7 @@ const ConfirmForm = ({
   }
     <Divider style={{ margin: '24px 0' }} />
     {
-      (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
+      (getFieldValue('machineType') === 'desktop' || data.machineType === 'desktop') &&
         (
           <Form.Item
             {...formItemLayout}
@@ -195,7 +195,7 @@ const ConfirmForm = ({
         )
     }
   {
-    (getFieldValue('machineType') === 'notebook' || data.machineType === 'notebook') &&
+    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
         <Form.Item
           {...formItemLayout}
@@ -208,7 +208,7 @@ const ConfirmForm = ({
       )
   }
   {
-    (getFieldValue('machineType') === 'notebook' || data.machineType === 'notebook') &&
+    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
         <Form.Item {...formItemLayout} label="电脑锁" >
           {getFieldDecorator('returnSecurityCable')(
@@ -218,7 +218,7 @@ const ConfirmForm = ({
       )
   }
   {
-    (getFieldValue('machineType') === 'notebook' || data.machineType === 'notebook') &&
+    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
         <Form.Item {...formItemLayout} label="电脑包" >
           {getFieldDecorator('returnBag')(
@@ -228,7 +228,7 @@ const ConfirmForm = ({
       )
   }
   {
-    (getFieldValue('machineType') === 'notebook' || data.machineType === 'notebook') &&
+    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
         <Form.Item {...formItemLayout} label="鼠标" >
           {getFieldDecorator('returnMouse')(
@@ -238,7 +238,7 @@ const ConfirmForm = ({
       )
   }
   {
-    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
+    (getFieldValue('machineType') === 'desktop' || data.machineType === 'desktop') &&
       (
         <Form.Item {...formItemLayout} label="键盘鼠标" >
           {getFieldDecorator('returnMouseKeyboard')(
@@ -248,7 +248,7 @@ const ConfirmForm = ({
       )
   }
   {
-    (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
+    (getFieldValue('machineType') === 'desktop' || data.machineType === 'desktop') &&
       (
         <Form.Item {...formItemLayout} label="网线" >
           {getFieldDecorator('returnLanCable')(

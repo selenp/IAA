@@ -69,6 +69,13 @@
     给各个业务的Select组件提供可选择数据的， 在这里可以删除无用的字典
 
     [[./dic1.png]]
+* <2018-06-08 Fri>
+ 新版安装到服务器上了，测试了一下，效果很好，连接mssql，发邮件，生成图片都没有问题。
+** 遗留问题
+*** TODO 需要把java应用变成windows服务，要不然windows的session没了，java就停了
+*** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
+*** TODO 英文翻译中。。。
+*** TODO LDAP取数据
 * <2018-06-06 Wed>
 ** 需要1个域名
  - "前端页面"
@@ -88,16 +95,12 @@
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-07 Thu 21:01]
     :END:
-*** DONE 图片命名 sn-yyyy-mm-dd，并且用YYY-MM细分文件夹
+*** DONE 图片命名 sn-yyyy-mm-dd，并且用YYYY-MM细分文件夹
     CLOSED: [2018-06-05 Tue 17:43]
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-05 Tue 17:43]
     :END:
-*** NEXT 图片压缩到 200k左右
-    :LOGBOOK:
-    - State "NEXT"       from "DONE"       [2018-06-07 Thu 21:02]
-    - State "DONE"       from "NEXT"       [2018-06-07 Thu 21:02]
-    :END:
+*** TODO 图片压缩到 200k左右，目前约1M
 ** 消息模块
 *** DONE 库管发布消息， 指定角色，在dashboard上显示
     CLOSED: [2018-06-07 Thu 12:46]
@@ -105,12 +108,17 @@
     - State "DONE"       from "NEXT"       [2018-06-07 Thu 12:46]
     :END:
 ** 用户管理
-*** DONE 角色查询：su， am， it
+*** DONE 角色查询：asset manager,super admin,it staff
     CLOSED: [2018-06-06 Wed 00:14]
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-06 Wed 00:14]
     :END:
-*** TODO 权限确认
+*** DONE 权限确认
+    CLOSED: [2018-06-08 Fri 13:18]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-06-08 Fri 13:18]
+    :END:
+*** TODO 从ldap查到数据
 ** 数据字典
 *** DONE 楼，楼层，笔记本model
     CLOSED: [2018-06-05 Tue 22:43]
@@ -152,8 +160,8 @@
    - State "DONE"       from "NEXT"       [2018-06-08 Fri 00:05]
    :END:
 ** 周四之前完成功能，重新发布
-** TODO 下周一英文版
-** 写一下安装手顺
+** NEXT 下周一英文版
+** TODO 写一下安装手顺
 
 localhost:1433  iaa/Guop1ng123 iaa
 
@@ -347,7 +355,7 @@ Content-Type: application/json
 "userid": "zhaolei",
 "password": "zhaoleipass",
 "fullname": "ZhaoLei",
-"roles": "asset manager,super_admin,it staff",
+"roles": "asset manager,super admin,it staff",
 "avatar": "https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png"
 }
 #+END_SRC
@@ -359,7 +367,7 @@ Content-Type: application/json
 "userid": "xia",
 "password": "xiapass",
 "fullname": "Xia",
-"roles": "asset manager,super_admin,it staff",
+"roles": "asset manager,super admin,it staff",
 "avatar": "https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png"
 }
 #+END_SRC
@@ -387,8 +395,8 @@ Content-Type: application/json
 "eid": "liuxx",
 "borrowDate": "2018-06-07",
 "fullname": "2",
-"machineType": "notebook",
-"notebookModel": "dell t0",
+"machineType": "laptop",
+"laptopModel": "dell t0",
 "mouse": true,
 "projectName": "3",
 "remarks": "7",
@@ -585,7 +593,7 @@ GET http://localhost:3050/api/assettag/8
 npm start
 rm -rf dist/; npm run build
 
-gradle build && java -jar build/libs/gs-accessing-data-h2-0.1.0605.jar
+gradle build && java -jar build/libs/gs-accessing-data-h2-0.1.0608.jar
 #+END_SRC
 
 
@@ -593,8 +601,8 @@ gradle build && java -jar build/libs/gs-accessing-data-h2-0.1.0605.jar
 #+BEGIN_SRC sh
 
 gradle build
-scp build/libs/gs-accessing-data-h2-0.1.0605.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
-java -jar build/libs/gs-accessing-data-h2-0.1.0605.jar
+scp build/libs/gs-accessing-data-h2-0.1.0608.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
+java -jar build/libs/gs-accessing-data-h2-0.1.0608.jar
 
 rm -rf dist/; npm run build;  rsync -avz /works/projects/accenture/equipment/antd-web/dist/ yidalize_no1:/usr/share/nginx/html/yida-lize-file/
 #+END_SRC

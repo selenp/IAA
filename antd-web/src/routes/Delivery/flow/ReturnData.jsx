@@ -37,7 +37,7 @@ class Step2 extends React.PureComponent {
       data,
       dispatch,
       submitting,
-      notebookModels,
+      laptopModels,
       monitorSizes,
     } = this.props;
     const { getFieldDecorator, getFieldValue, validateFields } = form;
@@ -75,7 +75,7 @@ class Step2 extends React.PureComponent {
             getFieldValue={getFieldValue}
             formItemLayout={formItemLayout}
             submitting={submitting}
-            notebookModels={notebookModels}
+            laptopModels={laptopModels}
             monitorSizes={monitorSizes}
           />
           )
@@ -90,6 +90,6 @@ class Step2 extends React.PureComponent {
 export default connect(({ delivery, loading, dictionary }) => ({
   submitting: loading.effects['delivery/fetch'],
   data: delivery.step,
-  notebookModels: map(groupBy(dictionary.data, 'category').notebookModel, v =>v.data),
+  laptopModels: map(groupBy(dictionary.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
 }))(Step2);

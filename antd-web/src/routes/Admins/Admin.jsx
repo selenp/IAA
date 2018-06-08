@@ -13,6 +13,7 @@ import { groupBy, map } from 'lodash';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
+import { FILE_URL } from '../../utils/utils';
 
 import styles from './Admin.less';
 
@@ -23,16 +24,16 @@ const FormItem = Form.Item;
 const { Description } = DescriptionList;
 
 const avatars = [
-  'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/psOgztMplJMGpVEqfcgF.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ZpBqSxLxVEXfcUNoPKrz.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/laiEnJdGHVOhJrUShBaJ.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/UrQsqscbKEpNuJcvBZBu.png',
+  `${FILE_URL}/BiazfanxmamNRoxxVxka.png`,
+  `${FILE_URL}/cnrhVkzwxjPwAaCfPbdc.png`,
+  `${FILE_URL}/gaOngJwsRYRaVAuXXcmB.png`,
+  `${FILE_URL}/ubnKSIfAJTxIgXOKlciN.png`,
+  `${FILE_URL}/WhxKECPNujWoWEFNdnJE.png`,
+  `${FILE_URL}/jZUIxmJycoymBprLOUbT.png`,
+  `${FILE_URL}/psOgztMplJMGpVEqfcgF.png`,
+  `${FILE_URL}/ZpBqSxLxVEXfcUNoPKrz.png`,
+  `${FILE_URL}/laiEnJdGHVOhJrUShBaJ.png`,
+  `${FILE_URL}/UrQsqscbKEpNuJcvBZBu.png`,
 ];
 
 @connect(({ admin, loading, dictionary }) => ({
