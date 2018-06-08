@@ -40,6 +40,7 @@ public class Delivery {
     private String serialTag;
     //	笔记本型号Laptop Model
     private String notebookModel;
+    private String monitorSize;
     //	电源适配器&电源线 AC Power Adapter & Power cord(TBD)
     private Boolean acPowerAdapter;
     //	电脑锁 Security Cable (210CNY)
@@ -54,6 +55,9 @@ public class Delivery {
     private Boolean lanCable;
     //	签名图片 signature_image
     private String signatureImage;
+    private String returnMonitorSize;
+    //	键盘 鼠标
+    private Boolean returnMouseKeyboard;
     //	电源适配器&电源线 AC Power Adapter & Power cord(TBD)
     private Boolean returnAcPowerAdapter;
     //	电脑锁 Security Cable (210CNY)
@@ -76,7 +80,6 @@ public class Delivery {
     private String referenceNumber;
     //	备注 remarks
     private String remarks;
-    private String monitorSize;
 
     public Long getId() {
         return id;
@@ -373,6 +376,22 @@ public class Delivery {
 
     public void setMonitorSize(String monitorSize) {
         this.monitorSize = monitorSize;
+    }
+
+    public String getReturnMonitorSize() {
+        return returnMonitorSize;
+    }
+
+    public void setReturnMonitorSize(String returnMonitorSize) {
+        this.returnMonitorSize = returnMonitorSize;
+    }
+
+    public Boolean getReturnMouseKeyboard() {
+        return returnMouseKeyboard;
+    }
+
+    public void setReturnMouseKeyboard(Boolean returnMouseKeyboard) {
+        this.returnMouseKeyboard = returnMouseKeyboard;
     }
 }
 

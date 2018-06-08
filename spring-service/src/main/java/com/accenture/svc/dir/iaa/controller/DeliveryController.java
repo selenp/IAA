@@ -53,11 +53,11 @@ public class DeliveryController extends AbstractController {
         deliveryRepository.save(e);
 
         //加入到数据字典
-        mergeDictionary(dictionaryRepository, "projectName", e.getProjectName());
-        mergeDictionary(dictionaryRepository, "businessUnit", e.getBusinessUnit());
-        mergeDictionary(dictionaryRepository, "notebookModel", e.getNotebookModel());
-        mergeDictionary(dictionaryRepository, "locationBuilding", e.getLocationBuilding());
-        mergeDictionary(dictionaryRepository, "locationFloor", e.getLocationFloor());
+        mergeDictionary(dictionaryRepository, "projectName", "项目", e.getProjectName());
+        mergeDictionary(dictionaryRepository, "businessUnit", "部门", e.getBusinessUnit());
+        mergeDictionary(dictionaryRepository, "notebookModel", "笔记本型号", e.getNotebookModel());
+        mergeDictionary(dictionaryRepository, "locationBuilding", "楼号", e.getLocationBuilding());
+        mergeDictionary(dictionaryRepository, "locationFloor", "楼层", e.getLocationFloor());
         return e;
     }
 

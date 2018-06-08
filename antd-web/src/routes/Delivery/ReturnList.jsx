@@ -2,7 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
-import { Badge, Icon, Card, Form, Table } from 'antd';
+import {
+  Badge,
+  Card,
+  Form,
+  Icon,
+  Table,
+} from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import SimpleSearchForm from './SimpleSearchForm';
 import { FILE_URL } from '../../utils/utils';
@@ -38,6 +44,21 @@ export default class ResturnList extends PureComponent {
     });
   }
 
+  onChange = ({ current, pageSize }) => {
+    const { dispatch } = this.props;
+    this.setState(
+      {
+        page: current - 1,
+        size: pageSize,
+      },
+      () =>
+        dispatch({
+          type: 'deliveries/fetchList',
+          payload: this.state,
+        })
+    );
+  };
+
   handleSearch = e => {
     e.preventDefault();
 
@@ -57,21 +78,6 @@ export default class ResturnList extends PureComponent {
           })
       );
     });
-  };
-
-  onChange = ({ current, pageSize }) => {
-    const { dispatch } = this.props;
-    this.setState(
-      {
-        page: current - 1,
-        size: pageSize,
-      },
-      () =>
-        dispatch({
-          type: 'deliveries/fetchList',
-          payload: this.state,
-        })
-    );
   };
 
   renderSimpleForm() {

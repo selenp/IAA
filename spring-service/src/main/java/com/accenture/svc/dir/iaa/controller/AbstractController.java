@@ -74,7 +74,7 @@ class AbstractController {
     }
 
 
-    void mergeDictionary(DictionaryRepository dictionaryRepository, String category, String data) {
+    void mergeDictionary(DictionaryRepository dictionaryRepository, String category, String categoryName, String data) {
         if (StringUtils.isEmpty(data)) {
             return;
         }
@@ -91,7 +91,7 @@ class AbstractController {
         if (optDic.isPresent()) {
             dictionaryRepository.save(optDic.get().rankUp());
         } else {
-            dictionaryRepository.save(Dictionary.as(category, data));
+            dictionaryRepository.save(Dictionary.as(category, categoryName, data));
         }
     }
 }

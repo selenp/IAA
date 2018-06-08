@@ -2,7 +2,19 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
-import { Row, Col, DatePicker, Form, Select, Input, Icon, Button, Badge, Card, Table } from 'antd';
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Icon,
+  Input,
+  Row,
+  Select,
+  Table,
+} from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { FILE_URL } from '../../utils/utils';
 
@@ -58,7 +70,7 @@ export default class TableList extends PureComponent {
     this.handleSearch(e, { xlsx: true });
   };
 
-  handleSearch(e, { xlsx }) {
+  handleSearch = (e, { xlsx }) => {
     e.preventDefault();
 
     const { dispatch, form } = this.props;
@@ -157,13 +169,13 @@ export default class TableList extends PureComponent {
         <span className={styles.submitButtons}>
           <Link to="/delivery/borrow">
             <Button style={{ marginLeft: 8 }}>
-              <Icon type="plus" />
+              <Icon type="download" />
               领取设备
             </Button>
           </Link>
-          <Link to="/delivery/borrow">
+          <Link to="/delivery/return">
             <Button style={{ marginLeft: 8 }}>
-              <Icon type="plus" />
+              <Icon type="upload" />
               归还设备
             </Button>
           </Link>
@@ -239,17 +251,17 @@ export default class TableList extends PureComponent {
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
-            <Link to={`/delivery/return/confirm/${row.id}`}>
+            <Link to={`/delivery/return/confirmData/${row.id}`}>
               待归还
               <Icon type="desktop" />
             </Link>
           ) : row.returnSignatureImage ? (
             <a href={`${FILE_URL}/${row.returnSignatureImage}`} target="_blank">
-              {moment(val).format('YYYY-MM-DD HH:mm')}
+              {val && moment(val).format('YYYY-MM-DD HH:mm')}
               <Icon type="export" />
             </a>
           ) : (
-            <div>{moment(val).format('YYYY-MM-DD HH:mm')}</div>
+            <div>{val && moment(val).format('YYYY-MM-DD HH:mm')}</div>
           );
         },
       },

@@ -69,14 +69,14 @@ export default class TableList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="类别">
+            <FormItem label="分类">
               {getFieldDecorator('category', {
               rules: [
                 {
-                  message: '请输入类别',
+                  message: '请输入分类',
                 },
               ],
-            })(<Input placeholder="请输入类别" />)}
+            })(<Input placeholder="请输入分类" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -103,8 +103,12 @@ export default class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '类别',
+        title: '分类',
         dataIndex: 'category',
+      },
+      {
+        title: '分类名称',
+        dataIndex: 'categoryName',
       },
       {
         title: '值',

@@ -64,7 +64,7 @@ public class TaskController extends AccountController {
             @RequestBody Task d) {
         taskRepository.save(d);
 
-        mergeDictionary(dictionaryRepository, "task_category", d.getCategory());
+        mergeDictionary(dictionaryRepository, "task_category", "任务分类", d.getCategory());
         return d;
     }
 

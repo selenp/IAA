@@ -20,22 +20,23 @@ public class Dictionary {
     private String category;
 
     private String data;
-    private String memo;
+    private String categoryName;
     private int rank = 0;
 
-    public static Dictionary as(String category, String data) {
+    public static Dictionary as(String category, String categoryName, String data) {
         Dictionary dictionary = new Dictionary();
         dictionary.setCategory(category);
+        dictionary.setCategoryName(categoryName);
         dictionary.setData(data);
         return dictionary;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public int getRank() {

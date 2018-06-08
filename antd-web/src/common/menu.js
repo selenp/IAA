@@ -13,7 +13,7 @@ const menuData = [
   },
   {
     name: '通知',
-    icon: 'info',
+    icon: 'info-circle-o',
     path: 'announcements',
   },
   {

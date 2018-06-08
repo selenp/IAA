@@ -36,7 +36,7 @@ class Step2 extends React.PureComponent {
               ...values,
               borrowDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'borrow',
-              monitorSize: values.monitorSize.join(','),
+              monitorSize: values.machineType === 'laptop' ? values.monitorSize.join(',') : null,
             },
             next: '/delivery/borrow/result',
           });

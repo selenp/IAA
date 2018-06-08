@@ -8,7 +8,7 @@ import Result from 'components/Result';
 
 import styles from './style.less';
 
-import formImage from './Laptop-of-Accountability-Form.png';
+import formImage from '../../../assets/template-delivery-borrow.png';
 
 class Step3 extends React.PureComponent {
   componentDidMount() {
@@ -33,22 +33,36 @@ class Step3 extends React.PureComponent {
     const ctx = this.signaturePad.canvas.getContext('2d');
     ctx.drawImage(this.bgImage, 0, 0);
     ctx.font = '16px Courier';
-    ctx.fillText(data.eid, 210, 125);
-    ctx.fillText(data.fullname, 210, 150);
-    ctx.fillText(data.projectName, 210, 175);
-    ctx.fillText(data.businessUnit, 210, 200);
-    ctx.fillText(`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`, 210, 225);
-    ctx.fillText(moment(data.borrowDate).format('YYYY-MM-DD HH:mm'), 210, 250);
+    ctx.fillText(data.eid, 180, 130);
+    ctx.fillText(data.sapNumber, 180, 149);
+    ctx.fillText(data.businessUnit, 180, 168);
+    ctx.fillText(data.locationFloor, 180, 187);
 
-    ctx.fillText(data.assetTag, 590, 125);
-    ctx.fillText(data.serialTag, 590, 175);
-    ctx.fillText(data.notebookModel, 590, 225);
+    ctx.fillText(data.fullname, 520, 130);
+    ctx.fillText(data.projectName, 520, 149);
+    ctx.fillText(data.locationBuilding, 520, 168);
+    ctx.fillText(data.locationSeat, 520, 187);
 
-    ctx.fillText(data.acPowerAdapter ? 'Yes' : 'No', 390, 350);
-    ctx.fillText(data.securityCable ? 'Yes' : 'No', 390, 385);
-    ctx.fillText(data.bag ? 'Yes' : 'No', 390, 420);
-    ctx.fillText(data.mouseKeyboard ? 'Yes' : 'No', 390, 455);
-    ctx.fillText(data.lanCable ? 'Yes' : 'No', 390, 480);
+    ctx.fillText(data.assetTag, 180, 293);
+    ctx.fillText(data.serialTag, 520, 293);
+
+    ctx.fillText('*', data.machineType === 'notebook' ? 277 : 610, 313);
+
+    if (data.machineType === 'notebook') {
+      ctx.fillText(data.notebookModel, 180, 330);
+
+      ctx.fillText(data.acPowerAdapter ? '*' : '', 342, 360);
+      ctx.fillText(data.securityCable ? '*' : '', 342, 395);
+      ctx.fillText(data.mouse ? '*' : '', 342, 425);
+      ctx.fillText(data.bag ? '*' : '', 342, 457);
+    } else if (data.machineType === 'laptop') {
+      ctx.fillText(data.monitorSize ? '*' : '', 600, 360);
+      ctx.fillText(data.mouseKeyboard ? '*' : '', 673, 395);
+      ctx.fillText(data.lanCable ? '*' : '', 673, 425);
+    }
+
+
+    ctx.fillText(moment(data.borrowDate).format('YYYY-MM-DD HH:mm'), 185, 955);
   }
 
   render() {

@@ -6,14 +6,6 @@ import {
   Col,
 } from 'antd';
 
-const rankingListData = [];
-for (let i = 0; i < 7; i += 1) {
-  rankingListData.push({
-    title: `工专路 ${i} 号店`,
-    total: 323234,
-  });
-}
-
 export default class MainMenu extends Component {
   render() {
     const topColResponsiveProps = {
@@ -41,7 +33,7 @@ export default class MainMenu extends Component {
           <Col {...topColResponsiveProps}>
             <Link to="/delivery/return-delivery">
               <Button
-                type="danger"
+                type="success"
                 icon="upload"
                 style={{width: '100%', height: 182, fontSize: 24}}
               >归还设备

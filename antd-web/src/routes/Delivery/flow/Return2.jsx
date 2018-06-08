@@ -46,7 +46,7 @@ class Step2 extends React.PureComponent {
               ...values,
               returnDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'return',
-              monitorSize: values.monitorSize.join(','),
+              monitorSize: values.machineType === 'laptop' ? values.returnMonitorSize.join(',') : null,
             },
             next: '/delivery/return/result',
           });
