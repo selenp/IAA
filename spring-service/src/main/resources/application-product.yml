@@ -24,6 +24,12 @@ spring:
             auth: false
             starttls:
                 enable: false
+  # ldap:
+  #   context-source:
+  #     url: 'ldap://10.254.161.147:389'
+  #     base: 'dc=accenture,dc=com'
+  #     username:
+  #     password:
 online:
   files:
     path: d:/website/front-end/artifacts/

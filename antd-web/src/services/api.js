@@ -180,6 +180,9 @@ export async function accountLogin(params) {
     body: params,
   });
 }
+export async function searchLdap(uid) {
+  return request(`${REMOTE_URL}/ldap/find/${uid}`);
+}
 
 export async function queryNotices() {
   return request('/api/notices');

@@ -28,6 +28,16 @@ spring:
             auth: true
             starttls:
                 enable: true
+  ldap:
+    embedded:
+      ldif: 'classpath:test-server.ldif'
+      base-dn: 'dc=springframework,dc=org'
+      port: 8389
+    context-source:
+      url: 'ldap://localhost:8389'
+      base: 'dc=springframework,dc=org'
+      username:
+      password:
 online:
   files:
     path: /tmp/

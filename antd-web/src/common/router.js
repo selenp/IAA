@@ -108,7 +108,7 @@ export const getRouterData = app => {
       ),
     },
     '/system/admin/:id': {
-      component: dynamicWrapper(app, ['admin'], () => import('../routes/Admins/Admin')),
+      component: dynamicWrapper(app, ['admin', 'ldap'], () => import('../routes/Admins/Admin')),
     },
     '/assettag/:assettag': {
       component: dynamicWrapper(app, ['assetTag'], () => import('../routes/AssetTag/List')),
@@ -120,7 +120,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow')),
     },
     '/delivery/borrow/info': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['delivery', 'dictionary', 'ldap'], () =>
         import('../routes/Delivery/flow/Borrow1')
       ),
     },
@@ -139,7 +139,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return')),
     },
     '/delivery/return/info': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['delivery', 'dictionary', 'ldap'], () =>
         import('../routes/Delivery/flow/Return1')
       ),
     },

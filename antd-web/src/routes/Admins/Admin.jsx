@@ -17,6 +17,7 @@ import { FILE_URL } from '../../utils/utils';
 
 import styles from './Admin.less';
 
+const { Search } = Input;
 const { Option } = Select;
 
 const FormItem = Form.Item;
@@ -36,8 +37,9 @@ const avatars = [
   `${FILE_URL}/UrQsqscbKEpNuJcvBZBu.png`,
 ];
 
-@connect(({ admin, loading, dictionary }) => ({
+@connect(({ admin, ldap, loading, dictionary }) => ({
   admin,
+  ldap,
   loading: loading.effects['admin/fetch'],
   submitting: loading.effects['admin/submit'],
   roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
@@ -71,6 +73,14 @@ class Admin extends PureComponent {
       });
     }
   }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
+      this.props.form.setFieldsValue({
+        fullname: nextProps.ldap.data.cn,
+      });
+    }
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -86,6 +96,13 @@ class Admin extends PureComponent {
           },
         });
       }
+    });
+  }
+
+  handleSeachEid = (eid) => {
+    this.props.dispatch({
+      type: 'ldap/search',
+      uid: eid,
     });
   }
 
@@ -143,7 +160,10 @@ class Admin extends PureComponent {
             message: '请输入EID',
           }],
         })(
-          <Input placeholder="请输入EID" />
+          <Search
+            placeholder="请输入EID"
+            onSearch={value => this.handleSeachEid(value)}
+          />
         )}
           </FormItem>
           <FormItem

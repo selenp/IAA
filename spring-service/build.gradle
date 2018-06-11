@@ -15,7 +15,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'gs-accessing-data-h2'
-    version = '0.1.0608'
+    version = '20180611'
 }
 
 repositories {
@@ -26,10 +26,14 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-logging")
-    compile("org.springframework.boot:spring-boot-starter-mail")
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile('com.unboundid:unboundid-ldapsdk')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-ldap')
+    compile('org.springframework.boot:spring-boot-starter-logging')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.ldap:spring-ldap-core')
+    compile('org.springframework:spring-tx')
 
     compile files('libs/sqljdbc4-4.0.jar')
     compile "org.apache.poi:poi-ooxml:3.17"

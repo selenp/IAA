@@ -85,7 +85,9 @@ public class TransferEventController extends AccountController {
         e.setSignatureImage(imageName);
         transferEventRepository.save(e);
 
-        sendMail(new String[]{Utils.eid2Email(e.getToEid()), Utils.eid2Email(e.getFromEid())}, image);
+        new Thread(() -> {
+            sendMail(new String[]{Utils.eid2Email(e.getToEid()), Utils.eid2Email(e.getFromEid())}, image);
+        }).start();
         return e;
     }
 

@@ -70,12 +70,16 @@
 
     [[./dic1.png]]
 * <2018-06-08 Fri>
- 新版安装到服务器上了，测试了一下，效果很好，连接mssql，发邮件，生成图片都没有问题。
-** 遗留问题
-*** TODO 需要把java应用变成windows服务，要不然windows的session没了，java就停了
-*** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
-*** TODO 英文翻译中。。。
-*** TODO LDAP取数据
+ - 新版安装到服务器上了，测试了一下，效果很好，连接mssql，发邮件，生成图片都没有问题。
+ - 遗留问题
+** DONE 需要把java应用变成windows服务，要不然windows的session没了，java就停了
+   CLOSED: [2018-06-08 Fri 22:31]
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-06-08 Fri 22:31]
+   :END:
+** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
+** TODO 英文翻译中。。。
+** TODO LDAP取数据
 * <2018-06-06 Wed>
 ** 需要1个域名
  - "前端页面"
@@ -153,7 +157,11 @@
     - 锁
     - 电源线
     - 鼠标
-** TODO iPad实测
+** DONE iPad实测
+   CLOSED: [2018-06-11 Mon 07:38]
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-06-11 Mon 07:38]
+   :END:
 ** DONE 还设备
    CLOSED: [2018-06-08 Fri 00:05]
    :LOGBOOK:
@@ -586,6 +594,11 @@ DELETE http://localhost:3050/api/dictionary/5
 #+BEGIN_SRC sh
 GET http://localhost:3050/api/assettag/8
 #+END_SRC
+** ldao
+- find by uid
+#+BEGIN_SRC sh
+GET http://localhost:3050/api/ldap/find/ben
+#+END_SRC
 
 * Deployment
 ** 编译
@@ -593,7 +606,7 @@ GET http://localhost:3050/api/assettag/8
 npm start
 rm -rf dist/; npm run build
 
-gradle build && java -jar build/libs/gs-accessing-data-h2-0.1.0608.jar
+gradle build && java -jar build/libs/gs-accessing-data-h2-20180611.jar
 #+END_SRC
 
 
@@ -601,8 +614,8 @@ gradle build && java -jar build/libs/gs-accessing-data-h2-0.1.0608.jar
 #+BEGIN_SRC sh
 
 gradle build
-scp build/libs/gs-accessing-data-h2-0.1.0608.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
-java -jar build/libs/gs-accessing-data-h2-0.1.0608.jar
+scp build/libs/gs-accessing-data-h2-20180611.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
+java -jar build/libs/gs-accessing-data-h2-20180611.jar
 
 rm -rf dist/; npm run build;  rsync -avz /works/projects/accenture/equipment/antd-web/dist/ yidalize_no1:/usr/share/nginx/html/yida-lize-file/
 #+END_SRC

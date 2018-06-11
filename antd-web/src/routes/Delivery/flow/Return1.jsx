@@ -26,6 +26,21 @@ class Step1 extends React.PureComponent {
       type: 'delivery/initData',
     });
   }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
+      this.props.form.setFieldsValue({
+        fullname: nextProps.ldap.data.cn,
+      });
+    }
+  }
+  handleSeachEid = (eid) => {
+    this.props.dispatch({
+      type: 'ldap/search',
+      uid: eid,
+    });
+  }
+
   render() {
     const {
       form,
@@ -59,6 +74,7 @@ class Step1 extends React.PureComponent {
           projectNames={projectNames}
           locationBuildings={locationBuildings}
           locationFloors={locationFloors}
+          handleSeachEid={this.handleSeachEid}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
@@ -73,7 +89,8 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ dictionary }) => ({
+export default connect(({ dictionary, ldap }) => ({
+  ldap,
   businessUnits: map(groupBy(dictionary.data, 'category').businessUnit, v =>v.data),
   projectNames: map(groupBy(dictionary.data, 'category').projectName, v =>v.data),
   locationBuildings: map(groupBy(dictionary.data, 'category').locationBuilding, v =>v.data),

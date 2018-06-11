@@ -7,6 +7,7 @@ import {
 } from 'antd';
 
 const { TextArea } = Input;
+const { Search } = Input;
 
 const { Option } = Select;
 
@@ -20,6 +21,7 @@ const InfoForm = ({
   businessUnits,
   locationBuildings,
   locationFloors,
+  handleSeachEid,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label="EID">
@@ -30,7 +32,12 @@ const InfoForm = ({
                   message: '请输入您的EID',
                 },
               ],
-            })(<Input placeholder="请输入EID" />)}
+        })(
+          <Search
+            placeholder="请输入EID"
+            onSearch={value => handleSeachEid(value)}
+          />
+      )}
     </Form.Item>
     <Form.Item {...formItemLayout} label="姓名">
       {getFieldDecorator('fullname', {

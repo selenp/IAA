@@ -80,7 +80,10 @@ public class DeliveryController extends AbstractController {
         }
         deliveryRepository.save(e);
 
-        sendMail(new String[]{Utils.eid2Email(e.getEid())}, image);
+        new Thread(() -> {
+            sendMail(new String[]{Utils.eid2Email(e.getEid())}, image);
+        }).start();
+
         return e;
     }
 
@@ -128,7 +131,7 @@ public class DeliveryController extends AbstractController {
                 list.add(cb.equal(root.get("assetTag").as(String.class), assetTag));
             }
             if (!StringUtils.isEmpty(progress)) {
-                list.add(cb.equal(root.get("progress").as(String.class), assetTag));
+                list.add(cb.equal(root.get("progress").as(String.class), progress));
             }
             if (!StringUtils.isEmpty(dateRange)) {
                 String[] range = dateRange.split(",");
