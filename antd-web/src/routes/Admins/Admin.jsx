@@ -37,12 +37,12 @@ const avatars = [
   `${FILE_URL}/UrQsqscbKEpNuJcvBZBu.png`,
 ];
 
-@connect(({ admin, ldap, loading, dictionary }) => ({
+@connect(({ admin, ldap, loading, allDictionaries }) => ({
   admin,
   ldap,
   loading: loading.effects['admin/fetch'],
   submitting: loading.effects['admin/submit'],
-  roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
+  roles: map(groupBy(allDictionaries.data, 'category').role, v => v.data),
 }))
 @Form.create()
 class Admin extends PureComponent {
@@ -218,7 +218,7 @@ class Admin extends PureComponent {
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary" loading={submitting}> 提交 </Button>
+            <Button type="primary"  htmlType="submit" loading={submitting}> 提交 </Button>
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button

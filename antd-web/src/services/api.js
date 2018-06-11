@@ -83,13 +83,13 @@ export async function uploadTransferSignature(id, io, image) {
 export async function queryAdmins(params) {
   return request(`${REMOTE_URL}/admin/?${stringify(params)}`);
 }
-export async function queryAdmin(id) {
-  return request(`${REMOTE_URL}/admin/${id}`);
-}
 export async function deleteAdmin(id) {
   return request(`${REMOTE_URL}/admin/${id}`, {
     method: 'DELETE',
   });
+}
+export async function queryAdmin(id) {
+  return request(`${REMOTE_URL}/admin/${id}`);
 }
 export async function submitAdmin(params) {
   return request(`${REMOTE_URL}/admin/`, {
@@ -98,17 +98,25 @@ export async function submitAdmin(params) {
   });
 }
 
-export async function queryDictionaries(params) {
-  return request(`${REMOTE_URL}/dictionary/?${stringify(params)}`);
-}
-
 export async function allDictionaries() {
   return request(`${REMOTE_URL}/dictionary/_all`);
 }
 
+export async function queryDictionaries(params) {
+  return request(`${REMOTE_URL}/dictionary/?${stringify(params)}`);
+}
 export async function deleteDictionary(id) {
   return request(`${REMOTE_URL}/dictionary/${id}`, {
     method: 'DELETE',
+  });
+}
+export async function queryDictionary(id) {
+  return request(`${REMOTE_URL}/dictionary/${id}`);
+}
+export async function submitDictionary(params) {
+  return request(`${REMOTE_URL}/dictionary/`, {
+    method: 'POST',
+    body: params,
   });
 }
 

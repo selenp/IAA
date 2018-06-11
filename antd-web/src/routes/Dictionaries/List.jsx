@@ -117,7 +117,7 @@ class TableList extends PureComponent {
         dataIndex: 'data',
         render: (val, row) => {
           return (
-            <Link to={`/system/dictionaries/${row.id}`}>
+            <Link to={`/system/dictionary/${row.id}`}>
               {val}
             </Link>
           );
@@ -125,7 +125,7 @@ class TableList extends PureComponent {
       },
       {
         title: '操作',
-        render: (val, row) => (
+        render: (val, row) => !row.category.startsWith('system.') && (
           <Fragment>
             <a onClick={() => this.props.dispatch({
               type: 'dictionaries/delete',

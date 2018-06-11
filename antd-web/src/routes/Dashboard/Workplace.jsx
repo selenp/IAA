@@ -74,18 +74,6 @@ class Workplace extends PureComponent {
 
     const extraContent = (
       <div className={styles.extraContent}>
-        <div className={styles.statItem}>
-          <p>今天</p>
-          <p>6</p>
-        </div>
-        <div className={styles.statItem}>
-          <p>明天</p>
-          <p>8</p>
-        </div>
-        <div className={styles.statItem}>
-          <p>后天</p>
-          <p>2</p>
-        </div>
       </div>
     );
 

@@ -111,7 +111,7 @@ class BasicLayout extends React.PureComponent {
       type: 'user/fetchCurrent',
     });
     this.props.dispatch({
-      type: 'dictionary/allDictionaries',
+      type: 'allDictionaries/allDictionaries',
     });
   }
 
@@ -251,8 +251,8 @@ class BasicLayout extends React.PureComponent {
           </Content>
           <div className={styles.globalFooter}>
             <div className={styles.links}>
-              <button onClick={() => changeLanguage("en")}>{t("en")}</button>
-              <button onClick={() => changeLanguage("zh")}>{t("zh")}</button>
+              <button style={{fontWeight: i18n.language === 'en' ? 'bold' : 'normal'}} onClick={() => changeLanguage("en")}>{t("en")}</button>
+              <button style={{fontWeight: i18n.language === 'zh' ? 'bold' : 'normal'}} onClick={() => changeLanguage("zh")}>{t("zh")}</button>
             </div>
           </div>
         </Layout>

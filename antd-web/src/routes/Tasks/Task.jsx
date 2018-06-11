@@ -17,13 +17,13 @@ const { TextArea } = Input;
 
 const { Description } = DescriptionList;
 
-@connect(({ task, user, loading, dictionary }) => ({
+@connect(({ task, user, loading, allDictionaries }) => ({
   currentUser: user.currentUser,
   task,
   loading: loading.effects['task/fetch'],
   submitting: loading.effects['task/submit'],
-  roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
-  taskCategories: map(groupBy(dictionary.data, 'category').task_category, v => v.data),
+  roles: map(groupBy(allDictionaries.data, 'category').role, v => v.data),
+  taskCategories: map(groupBy(allDictionaries.data, 'category').task_category, v => v.data),
 }))
 @Form.create()
 class Task extends PureComponent {
@@ -160,8 +160,7 @@ class Task extends PureComponent {
           </Form.Item>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary" htmlType="submit" loading={submitting}>
-              {' '}
-              提交{' '}
+              提交
             </Button>
             {this.state.editing &&
               this.props.match.params.id !== 'new' && (

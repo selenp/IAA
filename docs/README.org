@@ -79,7 +79,11 @@
    :END:
 ** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
 ** TODO 英文翻译中。。。
-** TODO LDAP取数据
+** DONE LDAP取数据
+   CLOSED: [2018-06-11 Mon 10:11]
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:11]
+   :END:
 * <2018-06-06 Wed>
 ** 需要1个域名
  - "前端页面"
@@ -122,7 +126,11 @@
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-08 Fri 13:18]
     :END:
-*** TODO 从ldap查到数据
+*** DONE 从ldap查到数据
+    CLOSED: [2018-06-11 Mon 10:11]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:11]
+    :END:
 ** 数据字典
 *** DONE 楼，楼层，笔记本model
     CLOSED: [2018-06-05 Tue 22:43]
@@ -169,7 +177,11 @@
    :END:
 ** 周四之前完成功能，重新发布
 ** NEXT 下周一英文版
-** TODO 写一下安装手顺
+** DONE 写一下安装手顺
+   CLOSED: [2018-06-11 Mon 10:12]
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:12]
+   :END:
 
 localhost:1433  iaa/Guop1ng123 iaa
 
@@ -583,9 +595,25 @@ GET http://localhost:3050/api/dictionary/_all
 GET http://localhost:3050/api/dictionary/
 #+END_SRC
 
+   - 查找一个
+#+BEGIN_SRC sh
+GET http://localhost:3050/api/dictionary/66
+#+END_SRC
    - 删除一个
 #+BEGIN_SRC sh
 DELETE http://localhost:3050/api/dictionary/5
+#+END_SRC
+- 新建dictionary
+#+BEGIN_SRC sh
+POST http://localhost:3050/api/dictionary/
+Content-Type: application/json
+
+{
+"id": 66,
+"category": "system.ldap",
+"categoryName": "ldap系统参数",
+"data": "{url: 'ldap://localhost:8389', base: 'dc=springframework,dc=org', username: null, password: null}"
+}
 #+END_SRC
 
 ** Assettag
@@ -602,22 +630,26 @@ GET http://localhost:3050/api/ldap/find/ben
 
 * Deployment
 ** 编译
+ - antd-web
 #+BEGIN_SRC sh
+npm install
 npm start
-rm -rf dist/; npm run build
-
-gradle build && java -jar build/libs/gs-accessing-data-h2-20180611.jar
+#+END_SRC
+ - spring-service
+#+BEGIN_SRC sh
+gradle build
+java -jar build/libs/accenture-iaa-20180611.jar
 #+END_SRC
 
 
 ** 同步
+ - antd-web
 #+BEGIN_SRC sh
-
-gradle build
-scp build/libs/gs-accessing-data-h2-20180611.jar  yidalize_no1:/usr/share/nginx/html/yida-lize-file/
-java -jar build/libs/gs-accessing-data-h2-20180611.jar
-
-rm -rf dist/; npm run build;  rsync -avz /works/projects/accenture/equipment/antd-web/dist/ yidalize_no1:/usr/share/nginx/html/yida-lize-file/
+rm -rf dist/
+npm run build
 #+END_SRC
-
-
+ - spring-service
+#+BEGIN_SRC
+build/libs/accenture-iaa-20180611.jar
+WinSW
+#+END_SRC

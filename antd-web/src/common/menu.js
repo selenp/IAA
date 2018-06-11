@@ -37,7 +37,7 @@ const menuData = [
         name: '数据字典',
         icon: 'database',
         authority: (currentAuthority) => currentAuthority.split(',').indexOf('super admin') > -1 ,
-        path: 'dictionaries/list',
+        path: 'dictionaries',
       },
       {
         name: '用户管理',

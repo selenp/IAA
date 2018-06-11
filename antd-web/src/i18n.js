@@ -7,7 +7,7 @@ i18n.use(LanguageDetector).init({
     en: {
       translations: {
         "zh": "中文",
-        "en": "英文",
+        "en": "English",
         "任务": "Tasks",
         "系统管理": "System Setting",
         "领取设备": "领取设备",
@@ -16,7 +16,7 @@ i18n.use(LanguageDetector).init({
     },
     zh: {
       translations: {
-        "zh": "Chinese",
+        "zh": "中文",
         "en": "English",
         "任务": "任务",
         "系统管理": "系统管理",

@@ -24,10 +24,10 @@ const getQuery = (location, param) => {
   return v;
 };
 
-@connect(({ admins, loading, dictionary }) => ({
+@connect(({ admins, loading, allDictionaries }) => ({
   admins,
   loading: loading.models.admins,
-  roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
+  roles: map(groupBy(allDictionaries.data, 'category').role, v => v.data),
 }))
 @Form.create()
 class TableList extends PureComponent {

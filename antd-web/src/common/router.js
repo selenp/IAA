@@ -99,11 +99,14 @@ export const getRouterData = app => {
     '/transfers/list': {
       component: dynamicWrapper(app, ['transfers'], () => import('../routes/Transfers/List')),
     },
-    '/system/dictionaries/list': {
+    '/system/dictionaries': {
       component: dynamicWrapper(app, ['dictionaries'], () => import('../routes/Dictionaries/List')),
     },
+    '/system/dictionary/:id': {
+      component: dynamicWrapper(app, ['dictionary'], () => import('../routes/Dictionaries/Dictionary')),
+    },
     '/system/admins': {
-      component: dynamicWrapper(app, ['admins', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['admins', 'allDictionaries'], () =>
         import('../routes/Admins/List')
       ),
     },
@@ -120,12 +123,12 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Borrow')),
     },
     '/delivery/borrow/info': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary', 'ldap'], () =>
+      component: dynamicWrapper(app, ['delivery', 'allDictionaries', 'ldap'], () =>
         import('../routes/Delivery/flow/Borrow1')
       ),
     },
     '/delivery/borrow/confirm': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['delivery', 'allDictionaries'], () =>
         import('../routes/Delivery/flow/Borrow2')
       ),
     },
@@ -139,17 +142,17 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['delivery'], () => import('../routes/Delivery/flow/Return')),
     },
     '/delivery/return/info': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary', 'ldap'], () =>
+      component: dynamicWrapper(app, ['delivery', 'allDictionaries', 'ldap'], () =>
         import('../routes/Delivery/flow/Return1')
       ),
     },
     '/delivery/return/confirmData/:id': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['delivery', 'allDictionaries'], () =>
         import('../routes/Delivery/flow/ReturnData')
       ),
     },
     '/delivery/return/confirm': {
-      component: dynamicWrapper(app, ['delivery', 'dictionary'], () =>
+      component: dynamicWrapper(app, ['delivery', 'allDictionaries'], () =>
         import('../routes/Delivery/flow/Return2')
       ),
     },

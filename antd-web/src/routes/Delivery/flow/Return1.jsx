@@ -89,10 +89,10 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ dictionary, ldap }) => ({
+export default connect(({ allDictionaries, ldap }) => ({
   ldap,
-  businessUnits: map(groupBy(dictionary.data, 'category').businessUnit, v =>v.data),
-  projectNames: map(groupBy(dictionary.data, 'category').projectName, v =>v.data),
-  locationBuildings: map(groupBy(dictionary.data, 'category').locationBuilding, v =>v.data),
-  locationFloors: map(groupBy(dictionary.data, 'category').locationFloor, v =>v.data),
+  businessUnits: map(groupBy(allDictionaries.data, 'category').businessUnit, v =>v.data),
+  projectNames: map(groupBy(allDictionaries.data, 'category').projectName, v =>v.data),
+  locationBuildings: map(groupBy(allDictionaries.data, 'category').locationBuilding, v =>v.data),
+  locationFloors: map(groupBy(allDictionaries.data, 'category').locationFloor, v =>v.data),
 }))(Step1);

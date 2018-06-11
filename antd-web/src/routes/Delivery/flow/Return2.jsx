@@ -72,9 +72,9 @@ class Step2 extends React.PureComponent {
   }
 }
 
-export default connect(({ delivery, loading, dictionary }) => ({
+export default connect(({ delivery, loading, allDictionaries }) => ({
   submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
-  laptopModels: map(groupBy(dictionary.data, 'category').laptopModel, v =>v.data),
-  monitorSizes: map(groupBy(dictionary.data, 'category').monitorSize, v =>v.data),
+  laptopModels: map(groupBy(allDictionaries.data, 'category').laptopModel, v =>v.data),
+  monitorSizes: map(groupBy(allDictionaries.data, 'category').monitorSize, v =>v.data),
 }))(Step2);

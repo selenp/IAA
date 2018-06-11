@@ -17,12 +17,12 @@ const { TextArea } = Input;
 
 const { Description } = DescriptionList;
 
-@connect(({ announcement, user, loading, dictionary }) => ({
+@connect(({ announcement, user, loading, allDictionaries }) => ({
   currentUser: user.currentUser,
   announcement,
   loading: loading.effects['announcement/fetch'],
   submitting: loading.effects['announcement/submit'],
-  roles: map(groupBy(dictionary.data, 'category').role, v => v.data),
+  roles: map(groupBy(allDictionaries.data, 'category').role, v => v.data),
 }))
 @Form.create()
 class Announcement extends PureComponent {

@@ -1,28 +1,47 @@
-import {
-  allDictionaries,
-} from '../services/api';
+import { routerRedux } from 'dva/router';
+import { message } from 'antd';
+import { queryDictionary, submitDictionary } from '../services/api';
 
 export default {
   namespace: 'dictionary',
 
   state: {
-    data:{},
+    data: {
+    },
   },
 
   effects: {
-    *allDictionaries(_, { call, put }) {
-      const response = yield call(allDictionaries);
+    * fetch({ id }, { call, put }) {
+      const response = yield call(queryDictionary, id);
       yield put({
-        type: 'init',
+        type: 'dictionary',
         payload: response,
       });
+    },
+    * submit({ payload }, { call, put }) {
+      const response = yield call(submitDictionary, payload);
+      yield put({
+        type: 'dictionary',
+        payload: response,
+      });
+      message.success('提交成功');
+      yield put(routerRedux.push(`/system/dictionaries`));
     },
   },
 
   reducers: {
-    init(state, { payload }) {
+    dictionary(state, { payload }) {
+
       return {
+        ...state,
         data: payload,
+      };
+    },
+    deletedMember(state, { payload }) {
+      return {
+        data: {
+          ...state.data,
+        },
       };
     },
   },
