@@ -100,6 +100,7 @@ class TableList extends PureComponent {
   }
 
   renderSimpleForm() {
+    const { t } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={e => this.handleSearch(e, { xlsx: false })} layout="inline">
@@ -109,26 +110,26 @@ class TableList extends PureComponent {
               {getFieldDecorator('eid', {
                 rules: [
                   {
-                    message: '请输入EID',
+                    message: t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder="请输入EID" />)}
+              })(<Input placeholder={t("请输入EID")} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                查询
+                {t("查询")}
               </Button>
               <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
                 <Icon type="download" />
-                下载
+                {t("下载")}
               </Button>
               <Link to="/task/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  任务
+                  {t("任务")}
                 </Button>
               </Link>
             </span>
@@ -152,17 +153,17 @@ class TableList extends PureComponent {
           <Button onClick={this.fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
             {loading ? (
               <span>
-                <Icon type="loading" /> 加载中...
+                <Icon type="loading" /> {t("加载中...")}
               </span>
             ) : (
-              '加载更多'
+              t('加载更多')
             )}
           </Button>
         </div>
       ) : null;
 
     return (
-      <PageHeaderLayout title="任务" content="我发布的任务。">
+      <PageHeaderLayout title={t("任务")} content={t("我发布的任务")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

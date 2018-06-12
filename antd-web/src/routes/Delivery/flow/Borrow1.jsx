@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
+import { translate } from "react-i18next";
 import {
   Form,
   Divider,
@@ -42,6 +43,7 @@ class Step1 extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const {
       form,
       dispatch,
@@ -78,10 +80,10 @@ class Step1 extends React.PureComponent {
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
-          <h3>说明</h3>
+          <h3>{t("说明")}</h3>
           <h4>...</h4>
           <p>
-            如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
+            {t("如果需要，这里可以放一些关于产品的常见问题说明。")}
           </p>
         </div>
       </Fragment>
@@ -95,4 +97,4 @@ export default connect(({ allDictionaries, ldap }) => ({
   projectNames: map(groupBy(allDictionaries.data, 'category').projectName, v =>v.data),
   locationBuildings: map(groupBy(allDictionaries.data, 'category').locationBuilding, v =>v.data),
   locationFloors: map(groupBy(allDictionaries.data, 'category').locationFloor, v =>v.data),
-}))(Step1);
+}))(translate("translations")(Step1));

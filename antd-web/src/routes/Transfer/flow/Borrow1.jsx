@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Form, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -59,6 +60,7 @@ class Step1 extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { form, dispatch, currentUser, task } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
@@ -86,7 +88,7 @@ class Step1 extends React.PureComponent {
         {task &&
           task.eid && (
             <div className={styles.desc}>
-              <h3>说明</h3>
+              <h3>{t("说明")}</h3>
               <h4>{`${task.eid}: ${task.category}`}</h4>
               <pre>{task.content}</pre>
             </div>
@@ -99,4 +101,4 @@ class Step1 extends React.PureComponent {
 export default connect(({ user, task }) => ({
   currentUser: user.currentUser,
   task: task.data,
-}))(Step1);
+}))(translate("translations")(Step1));

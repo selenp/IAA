@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate } from "react-i18next";
 import {
   Form,
   Input,
@@ -13,6 +14,7 @@ const { Option } = Select;
 
 
 const InfoForm = ({
+  t,
   styles,
   getFieldDecorator,
   onValidateForm,
@@ -29,37 +31,37 @@ const InfoForm = ({
               rules: [
                 {
                   required: true,
-                  message: '请输入您的EID',
+                  message: t('请输入EID'),
                 },
               ],
         })(
           <Search
-            placeholder="请输入EID"
+            placeholder={t("请输入EID")}
             onSearch={value => handleSeachEid(value)}
           />
       )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="姓名">
+    <Form.Item {...formItemLayout} label={t("姓名")}>
       {getFieldDecorator('fullname', {
-            })(<Input placeholder="请输入EID" />)}
+            })(<Input placeholder={t("请输入EID")}/>)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="员工号 Sap Number">
       {getFieldDecorator('sapNumber', {
-            })(<Input placeholder="请输入员工号" />)}
+            })(<Input placeholder={t("请输入员工号")} />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="项目">
+    <Form.Item {...formItemLayout} label={t("项目")}>
       {getFieldDecorator('projectName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入或选择项目',
+                  message: t('请输入或选择项目'),
                 },
               ],
             })(
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder="请输入或选择项目"
+                placeholder={t("请输入或选择项目")}
               >
                 {
                   projectNames.map(d => (
@@ -69,19 +71,19 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="部门">
+    <Form.Item {...formItemLayout} label={t("部门")}>
       {getFieldDecorator('businessUnit', {
               rules: [
                 {
                   required: true,
-                  message: '请输入部门',
+                  message: t('请输入部门'),
                 },
               ],
             })(
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder="请输入或选择部门"
+                placeholder={t("请输入或选择部门")}
               >
                 {
                   businessUnits.map(d => (
@@ -91,19 +93,19 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="楼">
+    <Form.Item {...formItemLayout} label={t("办公地点")}>
       {getFieldDecorator('locationBuilding', {
               rules: [
                 {
                   required: true,
-                  message: '请输入您办公地点的楼号',
+                  message: t('请输入您办公地点的楼号'),
                 },
               ],
             })(
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder="请输入或选择办公地点的楼号"
+                placeholder={t("请输入您办公地点的楼号")}
               >
                 {
                   locationBuildings.map(d => (
@@ -118,14 +120,14 @@ const InfoForm = ({
               rules: [
                 {
                   required: true,
-                  message: '请输入您办公地点的楼层',
+                  message: t('请输入您办公地点的楼层'),
                 },
               ],
       })(
         <Select
           mode="combobox"
           style={{ width: '100%' }}
-          placeholder="请输入或选择办公地点的楼层"
+          placeholder={t("请输入您办公地点的楼层")}
         >
           {
                   locationFloors.map(d => (
@@ -135,23 +137,23 @@ const InfoForm = ({
         </Select>
               )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="座位号">
+    <Form.Item {...formItemLayout} label={t("座位号")}>
       {getFieldDecorator('locationSeat', {
               rules: [
                 {
                   required: true,
-                  message: '请输入您办公地点的座位号',
+                  message: t('请输入您办公地点的座位号'),
                 },
               ],
-            })(<Input placeholder="请输入您办公地点的座位号" />)}
+            })(<Input placeholder={t("请输入您办公地点的座位号")}/>)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}
       label={
         <span>
-                备注
+          {t("备注")}
           <em className={styles.optional}>
-                  （选填）
+            {t("选填")}
           </em>
         </span>
             }
@@ -159,7 +161,7 @@ const InfoForm = ({
       {getFieldDecorator('remarks')(
         <TextArea
           style={{ minHeight: 32 }}
-          placeholder="如有必要， 请输入一些备注信息"
+          placeholder={t("如有必要， 请输入一些备注信息")}
           rows={4}
         />
             )}
@@ -175,10 +177,10 @@ const InfoForm = ({
       label=""
     >
       <Button type="primary" onClick={onValidateForm}>
-              下一步
+        {t("")}
       </Button>
     </Form.Item>
   </Form>
 );
 
-export default InfoForm;
+export default translate("translations")(InfoForm);

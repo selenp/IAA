@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate } from "react-i18next";
 import {
   Row,
   Col,
@@ -12,6 +13,7 @@ import { Link } from 'dva/router';
 const FormItem = Form.Item;
 
 const SimpleSearchForm = ({
+  t,
   styles,
   getFieldDecorator,
   handleSearch,
@@ -24,22 +26,22 @@ const SimpleSearchForm = ({
       rules: [
         {
           required: true,
-          message: '请输入EID',
+          message: t('请输入EID'),
         },
       ],
-    })(<Input placeholder="请输入EID" />)}
+          })(<Input placeholder={t("请输入EID")} />)}
         </FormItem>
       </Col>
       <Col md={8} sm={24}>
         <span className={styles.submitButtons}>
           <Button type="primary" htmlType="submit">
             <Icon type="search" />
-    查询
+            {t("查询")}
           </Button>
           <Link to="/delivery/return">
             <Button style={{ marginLeft: 8 }}>
               <Icon type="plus" />
-    设备归还
+              {t("归还设备")}
             </Button>
           </Link>
         </span>
@@ -48,4 +50,4 @@ const SimpleSearchForm = ({
   </Form>
 );
 
-export default SimpleSearchForm;
+export default translate("translations")(SimpleSearchForm);

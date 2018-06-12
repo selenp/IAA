@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
+import { translate } from "react-i18next";
 import {
   Card,
   Form,
@@ -32,6 +33,7 @@ class Step2 extends React.PureComponent {
 
 
   render() {
+    const { t } = this.props;
     const {
       form,
       data,
@@ -60,7 +62,7 @@ class Step2 extends React.PureComponent {
     };
     return (
       <PageHeaderLayout
-        title="设备归还"
+        title={t("归还设备")}
         content="操作不熟悉的用户，请在IT人员的指导下完成。"
       >
         <Card bordered={false}>
@@ -92,4 +94,4 @@ export default connect(({ delivery, loading, allDictionaries }) => ({
   data: delivery.step,
   laptopModels: map(groupBy(allDictionaries.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(allDictionaries.data, 'category').monitorSize, v =>v.data),
-}))(Step2);
+}))(translate("translations")(Step2));

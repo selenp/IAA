@@ -79,6 +79,7 @@ class TableList extends PureComponent {
   }
 
   renderSimpleForm() {
+    const { t } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={e => this.handleSearch(e, { xlsx: false })} layout="inline">
@@ -88,26 +89,26 @@ class TableList extends PureComponent {
               {getFieldDecorator('eid', {
                 rules: [
                   {
-                    message: '请输入EID',
+                    message: t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder="请输入EID" />)}
+              })(<Input placeholder={t("请输入EID")} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                查询
+                {t("查询")}
               </Button>
               <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
                 <Icon type="download" />
-                下载
+                {t("下载")}
               </Button>
               <Link to="/transfer/borrow">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  IT设备取还
+                  {t("设备取还")}
                 </Button>
               </Link>
             </span>
@@ -134,7 +135,7 @@ class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '时间',
+        title: t('时间'),
         dataIndex: 'borrowDate',
         render: (val, row) =>
           row.signatureImage ? (
@@ -147,7 +148,7 @@ class TableList extends PureComponent {
           ),
       },
       {
-        title: '设备编号',
+        title: t('设备编号'),
         dataIndex: 'assetTags',
         render(val) {
           return val.split(',').map(v => (
@@ -158,15 +159,15 @@ class TableList extends PureComponent {
         },
       },
       {
-        title: '自EID',
+        title: t('自EID'),
         dataIndex: 'fromEid',
       },
       {
-        title: '至EID',
+        title: t('至EID'),
         dataIndex: 'toEid',
       },
       {
-        title: '状态',
+        title: t('状态'),
         dataIndex: 'status',
         render(val) {
           return <Badge status={progressMap[val]} text={progress[val]} />;
@@ -175,7 +176,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title="设备取还" content="IT设备取还流程。">
+      <PageHeaderLayout title={t("设备取还")} content={t("设备取还履历")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

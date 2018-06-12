@@ -58,20 +58,22 @@ class Dictionary extends PureComponent {
 
 
   renderView() {
+    const { t } = this.props;
     const { dictionary: { data } } = this.props;
 
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term="类别">{data.category}</Description>
-          <Description term="类别名称">{data.categoryName}</Description>
-          <Description term="值">{data.data}</Description>
+          <Description term={t("分类")}>{data.category}</Description>
+          <Description term={t("分类名称")}>{data.categoryName}</Description>
+          <Description term={t("值")}>{data.data}</Description>
         </DescriptionList>
       </Card>
     );
   }
 
   renderEdit() {
+    const { t } = this.props;
     const { submitting } = this.props;
     const { getFieldDecorator } = this.props.form;
 
@@ -102,44 +104,44 @@ class Dictionary extends PureComponent {
         >
           <FormItem
             {...formItemLayout}
-            label={<span>类别</span>}
+            label={<span>{t("分类")}</span>}
           >
             {getFieldDecorator('category', {
           initialValue: this.state.data.category,
           rules: [{
             required: true,
-            message: '请输入类别',
+            message: t('请输入分类'),
           }],
             })(
-              <Input placeholder="请输入类别" />
+              <Input placeholder={t("请输入分类")} />
         )}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>类别</span>}
+            label={<span>{t("分类")}</span>}
           >
             {getFieldDecorator('categoryName', {
           initialValue: this.state.data.categoryName,
           rules: [{
             required: true,
-            message: '请输入类别名称',
+            message: t('请输入分类'),
           }],
             })(
-              <Input placeholder="请输入类别名称" />
+              <Input placeholder={t("请输入分类")}/>
         )}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>值</span>}
+            label={<span>{t("Data")}</span>}
           >
             {getFieldDecorator('data', {
           initialValue: this.state.data.data,
           rules: [{
             required: true,
-            message: '请输入值',
+            message: t('请输入值'),
           }],
         })(
-          <TextArea rows={20} placeholder="请输入值" />
+          <TextArea rows={20} placeholder={t("请输入值")} />
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
@@ -150,7 +152,7 @@ class Dictionary extends PureComponent {
               onClick={e => this.setState({
                 editing: false,
               })}
-            >取消
+            >{t("取消")}
             </Button>
           )
         }
@@ -158,7 +160,7 @@ class Dictionary extends PureComponent {
         (!this.state.editing) && (
           <Button
             onClick={e => this.props.dispatch(routerRedux.push('/system/dictionaries'))}
-          >返回
+          >{t("返回")}
           </Button>
         )
       }
@@ -180,7 +182,7 @@ class Dictionary extends PureComponent {
                 editing: true,
                 data: this.props.dictionary.data,
               })}
-            >修改
+            >{t("修改")}
             </Button>
           )
         }
@@ -188,7 +190,7 @@ class Dictionary extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title="模块详细页面"
+        title={t("模块详情页面")}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

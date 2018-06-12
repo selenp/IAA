@@ -30,15 +30,15 @@ class StepForm extends PureComponent {
     const { match, routerData } = this.props;
     return (
       <PageHeaderLayout
-        title="设备移交"
-        content="IT人员之间的批量设备取还。"
+        title={t("设备移交")}
+        content={t("IT人员之间的批量设备取还")}
       >
         <Card bordered={false}>
           <Fragment>
             <Steps current={this.getCurrentStep()} className={styles.steps}>
-              <Step title="确定 领取人" />
-              <Step title="填写设备信息" />
-              <Step title="双方确认并签字" />
+              <Step title={t("确定 领取人")} />
+              <Step title={t("填写设备信息")} />
+              <Step title={t("双方确认并签字")} />
             </Steps>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (

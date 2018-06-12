@@ -89,6 +89,7 @@ class TableList extends PureComponent {
   };
 
   renderSimpleForm() {
+    const { t } = this.props;
     const { roles, location } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
@@ -99,23 +100,23 @@ class TableList extends PureComponent {
               {getFieldDecorator('userid', {
                 rules: [
                   {
-                    message: '请输入EID',
+                    message: t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder="请输入EID" />)}
+              })(<Input placeholder={t("请输入EID")} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="角色">
+            <FormItem label={t("角色")}>
               {getFieldDecorator('role', {
                 initialValue: getQuery(location, 'role'),
                 rules: [
                   {
-                    message: '请选择角色',
+                    message:t('请选择角色'),
                   },
                 ],
               })(
-                <Select style={{ width: '100%' }} mode="combobox" placeholder="请选择角色">
+                <Select style={{ width: '100%' }} mode="combobox" placeholder={t("请选择角色")}>
                   {roles.map(d => <Option key={d}>{d}</Option>)}
                 </Select>
               )}
@@ -125,12 +126,12 @@ class TableList extends PureComponent {
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                查询
+                {t("查询")}
               </Button>
               <Link to="/system/admin/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  新增
+                  {t("新增")}
                 </Button>
               </Link>
             </span>
@@ -157,23 +158,23 @@ class TableList extends PureComponent {
 
     const columns = [
       {
-        title: 'EID',
+        title: t('eid'),
         dataIndex: 'userid',
         render: (val, row) => <Link to={`/system/admin/${row.id}`}>{val}</Link>,
       },
       {
-        title: '头像',
+        title:t('头像'),
         dataIndex: 'avatar',
         render(val) {
           return <Avatar size="large" className={styles.avatar} src={val} />;
         },
       },
       {
-        title: '姓名',
+        title:t('姓名'),
         dataIndex: 'fullname',
       },
       {
-        title: '角色',
+        title:t('角色'),
         dataIndex: 'roles',
         render(val) {
           return val.split(',').map(v => (
@@ -186,7 +187,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title="用户管理" content="系统用户的增删改查、权限管理。">
+      <PageHeaderLayout title={t("用户管理")} content="系统用户的增删改查、权限管理。">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

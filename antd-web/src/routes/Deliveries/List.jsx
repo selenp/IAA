@@ -104,6 +104,7 @@ class TableList extends PureComponent {
   };
 
   renderSimpleForm() {
+    const { t } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={e => this.handleSearch(e, { xlsx: false })} layout="inline">
@@ -113,35 +114,35 @@ class TableList extends PureComponent {
               {getFieldDecorator('eid', {
                 rules: [
                   {
-                    message: '请输入EID',
+                    message:t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder="请输入EID" />)}
+              })(<Input placeholder={t("请输入EID")}/>)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="设备编号">
+            <FormItem label={t("设备编号")}>
               {getFieldDecorator('assetTag', {
                 rules: [
                   {
-                    message: '请输入设备编号',
+                    message: t('请输入设备编号'),
                   },
                 ],
-              })(<Input placeholder="请输入设备编号" />)}
+              })(<Input placeholder={t("请输入设备编号")} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                查询
+                {t("查询")}
               </Button>
               <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
                 <Icon type="download" />
-                下载
+                {t("下载")}
               </Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                展开 <Icon type={this.state.expandForm ? 'down' : 'up'} />
+                {t("展开")}<Icon type={this.state.expandForm ? 'down' : 'up'} />
               </a>
             </span>
           </Col>
@@ -149,18 +150,18 @@ class TableList extends PureComponent {
         {this.state.expandForm && (
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={12} sm={24}>
-              <FormItem label="日期">
+              <FormItem label={t("日期")}>
                 {getFieldDecorator('dateRange')(
-                  <RangePicker placeholder={['开始日期', '结束日期']} style={{ width: '100%' }} />
+                  <RangePicker placeholder={[t('开始日期'), t('结束日期')]} style={{ width: '100%' }} />
                 )}
               </FormItem>
             </Col>
             <Col md={6} sm={24}>
-              <FormItem label="状态">
+              <FormItem label={t("状态")}>
                 {getFieldDecorator('progress')(
-                  <Select placeholder="请选择" style={{ width: '100%' }}>
-                    <Option value="borrow">已领取</Option>
-                    <Option value="return">已归还</Option>
+                  <Select placeholder={t("请选择")} style={{ width: '100%' }}>
+                    <Option value="borrow">{t("已领取")}</Option>
+                    <Option value="return">{t("已归还")}</Option>
                   </Select>
                 )}
               </FormItem>
@@ -171,13 +172,13 @@ class TableList extends PureComponent {
           <Link to="/delivery/borrow">
             <Button style={{ marginLeft: 8 }}>
               <Icon type="download" />
-              领取设备
+              {t("领取设备")}
             </Button>
           </Link>
           <Link to="/delivery/return">
             <Button style={{ marginLeft: 8 }}>
               <Icon type="upload" />
-              归还设备
+              {t("归还设备")}
             </Button>
           </Link>
         </span>
@@ -202,7 +203,7 @@ class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '借出时间',
+        title:t('借用时间'),
         dataIndex: 'borrowDate',
         render: (val, row) =>
           row.signatureImage ? (
@@ -215,19 +216,19 @@ class TableList extends PureComponent {
           ),
       },
       {
-        title: '设备编号',
+        title:t('设备编号'),
         dataIndex: 'assetTag',
         render: v => <Link to={`/assettag/${v}`}>{v}</Link>,
       },
       {
-        title: '状态',
+        title:t('状态'),
         dataIndex: 'progress',
         render(val) {
           return <Badge status={progressMap[val]} text={progress[val]} />;
         },
       },
       {
-        title: 'EID/姓名',
+        title: t('EID/姓名'),
         dataIndex: 'eid',
         render(val, row) {
           return (
@@ -238,7 +239,7 @@ class TableList extends PureComponent {
         },
       },
       {
-        title: '项目/部门',
+        title: t('项目/部门'),
         dataIndex: 'id',
         render(val, row) {
           return (
@@ -249,12 +250,12 @@ class TableList extends PureComponent {
         },
       },
       {
-        title: '归还时间',
+        title: t('归还时间'),
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
             <Link to={`/delivery/return/confirmData/${row.id}`}>
-              待归还
+              {t("待归还")}
               <Icon type="desktop" />
             </Link>
           ) : row.returnSignatureImage ? (
@@ -270,7 +271,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title="设备取还" content="设备取还的查询。">
+      <PageHeaderLayout title={t("设备取还")} content="设备取还的查询。">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

@@ -49,7 +49,7 @@ class TableList extends PureComponent {
 
     const columns = [
       {
-        title: '时间',
+        title:t('借用时间'),
         sorter: true,
         dataIndex: 'borrowDate',
         render: (val, row) =>
@@ -63,19 +63,19 @@ class TableList extends PureComponent {
           ),
       },
       {
-        title: '自EID',
+        title:t('自EID'),
         sorter: true,
         dataIndex: 'fromEid',
       },
       {
-        title: '至EID',
+        title:t('至EID'),
         sorter: true,
         dataIndex: 'toEid',
       },
     ];
 
     return (
-      <PageHeaderLayout title={`设备取还履历:${this.props.match.params.assettag}`} content="">
+      <PageHeaderLayout title={`{t("设备取还履历:")}${this.props.match.params.assettag}`} content="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <Table

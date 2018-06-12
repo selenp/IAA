@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
+import { translate } from "react-i18next";
 import { Button } from 'antd';
 import moment from 'moment';
 import SignaturePad from 'react-signature-pad-wrapper';
@@ -66,12 +67,13 @@ class Step3 extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { submitting } = this.props;
     const actions = (
       <Fragment>
-        <Button onClick={() => this.redrawCanvas()}>擦掉重签</Button>
+        <Button onClick={() => this.redrawCanvas()}>{t("擦掉重签")}</Button>
         <Button type="primary" onClick={() => this.onFinish()} loading={submitting}>
-          签名完毕
+          {t("签名完毕")}
         </Button>
       </Fragment>
     );
@@ -95,4 +97,4 @@ class Step3 extends React.PureComponent {
 export default connect(({ delivery, loading }) => ({
   data: delivery.step,
   submitting: loading.effects['delivery/uploadDeliverySignature'],
-}))(Step3);
+}))(translate("translations")(Step3));

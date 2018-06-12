@@ -107,20 +107,22 @@ class Admin extends PureComponent {
   }
 
   renderView() {
+    const { t } = this.props;
     const { admin: { data } } = this.props;
 
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term="姓名">{data.fullname}</Description>
-          <Description term="eid">{data.userid}</Description>
-          <Description term="角色">{data.roles}</Description>
+          <Description term={t("姓名")}>{data.fullname}</Description>
+          <Description term={t("eid")}>{data.userid}</Description>
+          <Description term={t("角色")}>{data.roles}</Description>
         </DescriptionList>
       </Card>
     );
   }
 
   renderEdit() {
+    const { t } = this.props;
     const { submitting, roles} = this.props;
     const { getFieldDecorator } = this.props.form;
 
@@ -157,27 +159,27 @@ class Admin extends PureComponent {
           initialValue: this.state.data.userid,
           rules: [{
             required: true,
-            message: '请输入EID',
+            message:t('请输入EID'),
           }],
         })(
           <Search
-            placeholder="请输入EID"
+            placeholder={t("请输入EID")}
             onSearch={value => this.handleSeachEid(value)}
           />
         )}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>密码</span>}
+            label={<span>{t("密码")}</span>}
           >
             {getFieldDecorator('password', {
           initialValue: this.state.data.password,
           rules: [{
             required: true,
-            message: '请输入密码',
+            message:t('请输入密码'),
           }],
             })(
-              <Input placeholder="请输入密码" type="password" />
+              <Input placeholder={t("请输入密码")} type="password" />
         )}
           </FormItem>
           <Form.Item {...formItemLayout} label="角色">
@@ -186,14 +188,14 @@ class Admin extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: '请输入角色',
+                  message: t('请输入角色'),
                 },
               ],
             })(
               <Select
                 mode="tags"
                 style={{ width: '100%' }}
-                placeholder="请输入或选择角色"
+                placeholder={t("请输入或选择角色")}
               >
                 {
                   roles.map(d => (
@@ -205,27 +207,27 @@ class Admin extends PureComponent {
           </Form.Item>
           <FormItem
             {...formItemLayout}
-            label={<span>姓名</span>}
+            label={<span>{t("姓名")}</span>}
           >
             {getFieldDecorator('fullname', {
           initialValue: this.state.data.fullname,
           rules: [{
             required: true,
-            message: '请输入姓名',
+            message: t('请输入姓名'),
           }],
             })(
-              <Input placeholder="请输入姓名" />
+              <Input placeholder={t("请输入姓名")} />
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary"  htmlType="submit" loading={submitting}> 提交 </Button>
+            <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button
               onClick={e => this.setState({
                 editing: false,
               })}
-            >取消
+            >{t("取消")}
             </Button>
           )
         }
@@ -233,7 +235,7 @@ class Admin extends PureComponent {
         (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
             onClick={e => this.props.dispatch(routerRedux.push('/system/admins'))}
-          >返回
+          >{t("返回")}
           </Button>
         )
       }
@@ -255,7 +257,7 @@ class Admin extends PureComponent {
                 editing: true,
                 data: this.props.admin.data,
               })}
-            >修改
+            >{t("修改")}
             </Button>
           )
         }
@@ -263,7 +265,7 @@ class Admin extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title="模块详细页面"
+        title={t("模块详情页面")}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

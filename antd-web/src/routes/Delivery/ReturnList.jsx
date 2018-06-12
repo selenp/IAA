@@ -109,7 +109,7 @@ class ResturnList extends PureComponent {
 
     const columns = [
       {
-        title: '借出时间',
+        title: t('借出时间'),
         dataIndex: 'borrowDate',
         render: (val, row) =>
           row.signatureImage ? (
@@ -122,19 +122,19 @@ class ResturnList extends PureComponent {
           ),
       },
       {
-        title: '设备编号',
+        title: t('设备编号'),
         dataIndex: 'assetTag',
         render: v => <Link to={`/assettag/${v}`}>{v}</Link>,
       },
       {
-        title: '状态',
+        title: t('状态'),
         dataIndex: 'progress',
         render(val) {
           return <Badge status={progressMap[val]} text={progress[val]} />;
         },
       },
       {
-        title: 'EID/姓名',
+        title: t('EID/姓名'),
         dataIndex: 'eid',
         render(val, row) {
           return (
@@ -145,7 +145,7 @@ class ResturnList extends PureComponent {
         },
       },
       {
-        title: '项目/部门',
+        title: t('项目/部门'),
         dataIndex: 'id',
         render(val, row) {
           return (
@@ -156,12 +156,12 @@ class ResturnList extends PureComponent {
         },
       },
       {
-        title: '归还时间',
+        title: t('归还时间'),
         dataIndex: 'returnDate',
         render: (val, row) => {
           return row.progress === 'borrow' ? (
             <Link to={`/delivery/return/confirmData/${row.id}`}>
-              待归还
+              {t("待归还")}
               <Icon type="desktop" />
             </Link>
           ) : row.returnSignatureImage ? (
@@ -177,7 +177,7 @@ class ResturnList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title="设备归还" content="操作不熟悉的用户，请在IT人员的指导下完成。">
+      <PageHeaderLayout title={t("归还设备")} content={t("操作不熟悉的用户，请在IT人员的指导下完成")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

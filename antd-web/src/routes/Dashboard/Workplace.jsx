@@ -85,7 +85,7 @@ class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="通知"
+              title={t("通知")}
               loading={announcementsLoading}
             >
               <List
@@ -101,7 +101,7 @@ class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="相关任务"
+              title={t("Related tasks")}
               loading={tasksLoading}
             >
               <List
