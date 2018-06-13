@@ -42,7 +42,7 @@ const InfoForm = ({
       {...formItemLayout}
       label={
         <span>
-          备注
+          {t("备注")}
           <em className={styles.optional}>{t("选填")}</em>
         </span>
       }

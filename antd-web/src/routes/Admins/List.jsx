@@ -187,7 +187,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t("用户管理")} content="系统用户的增删改查、权限管理。">
+      <PageHeaderLayout title={t("用户管理")} content={t("系统用户的增删改查、权限管理")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

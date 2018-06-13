@@ -170,7 +170,7 @@ class TableList extends PureComponent {
         title: t('状态'),
         dataIndex: 'status',
         render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
+          return <Badge status={progressMap[val]} text={t(progress[val])} />;
         },
       },
     ];
@@ -187,6 +187,9 @@ class TableList extends PureComponent {
               rowKey="id"
               onChange={this.onChange}
               columns={columns}
+              locale={{
+                emptyText: t('暂无数据'),
+              }}
             />
           </div>
         </Card>

@@ -69,7 +69,7 @@ class LoginPage extends Component {
         </Login>
         <div className={styles.desc}>
           <p>
-            {t("如果忘记密码，请联系上级管理员进行密码重置。")}
+            {t("如果忘记密码，请联系上级管理员进行密码重置")}
           </p>
         </div>
       </div>

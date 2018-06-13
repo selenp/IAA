@@ -100,7 +100,7 @@ class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title={t("Related tasks")}
+              title={t("相关任务")}
               loading={tasksLoading}
             >
               <List

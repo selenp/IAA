@@ -1,4 +1,5 @@
 import React, { PureComponent, createElement } from 'react';
+import { translate } from "react-i18next";
 import PropTypes from 'prop-types';
 import pathToRegexp from 'path-to-regexp';
 import { Breadcrumb, Tabs } from 'antd';
@@ -19,7 +20,7 @@ export function getBreadcrumb(breadcrumbNameMap, url) {
   return breadcrumb || {};
 }
 
-export default class PageHeader extends PureComponent {
+class PageHeader extends PureComponent {
   static contextTypes = {
     routes: PropTypes.array,
     params: PropTypes.object,
@@ -79,6 +80,8 @@ export default class PageHeader extends PureComponent {
     );
   };
   conversionFromLocation = (routerLocation, breadcrumbNameMap) => {
+    const { t } = this.props;
+
     const { breadcrumbSeparator, linkElement = 'a' } = this.props;
     // Convert the url to an array
     const pathSnippets = urlToList(routerLocation.pathname);
@@ -91,7 +94,7 @@ export default class PageHeader extends PureComponent {
           {createElement(
             isLinkable ? linkElement : 'span',
             { [linkElement === 'a' ? 'href' : 'to']: url },
-            currentBreadcrumb.name
+            t(currentBreadcrumb.name)
           )}
         </Breadcrumb.Item>
       ) : null;
@@ -104,7 +107,7 @@ export default class PageHeader extends PureComponent {
           {
             [linkElement === 'a' ? 'href' : 'to']: '/',
           },
-          '首页'
+          t('首页')
         )}
       </Breadcrumb.Item>
     );
@@ -217,3 +220,5 @@ export default class PageHeader extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(PageHeader)

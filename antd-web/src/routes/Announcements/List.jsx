@@ -163,7 +163,7 @@ class TableList extends PureComponent {
       ) : null;
 
     return (
-      <PageHeaderLayout title={t("通知")} content={t("我发布的通知。")}>
+      <PageHeaderLayout title={t("通知")} content={t("我发布的通知")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

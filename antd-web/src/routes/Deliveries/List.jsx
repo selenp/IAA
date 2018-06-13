@@ -224,7 +224,7 @@ class TableList extends PureComponent {
         title:t('状态'),
         dataIndex: 'progress',
         render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
+          return <Badge status={progressMap[val]} text={t(progress[val])} />;
         },
       },
       {
@@ -271,7 +271,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t("设备取还")} content="设备取还的查询。">
+      <PageHeaderLayout title={t("设备取还")} content={t("设备取还的查询")}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

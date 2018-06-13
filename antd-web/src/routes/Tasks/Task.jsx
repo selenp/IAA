@@ -123,11 +123,11 @@ class Task extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: t('请输入或选择主题'),
+                  message: t('请选择或输入主题'),
                 },
               ],
             })(
-              <Select mode="combobox" style={{ width: '100%' }} placeholder={t("请输入或选择主题")}>
+              <Select mode="combobox" style={{ width: '100%' }} placeholder={t("请选择或输入主题")}>
                 {taskCategories.map(d => <Option key={d}>{d}</Option>)}
               </Select>
             )}

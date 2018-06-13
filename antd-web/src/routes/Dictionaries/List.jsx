@@ -146,7 +146,7 @@ class TableList extends PureComponent {
     return (
       <PageHeaderLayout
         title={t("数据字典")}
-        content={t("数据字典的管理。")}
+        content={t("数据字典的管理")}
       >
         <Card bordered={false}>
           <div className={styles.tableList}>

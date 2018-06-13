@@ -130,7 +130,7 @@ class ResturnList extends PureComponent {
         title: t('状态'),
         dataIndex: 'progress',
         render(val) {
-          return <Badge status={progressMap[val]} text={progress[val]} />;
+          return <Badge status={progressMap[val]} text={t(progress[val])} />;
         },
       },
       {
