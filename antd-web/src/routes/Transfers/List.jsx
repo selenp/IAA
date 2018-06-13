@@ -15,7 +15,7 @@ const progressMap = {
   borrow: 'processing',
   return: 'success',
 };
-const progress = {
+const progressTitle = {
   borrow: '已领取',
   return: '已归还',
 };
@@ -170,7 +170,7 @@ class TableList extends PureComponent {
         title: t('状态'),
         dataIndex: 'status',
         render(val) {
-          return <Badge status={progressMap[val]} text={t(progress[val])} />;
+          return <Badge status={progressMap[val]} text={t(progressTitle[val])} />;
         },
       },
     ];

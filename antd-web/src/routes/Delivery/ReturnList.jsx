@@ -20,7 +20,7 @@ const progressMap = {
   borrow: 'processing',
   return: 'success',
 };
-const progress = {
+const progressTitle = {
   borrow: '已领取',
   return: '已归还',
 };
@@ -130,7 +130,7 @@ class ResturnList extends PureComponent {
         title: t('状态'),
         dataIndex: 'progress',
         render(val) {
-          return <Badge status={progressMap[val]} text={t(progress[val])} />;
+          return <Badge status={progressMap[val]} text={t(progressTitle[val])} />;
         },
       },
       {
@@ -188,6 +188,9 @@ class ResturnList extends PureComponent {
               rowKey="id"
               onChange={this.onChange}
               columns={columns}
+              locale={{
+                emptyText: t('暂无数据'),
+              }}
             />
           </div>
         </Card>

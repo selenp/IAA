@@ -83,6 +83,9 @@ class TableList extends PureComponent {
               rowKey="id"
               columns={columns}
               onChange={this.handleStandardTableChange}
+              locale={{
+                emptyText: t('暂无数据'),
+              }}
             />
           </div>
         </Card>

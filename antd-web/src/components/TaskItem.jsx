@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate } from "react-i18next";
 import { Dropdown, Icon, List, Menu, Tag } from 'antd';
 import { Link } from 'dva/router';
 import moment from 'moment';
@@ -14,7 +15,11 @@ const progressColor = {
   finished: 'gold',
 };
 
-const MoreBtn = ({ item, changeProgress }) => (
+const MoreBtn = ({
+  t,
+  item,
+  changeProgress,
+}) => (
   <Dropdown
     overlay={
       <Menu>
@@ -27,29 +32,33 @@ const MoreBtn = ({ item, changeProgress }) => (
     }
   >
     <a>
-      <Tag color={progressColor[item.progress]}>{progressTitle[item.progress]}</Tag>{' '}
+    <Tag color={progressColor[item.progress]}>{t(progressTitle[item.progress])}</Tag>{' '}
       <Icon type="down" />
     </a>
   </Dropdown>
 );
 
-const TaskItem = ({ item, changeProgress }) => (
+const TaskItem = ({
+  t,
+  item,
+  changeProgress,
+}) => (
   <List.Item
     key={item.id}
-    actions={[<MoreBtn item={item} changeProgress={changeProgress} />]}
+    actions={[<MoreBtn t={t} item={item} changeProgress={changeProgress} />]}
     style={{ marginLeft: 20 }}
   >
     <List.Item.Meta
       title={
         <span>
           <Link to={`/transfer/borrow/info?task=${item.id}`}>
-            用户
-            <span>{item.eid}</span>
-            提交了一个任务：
-            {item.category}
+            {t("用户")}
+            <span>{` ${item.eid} `}</span>
+            {t("提交了一个任务")}
+            {` ${item.category} `}
           </Link>
           &nbsp;
-          <span>{`希望日期 ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>
+          <span>{`${t("希望日期")} ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>
         </span>
       }
       description={<pre>{item.content}</pre>}
@@ -57,4 +66,4 @@ const TaskItem = ({ item, changeProgress }) => (
   </List.Item>
 );
 
-export default TaskItem;
+export default translate("translations")(TaskItem);

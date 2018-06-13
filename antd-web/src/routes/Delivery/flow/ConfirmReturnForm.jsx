@@ -114,7 +114,7 @@ const ConfirmForm = ({
           {data.laptopModel}
         </Form.Item>
       ) : (
-        <Form.Item {...formItemLayout} label={t("笔记本型号")}>
+        <Form.Item {...formItemLayout} label={t("机型")}>
           {getFieldDecorator('laptopModel', {
             rules: [
               {

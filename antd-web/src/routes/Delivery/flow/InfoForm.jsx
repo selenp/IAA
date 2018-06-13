@@ -45,7 +45,7 @@ const InfoForm = ({
       {getFieldDecorator('fullname', {
             })(<Input placeholder={t("请输入EID")} />)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="员工号 Sap Number">
+    <Form.Item {...formItemLayout} label={t("员工号")}>
       {getFieldDecorator('sapNumber', {
             })(<Input placeholder={t("请输入员工号")} />)}
     </Form.Item>
@@ -115,7 +115,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label="楼层">
+    <Form.Item {...formItemLayout} label={t("楼层")}>
       {getFieldDecorator('locationFloor', {
               rules: [
                 {
@@ -177,7 +177,7 @@ const InfoForm = ({
       label=""
     >
       <Button type="primary" onClick={onValidateForm}>
-        {t("")}
+        {t("下一步")}
       </Button>
     </Form.Item>
   </Form>
