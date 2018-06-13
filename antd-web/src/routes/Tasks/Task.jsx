@@ -9,8 +9,6 @@ import { groupBy, map } from 'lodash';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
 
-import styles from './Task.less';
-
 const { Option } = Select;
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -143,7 +141,7 @@ class Task extends PureComponent {
                   message: t('请输入内容'),
                 },
               ],
-            })(<TextArea rows={20} placeholder={t("请输入内容")}/>)}
+            })(<TextArea rows={20} placeholder={t("请输入内容")} />)}
           </FormItem>
           <Form.Item label={t("指派给角色")}>
             {getFieldDecorator('assignToRole', {
@@ -167,7 +165,7 @@ class Task extends PureComponent {
             {this.state.editing &&
               this.props.match.params.id !== 'new' && (
                 <Button
-                  onClick={e =>
+                  onClick={() =>
                     this.setState({
                       editing: false,
                     })
@@ -177,7 +175,7 @@ class Task extends PureComponent {
                 </Button>
               )}
             {(!this.state.editing || this.props.match.params.id === 'new') && (
-              <Button onClick={e => this.props.dispatch(routerRedux.push('/tasks'))}>{t("返回")}</Button>
+              <Button onClick={() => this.props.dispatch(routerRedux.push('/tasks'))}>{t("返回")}</Button>
             )}
           </FormItem>
         </Form>
@@ -192,7 +190,7 @@ class Task extends PureComponent {
         {!this.state.editing && (
           <Button
             type="primary"
-            onClick={e =>
+            onClick={() =>
               this.setState({
                 editing: true,
                 data: this.props.task.data,

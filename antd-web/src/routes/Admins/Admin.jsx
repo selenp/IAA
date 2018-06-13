@@ -15,8 +15,6 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
 import { FILE_URL } from '../../utils/utils';
 
-import styles from './Admin.less';
-
 const { Search } = Input;
 const { Option } = Select;
 
@@ -74,7 +72,6 @@ class Admin extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
       this.props.form.setFieldsValue({
         fullname: nextProps.ldap.data.cn,
@@ -224,7 +221,7 @@ class Admin extends PureComponent {
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button
-              onClick={e => this.setState({
+              onClick={() => this.setState({
                 editing: false,
               })}
             >{t("取消")}
@@ -234,7 +231,7 @@ class Admin extends PureComponent {
             {
         (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
-            onClick={e => this.props.dispatch(routerRedux.push('/system/admins'))}
+            onClick={() => this.props.dispatch(routerRedux.push('/system/admins'))}
           >{t("返回")}
           </Button>
         )
@@ -253,7 +250,7 @@ class Admin extends PureComponent {
           !this.state.editing && (
             <Button
               type="primary"
-              onClick={e => this.setState({
+              onClick={() => this.setState({
                 editing: true,
                 data: this.props.admin.data,
               })}

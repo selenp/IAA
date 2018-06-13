@@ -1,9 +1,11 @@
 import React from 'react';
+import { translate } from "react-i18next";
 import { Button, Divider, Radio, Form, Select } from 'antd';
 
 const RadioGroup = Radio.Group;
 
 const ConfirmForm = ({
+  t,
   styles,
   data,
   getFieldDecorator,
@@ -72,4 +74,4 @@ const ConfirmForm = ({
   </Form>
 );
 
-export default ConfirmForm;
+export default translate("translations")(ConfirmForm);

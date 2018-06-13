@@ -43,7 +43,7 @@ const InfoForm = ({
     </Form.Item>
     <Form.Item {...formItemLayout} label={t("姓名")}>
       {getFieldDecorator('fullname', {
-            })(<Input placeholder={t("请输入EID")}/>)}
+            })(<Input placeholder={t("请输入EID")} />)}
     </Form.Item>
     <Form.Item {...formItemLayout} label="员工号 Sap Number">
       {getFieldDecorator('sapNumber', {
@@ -145,7 +145,7 @@ const InfoForm = ({
                   message: t('请输入您办公地点的座位号'),
                 },
               ],
-            })(<Input placeholder={t("请输入您办公地点的座位号")}/>)}
+            })(<Input placeholder={t("请输入您办公地点的座位号")} />)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}

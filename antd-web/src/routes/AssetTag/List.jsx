@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { translate } from "react-i18next";
 import { connect } from 'dva';
-import { Link } from 'dva/router';
 import moment from 'moment';
 import { Form, Icon, Card, Table } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';

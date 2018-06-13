@@ -119,9 +119,9 @@ class TableList extends PureComponent {
         render: (val, row) => {
           return (
             <pre>
-            <Link to={`/system/dictionary/${row.id}`}>
-              {val}
-            </Link>
+              <Link to={`/system/dictionary/${row.id}`}>
+                {val}
+              </Link>
             </pre>
           );
         },

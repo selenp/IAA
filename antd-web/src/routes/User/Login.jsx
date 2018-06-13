@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { translate } from "react-i18next";
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Checkbox, Alert, Icon } from 'antd';
+import { Alert } from 'antd';
 import QRCode from 'qrcode.react';
 
 import Login from 'components/Login';
@@ -36,7 +35,7 @@ class LoginPage extends Component {
     }
   };
 
-  changeAutoLogin = e => {
+  changeAutoLogin = () => {
     this.setState({
     });
   };

@@ -9,8 +9,6 @@ import { groupBy, map } from 'lodash';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
 
-import styles from './Announcement.less';
-
 const { Option } = Select;
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -139,7 +137,7 @@ class Announcement extends PureComponent {
             {this.state.editing &&
               this.props.match.params.id !== 'new' && (
                 <Button
-                  onClick={e =>
+                  onClick={() =>
                     this.setState({
                       editing: false,
                     })
@@ -149,7 +147,7 @@ class Announcement extends PureComponent {
                 </Button>
               )}
             {(!this.state.editing || this.props.match.params.id === 'new') && (
-              <Button onClick={e => this.props.dispatch(routerRedux.push('/announcements'))}>
+              <Button onClick={() => this.props.dispatch(routerRedux.push('/announcements'))}>
                 {t("返回")}
               </Button>
             )}
@@ -166,7 +164,7 @@ class Announcement extends PureComponent {
         {!this.state.editing && (
           <Button
             type="primary"
-            onClick={e =>
+            onClick={() =>
               this.setState({
                 editing: true,
                 data: this.props.announcement.data,

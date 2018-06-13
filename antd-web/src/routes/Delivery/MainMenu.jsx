@@ -29,7 +29,7 @@ class MainMenu extends Component {
                 type="primary"
                 icon="download"
                 style={{width: '100%', height: 182, fontSize: 24}}
-                >{t("领取设备")}
+              >{t("领取设备")}
               </Button>
             </Link>
           </Col>
@@ -39,7 +39,7 @@ class MainMenu extends Component {
                 type="success"
                 icon="upload"
                 style={{width: '100%', height: 182, fontSize: 24}}
-                >{t("归还设备")}
+              >{t("归还设备")}
               </Button>
             </Link>
           </Col>

@@ -28,7 +28,6 @@ class Step1 extends React.PureComponent {
     });
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
       this.props.form.setFieldsValue({
         fullname: nextProps.ldap.data.cn,

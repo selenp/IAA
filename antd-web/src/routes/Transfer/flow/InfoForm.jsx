@@ -1,10 +1,12 @@
 import React from 'react';
 import { translate } from "react-i18next";
-import { DatePicker, Form, Input, Select, Button } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+} from 'antd';
 
 const { TextArea } = Input;
-
-const { Option } = Select;
 
 const InfoForm = ({
   t,

@@ -127,7 +127,7 @@ class Dictionary extends PureComponent {
             message: t('请输入分类'),
           }],
             })(
-              <Input placeholder={t("请输入分类")}/>
+              <Input placeholder={t("请输入分类")} />
         )}
           </FormItem>
           <FormItem
@@ -149,7 +149,7 @@ class Dictionary extends PureComponent {
             {
           this.state.editing && (
             <Button
-              onClick={e => this.setState({
+              onClick={() => this.setState({
                 editing: false,
               })}
             >{t("取消")}
@@ -159,7 +159,7 @@ class Dictionary extends PureComponent {
             {
         (!this.state.editing) && (
           <Button
-            onClick={e => this.props.dispatch(routerRedux.push('/system/dictionaries'))}
+            onClick={() => this.props.dispatch(routerRedux.push('/system/dictionaries'))}
           >{t("返回")}
           </Button>
         )
@@ -178,7 +178,7 @@ class Dictionary extends PureComponent {
           !this.state.editing && (
             <Button
               type="primary"
-              onClick={e => this.setState({
+              onClick={() => this.setState({
                 editing: true,
                 data: this.props.dictionary.data,
               })}

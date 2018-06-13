@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Button } from 'antd';
 import moment from 'moment';
@@ -51,6 +52,7 @@ class Step3 extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { submitting } = this.props;
 
     const actions = (
@@ -81,4 +83,4 @@ class Step3 extends React.PureComponent {
 export default connect(({ transfer, loading }) => ({
   data: transfer.step,
   submitting: loading.effects['transfer/uploadTransferSignature'],
-}))(Step3);
+}))(translate("translations")(Step3));

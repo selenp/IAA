@@ -117,7 +117,7 @@ class TableList extends PureComponent {
                     message:t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder={t("请输入EID")}/>)}
+              })(<Input placeholder={t("请输入EID")} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>

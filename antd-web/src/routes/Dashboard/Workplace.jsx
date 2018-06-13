@@ -73,8 +73,7 @@ class Workplace extends PureComponent {
     );
 
     const extraContent = (
-      <div className={styles.extraContent}>
-      </div>
+      <div className={styles.extraContent} />
     );
 
     return (
