@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import {
   Form,
@@ -21,6 +22,7 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
+    const { t } = this.props;
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onPrev = () => {
@@ -38,6 +40,7 @@ class Step2 extends React.PureComponent {
               assetTags: values.assetTags.join(','),
             },
             next: '/transfer/borrow/result',
+            t,
           });
         }
       });
@@ -61,4 +64,4 @@ class Step2 extends React.PureComponent {
 export default connect(({ transfer, loading }) => ({
   submitting: loading.effects['transfer/submitTransfer'],
   data: transfer.step,
-}))(Step2);
+}))(translate("translations")(Step2));

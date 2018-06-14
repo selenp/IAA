@@ -22,13 +22,13 @@ export default {
         payload: response,
       });
     },
-    *submitTransfer({ payload, next }, { call, put }) {
+    *submitTransfer({ payload, next, t }, { call, put }) {
       const response = yield call(submitTransfer, payload);
       yield put({
         type: 'saveData',
         payload: response,
       });
-      message.success('提交成功');
+      message.success(t('文件下载中。。。'));
       yield put(routerRedux.push(next));
     },
     *uploadTransferSignature({id, io, payload, t }, { call, put }) {

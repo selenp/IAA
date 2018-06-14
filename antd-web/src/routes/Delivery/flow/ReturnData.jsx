@@ -56,6 +56,7 @@ class Step2 extends React.PureComponent {
               progress: 'return',
             },
             next: '/delivery/return/result',
+            t,
           });
         }
       });

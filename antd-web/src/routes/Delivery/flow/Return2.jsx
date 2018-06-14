@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { translate } from "react-i18next";
 import { connect } from 'dva';
 import {
   Form,
@@ -36,6 +37,7 @@ class Step2 extends React.PureComponent {
       dispatch(routerRedux.push('/delivery/return/info'));
     };
     const onValidateForm = e => {
+      const { t } = this.props;
       e.preventDefault();
       validateFields((err, values) => {
         if (!err) {
@@ -49,6 +51,7 @@ class Step2 extends React.PureComponent {
               monitorSize: values.machineType === 'desktop' ? values.returnMonitorSize.join(',') : null,
             },
             next: '/delivery/return/result',
+            t,
           });
         }
       });
@@ -77,4 +80,4 @@ export default connect(({ delivery, loading, allDictionaries }) => ({
   data: delivery.step,
   laptopModels: map(groupBy(allDictionaries.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(allDictionaries.data, 'category').monitorSize, v =>v.data),
-}))(Step2);
+}))(translate("translations")(Step2));

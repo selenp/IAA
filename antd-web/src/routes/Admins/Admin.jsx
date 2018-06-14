@@ -179,7 +179,7 @@ class Admin extends PureComponent {
               <Input placeholder={t("请输入密码")} type="password" />
         )}
           </FormItem>
-          <Form.Item {...formItemLayout} label="角色">
+          <Form.Item {...formItemLayout} label={t("角色")}>
             {getFieldDecorator('roles', {
               initialValue: this.state.data.roles ? this.state.data.roles.split(',') : [],
               rules: [

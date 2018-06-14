@@ -24,7 +24,7 @@ export default {
         type: 'task',
         payload: response,
       });
-      message.success(t('提交成功'));
+      message.success(t('文件下载中。。。'));
       if (redirect) {
         yield put(routerRedux.push(redirect));
       }

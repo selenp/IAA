@@ -215,7 +215,7 @@ public class DeliveryController extends AbstractController {
                         case 12:
                             return data.getBag();
                         case 13:
-                            return data.getMouseKeyboard() || data.getMouse();
+                            return StringUtils.isEmpty(data.getMouseKeyboard()) ? data.getMouse() : data.getMouseKeyboard();
                         case 14:
                             return data.getLanCable();
                         case 15:

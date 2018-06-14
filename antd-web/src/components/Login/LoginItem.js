@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { translate } from "react-i18next";
 import PropTypes from 'prop-types';
 import { Form, Button, Row, Col } from 'antd';
 import omit from 'omit.js';
@@ -43,6 +44,7 @@ function generator({ defaultProps, defaultRules, type }) {
         }, 1000);
       };
       render() {
+        const { t } = this.props;
         const { getFieldDecorator } = this.context.form;
         const options = {};
         let otherProps = {};
@@ -73,7 +75,7 @@ function generator({ defaultProps, defaultRules, type }) {
                     size="large"
                     onClick={this.onGetCaptcha}
                   >
-                    {count ? `${count} s` : '获取验证码'}
+                    {count ? `${count} s` : t('获取验证码')}
                   </Button>
                 </Col>
               </Row>
@@ -101,4 +103,4 @@ Object.keys(map).forEach(item => {
   })(map[item].component);
 });
 
-export default LoginItem;
+export default translate("translations")(LoginItem);

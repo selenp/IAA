@@ -18,13 +18,13 @@ export default {
         payload: response,
       });
     },
-    * submit({ payload }, { call, put }) {
+    * submit({ payload, t }, { call, put }) {
       const response = yield call(submitDictionary, payload);
       yield put({
         type: 'dictionary',
         payload: response,
       });
-      message.success('提交成功');
+      message.success(t('提交成功'));
       yield put(routerRedux.push(`/system/dictionaries`));
     },
   },

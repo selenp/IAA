@@ -165,7 +165,8 @@ class BasicLayout extends React.PureComponent {
     });
   };
   handleNoticeClear = type => {
-    message.success(`清空了${type}`);
+    const { t } = this.props;
+    message.success(`${t("清空了")}${type}`);
     this.props.dispatch({
       type: 'global/clearNotices',
       payload: type,

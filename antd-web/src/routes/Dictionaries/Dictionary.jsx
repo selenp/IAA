@@ -42,6 +42,7 @@ class Dictionary extends PureComponent {
   }
 
   handleSubmit = e => {
+    const { t } = this.props;
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -51,6 +52,7 @@ class Dictionary extends PureComponent {
             ...values,
             id: this.props.match.params.id,
           },
+          t,
         });
       }
     });
@@ -145,7 +147,7 @@ class Dictionary extends PureComponent {
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary"  htmlType="submit" loading={submitting}> 提交 </Button>
+            <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
             {
           this.state.editing && (
             <Button

@@ -22,13 +22,13 @@ export default {
         payload: response,
       });
     },
-    *submitDelivery({ payload, next }, { call, put }) {
+    *submitDelivery({ payload, next, t }, { call, put }) {
       const response = yield call(submitDelivery, payload);
       yield put({
         type: 'saveData',
         payload: response,
       });
-      message.success('提交成功');
+      message.success(t('提交成功'));
       yield put(routerRedux.push(next));
     },
     *uploadDeliverySignature({id, io, payload, t }, { call, put }) {

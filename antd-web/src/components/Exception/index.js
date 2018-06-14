@@ -1,10 +1,11 @@
 import React, { createElement } from 'react';
+import { translate } from "react-i18next";
 import classNames from 'classnames';
 import { Button } from 'antd';
 import config from './typeConfig';
 import styles from './index.less';
 
-const Exception = ({ className, linkElement = 'a', type, title, desc, img, actions, ...rest }) => {
+const Exception = ({ t, className, linkElement = 'a', type, title, desc, img, actions, ...rest }) => {
   const pageType = type in config ? type : '404';
   const clsString = classNames(styles.exception, className);
   return (
@@ -16,8 +17,8 @@ const Exception = ({ className, linkElement = 'a', type, title, desc, img, actio
         />
       </div>
       <div className={styles.content}>
-        <h1>{title || config[pageType].title}</h1>
-        <div className={styles.desc}>{desc || config[pageType].desc}</div>
+        <h1>{t(title || config[pageType].title)}</h1>
+        <div className={styles.desc}>{t(desc || config[pageType].desc)}</div>
         <div className={styles.actions}>
           {actions ||
             createElement(
@@ -26,7 +27,7 @@ const Exception = ({ className, linkElement = 'a', type, title, desc, img, actio
                 to: '/',
                 href: '/',
               },
-              <Button type="primary">返回首页</Button>
+              <Button type="primary">{t("返回首页")}</Button>
             )}
         </div>
       </div>
@@ -34,4 +35,5 @@ const Exception = ({ className, linkElement = 'a', type, title, desc, img, actio
   );
 };
 
-export default Exception;
+export default translate("translations")(Exception);
+

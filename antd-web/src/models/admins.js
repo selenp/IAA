@@ -20,9 +20,9 @@ export default {
         payload: response,
       });
     },
-    *xlsx({ payload }, { call }) {
+    *xlsx({ payload, t }, { call }) {
       const response = yield call(queryAdmins, payload);
-      message.success('文件下载中。。。');
+      message.success(t('文件下载中。。。'));
 
       document.location = `${FILE_URL}/${response.fileName}`;
     },
