@@ -19,13 +19,14 @@ class Step3 extends React.PureComponent {
   }
 
   onFinish() {
-    const { dispatch, data } = this.props;
+    const { dispatch, data, t } = this.props;
     const image = this.signaturePad.toDataURL('image/png');
     dispatch({
       type: 'delivery/uploadDeliverySignature',
       id: data.id,
       io: 'return',
       payload: image,
+      t,
     });
   }
 

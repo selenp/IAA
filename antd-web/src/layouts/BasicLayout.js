@@ -1,6 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Icon, message } from 'antd';
+import {
+  Layout,
+  Radio,
+  message,
+} from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { Route, Redirect, Switch, routerRedux } from 'dva/router';
@@ -119,9 +123,9 @@ class BasicLayout extends React.PureComponent {
     unenquireScreen(this.enquireHandler);
   }
   getPageTitle() {
-    const { routerData, location } = this.props;
+    const { routerData, location, t } = this.props;
     const { pathname } = location;
-    let title = 'Ant Delivery';
+    let title = 'IAA';
     let currRouterData = null;
     // match params path
     Object.keys(routerData).forEach(key => {
@@ -130,7 +134,7 @@ class BasicLayout extends React.PureComponent {
       }
     });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Delivery`;
+      title = `${t(currRouterData.name)} - IAA`;
     }
     return title;
   }
@@ -251,8 +255,10 @@ class BasicLayout extends React.PureComponent {
           </Content>
           <div className={styles.globalFooter}>
             <div className={styles.links}>
-              <button style={{fontWeight: i18n.language === 'en' ? 'bold' : 'normal'}} onClick={() => changeLanguage("en")}>{t("en")}</button>
-              <button style={{fontWeight: i18n.language === 'zh' ? 'bold' : 'normal'}} onClick={() => changeLanguage("zh")}>{t("zh")}</button>
+            <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
+              <Radio.Button key="en" value="en">{t("en")}</Radio.Button>
+              <Radio.Button key="zh" value="zh">{t("zh")}</Radio.Button>
+            </Radio.Group>
             </div>
           </div>
         </Layout>

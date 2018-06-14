@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
+import { translate } from "react-i18next";
 import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip } from 'antd';
 import Debounce from 'lodash-decorators/debounce';
 import { Link } from 'dva/router';
 import styles from './index.less';
 
-export default class GlobalHeader extends PureComponent {
+class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
   }
@@ -21,6 +22,7 @@ export default class GlobalHeader extends PureComponent {
     window.dispatchEvent(event);
   }
   render() {
+    const { t } = this.props;
     const {
       currentUser = {},
       collapsed,
@@ -34,7 +36,7 @@ export default class GlobalHeader extends PureComponent {
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
         <Menu.Item key="logout">
-          <Icon type="logout" />退出登录
+          <Icon type="logout" />{t('退出登录')}
         </Menu.Item>
       </Menu>
     );
@@ -67,3 +69,5 @@ export default class GlobalHeader extends PureComponent {
     );
   }
 }
+
+export default translate("translations")(GlobalHeader);

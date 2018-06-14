@@ -1,6 +1,7 @@
 import React from 'react';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { LocaleProvider, Spin } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import { I18nextProvider } from "react-i18next";
@@ -20,9 +21,10 @@ function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
   const UserLayout = routerData['/user'].component;
   const BasicLayout = routerData['/'].component;
+  const lng = localStorage.getItem('i18nextLng');
   return (
     <I18nextProvider i18n={i18n}>
-      <LocaleProvider locale={zhCN}>
+      <LocaleProvider locale={lng === 'zh' ? zhCN : enUS}>
         <ConnectedRouter history={history}>
           <Switch>
             <Route path="/user" component={UserLayout} />

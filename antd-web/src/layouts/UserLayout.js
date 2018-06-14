@@ -1,6 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Link, Redirect, Switch, Route } from 'dva/router';
+import {
+  Link,
+  Radio,
+  Redirect,
+  Route,
+  Switch,
+ } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
 import { translate } from "react-i18next";
@@ -70,14 +76,14 @@ class UserLayout extends React.PureComponent {
           </div>
           <div className={styles.globalFooter}>
             <div className={styles.links}>
-              <Link to="/delivery/main">设备取还</Link>
-              <Link to="/">管理员登录</Link>
-              <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">使用说明</a>
+              <Link to="/delivery/main">{t("设备取还")}</Link>
+              <Link to="/">{t("管理员登录")}</Link>
+              <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">{t("使用说明")}</a>
             </div>
-            <div className={styles.links}>
-              <button style={{fontWeight: i18n.language === 'en' ? 'bold' : 'normal'}} onClick={() => changeLanguage("en")}>{t("en")}</button>
-              <button style={{fontWeight: i18n.language === 'zh' ? 'bold' : 'normal'}} onClick={() => changeLanguage("zh")}>{t("zh")}</button>
-            </div>
+            <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
+              <Radio.Button key="en" value="en">{t("en")}</Radio.Button>
+              <Radio.Button key="zh" value="zh">{t("zh")}</Radio.Button>
+            </Radio.Group>
           </div>
         </div>
       </DocumentTitle>

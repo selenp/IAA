@@ -19,7 +19,7 @@ class Step3 extends React.PureComponent {
   }
 
   onFinish() {
-    const { dispatch, data } = this.props;
+    const { dispatch, data, t } = this.props;
 
     const image = this.signaturePad.toDataURL('image/png');
     dispatch({
@@ -27,6 +27,7 @@ class Step3 extends React.PureComponent {
       id: data.id,
       io: 'borrow',
       payload: image,
+      t,
     });
   }
 

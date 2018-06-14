@@ -65,7 +65,7 @@ class LoginPage extends Component {
               size={360}
             />
           </Tab>
-          <Submit loading={submitting}>登录</Submit>
+          <Submit loading={submitting}>{t("登录")}</Submit>
         </Login>
         <div className={styles.desc}>
           <p>
