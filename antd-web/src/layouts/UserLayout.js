@@ -2,13 +2,15 @@ import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import {
   Link,
-  Radio,
   Redirect,
   Route,
   Switch,
  } from 'dva/router';
 import DocumentTitle from 'react-document-title';
-import { Icon } from 'antd';
+import {
+  Icon,
+  Radio,
+ } from 'antd';
 import { translate } from "react-i18next";
 
 import GlobalFooter from '../components/GlobalFooter';
@@ -78,7 +80,9 @@ class UserLayout extends React.PureComponent {
             <div className={styles.links}>
               <Link to="/delivery/main">{t("设备取还")}</Link>
               <Link to="/">{t("管理员登录")}</Link>
-              <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">{t("使用说明")}</a>
+              <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">
+                {t("使用说明")}
+              </a>
             </div>
             <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
               <Radio.Button key="en" value="en">{t("en")}</Radio.Button>
