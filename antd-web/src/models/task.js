@@ -18,13 +18,13 @@ export default {
         payload: response,
       });
     },
-    * submit({ payload, redirect }, { call, put }) {
+    * submit({ payload, redirect, t }, { call, put }) {
       const response = yield call(submitTask, payload);
       yield put({
         type: 'task',
         payload: response,
       });
-      message.success('提交成功');
+      message.success(t('提交成功'));
       if (redirect) {
         yield put(routerRedux.push(redirect));
       }

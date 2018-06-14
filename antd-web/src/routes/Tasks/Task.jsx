@@ -52,7 +52,7 @@ class Task extends PureComponent {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { form, dispatch, currentUser } = this.props;
+    const { form, dispatch, currentUser, t } = this.props;
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
@@ -63,6 +63,7 @@ class Task extends PureComponent {
             progress: 'reserved',
             id: this.props.match.params.id === 'new' ? null : this.props.match.params.id,
           },
+          t,
           redirect: `/tasks`,
         });
       }

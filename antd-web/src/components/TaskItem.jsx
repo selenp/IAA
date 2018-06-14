@@ -25,7 +25,7 @@ const MoreBtn = ({
       <Menu>
         {Object.keys(progressTitle).map(k => (
           <Menu.Item key={k}>
-            <a onClick={() => changeProgress(item, k)}>{progressTitle[k]}</a>
+            <a onClick={() => changeProgress(item, k)}>{t(progressTitle[k])}</a>
           </Menu.Item>
         ))}
       </Menu>
@@ -55,7 +55,7 @@ const TaskItem = ({
             {t("用户")}
             <span>{` ${item.eid} `}</span>
             {t("提交了一个任务")}
-            {` ${item.category} `}
+            {` "${t(item.category)}" `}
           </Link>
           &nbsp;
           <span>{`${t("希望日期")} ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>

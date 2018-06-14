@@ -384,6 +384,7 @@ build/libs/accenture-iaa-20180611.jar
 #+END_SRC
   - WinSW
   - cp artifacts/*
+  - application.properties
 * <2018-06-12 Tue>
  - URL
 https://dlcgvva1001.dir.svc.accenture.com/

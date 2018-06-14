@@ -43,13 +43,14 @@ class Workplace extends PureComponent {
   }
 
   changeProgress(item, progress) {
-    const { dispatch } = this.props;
+    const { dispatch, t } = this.props;
     dispatch({
       type: 'task/submit',
       payload: {
         ...item,
         progress,
       },
+      t,
     });
 
     item.progress = progress;
