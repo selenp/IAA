@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { translate } from "react-i18next";
 import { connect } from 'dva';
+import { translate } from "react-i18next";
 import {
   Form,
 } from 'antd';
@@ -24,6 +24,7 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
+    const { t } = this.props;
     const {
       form,
       data,
@@ -37,7 +38,6 @@ class Step2 extends React.PureComponent {
       dispatch(routerRedux.push('/delivery/return/info'));
     };
     const onValidateForm = e => {
-      const { t } = this.props;
       e.preventDefault();
       validateFields((err, values) => {
         if (!err) {
@@ -48,7 +48,8 @@ class Step2 extends React.PureComponent {
               ...values,
               returnDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'return',
-              monitorSize: values.machineType === 'desktop' ? values.returnMonitorSize.join(',') : null,
+              machineType: values.machineType || data.machineType,
+              returnMonitorSize: values.returnMonitorSize ? values.returnMonitorSize.join(',') : null,
             },
             next: '/delivery/return/result',
             t,

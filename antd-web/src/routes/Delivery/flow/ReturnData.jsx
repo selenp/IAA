@@ -54,6 +54,8 @@ class Step2 extends React.PureComponent {
               ...values,
               returnDate: moment().format('YYYY-MM-DD HH:mm'),
               progress: 'return',
+              machineType: values.machineType || data.machineType,
+              returnMonitorSize: values.returnMonitorSize ? values.returnMonitorSize.join(',') : null,
             },
             next: '/delivery/return/result',
             t,
@@ -91,7 +93,7 @@ class Step2 extends React.PureComponent {
 }
 
 export default connect(({ delivery, loading, allDictionaries }) => ({
-  submitting: loading.effects['delivery/fetch'],
+  submitting: loading.effects['delivery/submitDelivery'],
   data: delivery.step,
   laptopModels: map(groupBy(allDictionaries.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(allDictionaries.data, 'category').monitorSize, v =>v.data),
