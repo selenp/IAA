@@ -22,9 +22,9 @@ export default {
         payload: response,
       });
     },
-    *delete({ id }, { call, put }) {
+    *delete({ id, t }, { call, put }) {
       yield call(deleteDictionary, id);
-      message.success('删除完毕');
+      message.success(t('删除完毕'));
       yield put({
         type: 'remove',
         id,

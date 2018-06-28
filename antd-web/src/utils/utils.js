@@ -167,5 +167,5 @@ const REMOTE_URL =
 const FILE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3022'
-    : 'https://dlcgvva1001.dir.svc.accenture.com/artifacts/';
+    : 'https://dlcgvva1001.dir.svc.accenture.com/artifacts';
 export { REMOTE_URL, FILE_URL };

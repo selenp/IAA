@@ -106,7 +106,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['dictionary'], () => import('../routes/Dictionaries/Dictionary')),
     },
     '/system/admins': {
-      component: dynamicWrapper(app, ['admins', 'allDictionaries'], () =>
+      component: dynamicWrapper(app, ['admins', 'user', 'allDictionaries'], () =>
         import('../routes/Admins/List')
       ),
     },

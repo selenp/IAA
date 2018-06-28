@@ -74,6 +74,7 @@ class TableList extends PureComponent {
   handleSearch = (e, { xlsx }) => {
     e.preventDefault();
 
+    const { t } = this.props;
     const { dispatch, form } = this.props;
 
     form.validateFields((err, fieldsValue) => {
@@ -92,6 +93,7 @@ class TableList extends PureComponent {
           dispatch({
             type: xlsx ? 'deliveries/xlsx' : 'deliveries/fetchList',
             payload: this.state,
+            t,
           })
       );
     });
@@ -233,7 +235,7 @@ class TableList extends PureComponent {
         render(val, row) {
           return (
             <span>
-              {row.eid} / {row.fullname}
+              {row.eid}
             </span>
           );
         },

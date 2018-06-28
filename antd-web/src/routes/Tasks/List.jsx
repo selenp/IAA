@@ -62,6 +62,7 @@ class TableList extends PureComponent {
   handleSearch(e, { xlsx }) {
     e.preventDefault();
 
+    const { t } = this.props;
     const { dispatch, form } = this.props;
 
     form.validateFields((err, fieldsValue) => {
@@ -80,6 +81,7 @@ class TableList extends PureComponent {
           dispatch({
             type: xlsx ? 'tasks/xlsx' : 'tasks/fetchList',
             payload: this.state,
+            t,
           })
       );
     });

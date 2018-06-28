@@ -36,11 +36,9 @@ class Step3 extends React.PureComponent {
     ctx.drawImage(this.bgImage, 0, 0);
     ctx.font = '16px Courier';
     ctx.fillText(data.eid, 180, 130);
-    ctx.fillText(data.sapNumber, 180, 149);
     ctx.fillText(data.businessUnit, 180, 168);
     ctx.fillText(data.locationFloor, 180, 187);
 
-    ctx.fillText(data.fullname, 520, 130);
     ctx.fillText(data.projectName, 520, 149);
     ctx.fillText(data.locationBuilding, 520, 168);
     ctx.fillText(data.locationSeat, 520, 187);

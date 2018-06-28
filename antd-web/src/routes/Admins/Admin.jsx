@@ -52,7 +52,6 @@ class Admin extends PureComponent {
         editing: true,
         data: {
           userid: "",
-          fullname: '',
         },
       };
     } else {
@@ -71,26 +70,32 @@ class Admin extends PureComponent {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
-      this.props.form.setFieldsValue({
-        fullname: nextProps.ldap.data.cn,
-      });
-    }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ldao/initData',
+    });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    const { t } = this.props;
+    const { form, ldap, dispatch, match } = this.props;
+    if (!ldap.data.cn) {
+      return;
+    }
+
+    form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.props.dispatch({
+        dispatch({
           type: 'admin/submit',
           payload: {
             ...values,
             roles: values.roles.join(','),
             avatar: avatars[Math.floor(Math.random()*avatars.length)],
-            id: this.props.match.params.id === 'new' ? null : this.props.match.params.id,
+            id: match.params.id === 'new' ? null : match.params.id,
           },
+          t,
         });
       }
     });
@@ -105,12 +110,12 @@ class Admin extends PureComponent {
 
   renderView() {
     const { t } = this.props;
-    const { admin: { data } } = this.props;
+    const { admin: { data }, ldap } = this.props;
 
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term={t("姓名")}>{data.fullname}</Description>
+          <Description term={t("姓名")}>{ldap.data.uid}</Description>
           <Description term={t("eid")}>{data.userid}</Description>
           <Description term={t("角色")}>{data.roles}</Description>
         </DescriptionList>
@@ -120,7 +125,7 @@ class Admin extends PureComponent {
 
   renderEdit() {
     const { t } = this.props;
-    const { submitting, roles} = this.props;
+    const { submitting, roles, ldap} = this.props;
     const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
@@ -165,20 +170,9 @@ class Admin extends PureComponent {
           />
         )}
           </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label={<span>{t("密码")}</span>}
-          >
-            {getFieldDecorator('password', {
-          initialValue: this.state.data.password,
-          rules: [{
-            required: true,
-            message:t('请输入密码'),
-          }],
-            })(
-              <Input placeholder={t("请输入密码")} type="password" />
-        )}
-          </FormItem>
+          <Form.Item {...formItemLayout} label={t("姓名")}>
+            {ldap.data.cn ? ldap.data.cn : '[等待EID的LDAP验证]'}
+          </Form.Item>
           <Form.Item {...formItemLayout} label={t("角色")}>
             {getFieldDecorator('roles', {
               initialValue: this.state.data.roles ? this.state.data.roles.split(',') : [],
@@ -202,20 +196,6 @@ class Admin extends PureComponent {
               </Select>
             )}
           </Form.Item>
-          <FormItem
-            {...formItemLayout}
-            label={<span>{t("姓名")}</span>}
-          >
-            {getFieldDecorator('fullname', {
-          initialValue: this.state.data.fullname,
-          rules: [{
-            required: true,
-            message: t('请输入姓名'),
-          }],
-            })(
-              <Input placeholder={t("请输入姓名")} />
-        )}
-          </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
             {

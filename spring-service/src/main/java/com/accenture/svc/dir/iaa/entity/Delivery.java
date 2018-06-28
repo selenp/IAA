@@ -18,10 +18,6 @@ public class Delivery {
     private String progress; //borrow, return
     //	姓名(EID)
     private String eid;
-    // Name
-    private String fullname;
-    //  员工号 Sap Number
-    private String sapNumber;
     //  项目名 Project Name
     private String projectName;
     //  部门 Business Unit
@@ -103,22 +99,6 @@ public class Delivery {
 
     public void setEid(String eid) {
         this.eid = eid;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public String getSapNumber() {
-        return sapNumber;
-    }
-
-    public void setSapNumber(String sapNumber) {
-        this.sapNumber = sapNumber;
     }
 
     public String getProjectName() {

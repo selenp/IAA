@@ -51,6 +51,7 @@ class Announcement extends PureComponent {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { t } = this.props;
     const { form, dispatch, currentUser } = this.props;
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -62,6 +63,7 @@ class Announcement extends PureComponent {
             progress: 'reserved',
             id: this.props.match.params.id === 'new' ? null : this.props.match.params.id,
           },
+          t,
           redirect: `/announcements`,
         });
       }

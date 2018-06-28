@@ -131,8 +131,9 @@ class TableList extends PureComponent {
         render: (val, row) => !row.category.startsWith('system.') && (
           <Fragment>
             <a onClick={() => this.props.dispatch({
-              type: 'dictionaries/delete',
-              id: row.id,
+                type: 'dictionaries/delete',
+                id: row.id,
+                t,
             })}
             >
               {t("删除")}

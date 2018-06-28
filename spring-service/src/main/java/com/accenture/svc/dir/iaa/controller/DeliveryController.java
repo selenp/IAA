@@ -191,9 +191,9 @@ public class DeliveryController extends AbstractController {
                         case 0:
                             return data.getEid();
                         case 1:
-                            return data.getFullname();
+                            return "";
                         case 2:
-                            return data.getSapNumber();
+                            return "";
                         case 3:
                             return data.getProjectName();
                         case 4:

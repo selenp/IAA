@@ -24,7 +24,8 @@ const getQuery = (location, param) => {
   return v;
 };
 
-@connect(({ admins, loading, allDictionaries }) => ({
+@connect(({ admins, user, loading, allDictionaries }) => ({
+  currentUser: user.currentUser,
   admins,
   loading: loading.models.admins,
   roles: map(groupBy(allDictionaries.data, 'category').role, v => v.data),
@@ -160,7 +161,8 @@ class TableList extends PureComponent {
       {
         title: t('eid'),
         dataIndex: 'userid',
-        render: (val, row) => <Link to={`/system/admin/${row.id}`}>{val}</Link>,
+        render: (val, row) => (row.userid === this.props.currentUser.userid) ?
+          val : <Link to={`/system/admin/${row.id}`}>{val}</Link>,
       },
       {
         title:t('头像'),
@@ -168,10 +170,6 @@ class TableList extends PureComponent {
         render(val) {
           return <Avatar size="large" className={styles.avatar} src={val} />;
         },
-      },
-      {
-        title:t('姓名'),
-        dataIndex: 'fullname',
       },
       {
         title:t('角色'),

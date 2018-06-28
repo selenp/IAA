@@ -1,12 +1,5 @@
 package com.accenture.svc.dir.iaa.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ldap.core.AttributesMapper;
-import org.springframework.ldap.core.ContextMapper;
-import org.springframework.ldap.core.DirContextAdapter;
-import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
 
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
+import javax.naming.ldap.LdapContext;
 
 @Controller
 @CrossOrigin(
@@ -29,64 +20,44 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/api/ldap")
-public class LdapController {
-    String ldapBase = "dc=springframework,dc=org";
-    Log log = LogFactory.getLog(LdapController.class);
-
-    @Autowired
-    private LdapTemplate ldapTemplate;
-
-    public List<String> getAllPersonNames() {
-        return ldapTemplate.search(
-                query().where("objectclass").is("person"),
-                (AttributesMapper<String>) attrs -> (String) attrs.get("cn").get());
-    }
-
-    @RequestMapping("/all")
+public class LdapController extends AbstractController {
+    /**
+     * 测试环境里面<code>system.ldap</code>的值如下：
+     * <code>{
+     * "url": "ldap://localhost:8389",
+     * "base": "dc=springframework,dc=org",
+     * "principal": "uid=%s,dc=springframework,dc=org",
+     * "user": null,
+     * "password": null,
+     * "filter": "(&(objectClass=person)(uid=%s))"
+     * }</code>
+     * 正式环境里面<code>system.ldap</code>的值如下：
+     * <code>{
+     * "url": "ldap://10.254.161.147:389",
+     * "base": "ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
+     * "principal": "cn=%s,ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
+     * "user": "di.a.gao",
+     * "password": "Gdi0906#",
+     * "filter": "(&(objectClass=person)(cn=%s))"
+     * }</code>
+     */
+    @GetMapping(path = "/search/{uid}")
     public @ResponseBody
-    String indexall() {
-        return getAllPersonNames().toString();
-    }
-
-    public String findPersonName(String dn) {
-        return ldapTemplate.lookup(dn, (AttributesMapper<String>) attrs -> {
-            log.warn(attrs);
-            return (String) attrs.get("cn").get();
-        });
-    }
-
-    @GetMapping(path = "/uid/{uid}")
-    public @ResponseBody
-    String indexsearch(@PathVariable String uid) {
-        return findPersonName(String.format("uid=%s,ou=people,%s", uid, ldapBase));
-    }
-
-
-    public Map findPersonNameC(String dn) {
-        return ldapTemplate.lookup(dn, (ContextMapper<Map>) ctx -> {
-            DirContextAdapter context = (DirContextAdapter) ctx;
-
-            log.warn(((DirContextAdapter) ctx).getAttributes());
-            Map<String, Object> map = new HashMap();
-            map.put("uid", context.getStringAttribute("uid"));
-            map.put("cn", context.getStringAttribute("cn"));
-
-            return map;
-        });
-    }
-
-    @GetMapping(path = "/find/{uid}")
-    public @ResponseBody
-    Map indexsearch2(@PathVariable String uid) {
-        Map map;
+    Map<String, Object> search(@PathVariable String uid) {
         try {
-            map = findPersonNameC(String.format("uid=%s,ou=people,%s", uid, ldapBase));
+            Map<String, Object> conf = getLdapConf();
+
+            LdapContext ctx = getLdapContext(
+                    (String) conf.get("url"),
+                    conf.get("username") != null ? String.format((String) conf.get("principal"), conf.get("username")) : null,
+                    (String) conf.get("password")
+            );
+
+            Map<String, Object> map = ldapSearchOne(ctx, conf, uid);
+            return map;
         } catch (Exception e) {
             log.error(e);
-            map = new HashMap();
-            map.put("uid","");
-            map.put("cn","");
+            return null;
         }
-        return map;
     }
 }

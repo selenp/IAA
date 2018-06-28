@@ -54,13 +54,6 @@ public class AdminController extends AbstractController {
     @PostMapping(path = "/") // Map ONLY GET Requests
     public @ResponseBody
     Admin post(@RequestBody Admin d) {
-        if (!StringUtils.isEmpty(d.getPassword())) {
-            try {
-                d.setPassword(EncryptUtils.sha256(d.getPassword(), keyString));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         adminRepository.save(d);
 
         String[] roles = d.getRoles().split(",");

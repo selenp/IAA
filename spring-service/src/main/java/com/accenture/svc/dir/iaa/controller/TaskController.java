@@ -41,7 +41,7 @@ import javax.persistence.criteria.Predicate;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/api/task")
-public class TaskController extends AccountController {
+public class TaskController extends AbstractController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody

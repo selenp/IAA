@@ -54,11 +54,11 @@ class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
-          {currentUser.fullname ? (
+          {currentUser.cn ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
                 <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
-                <span className={styles.name}>{currentUser.fullname}</span>
+                <span className={styles.name}>{currentUser.cn}</span>
               </span>
             </Dropdown>
           ) : (

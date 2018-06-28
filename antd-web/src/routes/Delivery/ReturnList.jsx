@@ -139,7 +139,7 @@ class ResturnList extends PureComponent {
         render(val, row) {
           return (
             <span>
-              {row.eid} / {row.fullname}
+              {row.eid}
             </span>
           );
         },

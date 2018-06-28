@@ -15,6 +15,7 @@ const { Option } = Select;
 
 const InfoForm = ({
   t,
+  ldap,
   styles,
   getFieldDecorator,
   onValidateForm,
@@ -42,12 +43,7 @@ const InfoForm = ({
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t("姓名")}>
-      {getFieldDecorator('fullname', {
-            })(<Input placeholder={t("请输入EID")} />)}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label={t("员工号")}>
-      {getFieldDecorator('sapNumber', {
-            })(<Input placeholder={t("请输入员工号")} />)}
+      {ldap.data.cn ? ldap.data.cn : '[等待EID的LDAP验证]'}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t("项目")}>
       {getFieldDecorator('projectName', {

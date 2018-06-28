@@ -67,7 +67,7 @@ class Workplace extends PureComponent {
           <Avatar size="large" src={currentUser.avatar} />
         </div>
         <div className={styles.content}>
-          <div className={styles.contentTitle}>{`${t("Hello")}，${currentUser.fullname}！`}</div>
+          <div className={styles.contentTitle}>{`${t("Hello")}，${currentUser.cn}！`}</div>
           <div />
         </div>
       </div>

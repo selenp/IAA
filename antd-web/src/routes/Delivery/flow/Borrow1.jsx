@@ -27,13 +27,6 @@ class Step1 extends React.PureComponent {
       type: 'delivery/initData',
     });
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.ldap.data.uid !== nextProps.ldap.data.uid) {
-      this.props.form.setFieldsValue({
-        fullname: nextProps.ldap.data.cn,
-      });
-    }
-  }
   handleSeachEid = (eid) => {
     this.props.dispatch({
       type: 'ldap/search',
@@ -45,6 +38,7 @@ class Step1 extends React.PureComponent {
     const { t } = this.props;
     const {
       form,
+      ldap,
       dispatch,
       businessUnits,
       projectNames,
@@ -67,6 +61,7 @@ class Step1 extends React.PureComponent {
     return (
       <Fragment>
         <InfoForm
+          ldap={ldap}
           styles={styles}
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
@@ -97,3 +92,4 @@ export default connect(({ allDictionaries, ldap }) => ({
   locationBuildings: map(groupBy(allDictionaries.data, 'category').locationBuilding, v =>v.data),
   locationFloors: map(groupBy(allDictionaries.data, 'category').locationFloor, v =>v.data),
 }))(translate("translations")(Step1));
+

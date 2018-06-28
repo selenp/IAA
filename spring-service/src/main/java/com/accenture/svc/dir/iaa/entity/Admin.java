@@ -2,6 +2,8 @@ package com.accenture.svc.dir.iaa.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,6 @@ public class Admin {
     private String token;
     private String userid;
     private String password;
-    private String fullname;
     private String avatar;
     private String roles; //"asset manager", "asset distributor"
     private String createdDate;
@@ -42,14 +43,6 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
     }
 
     public String getToken() {
@@ -90,6 +83,16 @@ public class Admin {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public Map<? extends String, ?> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("userid", userid);
+        map.put("avatar", avatar);
+        map.put("roles", roles);
+        map.put("createdDate", createdDate);
+        return map;
     }
 }
 

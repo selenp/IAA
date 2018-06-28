@@ -33,7 +33,7 @@ import javax.persistence.criteria.Predicate;
         allowedHeaders = {"Access-Control-Allow-Headers", "Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "Cache-Control"}
 )
 @RequestMapping(path = "/api/dictionary")
-public class DictionaryController extends AccountController {
+public class DictionaryController extends AbstractController {
 
     @DeleteMapping(path = "/{id}")
     public @ResponseBody

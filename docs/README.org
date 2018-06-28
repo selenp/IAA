@@ -1,8 +1,10 @@
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmainfont{Heiti SC}
 #+HTML_HEAD:  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1" />
 #+HTML_HEAD: <style type="text/css">img{ max-width:98%; width: 800px }</style>
+#+CATEGORY: accenture-equipment
 
 #+OPTIONS: toc:2          only include two levels in TOC
-
 * 页面流程
   http://localhost:3022/#/delivery/main
 
@@ -84,15 +86,15 @@ POST http://localhost:3050/api/account/api-login-account
 Content-Type: application/json
 
 {
-"userid": "zhaolei",
-"password": "zhaoleipass"
+"userid": "ben",
+"password": "benspassword"
 }
 #+END_SRC
 
    - currentUser
 #+BEGIN_SRC sh
 GET http://localhost:3050/api/account/currentUser
-Authorization: Bearer WvegqDoLeobVtvtPjLsxht7Qfa2RA2Mqzk6Hzh9rZrI=
+Authorization: Bearer XD6UDL1rhKeE1NkyXJjIpoOL8L4rYDpDexf8YA2zSbM=
 #+END_SRC
 
 ** Admin
@@ -102,9 +104,7 @@ POST http://localhost:3050/api/admin/
 Content-Type: application/json
 
 {
-"userid": "zhaolei",
-"password": "zhaoleipass",
-"fullname": "ZhaoLei",
+"userid": "ben",
 "roles": "asset manager,super admin,it staff",
 "avatar": "https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png"
 }
@@ -114,9 +114,8 @@ POST http://localhost:3050/api/admin/
 Content-Type: application/json
 
 {
-"userid": "xia",
-"password": "xiapass",
-"fullname": "Xia",
+"id": 5,
+"userid": "bob",
 "roles": "asset manager,super admin,it staff",
 "avatar": "https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png"
 }
@@ -125,6 +124,10 @@ Content-Type: application/json
    - list
 #+BEGIN_SRC sh
 GET http://localhost:3050/api/admin/
+#+END_SRC
+   - GET /admin//:id
+#+BEGIN_SRC sh
+GET http://localhost:3050/api/admin/5
 #+END_SRC
 
 ** Delivery
@@ -144,13 +147,11 @@ Content-Type: application/json
 "locationSeat": "6",
 "eid": "liuxx",
 "borrowDate": "2018-06-07",
-"fullname": "2",
 "machineType": "laptop",
 "laptopModel": "dell t0",
 "mouse": true,
 "projectName": "3",
 "remarks": "7",
-"sapNumber": "3",
 "securityCable": true,
 "serialTag": "9",
 "progress": "borrow"
@@ -200,7 +201,7 @@ POST http://localhost:3050/api/task/
 Content-Type: application/json
 
 {
-"eid": "zhaolei",
+"eid": "ben",
 "progress": "reserved",
 "dueDate": "2018-09-08",
 "category": "领取设备",
@@ -213,7 +214,7 @@ Content-Type: application/json
    任务列表
 #+BEGIN_SRC sh
 GET http://localhost:3050/api/task/
-Authorization: Bearer WvegqDoLeobVtvtPjLsxht7Qfa2RA2Mqzk6Hzh9rZrI=
+Authorization: Bearer XD6UDL1rhKeE1NkyXJjIpoOL8L4rYDpDexf8YA2zSbM=
 #+END_SRC
 
    - GET /task/xlsx
@@ -237,7 +238,7 @@ POST http://localhost:3050/api/announcement/
 Content-Type: application/json
 
 {
-"eid": "zhaolei",
+"eid": "ben",
 "content": "top of the world...",
 "assignToRole": "asset manager"
 }
@@ -247,7 +248,7 @@ Content-Type: application/json
    通知列表
 #+BEGIN_SRC sh
 GET http://localhost:3050/api/announcement/
-Authorization: Bearer WvegqDoLeobVtvtPjLsxht7Qfa2RA2Mqzk6Hzh9rZrI=
+Authorization: Bearer XD6UDL1rhKeE1NkyXJjIpoOL8L4rYDpDexf8YA2zSbM=
 #+END_SRC
 
    - GET /announcement/xlsx
@@ -272,11 +273,11 @@ Content-Type: application/json
 
 {
 "assetTags": "8,9,10",
-"toEid": "zhaolei",
+"toEid": "ben",
 "location": "6",
 "remarks": "7emark",
 "status": "borrow",
-"fromEid": "xia"
+"fromEid": "bob"
 }
 #+END_SRC
 
@@ -355,7 +356,10 @@ GET http://localhost:3050/api/assettag/8
 ** ldap
 - find by uid
 #+BEGIN_SRC sh
-GET http://localhost:3050/api/ldap/find/ben
+GET http://localhost:3050/api/ldap/search/ben
+#+END_SRC
+#+BEGIN_SRC sh
+GET http://localhost:3050/api/ldap/search/bob
 #+END_SRC
 
 * Deployment
@@ -371,7 +375,6 @@ gradle build
 java -jar build/libs/accenture-iaa-20180611.jar
 #+END_SRC
 
-
 ** 同步
  - antd-web
 #+BEGIN_SRC sh
@@ -382,299 +385,325 @@ npm run build
 #+BEGIN_SRC
 build/libs/accenture-iaa-20180611.jar
 #+END_SRC
+正式环境里面 system.ldap 的值如下
+#+BEGIN_SRC json
+{
+"url": "ldap://10.254.161.147:389",
+"base": "ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
+"principal": "cn=%s,ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
+"username": "di.a.gao",
+"password": "Gdi0906#",
+"filter": "(&(objectClass=person)(cn=%s))"
+}
+#+END_SRC
   - WinSW
   - cp artifacts/*
   - application.properties
-* <2018-06-12 Tue>
- - URL
-https://dlcgvva1001.dir.svc.accenture.com/
- - 管理员登录
- zhaolei/zhaoleipass
-** DONE IAA的windows service已经做成， 自启动模式
-   CLOSED: [2018-06-12 Tue 19:40]
-   :LOGBOOK:
-   - State "DONE"       from "PROJECT"    [2018-06-12 Tue 19:40]
-   - State "PROJECT"    from "DONE"       [2018-06-12 Tue 19:40]
-   - State "DONE"       from "PROJECT"    [2018-06-12 Tue 19:40]
-   - State "PROJECT"    from "DONE"       [2018-06-12 Tue 19:40]
-   - State "DONE"       from "NEXT"       [2018-06-12 Tue 19:37]
-   :END:
-** TODO 英文翻译中70% -- gaodi
-** TODO 各个功能正在最后测试中 -- gaodi
-** TODO LDAP的动态配置暂时还没有找到方法能动态切换连接
- - 都是系统初始化时定好的connection
- - 当前，是写在配置文件里面，需要的话修改参数保存，重新启动服务即可
-** IIS的ReversepProxy设置，总是消失，不知道为什么
-** iPAD测试过，跟PC上效果差不多。要想效果最好还得是App
 
-* <2018-06-08 Fri>
- - 新版安装到服务器上了，测试了一下，效果很好，连接mssql，发邮件，生成图片都没有问题。
- - 遗留问题
-** DONE 需要把java应用变成windows服务，要不然windows的session没了，java就停了
-   CLOSED: [2018-06-08 Fri 22:31]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-06-08 Fri 22:31]
-   :END:
-** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
-** TODO 英文翻译中。。。
-** DONE LDAP取数据
-   CLOSED: [2018-06-11 Mon 10:11]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:11]
-   :END:
-* <2018-06-06 Wed>
-** 需要1个域名
- - "前端页面"
-提供静态页面以及图片库 例：https://dlcgvva1001.dir.svc.accenture.com/
- - "java api"
-需要IIS的reverse proxy功能，把localhost:3050，变成面向外网的443 例：https://dlcgvva1001.dir.svc.accenture.com/api/
- - "签名图片"
- 例：https://dlcgvva1001.dir.svc.accenture.com/artifacts/
+* 会议
+** <2018-06-27 Wed>
+   SCHEDULED: <2018-06-27 Wed 14:00>
+   - LOCATION:<#24 1F>
+*** 更新了前端页面 front-end，修复了几个bug
+*** MSSQL数据库启动不了了
+    - 原因待查
+    - 数据文件仍在，重新attach了一下
+    - 重新设定了一下密码
+*** 需要做的
+**** TODO 测试，找bug - gaodi
+**** TODO 整合LDAP(周五之前)
+    - login
+    - eid有效性验证
+** <2018-06-12 Tue>
+  - URL
+ https://dlcgvva1001.dir.svc.accenture.com/
+  - 管理员登录
+  ben/benspassword
+*** DONE IAA的windows service已经做成， 自启动模式
+    CLOSED: [2018-06-12 Tue 19:40]
+    :LOGBOOK:
+    - State "DONE"       from "PROJECT"    [2018-06-12 Tue 19:40]
+    - State "PROJECT"    from "DONE"       [2018-06-12 Tue 19:40]
+    - State "DONE"       from "PROJECT"    [2018-06-12 Tue 19:40]
+    - State "PROJECT"    from "DONE"       [2018-06-12 Tue 19:40]
+    - State "DONE"       from "NEXT"       [2018-06-12 Tue 19:37]
+    :END:
+*** TODO 英文翻译中70% -- gaodi
+*** TODO 各个功能正在最后测试中 -- gaodi
+*** TODO LDAP的动态配置暂时还没有找到方法能动态切换连接
+  - 都是系统初始化时定好的connection
+  - 当前，是写在配置文件里面，需要的话修改参数保存，重新启动服务即可
+*** IIS的ReversepProxy设置，总是消失，不知道为什么
+*** iPAD测试过，跟PC上效果差不多。要想效果最好还得是App
 
-[[./component.plantuml.png]]
-** mssql的测试
-** email测试
-* <2018-06-05 Tue>
-** 签名图片
-*** DONE 签名的layout修改
-    CLOSED: [2018-06-07 Thu 21:01]
+** <2018-06-08 Fri>
+  - 新版安装到服务器上了，测试了一下，效果很好，连接mssql，发邮件，生成图片都没有问题。
+  - 遗留问题
+*** DONE 需要把java应用变成windows服务，要不然windows的session没了，java就停了
+    CLOSED: [2018-06-08 Fri 22:31]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-07 Thu 21:01]
+    - State "DONE"       from "NEXT"       [2018-06-08 Fri 22:31]
     :END:
-*** DONE 图片命名 sn-yyyy-mm-dd，并且用YYYY-MM细分文件夹
-    CLOSED: [2018-06-05 Tue 17:43]
-    :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-05 Tue 17:43]
-    :END:
-*** TODO 图片压缩到 200k左右，目前约1M
-** 消息模块
-*** DONE 库管发布消息， 指定角色，在dashboard上显示
-    CLOSED: [2018-06-07 Thu 12:46]
-    :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-07 Thu 12:46]
-    :END:
-** 用户管理
-*** DONE 角色查询：asset manager,super admin,it staff
-    CLOSED: [2018-06-06 Wed 00:14]
-    :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-06 Wed 00:14]
-    :END:
-*** DONE 权限确认
-    CLOSED: [2018-06-08 Fri 13:18]
-    :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-08 Fri 13:18]
-    :END:
-*** DONE 从ldap查到数据
+*** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
+*** TODO 英文翻译中。。。
+*** DONE LDAP取数据
     CLOSED: [2018-06-11 Mon 10:11]
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:11]
     :END:
-** 数据字典
-*** DONE 楼，楼层，笔记本model
-    CLOSED: [2018-06-05 Tue 22:43]
+** <2018-06-06 Wed>
+*** 需要1个域名
+  - "前端页面"
+ 提供静态页面以及图片库 例：https://dlcgvva1001.dir.svc.accenture.com/
+  - "java api"
+ 需要IIS的reverse proxy功能，把localhost:3050，变成面向外网的443 例：https://dlcgvva1001.dir.svc.accenture.com/api/
+  - "签名图片"
+  例：https://dlcgvva1001.dir.svc.accenture.com/artifacts/
+
+ [[./component.plantuml.png]]
+*** mssql的测试
+*** email测试
+** <2018-06-05 Tue>
+*** 签名图片
+**** DONE 签名的layout修改
+     CLOSED: [2018-06-07 Thu 21:01]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-07 Thu 21:01]
+     :END:
+**** DONE 图片命名 sn-yyyy-mm-dd，并且用YYYY-MM细分文件夹
+     CLOSED: [2018-06-05 Tue 17:43]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-05 Tue 17:43]
+     :END:
+**** TODO 图片压缩到 200k左右，目前约1M
+*** 消息模块
+**** DONE 库管发布消息， 指定角色，在dashboard上显示
+     CLOSED: [2018-06-07 Thu 12:46]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-07 Thu 12:46]
+     :END:
+*** 用户管理
+**** DONE 角色查询：asset manager,super admin,it staff
+     CLOSED: [2018-06-06 Wed 00:14]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-06 Wed 00:14]
+     :END:
+**** DONE 权限确认
+     CLOSED: [2018-06-08 Fri 13:18]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-08 Fri 13:18]
+     :END:
+**** DONE 从ldap查到数据
+     CLOSED: [2018-06-11 Mon 10:11]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:11]
+     :END:
+*** 数据字典
+**** DONE 楼，楼层，笔记本model
+     CLOSED: [2018-06-05 Tue 22:43]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-05 Tue 22:43]
+     :END:
+*** 设备编号
+**** DONE 点击，看到所有履历（用户借还，IT借还）
+     CLOSED: [2018-06-07 Thu 17:18]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-07 Thu 17:18]
+     :END:
+*** 数据结构
+**** DONE 台式机
+     CLOSED: [2018-06-05 Tue 23:58]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-05 Tue 23:58]
+     :END:
+     - 显示器
+       - 尺寸：17，19，22，24
+       - 数量：1 2 3
+       - 改正：tags方式输入各种尺寸
+     - 键盘，鼠标
+     - 网线
+**** DONE 笔记本
+     CLOSED: [2018-06-05 Tue 23:58]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-06-05 Tue 23:58]
+     :END:
+     - 型号
+     - 包
+     - 锁
+     - 电源线
+     - 鼠标
+*** DONE iPad实测
+    CLOSED: [2018-06-11 Mon 07:38]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-05 Tue 22:43]
+    - State "DONE"       from "NEXT"       [2018-06-11 Mon 07:38]
     :END:
-** 设备编号
-*** DONE 点击，看到所有履历（用户借还，IT借还）
-    CLOSED: [2018-06-07 Thu 17:18]
+*** DONE 还设备
+    CLOSED: [2018-06-08 Fri 00:05]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-07 Thu 17:18]
+    - State "DONE"       from "NEXT"       [2018-06-08 Fri 00:05]
     :END:
-** 数据结构
-*** DONE 台式机
-    CLOSED: [2018-06-05 Tue 23:58]
+*** 周四之前完成功能，重新发布
+*** NEXT 下周一英文版
+*** DONE 写一下安装手顺
+    CLOSED: [2018-06-11 Mon 10:12]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-05 Tue 23:58]
+    - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:12]
     :END:
-    - 显示器
-      - 尺寸：17，19，22，24
-      - 数量：1 2 3
-      - 改正：tags方式输入各种尺寸
-    - 键盘，鼠标
-    - 网线
-*** DONE 笔记本
-    CLOSED: [2018-06-05 Tue 23:58]
+
+ localhost:1433  iaa/Guop1ng123 iaa
+
+ guoping.ao@accenture.com
+ is.isa.china.automation@accenture.com
+** <2018-05-24 Thu>
+*** DONE eid =》 EID
+    CLOSED: [2018-05-24 Thu 16:23]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-06-05 Tue 23:58]
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 16:23]
     :END:
-    - 型号
-    - 包
-    - 锁
-    - 电源线
-    - 鼠标
-** DONE iPad实测
-   CLOSED: [2018-06-11 Mon 07:38]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-06-11 Mon 07:38]
-   :END:
-** DONE 还设备
-   CLOSED: [2018-06-08 Fri 00:05]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-06-08 Fri 00:05]
-   :END:
-** 周四之前完成功能，重新发布
-** NEXT 下周一英文版
-** DONE 写一下安装手顺
-   CLOSED: [2018-06-11 Mon 10:12]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-06-11 Mon 10:12]
-   :END:
-
-localhost:1433  iaa/Guop1ng123 iaa
-
-guoping.ao@accenture.com
-is.isa.china.automation@accenture.com
-* <2018-05-24 Thu>
-** DONE eid =》 EID
-   CLOSED: [2018-05-24 Thu 16:23]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-24 Thu 16:23]
-   :END:
-** DONE asset tag查询
-   CLOSED: [2018-05-24 Thu 21:00]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-24 Thu 21:00]
-   :END:
-** DONE xlsx，条件过滤，多条件查询
-   CLOSED: [2018-05-24 Thu 21:00]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-24 Thu 21:00]
-   :END:
-** DONE 限定签名区域的效果
-   CLOSED: [2018-05-28 Mon 13:18]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-28 Mon 13:18]
-   :END:
-** TODO 中英文 版本
-** DONE 预约
-   CLOSED: [2018-05-27 Sun 21:49]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-27 Sun 21:49]
-   :END:
-   - task模块
-   - 借助显示方式
-   - 用颜色来区分task进度
-   - 类型跟后续的处理方式对应上
-** CANCELLED 权限，角色
-   CLOSED: [2018-05-24 Thu 16:24]
-   :LOGBOOK:
-   - State "CANCELLED"  from              [2018-05-24 Thu 16:24] \\
-     跟ldap连接
-   :END:
-** CANCELLED 点击”设备“
-   CLOSED: [2018-05-24 Thu 16:23]
-   :LOGBOOK:
-   - State "CANCELLED"  from              [2018-05-24 Thu 16:23] \\
-     第二阶段再做
-   :END:
-* <2018-05-18 Fri>
-** 基于当前演示的系统，需要做的改善
-*** DONE 选择楼，楼层，座位号
-    CLOSED: [2018-05-24 Thu 09:38]
+*** DONE asset tag查询
+    CLOSED: [2018-05-24 Thu 21:00]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 21:00]
     :END:
-*** DONE 台式机 / 笔记本  的要有区别
-    CLOSED: [2018-05-24 Thu 10:05]
+*** DONE xlsx，条件过滤，多条件查询
+    CLOSED: [2018-05-24 Thu 21:00]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:05]
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 21:00]
     :END:
-*** DONE 管理员后台能整理数据字典
-    CLOSED: [2018-05-22 Tue 23:22]
-*** DONE 修改成特定区域能签名 -> 可擦除
-    CLOSED: [2018-05-22 Tue 23:22]
-*** DONE IT的话，可以批量领取
-    CLOSED: [2018-05-22 Tue 23:22]
-*** DONE IT用户 与 普通用户，重合度已经不大了， 业务上分开
-    CLOSED: [2018-05-22 Tue 23:22]
-*** DONE IT当天处理不了的，还回去
-    CLOSED: [2018-05-22 Tue 23:22]
-*** DONE 新建“归还”
-    CLOSED: [2018-05-24 Thu 09:38]
+*** DONE 限定签名区域的效果
+    CLOSED: [2018-05-28 Mon 13:18]
     :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+    - State "DONE"       from "NEXT"       [2018-05-28 Mon 13:18]
     :END:
-** DONE 用户管理
-   CLOSED: [2018-05-24 Thu 10:52]
-   :LOGBOOK:
-   - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:52]
-   - State "NEXT"       from "DONE"       [2018-05-24 Thu 10:43]
-   :END:
-*** 系统管理员
-    用户、角色、权限、其它数据整理等
-*** asset管理员
-    按照预约，备货
-*** IT
-    预约、领取、归还、签字
-*** 普通用户
-    领取、归还、签字
-** 用例 Case 1
-   - faming 预约
-   - IT准备 -》 根据数据准备设备
-   - IT领取这批设备，签名，双方发邮件
-   - 部分设备（因为某些事由）还回去 => 设备批量归还
-   - excel报表下载，供各种计算
-
-* <2018-05-15 Tue>
-需求
-  - 门口 登记
-  - 收发设备登记
-  - 手机自助办理 填信息
-  - 我们后台能看到
-* <2018-05-16 Wed>
-** 发设备里面没有区分“IT领设备”和“用户领设备”，IT领设备不需要签那个声明，只需要签字就行
-   - IT的情况下，省略第一步，而且签字背景图片需要不一样
-
-** 签字那块，现在是在整个文档上都可以签，可不可以只限定在指定区域；到签字那块，就不能进行下一步了，满屏都是签字笔迹
-   - 可以实现，稍微复杂一点儿而已。
-   - 因为使用者看不出哪儿可以拖动，哪儿不能拖  --> 背景色区分一下即可
-   - 借的签字图片、还的签字图片，都需要重新考虑背景格式
-
-**  关于设备信息那块，比如序列号等，我们希望能够用扫描枪扫进去，可以设计成用扫描枪扫描，手动输入作为一个可选项; 换设备也是要用扫描枪扫描输入设备信息
-   - 无线蓝牙条码枪就能完美解决这个问题。扫码枪连接上ipad，扫码的结果直接显示在当前焦点的输入框里面
-   - 将来做成APP，能更好控制焦点 ----> 做成APP的话，就不需要扫码枪了，PAD直接能扫
-
-** new
-   - 背景分开了
-   - 区分开，IT取还
-   - bugfix
-
-* <2018-05-11 Tue>
-** 前台端Web模块
-   - ipad上运行，浏览器页面程序
-   - 主页面为“领”“还”大按钮页面
-
-*** 领设备
-    - 用户填写相关信息，并确认免责条款，签字，日期
-    - IT填写，确认，并且签字
-
-*** 还设备
-    - 找到当时领设备的数据，进行归还
-    - 可以新建归还
-
-*** 手写签字
-    - 参照 http://szimek.github.io/signature_pad/
-    - https://jsfiddle.net/szimek/d6a78gwq/
-** 管理员端Web模块
-*** 设备进出一览
-    - 可以增删改查
-    - 可以进行excel的导入导出
-*** CANCELLED 管理员一览
-    CLOSED: [2018-05-11 Fri 14:21]
+*** TODO 中英文 版本
+*** DONE 预约
+    CLOSED: [2018-05-27 Sun 21:49]
     :LOGBOOK:
-    - State "CANCELLED"  from              [2018-05-11 Fri 14:21]
+    - State "DONE"       from "NEXT"       [2018-05-27 Sun 21:49]
     :END:
-    - 简易登录
-    - 管理员增删改查，授权
+    - task模块
+    - 借助显示方式
+    - 用颜色来区分task进度
+    - 类型跟后续的处理方式对应上
+*** CANCELLED 权限，角色
+    CLOSED: [2018-05-24 Thu 16:24]
+    :LOGBOOK:
+    - State "CANCELLED"  from              [2018-05-24 Thu 16:24] \\
+      跟ldap连接
+    :END:
+*** CANCELLED 点击”设备“
+    CLOSED: [2018-05-24 Thu 16:23]
+    :LOGBOOK:
+    - State "CANCELLED"  from              [2018-05-24 Thu 16:23] \\
+      第二阶段再做
+    :END:
+** <2018-05-18 Fri>
+*** 基于当前演示的系统，需要做的改善
+**** DONE 选择楼，楼层，座位号
+     CLOSED: [2018-05-24 Thu 09:38]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+     :END:
+**** DONE 台式机 / 笔记本  的要有区别
+     CLOSED: [2018-05-24 Thu 10:05]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:05]
+     :END:
+**** DONE 管理员后台能整理数据字典
+     CLOSED: [2018-05-22 Tue 23:22]
+**** DONE 修改成特定区域能签名 -> 可擦除
+     CLOSED: [2018-05-22 Tue 23:22]
+**** DONE IT的话，可以批量领取
+     CLOSED: [2018-05-22 Tue 23:22]
+**** DONE IT用户 与 普通用户，重合度已经不大了， 业务上分开
+     CLOSED: [2018-05-22 Tue 23:22]
+**** DONE IT当天处理不了的，还回去
+     CLOSED: [2018-05-22 Tue 23:22]
+**** DONE 新建“归还”
+     CLOSED: [2018-05-24 Thu 09:38]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-05-24 Thu 09:38]
+     :END:
+*** DONE 用户管理
+    CLOSED: [2018-05-24 Thu 10:52]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-05-24 Thu 10:52]
+    - State "NEXT"       from "DONE"       [2018-05-24 Thu 10:43]
+    :END:
+**** 系统管理员
+     用户、角色、权限、其它数据整理等
+**** asset管理员
+     按照预约，备货
+**** IT
+     预约、领取、归还、签字
+**** 普通用户
+     领取、归还、签字
+*** 用例 Case 1
+    - faming 预约
+    - IT准备 -》 根据数据准备设备
+    - IT领取这批设备，签名，双方发邮件
+    - 部分设备（因为某些事由）还回去 => 设备批量归还
+    - excel报表下载，供各种计算
 
-** 开发
-   - 后端开发用java，数据库为MS SQL，Web服务器为IIS
-   - 前端页面为javascript + html的h5页面，页面能适应手机、pad、pc的浏览器
+** <2018-05-15 Tue>
+ 需求
+   - 门口 登记
+   - 收发设备登记
+   - 手机自助办理 填信息
+   - 我们后台能看到
+** <2018-05-16 Wed>
+*** 发设备里面没有区分“IT领设备”和“用户领设备”，IT领设备不需要签那个声明，只需要签字就行
+    - IT的情况下，省略第一步，而且签字背景图片需要不一样
 
-     IT人员收到通过别的系统得到相关指示，进行机器准备，随后通知相关用户，然后用户会前来领取设备，过一段时间后用户会来归还该设备
+*** 签字那块，现在是在整个文档上都可以签，可不可以只限定在指定区域；到签字那块，就不能进行下一步了，满屏都是签字笔迹
+    - 可以实现，稍微复杂一点儿而已。
+    - 因为使用者看不出哪儿可以拖动，哪儿不能拖  --> 背景色区分一下即可
+    - 借的签字图片、还的签字图片，都需要重新考虑背景格式
+
+***  关于设备信息那块，比如序列号等，我们希望能够用扫描枪扫进去，可以设计成用扫描枪扫描，手动输入作为一个可选项; 换设备也是要用扫描枪扫描输入设备信息
+    - 无线蓝牙条码枪就能完美解决这个问题。扫码枪连接上ipad，扫码的结果直接显示在当前焦点的输入框里面
+    - 将来做成APP，能更好控制焦点 ----> 做成APP的话，就不需要扫码枪了，PAD直接能扫
+
+*** new
+    - 背景分开了
+    - 区分开，IT取还
+    - bugfix
+
+** <2018-05-11 Tue>
+*** 前台端Web模块
+    - ipad上运行，浏览器页面程序
+    - 主页面为“领”“还”大按钮页面
+
+**** 领设备
+     - 用户填写相关信息，并确认免责条款，签字，日期
+     - IT填写，确认，并且签字
+
+**** 还设备
+     - 找到当时领设备的数据，进行归还
+     - 可以新建归还
+
+**** 手写签字
+     - 参照 http://szimek.github.io/signature_pad/
+     - https://jsfiddle.net/szimek/d6a78gwq/
+*** 管理员端Web模块
+**** 设备进出一览
+     - 可以增删改查
+     - 可以进行excel的导入导出
+**** CANCELLED 管理员一览
+     CLOSED: [2018-05-11 Fri 14:21]
+     :LOGBOOK:
+     - State "CANCELLED"  from              [2018-05-11 Fri 14:21]
+     :END:
+     - 简易登录
+     - 管理员增删改查，授权
+
+*** 开发
+    - 后端开发用java，数据库为MS SQL，Web服务器为IIS
+    - 前端页面为javascript + html的h5页面，页面能适应手机、pad、pc的浏览器
+
+      IT人员收到通过别的系统得到相关指示，进行机器准备，随后通知相关用户，然后用户会前来领取设备，过一段时间后用户会来归还该设备
 
 
-   归还：
-   正常离职的
-   更换的
+    归还：
+    正常离职的
+    更换的

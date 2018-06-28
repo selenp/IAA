@@ -189,7 +189,7 @@ export async function accountLogin(params) {
   });
 }
 export async function searchLdap(uid) {
-  return request(`${REMOTE_URL}/ldap/find/${uid}`);
+  return request(`${REMOTE_URL}/ldap/search/${uid}`);
 }
 
 export async function queryNotices() {

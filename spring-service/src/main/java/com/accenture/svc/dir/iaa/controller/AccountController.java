@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
+import javax.naming.NamingException;
+import javax.naming.ldap.LdapContext;
 
 @Controller
 @CrossOrigin(
@@ -35,7 +36,7 @@ public class AccountController extends AbstractController {
      */
     @PostMapping(path = "/api-login-account")
     public @ResponseBody
-    Map<String, String> login(@RequestBody Admin d) throws Exception {
+    Map<String, Object> login(@RequestBody Admin d) throws Exception {
         String userid = d.getUserid();
         String password = d.getPassword();
 
@@ -43,13 +44,21 @@ public class AccountController extends AbstractController {
             query.where(cb.equal(root.get("userid").as(String.class), userid));
             return query.getRestriction();
         };
-        Optional<Admin> optAccount = adminRepository.findOne(spec);
 
-        Map<String, String> map = new HashMap();
-        String hash = EncryptUtils.sha256(password, keyString);
-        Admin account = optAccount.get();
-        if (account.getPassword().equals(hash)) {
+        Admin account = adminRepository.findOne(spec).get();
+
+        Map<String, Object> map = null;
+        try {
+            Map<String, Object> conf = getLdapConf();
+            LdapContext ctx = getLdapContext((String) conf.get("url"), String.format((String) conf.get("principal"), userid), password);
+            map = ldapSearchOne(ctx, conf, userid);
+        } catch (NamingException e) {
+            log.error(e);
+        }
+
+        if (map != null) {
             String token = EncryptUtils.sha256(account.getUserid() + System.currentTimeMillis(), keyString);
+            account.setPassword(null);
             account.setToken(token);
             adminRepository.save(account);
 
@@ -67,8 +76,23 @@ public class AccountController extends AbstractController {
      */
     @GetMapping(path = "/currentUser")
     public @ResponseBody
-    Admin currentUser(@RequestHeader("Authorization") String authorization) {
-        return ensureAuthorization(adminRepository, authorization);
+    Map<String, Object> currentUser(@RequestHeader("Authorization") String authorization) {
+        Admin admin = ensureAuthorization(adminRepository, authorization);
+        Map<String, Object> map = null;
+        try {
+            Map<String, Object> conf = getLdapConf();
+            LdapContext ctx = getLdapContext(
+                    (String) conf.get("url"),
+                    conf.get("username") != null ? String.format((String) conf.get("principal"), conf.get("username")) : null,
+                    (String) conf.get("password")
+            );
+            map = ldapSearchOne(ctx, conf, admin.getUserid());
+            map.putAll(admin.toMap());
+        } catch (NamingException e) {
+            log.error(e);
+        }
+
+        return map;
     }
 
 }

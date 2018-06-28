@@ -1,5 +1,3 @@
-import { routerRedux } from 'dva/router';
-import { message } from 'antd';
 import { searchLdap } from '../services/api';
 
 export default {
@@ -26,6 +24,12 @@ export default {
       return {
         ...state,
         data: payload,
+      };
+    },
+    initData() {
+      return {
+        data: {
+        },
       };
     },
   },

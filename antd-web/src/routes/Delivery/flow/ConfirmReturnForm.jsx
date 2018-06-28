@@ -30,12 +30,6 @@ const ConfirmForm = ({
     <Form.Item {...formItemLayout} label={t("EID")}>
       {data.eid}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("姓名")}>
-      {data.fullname}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label={t("员工号")}>
-      {data.sapNumber}
-    </Form.Item>
     <Form.Item {...formItemLayout} label={t("项目")}>
       {data.projectName}
     </Form.Item>
