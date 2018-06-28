@@ -25,6 +25,7 @@ const InfoForm = ({
   locationBuildings,
   locationFloors,
   handleSeachEid,
+  handleInitLdap,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label="EID">
@@ -39,6 +40,7 @@ const InfoForm = ({
           <Search
             placeholder={t("请输入EID")}
             onSearch={value => handleSeachEid(value)}
+            onChange={() => handleInitLdap()}
           />
       )}
     </Form.Item>

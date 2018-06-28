@@ -73,7 +73,7 @@ class Admin extends PureComponent {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'ldao/initData',
+      type: 'ldap/initData',
     });
   }
 
@@ -104,6 +104,12 @@ class Admin extends PureComponent {
   handleSeachEid = (eid) => {
     this.props.dispatch({
       type: 'ldap/search',
+      uid: eid,
+    });
+  }
+  handleInitLdap = (eid) => {
+    this.props.dispatch({
+      type: 'ldap/initData',
       uid: eid,
     });
   }
@@ -167,6 +173,8 @@ class Admin extends PureComponent {
           <Search
             placeholder={t("请输入EID")}
             onSearch={value => this.handleSeachEid(value)}
+            onChange={() => this.handleInitLdap()}
+
           />
         )}
           </FormItem>
@@ -242,7 +250,7 @@ class Admin extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title={t("模块详情页面")}
+        title={t("管理员详情页面")}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

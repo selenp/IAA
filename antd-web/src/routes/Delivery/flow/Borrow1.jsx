@@ -27,9 +27,21 @@ class Step1 extends React.PureComponent {
       type: 'delivery/initData',
     });
   }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ldap/initData',
+    });
+  }
   handleSeachEid = (eid) => {
     this.props.dispatch({
       type: 'ldap/search',
+      uid: eid,
+    });
+  }
+  handleInitLdap = (eid) => {
+    this.props.dispatch({
+      type: 'ldap/initData',
       uid: eid,
     });
   }
@@ -46,7 +58,11 @@ class Step1 extends React.PureComponent {
       locationFloors,
     } = this.props;
     const { getFieldDecorator, validateFields } = form;
+
     const onValidateForm = () => {
+      if (!ldap.data.cn) {
+        return;
+      }
       validateFields((err, values) => {
         if (!err) {
           dispatch({
@@ -71,6 +87,7 @@ class Step1 extends React.PureComponent {
           locationBuildings={locationBuildings}
           locationFloors={locationFloors}
           handleSeachEid={this.handleSeachEid}
+          handleInitLdap={this.handleInitLdap}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>

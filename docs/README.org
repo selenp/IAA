@@ -385,7 +385,7 @@ npm run build
 #+BEGIN_SRC
 build/libs/accenture-iaa-20180611.jar
 #+END_SRC
-正式环境里面 system.ldap 的值如下
+正式环境里面, dictionary 表 system.ldap 的值如下
 #+BEGIN_SRC json
 {
 "url": "ldap://10.254.161.147:389",
@@ -401,6 +401,19 @@ build/libs/accenture-iaa-20180611.jar
   - application.properties
 
 * 会议
+** <2018-06-28 Thu>
+*** DONE login功能：用户名和密码，使用ldap进行验证，系统内不留存密码
+    CLOSED: [2018-06-28 Thu 16:32]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-06-28 Thu 16:32]
+    :END:
+*** DONE 一些EID输入框的合法性，用ldap进行检查
+    CLOSED: [2018-06-28 Thu 16:32]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-06-28 Thu 16:32]
+    :END:
+*** TODO 还有个别bug待处理，周一发布一下ldap的稳定版本
+    SCHEDULED: <2018-07-02 Mon>
 ** <2018-06-27 Wed>
    SCHEDULED: <2018-06-27 Wed 14:00>
    - LOCATION:<#24 1F>

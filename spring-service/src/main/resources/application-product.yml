@@ -26,7 +26,7 @@ spring:
                 enable: false
 online:
   files:
-    path: d:/website/front-end/artifacts/
+    path: d:/website/artifacts/
     url: https://dlcgvva1001.dir.svc.accenture.com/artifacts/
 admin:
   password:

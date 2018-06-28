@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(indexes = {
-        @Index(name = "IDX_admin_token", columnList = "token", unique = true),
         @Index(name = "IDX_admin_name", columnList = "userid", unique = true),
 })
 public class Admin {

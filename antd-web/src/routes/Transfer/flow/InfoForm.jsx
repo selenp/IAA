@@ -7,14 +7,19 @@ import {
 } from 'antd';
 
 const { TextArea } = Input;
+const { Search } = Input;
 
 const InfoForm = ({
   t,
+  ldap2,
   styles,
   getFieldDecorator,
   onValidateForm,
   formItemLayout,
   currentUser,
+  handleSeachEid1,
+  handleSeachEid2,
+  handleInitLdap,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label={t("自EID")}>
@@ -26,7 +31,16 @@ const InfoForm = ({
             message: t('请输入EID'),
           },
         ],
-      })(<Input placeholder={t("请输入EID")} />)}
+      })(
+        <Search
+          placeholder={t("请输入EID")}
+          onSearch={value => handleSeachEid1(value)}
+          onChange={() => handleInitLdap()}
+        />
+      )}
+    </Form.Item>
+    <Form.Item {...formItemLayout} label={t("姓名")}>
+      {ldap2.data1.cn ? ldap2.data1.cn : '[等待EID的LDAP验证]'}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t("至EID")}>
       {getFieldDecorator('toEid', {
@@ -36,7 +50,16 @@ const InfoForm = ({
             message: t('请输入EID'),
           },
         ],
-      })(<Input placeholder={t("请输入EID")} />)}
+      })(
+        <Search
+          placeholder={t("请输入EID")}
+          onSearch={value => handleSeachEid2(value)}
+          onChange={() => handleInitLdap()}
+        />
+      )}
+    </Form.Item>
+    <Form.Item {...formItemLayout} label={t("姓名")}>
+      {ldap2.data2.cn ? ldap2.data2.cn : '[等待EID的LDAP验证]'}
     </Form.Item>
     <Form.Item
       {...formItemLayout}

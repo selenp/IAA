@@ -57,13 +57,37 @@ class Step1 extends React.PureComponent {
     dispatch({
       type: 'task/initData',
     });
+    dispatch({
+      type: 'ldap2/initData',
+    });
+  }
+  handleSeachEid1 = (eid) => {
+    this.props.dispatch({
+      type: 'ldap2/search1',
+      uid: eid,
+    });
+  }
+  handleSeachEid2 = (eid) => {
+    this.props.dispatch({
+      type: 'ldap2/search2',
+      uid: eid,
+    });
+  }
+  handleInitLdap = (eid) => {
+    this.props.dispatch({
+      type: 'ldap2/initData',
+      uid: eid,
+    });
   }
 
   render() {
     const { t } = this.props;
-    const { form, dispatch, currentUser, task } = this.props;
+    const { form, dispatch, currentUser, task, ldap2 } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
+      if (!ldap2.data1.cn || !ldap2.data2.cn) {
+        return;
+      }
       validateFields((err, values) => {
         if (!err) {
           dispatch({
@@ -78,11 +102,15 @@ class Step1 extends React.PureComponent {
     return (
       <Fragment>
         <InfoForm
+          ldap2={ldap2}
           styles={styles}
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
           formItemLayout={formItemLayout}
           currentUser={currentUser}
+          handleSeachEid1={this.handleSeachEid1}
+          handleSeachEid2={this.handleSeachEid2}
+          handleInitLdap={this.handleInitLdap}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         {task &&
@@ -98,7 +126,8 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ user, task }) => ({
+export default connect(({ user, task, ldap2 }) => ({
+  ldap2,
   currentUser: user.currentUser,
   task: task.data,
 }))(translate("translations")(Step1));

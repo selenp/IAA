@@ -163,7 +163,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['transfer'], () => import('../routes/Transfer/flow/Borrow')),
     },
     '/transfer/borrow/info': {
-      component: dynamicWrapper(app, ['transfer', 'user', 'task'], () =>
+      component: dynamicWrapper(app, ['transfer', 'user', 'task', 'ldap2' ], () =>
         import('../routes/Transfer/flow/Borrow1')
       ),
     },

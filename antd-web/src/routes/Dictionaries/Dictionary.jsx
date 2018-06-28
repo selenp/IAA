@@ -120,16 +120,16 @@ class Dictionary extends PureComponent {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>{t("分类")}</span>}
+            label={<span>{t("分类名称")}</span>}
           >
             {getFieldDecorator('categoryName', {
           initialValue: this.state.data.categoryName,
           rules: [{
             required: true,
-            message: t('请输入分类'),
+            message: t('请输入分类名称'),
           }],
             })(
-              <Input placeholder={t("请输入分类")} />
+              <Input placeholder={t("请输入分类名称")} />
         )}
           </FormItem>
           <FormItem
@@ -192,7 +192,7 @@ class Dictionary extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title={t("模块详情页面")}
+        title={t("数据字典详情页面")}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>
