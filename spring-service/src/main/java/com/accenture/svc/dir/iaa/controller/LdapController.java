@@ -48,9 +48,9 @@ public class LdapController extends AbstractController {
             Map<String, Object> conf = getLdapConf();
 
             LdapContext ctx = getLdapContext(
-                    (String) conf.get("url"),
-                    conf.get("username") != null ? String.format((String) conf.get("principal"), conf.get("username")) : null,
-                    (String) conf.get("password")
+                    (String) conf.get("system.ldap.url"),
+                    conf.get("system.ldap.username") != null ? String.format((String) conf.get("system.ldap.principal"), conf.get("system.ldap.username")) : null,
+                    (String) conf.get("system.ldap.password")
             );
 
             Map<String, Object> map = ldapSearchOne(ctx, conf, uid);

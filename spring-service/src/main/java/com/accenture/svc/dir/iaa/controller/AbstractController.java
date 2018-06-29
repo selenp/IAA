@@ -117,8 +117,8 @@ class AbstractController {
     }
 
     Map<String, Object> ldapSearchOne(LdapContext ctx, Map<String, Object> conf, String uid) throws NamingException {
-        String base = (String) conf.get("base");
-        String filter = String.format((String) conf.get("filter"), uid);
+        String base = (String) conf.get("system.ldap.base");
+        String filter = String.format((String) conf.get("system.ldap.filter"), uid);
         log.info(String.format("ldapSearchOne -> %s, %s", base, filter));
         NamingEnumeration<?> namingEnum = ctx.search(
                 base,
@@ -144,12 +144,16 @@ class AbstractController {
     }
 
     Map<String, Object> getLdapConf() {
-        Optional<Dictionary> optDictionary = dictionaryRepository.findOne((Specification<Dictionary>) (root, query, cb) -> query
-                .where(cb.equal(root.get("category").as(String.class), "system.ldap"))
+        List<Dictionary> dictionaries = dictionaryRepository.findAll((Specification<Dictionary>) (root, query, cb) -> query
+                .where(cb.like(root.get("category").as(String.class), "system.ldap.%"))
                 .getRestriction());
-        String json = optDictionary.get().getData();
-        log.error(String.format("json -> %s", json));
-        return springParser.parseMap(json);
+
+        Map<String, Object> map = new HashMap<>();
+        for (Dictionary dictionary : dictionaries) {
+            map.put(dictionary.getCategory(), dictionary.getData());
+        }
+
+        return map;
     }
 
     LdapContext getLdapContext(String url, String principal, String password) throws NamingException {

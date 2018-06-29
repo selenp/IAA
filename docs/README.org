@@ -370,6 +370,18 @@ npm install
 npm start
 #+END_SRC
  - spring-service
+
+#+BEGIN_SRC sql
+delete DICTIONARY where category like 'system.ldap.%';
+
+insert into dictionary (id, category, category_name, data, rank) values (0, 'system.ldap.url', '', 'ldap://localhost:8389', 0);
+insert into dictionary (id, category, category_name, data, rank) values (1, 'system.ldap.base', '', 'ou=people,dc=springframework,dc=org', 0);
+insert into dictionary (id, category, category_name, data, rank) values (2, 'system.ldap.principal', '', 'uid=%s,ou=people,dc=springframework,dc=org', 0);
+insert into dictionary (id, category, category_name, data, rank) values (3, 'system.ldap.username', '', 'ben', 0);
+insert into dictionary (id, category, category_name, data, rank) values (4, 'system.ldap.password', '', 'benspassword', 0);
+insert into dictionary (id, category, category_name, data, rank) values (5, 'system.ldap.filter', '', '(&(objectClass=person)(uid=%s))', 0);
+#+END_SRC
+
 #+BEGIN_SRC sh
 gradle build
 java -jar build/libs/accenture-iaa-20180611.jar
@@ -386,15 +398,15 @@ npm run build
 build/libs/accenture-iaa-20180611.jar
 #+END_SRC
 正式环境里面, dictionary 表 system.ldap 的值如下
-#+BEGIN_SRC json
-{
-"url": "ldap://10.254.161.147:389",
-"base": "ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
-"principal": "cn=%s,ou=people,dc=dir,dc=svc,dc=accenture,dc=com",
-"username": "di.a.gao",
-"password": "Gdi0906#",
-"filter": "(&(objectClass=person)(cn=%s))"
-}
+#+BEGIN_SRC sql
+delete DICTIONARY where category like 'system.ldap.%';
+
+insert into dictionary (id, category, category_name, data, rank) values (0, 'system.ldap.url', 'The connect string of the LDAP server.', 'ldap://10.254.161.147:389', 0);
+insert into dictionary (id, category, category_name, data, rank) values (1, 'system.ldap.base', 'Search base for searching the LDAP directory', 'ou=people,dc=dir,dc=svc,dc=accenture,dc=com', 0);
+insert into dictionary (id, category, category_name, data, rank) values (2, 'system.ldap.filter', 'Search filter to use to locate the user in the LDAP directory', '(&(objectClass=person)(cn=%s))', 0);
+insert into dictionary (id, category, category_name, data, rank) values (3, 'system.ldap.principal', 'Distinguished Name for Specific Searching binding to the LDAP directory.', 'cn=%s,ou=people,dc=dir,dc=svc,dc=accenture,dc=com', 0);
+insert into dictionary (id, category, category_name, data, rank) values (4, 'system.ldap.username', 'Distinguished Name for Specific Searching binding to the LDAP directory.', 'di.a.gao', 0);
+insert into dictionary (id, category, category_name, data, rank) values (5, 'system.ldap.password', 'Password for Specific Searching binding to the LDAP directory.', 'Gdi0906#', 0);
 #+END_SRC
   - WinSW
   - cp artifacts/*

@@ -29,10 +29,6 @@ const getQuery = (location, param) => {
 
 @Form.create()
 class Step1 extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { dispatch, location } = this.props;
 

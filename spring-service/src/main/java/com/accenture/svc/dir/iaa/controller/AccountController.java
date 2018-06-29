@@ -50,7 +50,7 @@ public class AccountController extends AbstractController {
         Map<String, Object> map = null;
         try {
             Map<String, Object> conf = getLdapConf();
-            LdapContext ctx = getLdapContext((String) conf.get("url"), String.format((String) conf.get("principal"), userid), password);
+            LdapContext ctx = getLdapContext((String) conf.get("system.ldap.url"), String.format((String) conf.get("system.ldap.principal"), userid), password);
             map = ldapSearchOne(ctx, conf, userid);
         } catch (NamingException e) {
             log.error(e);
@@ -82,9 +82,9 @@ public class AccountController extends AbstractController {
         try {
             Map<String, Object> conf = getLdapConf();
             LdapContext ctx = getLdapContext(
-                    (String) conf.get("url"),
-                    conf.get("username") != null ? String.format((String) conf.get("principal"), conf.get("username")) : null,
-                    (String) conf.get("password")
+                    (String) conf.get("system.ldap.url"),
+                    conf.get("system.ldap.username") != null ? String.format((String) conf.get("system.ldap.principal"), conf.get("system.ldap.username")) : null,
+                    (String) conf.get("system.ldap.password")
             );
             map = ldapSearchOne(ctx, conf, admin.getUserid());
             map.putAll(admin.toMap());

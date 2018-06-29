@@ -95,8 +95,8 @@ public class DeliveryController extends AbstractController {
 
             helper.setFrom(fromEmail);
             helper.setTo(Utils.concatArray(to, systemEmails.split(",")));
-            helper.setSubject("回执单：普通用户设备取还");
-            helper.setText(String.format("尊敬的 %s: \n附件是设备责任说明表， 如有疑问，请联系IT部门。", "6055120"));
+            helper.setSubject("Receipt：Ordinary user's device retrieval");
+            helper.setText("Dear user: \nThe attachment is the table of equipment responsibilities. If you have any question, please contact the IT department.");
 
             helper.addAttachment(image.getName(), image);
 

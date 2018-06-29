@@ -80,7 +80,7 @@ public class AdminController extends AbstractController {
                 list.add(cb.equal(root.get("userid").as(String.class), userid));
             }
             if (!StringUtils.isEmpty(role)) {
-                list.add(cb.like(root.get("roles").as(String.class), "%"+role+"%"));
+                list.add(cb.like(root.get("roles").as(String.class), String.format("%%%s%%", role)));
             }
 
             Predicate[] p2 = new Predicate[list.size()];

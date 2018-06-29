@@ -28,29 +28,42 @@ class Dictionary extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      editing: false,
-      data: null,
-    };
+    if (this.props.match.params.id === 'new') {
+      this.state = {
+        editing: true,
+        data: {
+          userid: "",
+        },
+      };
+    } else {
+      this.state = {
+        editing: false,
+        data: null,
+      };
+    }
   }
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'dictionary/fetch',
-      id: this.props.match.params.id,
-    });
+    if (this.props.match.params.id !== 'new') {
+      this.props.dispatch({
+        type: 'dictionary/fetch',
+        id: this.props.match.params.id,
+      });
+    }
   }
 
   handleSubmit = e => {
-    const { t } = this.props;
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    const { t } = this.props;
+    const { form, dispatch, match } = this.props;
+
+    form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.props.dispatch({
+        dispatch({
           type: 'dictionary/submit',
           payload: {
             ...values,
-            id: this.props.match.params.id,
+            id: match.params.id === 'new' ? null : match.params.id,
           },
           t,
         });
@@ -68,7 +81,7 @@ class Dictionary extends PureComponent {
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
           <Description term={t("分类")}>{data.category}</Description>
           <Description term={t("分类名称")}>{data.categoryName}</Description>
-          <Description term={t("值")}>{data.data}</Description>
+          <Description term={t("值")}>{data.data.indexOf('password') > -1 ? '******' : data.data}</Description>
         </DescriptionList>
       </Card>
     );
@@ -86,8 +99,8 @@ class Dictionary extends PureComponent {
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 12 },
-        md: { span: 10 },
+        sm: { span: 16 },
+        md: { span: 16 },
       },
     };
 
@@ -143,13 +156,17 @@ class Dictionary extends PureComponent {
             message: t('请输入值'),
           }],
         })(
-          <TextArea rows={20} placeholder={t("请输入值")} />
+              this.state.data.category.indexOf('password') > -1 ? (
+                <Input type="password" placeholder={t("请输入值")} />
+                ) : (
+                  <TextArea rows={10} placeholder={t("请输入值")} />
+                )
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
             {
-          this.state.editing && (
+          this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button
               onClick={() => this.setState({
                 editing: false,
@@ -159,7 +176,7 @@ class Dictionary extends PureComponent {
           )
         }
             {
-        (!this.state.editing) && (
+        (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
             onClick={() => this.props.dispatch(routerRedux.push('/system/dictionaries'))}
           >{t("返回")}
