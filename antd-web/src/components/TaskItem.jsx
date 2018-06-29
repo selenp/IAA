@@ -61,7 +61,7 @@ const TaskItem = ({
           <span>{`${t("希望日期")} ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>
         </span>
       }
-      description={<pre>{item.content}</pre>}
+      description={<div>{item.content}</div>}
     />
   </List.Item>
 );

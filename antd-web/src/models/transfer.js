@@ -28,7 +28,7 @@ export default {
         type: 'saveData',
         payload: response,
       });
-      message.success(t('文件下载中。。。'));
+      message.success(t('提交成功'));
       yield put(routerRedux.push(next));
     },
     *uploadTransferSignature({id, io, payload, t }, { call, put }) {

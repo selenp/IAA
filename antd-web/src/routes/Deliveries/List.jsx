@@ -144,7 +144,7 @@ class TableList extends PureComponent {
                 {t("下载")}
               </Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                {t("展开")}<Icon type={this.state.expandForm ? 'down' : 'up'} />
+                {t(this.state.expandForm ? '展开' : '收起')}<Icon type={this.state.expandForm ? 'down' : 'up'} />
               </a>
             </span>
           </Col>
