@@ -107,10 +107,12 @@ class TableList extends PureComponent {
     const columns = [
       {
         title: t('分类'),
+        width: 150,
         dataIndex: 'category',
       },
       {
         title: t('分类名称'),
+        width: 240,
         dataIndex: 'categoryName',
       },
       {
@@ -128,6 +130,7 @@ class TableList extends PureComponent {
       },
       {
         title: t('操作'),
+        width: 120,
         render: (val, row) => !row.category.startsWith('system.') && (
           <Fragment>
             <a onClick={() => this.props.dispatch({

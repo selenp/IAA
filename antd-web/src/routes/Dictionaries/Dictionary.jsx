@@ -81,7 +81,7 @@ class Dictionary extends PureComponent {
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
           <Description term={t("分类")}>{data.category}</Description>
           <Description term={t("分类名称")}>{data.categoryName}</Description>
-          <Description term={t("值")}>{data.data.indexOf('password') > -1 ? '******' : data.data}</Description>
+          <Description term={t("值")}>{(data.data && data.data.indexOf('password') > -1) ? '******' : data.data}</Description>
         </DescriptionList>
       </Card>
     );

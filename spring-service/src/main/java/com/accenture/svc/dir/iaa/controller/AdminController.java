@@ -57,7 +57,7 @@ public class AdminController extends AbstractController {
         adminRepository.save(d);
 
         String[] roles = d.getRoles().split(",");
-        String categoryName="角色";
+        String categoryName="Role in system";
         for (String role : roles) {
             mergeDictionary(dictionaryRepository, "role", categoryName, role);
         }

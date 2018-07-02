@@ -362,7 +362,7 @@ GET http://localhost:3050/api/ldap/search/ben
 GET http://localhost:3050/api/ldap/search/bob
 #+END_SRC
 
-* Deployment
+* Build
 ** 编译
  - antd-web
 #+BEGIN_SRC sh
@@ -370,7 +370,7 @@ npm install
 npm start
 #+END_SRC
  - spring-service
-
+数据初始化：
 #+BEGIN_SRC sql
 delete DICTIONARY where category like 'system.ldap.%';
 
@@ -380,6 +380,9 @@ insert into dictionary (id, category, category_name, data, rank) values (2, 'sys
 insert into dictionary (id, category, category_name, data, rank) values (3, 'system.ldap.username', '', 'ben', 0);
 insert into dictionary (id, category, category_name, data, rank) values (4, 'system.ldap.password', '', 'benspassword', 0);
 insert into dictionary (id, category, category_name, data, rank) values (5, 'system.ldap.filter', '', '(&(objectClass=person)(uid=%s))', 0);
+
+delete ADMIN where userid='ben';
+insert into ADMIN (id, userid, roles) values (1000, 'ben', 'asset manager,super admin,it staff')
 #+END_SRC
 
 #+BEGIN_SRC sh
@@ -387,17 +390,21 @@ gradle build
 java -jar build/libs/accenture-iaa-20180611.jar
 #+END_SRC
 
-** 同步
- - antd-web
+** Product Environment
+*** antd-web
+ - 确认 src/utils/utils.js
+ - 编译：
 #+BEGIN_SRC sh
 rm -rf dist/
 npm run build
 #+END_SRC
- - spring-service
+*** spring-service
+    - 编译
 #+BEGIN_SRC
 build/libs/accenture-iaa-20180611.jar
 #+END_SRC
-正式环境里面, dictionary 表 system.ldap 的值如下
+    - 确认 config/application.yml的参数
+    - 正式环境里面, dictionary 表 system.ldap 的值如下
 #+BEGIN_SRC sql
 delete DICTIONARY where category like 'system.ldap.%';
 
@@ -407,6 +414,11 @@ insert into dictionary (id, category, category_name, data, rank) values (2, 'sys
 insert into dictionary (id, category, category_name, data, rank) values (3, 'system.ldap.principal', 'Distinguished Name for Specific Searching binding to the LDAP directory.', 'cn=%s,ou=people,dc=dir,dc=svc,dc=accenture,dc=com', 0);
 insert into dictionary (id, category, category_name, data, rank) values (4, 'system.ldap.username', 'Distinguished Name for Specific Searching binding to the LDAP directory.', 'di.a.gao', 0);
 insert into dictionary (id, category, category_name, data, rank) values (5, 'system.ldap.password', 'Password for Specific Searching binding to the LDAP directory.', 'Gdi0906#', 0);
+#+END_SRC
+
+#+BEGIN_SRC sql
+delete ADMIN where userid='di.a.gao';
+insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,super admin,it staff')
 #+END_SRC
   - WinSW
   - cp artifacts/*
