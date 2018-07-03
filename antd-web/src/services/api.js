@@ -159,7 +159,7 @@ export async function submitEntity(name, params) {
 }
 
 export async function queryAssetTag(assettag) {
-  return request(`${REMOTE_URL}/assettag/${assettag}`);
+  return request(`${REMOTE_URL}/assettag/${encodeURIComponent(assettag)}`);
 }
 
 export async function fakeChartData() {

@@ -41,10 +41,9 @@ class Step1 extends React.PureComponent {
       });
     }
   }
-  handleInitLdap = (eid) => {
+  handleInitLdap = () => {
     this.props.dispatch({
       type: 'ldap/initData',
-      uid: eid,
     });
   }
 

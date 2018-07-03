@@ -40,10 +40,16 @@ export default {
         data2: payload,
       };
     },
-    initData() {
+    initData1(state) {
       return {
+        ...state,
         data1: {
         },
+      };
+    },
+    initData2(state) {
+      return {
+        ...state,
         data2: {
         },
       };

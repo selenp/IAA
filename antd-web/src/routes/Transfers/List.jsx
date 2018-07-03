@@ -155,7 +155,7 @@ class TableList extends PureComponent {
         render(val) {
           return val.split(',').map(v => (
             <div key={v}>
-              <Link to={`/assettag/${v}`}>{v}</Link>
+              <Link to={`/assettag/${encodeURIComponent(v)}`}>{v}</Link>
             </div>
           ));
         },

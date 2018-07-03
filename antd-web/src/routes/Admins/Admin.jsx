@@ -109,10 +109,9 @@ class Admin extends PureComponent {
       });
     }
   }
-  handleInitLdap = (eid) => {
+  handleInitLdap = () => {
     this.props.dispatch({
       type: 'ldap/initData',
-      uid: eid,
     });
   }
 

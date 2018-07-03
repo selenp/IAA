@@ -73,10 +73,14 @@ class Step1 extends React.PureComponent {
       });
     }
   }
-  handleInitLdap = (eid) => {
+  handleInitLdap1 = () => {
     this.props.dispatch({
-      type: 'ldap2/initData',
-      uid: eid,
+      type: 'ldap2/initData1',
+    });
+  }
+  handleInitLdap2 = () => {
+    this.props.dispatch({
+      type: 'ldap2/initData2',
     });
   }
 
@@ -110,7 +114,8 @@ class Step1 extends React.PureComponent {
           currentUser={currentUser}
           handleSeachEid1={this.handleSeachEid1}
           handleSeachEid2={this.handleSeachEid2}
-          handleInitLdap={this.handleInitLdap}
+          handleInitLdap1={this.handleInitLdap1}
+          handleInitLdap2={this.handleInitLdap2}
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         {task &&

@@ -19,7 +19,8 @@ const InfoForm = ({
   currentUser,
   handleSeachEid1,
   handleSeachEid2,
-  handleInitLdap,
+  handleInitLdap1,
+  handleInitLdap2,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label={t('自EID')}>
@@ -36,7 +37,7 @@ const InfoForm = ({
           maxLength={100}
           placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid1(value)}
-          onChange={() => handleInitLdap()}
+          onChange={() => handleInitLdap1()}
         />
       )}
     </Form.Item>
@@ -56,7 +57,7 @@ const InfoForm = ({
           maxLength={100}
           placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid2(value)}
-          onChange={() => handleInitLdap()}
+          onChange={() => handleInitLdap2()}
         />
       )}
     </Form.Item>
