@@ -38,16 +38,17 @@ const InfoForm = ({
               ],
         })(
           <Search
-            placeholder={t("请输入EID")}
+            maxLength={100}
+            placeholder={t('请输入EID')}
             onSearch={value => handleSeachEid(value)}
             onChange={() => handleInitLdap()}
           />
       )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("姓名")}>
-      {ldap.data.cn ? ldap.data.cn : '[等待EID的LDAP验证]'}
+    <Form.Item {...formItemLayout} label={t('姓名')}>
+    {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("项目")}>
+    <Form.Item {...formItemLayout} label={t('项目')}>
       {getFieldDecorator('projectName', {
               rules: [
                 {
@@ -59,7 +60,8 @@ const InfoForm = ({
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder={t("请输入或选择项目")}
+                maxLength={100}
+                placeholder={t('请输入或选择项目')}
               >
                 {
                   projectNames.map(d => (
@@ -69,7 +71,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("部门")}>
+    <Form.Item {...formItemLayout} label={t('部门')}>
       {getFieldDecorator('businessUnit', {
               rules: [
                 {
@@ -81,7 +83,8 @@ const InfoForm = ({
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder={t("请输入或选择部门")}
+                maxLength={100}
+                placeholder={t('请输入或选择部门')}
               >
                 {
                   businessUnits.map(d => (
@@ -91,7 +94,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("办公地点")}>
+    <Form.Item {...formItemLayout} label={t('办公地点')}>
       {getFieldDecorator('locationBuilding', {
               rules: [
                 {
@@ -103,7 +106,8 @@ const InfoForm = ({
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder={t("请输入您办公地点的楼号")}
+                maxLength={100}
+                placeholder={t('请输入您办公地点的楼号')}
               >
                 {
                   locationBuildings.map(d => (
@@ -113,7 +117,7 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("楼层")}>
+    <Form.Item {...formItemLayout} label={t('楼层')}>
       {getFieldDecorator('locationFloor', {
               rules: [
                 {
@@ -125,7 +129,8 @@ const InfoForm = ({
         <Select
           mode="combobox"
           style={{ width: '100%' }}
-          placeholder={t("请输入您办公地点的楼层")}
+          maxLength={100}
+          placeholder={t('请输入您办公地点的楼层')}
         >
           {
                   locationFloors.map(d => (
@@ -135,7 +140,7 @@ const InfoForm = ({
         </Select>
               )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("座位号")}>
+    <Form.Item {...formItemLayout} label={t('座位号')}>
       {getFieldDecorator('locationSeat', {
               rules: [
                 {
@@ -143,15 +148,15 @@ const InfoForm = ({
                   message: t('请输入您办公地点的座位号'),
                 },
               ],
-            })(<Input placeholder={t("请输入您办公地点的座位号")} />)}
+            })(<Input maxLength={100} placeholder={t('请输入您办公地点的座位号')} />)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}
       label={
         <span>
-          {t("备注")}
+          {t('备注')}
           <em className={styles.optional}>
-            {t("选填")}
+            {t('选填')}
           </em>
         </span>
             }
@@ -159,7 +164,7 @@ const InfoForm = ({
       {getFieldDecorator('remarks')(
         <TextArea
           style={{ minHeight: 32 }}
-          placeholder={t("如有必要， 请输入一些备注信息")}
+          placeholder={t('如有必要， 请输入一些备注信息')}
           rows={4}
         />
             )}
@@ -175,7 +180,7 @@ const InfoForm = ({
       label=""
     >
       <Button type="primary" onClick={onValidateForm}>
-        {t("下一步")}
+        {t('下一步')}
       </Button>
     </Form.Item>
   </Form>

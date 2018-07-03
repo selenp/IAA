@@ -79,9 +79,9 @@ class Dictionary extends PureComponent {
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term={t("分类")}>{data.category}</Description>
-          <Description term={t("分类名称")}>{data.categoryName}</Description>
-          <Description term={t("值")}>{(data.data && data.data.indexOf('password') > -1) ? '******' : data.data}</Description>
+          <Description term={t('分类')}>{data.category}</Description>
+          <Description term={t('分类名称')}>{data.categoryName}</Description>
+          <Description term={t('值')}>{(data.data && data.data.indexOf('password') > -1) ? '******' : data.data}</Description>
         </DescriptionList>
       </Card>
     );
@@ -119,7 +119,7 @@ class Dictionary extends PureComponent {
         >
           <FormItem
             {...formItemLayout}
-            label={<span>{t("分类")}</span>}
+            label={<span>{t('分类')}</span>}
           >
             {getFieldDecorator('category', {
           initialValue: this.state.data.category,
@@ -128,12 +128,12 @@ class Dictionary extends PureComponent {
             message: t('请输入分类'),
           }],
             })(
-              <Input placeholder={t("请输入分类")} />
+              <Input maxLength={100} placeholder={t('请输入分类')} />
         )}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>{t("分类名称")}</span>}
+            label={<span>{t('分类名称')}</span>}
           >
             {getFieldDecorator('categoryName', {
           initialValue: this.state.data.categoryName,
@@ -142,12 +142,12 @@ class Dictionary extends PureComponent {
             message: t('请输入分类名称'),
           }],
             })(
-              <Input placeholder={t("请输入分类名称")} />
+              <Input maxLength={100} placeholder={t('请输入分类名称')} />
         )}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<span>{t("Data")}</span>}
+            label={<span>{t('Data')}</span>}
           >
             {getFieldDecorator('data', {
           initialValue: this.state.data.data,
@@ -157,21 +157,21 @@ class Dictionary extends PureComponent {
           }],
         })(
               this.state.data.category.indexOf('password') > -1 ? (
-                <Input type="password" placeholder={t("请输入值")} />
+                <Input type="password" maxLength={100} placeholder={t('请输入值')} />
                 ) : (
-                  <TextArea rows={10} placeholder={t("请输入值")} />
+                  <TextArea rows={10} maxLength={100} placeholder={t('请输入值')} />
                 )
         )}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
+            <Button type="primary"  htmlType="submit" loading={submitting}> {t('提交')} </Button>
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button
               onClick={() => this.setState({
                 editing: false,
               })}
-            >{t("取消")}
+            >{t('取消')}
             </Button>
           )
         }
@@ -179,7 +179,7 @@ class Dictionary extends PureComponent {
         (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
             onClick={() => this.props.dispatch(routerRedux.push('/system/dictionaries'))}
-          >{t("返回")}
+          >{t('返回')}
           </Button>
         )
       }
@@ -201,7 +201,7 @@ class Dictionary extends PureComponent {
                 editing: true,
                 data: this.props.dictionary.data,
               })}
-            >{t("修改")}
+            >{t('修改')}
             </Button>
           )
         }
@@ -209,7 +209,7 @@ class Dictionary extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title={t("数据字典详情页面")}
+        title={t('数据字典详情页面')}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

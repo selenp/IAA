@@ -80,10 +80,10 @@ class Announcement extends PureComponent {
       data && (
         <Card bordered={false}>
           <DescriptionList size="large" style={{ marginBottom: 32 }}>
-            <Description term={t("日期")}>
+            <Description term={t('日期')}>
               {moment(data.createdDate).format('YYYY-MM-DD HH:mm')}
             </Description>
-            <Description term={t("发送给")}>{data.assignToRole}</Description>
+            <Description term={t('发送给')}>{data.assignToRole}</Description>
           </DescriptionList>
           {data.content}
         </Card>
@@ -105,7 +105,7 @@ class Announcement extends PureComponent {
     return (
       <Card bordered={false}>
         <Form onSubmit={this.handleSubmit} style={{ marginTop: 8 }}>
-          <FormItem label={<span>{t("内容")}</span>}>
+          <FormItem label={<span>{t('内容')}</span>}>
             {getFieldDecorator('content', {
               initialValue: this.state.data.content,
               rules: [
@@ -114,9 +114,9 @@ class Announcement extends PureComponent {
                   message: t('请输入内容'),
                 },
               ],
-            })(<TextArea rows={20} placeholder={t("请输入内容")} />)}
+            })(<TextArea rows={20} placeholder={t('请输入内容')} />)}
           </FormItem>
-          <Form.Item label={t("指派给角色")}>
+          <Form.Item label={t('指派给角色')}>
             {getFieldDecorator('assignToRole', {
               initialValue: this.state.data.assignToRole,
               rules: [
@@ -126,7 +126,7 @@ class Announcement extends PureComponent {
                 },
               ],
             })(
-              <Select style={{ width: '100%' }} placeholder={t("请选择角色")}>
+              <Select style={{ width: '100%' }} placeholder={t('请选择角色')}>
                 {roles.map(d => <Option key={d}>{d}</Option>)}
               </Select>
             )}
@@ -134,7 +134,7 @@ class Announcement extends PureComponent {
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary" htmlType="submit" loading={submitting}>
               {' '}
-              {t("提交")}{' '}
+              {t('提交')}{' '}
             </Button>
             {this.state.editing &&
               this.props.match.params.id !== 'new' && (
@@ -145,12 +145,12 @@ class Announcement extends PureComponent {
                     })
                   }
                 >
-                  {t("提交")}
+                  {t('提交')}
                 </Button>
               )}
             {(!this.state.editing || this.props.match.params.id === 'new') && (
               <Button onClick={() => this.props.dispatch(routerRedux.push('/announcements'))}>
-                {t("返回")}
+                {t('返回')}
               </Button>
             )}
           </FormItem>
@@ -173,13 +173,13 @@ class Announcement extends PureComponent {
               })
             }
           >
-            {t("修改")}
+            {t('修改')}
           </Button>
         )}
       </div>
     );
     return (
-      <PageHeaderLayout title={t("详细页面")} action={action}>
+      <PageHeaderLayout title={t('详细页面')} action={action}>
         {this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>
     );

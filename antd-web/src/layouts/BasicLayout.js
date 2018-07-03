@@ -166,7 +166,7 @@ class BasicLayout extends React.PureComponent {
   };
   handleNoticeClear = type => {
     const { t } = this.props;
-    message.success(`${t("清空了")}${type}`);
+    message.success(`${t('清空了')}${type}`);
     this.props.dispatch({
       type: 'global/clearNotices',
       payload: type,
@@ -257,8 +257,8 @@ class BasicLayout extends React.PureComponent {
           <div className={styles.globalFooter}>
             <div className={styles.links}>
             <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
-              <Radio.Button key="en" value="en">{t("en")}</Radio.Button>
-              <Radio.Button key="zh" value="zh">{t("zh")}</Radio.Button>
+              <Radio.Button key="en" value="en">{t('en')}</Radio.Button>
+              <Radio.Button key="zh" value="zh">{t('zh')}</Radio.Button>
             </Radio.Group>
             </div>
           </div>

@@ -58,9 +58,9 @@ class Step3 extends React.PureComponent {
 
     const actions = (
       <Fragment>
-        <Button onClick={() => this.redrawCanvas()}>{t("擦掉重签")}</Button>
+        <Button onClick={() => this.redrawCanvas()}>{t('擦掉重签')}</Button>
         <Button type="primary" onClick={() => this.onFinish()} loading={submitting}>
-          {t("签名完毕")}
+          {t('签名完毕')}
         </Button>
       </Fragment>
     );

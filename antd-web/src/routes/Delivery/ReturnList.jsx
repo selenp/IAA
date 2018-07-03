@@ -161,7 +161,7 @@ class ResturnList extends PureComponent {
         render: (val, row) => {
           return row.progress === 'borrow' ? (
             <Link to={`/delivery/return/confirmData/${row.id}`}>
-              {t("待归还")}
+              {t('待归还')}
               <Icon type="desktop" />
             </Link>
           ) : row.returnSignatureImage ? (
@@ -177,7 +177,7 @@ class ResturnList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t("归还设备")} content={t("操作不熟悉的用户，请在IT人员的指导下完成")}>
+      <PageHeaderLayout title={t('归还设备')} content={t('操作不熟悉的用户，请在IT人员的指导下完成')}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

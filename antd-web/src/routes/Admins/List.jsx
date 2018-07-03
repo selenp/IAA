@@ -104,11 +104,11 @@ class TableList extends PureComponent {
                     message: t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder={t("请输入EID")} />)}
+              })(<Input placeholder={t('请输入EID')} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label={t("角色")}>
+            <FormItem label={t('角色')}>
               {getFieldDecorator('role', {
                 initialValue: getQuery(location, 'role'),
                 rules: [
@@ -117,7 +117,7 @@ class TableList extends PureComponent {
                   },
                 ],
               })(
-                <Select style={{ width: '100%' }} mode="combobox" placeholder={t("请选择角色")}>
+                <Select style={{ width: '100%' }} mode="combobox" placeholder={t('请选择角色')}>
                   {roles.map(d => <Option key={d}>{d}</Option>)}
                 </Select>
               )}
@@ -127,12 +127,12 @@ class TableList extends PureComponent {
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                {t("查询")}
+                {t('查询')}
               </Button>
               <Link to="/system/admin/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  {t("新增")}
+                  {t('新增')}
                 </Button>
               </Link>
             </span>
@@ -185,7 +185,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t("用户管理")} content={t("系统用户的增删改查、权限管理")}>
+      <PageHeaderLayout title={t('用户管理')} content={t('系统用户的增删改查、权限管理')}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

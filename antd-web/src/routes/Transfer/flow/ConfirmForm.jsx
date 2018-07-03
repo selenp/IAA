@@ -15,17 +15,17 @@ const ConfirmForm = ({
   submitting,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label={t("自EID")}>
+    <Form.Item {...formItemLayout} label={t('自EID')}>
       {data.fromEid}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("至EID")}>
+    <Form.Item {...formItemLayout} label={t('至EID')}>
       {data.toEid}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("备注")}>
+    <Form.Item {...formItemLayout} label={t('备注')}>
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
-    <Form.Item {...formItemLayout} label={t("资产编号")}>
+    <Form.Item {...formItemLayout} label={t('资产编号')}>
       {getFieldDecorator('assetTags', {
         rules: [
           {
@@ -34,10 +34,10 @@ const ConfirmForm = ({
           },
         ],
       })(
-        <Select mode="tags" notFoundContent={null} placeholder={t("输入一个资产编号后，请按Enter键")} />
+        <Select mode="tags" notFoundContent={null} maxLength={100} placeholder={t('输入一个资产编号后，请按Enter键')} />
       )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("取还")}>
+    <Form.Item {...formItemLayout} label={t('取还')}>
       {getFieldDecorator('status', {
         rules: [
           {
@@ -47,8 +47,8 @@ const ConfirmForm = ({
         ],
       })(
         <RadioGroup>
-          <Radio value="borrow">{t("领取")}</Radio>
-          <Radio value="return">{t("归还")}</Radio>
+          <Radio value="borrow">{t('领取')}</Radio>
+          <Radio value="return">{t('归还')}</Radio>
         </RadioGroup>
       )}
     </Form.Item>
@@ -65,10 +65,10 @@ const ConfirmForm = ({
       label=""
     >
       <Button onClick={onPrev} style={{ margin: 8 }}>
-        {t("返回")}
+        {t('返回')}
       </Button>
       <Button type="primary" onClick={onValidateForm} loading={submitting}>
-        {t("保存")}
+        {t('保存')}
       </Button>
     </Form.Item>
   </Form>

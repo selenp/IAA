@@ -22,7 +22,7 @@ const InfoForm = ({
   handleInitLdap,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label={t("自EID")}>
+    <Form.Item {...formItemLayout} label={t('自EID')}>
       {getFieldDecorator('fromEid', {
         initialValue: currentUser.userid,
         rules: [
@@ -33,16 +33,17 @@ const InfoForm = ({
         ],
       })(
         <Search
-          placeholder={t("请输入EID")}
+          maxLength={100}
+          placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid1(value)}
           onChange={() => handleInitLdap()}
         />
       )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("姓名")}>
-      {ldap2.data1.cn ? ldap2.data1.cn : '[等待EID的LDAP验证]'}
+    <Form.Item {...formItemLayout} label={t('姓名')}>
+      {ldap2.data1.cn ? ldap2.data1.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("至EID")}>
+    <Form.Item {...formItemLayout} label={t('至EID')}>
       {getFieldDecorator('toEid', {
         rules: [
           {
@@ -52,26 +53,27 @@ const InfoForm = ({
         ],
       })(
         <Search
-          placeholder={t("请输入EID")}
+          maxLength={100}
+          placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid2(value)}
           onChange={() => handleInitLdap()}
         />
       )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("姓名")}>
-      {ldap2.data2.cn ? ldap2.data2.cn : '[等待EID的LDAP验证]'}
+    <Form.Item {...formItemLayout} label={t('姓名')}>
+      {ldap2.data2.cn ? ldap2.data2.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}
       label={
         <span>
-          {t("备注")}
-          <em className={styles.optional}>{t("选填")}</em>
+          {t('备注')}
+          <em className={styles.optional}>{t('选填')}</em>
         </span>
       }
     >
       {getFieldDecorator('remarks')(
-        <TextArea style={{ minHeight: 32 }} placeholder={t("如有必要， 请输入一些备注信息")} rows={4} />
+        <TextArea style={{ minHeight: 32 }} placeholder={t('如有必要， 请输入一些备注信息')} rows={4} />
       )}
     </Form.Item>
     <Form.Item
@@ -85,7 +87,7 @@ const InfoForm = ({
       label=""
     >
       <Button type="primary" onClick={onValidateForm}>
-        {t("下一步")}
+        {t('下一步')}
       </Button>
     </Form.Item>
   </Form>

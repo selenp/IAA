@@ -67,7 +67,7 @@ class Workplace extends PureComponent {
           <Avatar size="large" src={currentUser.avatar} />
         </div>
         <div className={styles.content}>
-          <div className={styles.contentTitle}>{`${t("Hello")}，${currentUser.cn}！`}</div>
+          <div className={styles.contentTitle}>{`${t('Hello')}，${currentUser.cn}！`}</div>
           <div />
         </div>
       </div>
@@ -85,7 +85,7 @@ class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title={t("通知")}
+              title={t('通知')}
               loading={announcementsLoading}
             >
               <List
@@ -101,7 +101,7 @@ class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title={t("相关任务")}
+              title={t('相关任务')}
               loading={tasksLoading}
             >
               <List

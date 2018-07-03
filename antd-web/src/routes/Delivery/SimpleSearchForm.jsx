@@ -29,19 +29,19 @@ const SimpleSearchForm = ({
           message: t('请输入EID'),
         },
       ],
-          })(<Input placeholder={t("请输入EID")} />)}
+          })(<Input placeholder={t('请输入EID')} />)}
         </FormItem>
       </Col>
       <Col md={8} sm={24}>
         <span className={styles.submitButtons}>
           <Button type="primary" htmlType="submit">
             <Icon type="search" />
-            {t("查询")}
+            {t('查询')}
           </Button>
           <Link to="/delivery/return">
             <Button style={{ marginLeft: 8 }}>
               <Icon type="plus" />
-              {t("归还设备")}
+              {t('归还设备')}
             </Button>
           </Link>
         </span>

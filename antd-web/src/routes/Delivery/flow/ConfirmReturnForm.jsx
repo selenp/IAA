@@ -27,29 +27,29 @@ const ConfirmForm = ({
   monitorSizes,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
-    <Form.Item {...formItemLayout} label={t("EID")}>
+    <Form.Item {...formItemLayout} label={t('EID')}>
       {data.eid}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("项目")}>
+    <Form.Item {...formItemLayout} label={t('项目')}>
       {data.projectName}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("部门")}>
+    <Form.Item {...formItemLayout} label={t('部门')}>
       {data.businessUnit}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("办公地点")}>
+    <Form.Item {...formItemLayout} label={t('办公地点')}>
       {`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t("备注")}>
+    <Form.Item {...formItemLayout} label={t('备注')}>
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
     {
       data.assetTag ? (
-        <Form.Item {...formItemLayout} label={t("资产编号")}>
+        <Form.Item {...formItemLayout} label={t('资产编号')}>
           {data.assetTag}
         </Form.Item>
       ) : (
-        <Form.Item {...formItemLayout} label={t("资产编号")}>
+        <Form.Item {...formItemLayout} label={t('资产编号')}>
           {getFieldDecorator('assetTag', {
             rules: [
               {
@@ -58,17 +58,17 @@ const ConfirmForm = ({
               },
             ],
             })(
-              <Input placeholder={t("请输入资产编号")} />
+              <Input maxLength={100} placeholder={t('请输入资产编号')} />
           )}
         </Form.Item>
       )}
     {
     data.serialTag ? (
-      <Form.Item {...formItemLayout} label={t("序列号")}>
+      <Form.Item {...formItemLayout} label={t('序列号')}>
         {data.serialTag}
       </Form.Item>
     ) : (
-      <Form.Item {...formItemLayout} label={t("序列号")}>
+      <Form.Item {...formItemLayout} label={t('序列号')}>
         {getFieldDecorator('serialTag', {
           rules: [
             {
@@ -76,16 +76,16 @@ const ConfirmForm = ({
               message: t('请输入序列号'),
             },
           ],
-        })(<Input placeholder={t("请输入序列号")} />)}
+        })(<Input maxLength={100} placeholder={t('请输入序列号')} />)}
       </Form.Item>
     )}
     {
     data.machineType ? (
-      <Form.Item {...formItemLayout} label={t("机型")}>
+      <Form.Item {...formItemLayout} label={t('机型')}>
         {data.machineType}
       </Form.Item>
     ) : (
-      <Form.Item {...formItemLayout} label={t("机型")}>
+      <Form.Item {...formItemLayout} label={t('机型')}>
         {getFieldDecorator('machineType', {
           rules: [
             {
@@ -95,8 +95,8 @@ const ConfirmForm = ({
           ],
           })(
             <RadioGroup >
-              <Radio value="desktop">{t("台式机")}</Radio>
-              <Radio value="laptop">{t("笔记本")}</Radio>
+              <Radio value="desktop">{t('台式机')}</Radio>
+              <Radio value="laptop">{t('笔记本')}</Radio>
             </RadioGroup>
         )}
       </Form.Item>
@@ -104,11 +104,11 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') && (
       data.laptopModel ? (
-        <Form.Item {...formItemLayout} label={t("笔记本型号")}>
+        <Form.Item {...formItemLayout} label={t('笔记本型号')}>
           {data.laptopModel}
         </Form.Item>
       ) : (
-        <Form.Item {...formItemLayout} label={t("机型")}>
+        <Form.Item {...formItemLayout} label={t('机型')}>
           {getFieldDecorator('laptopModel', {
             rules: [
               {
@@ -120,7 +120,8 @@ const ConfirmForm = ({
               <Select
                 mode="combobox"
                 style={{ width: '100%' }}
-                placeholder={t("请输入或选择笔记本型号")}
+                maxLength={100}
+                placeholder={t('请输入或选择笔记本型号')}
               >
                 {
                 laptopModels.map(d => (
@@ -132,32 +133,32 @@ const ConfirmForm = ({
         </Form.Item>
       ))}
     {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t("电源适配器&电源线")} >
+    <Form.Item {...formItemLayout} label={t('电源适配器&电源线')} >
       {data.acPowerAdapter?'Yes':'No'}
     </Form.Item>
   )}
     {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t("电脑锁")} >
+    <Form.Item {...formItemLayout} label={t('电脑锁')} >
       {data.securityCable?'Yes':'No'}
     </Form.Item>
   )}
     {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t("电脑包")}>
+    <Form.Item {...formItemLayout} label={t('电脑包')}>
       {data.bag?'Yes':'No'}
     </Form.Item>
   )}
     {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t("鼠标")} >
+    <Form.Item {...formItemLayout} label={t('鼠标')} >
       {data.mouseKeyboard?'Yes':'No'}
     </Form.Item>
   )}
     {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t("网线")} >
+    <Form.Item {...formItemLayout} label={t('网线')} >
       {data.lanCable?'Yes':'No'}
     </Form.Item>
   )}
     {
-    !data.assetTag && <div>{t("没有借取记录")}</div>
+    !data.assetTag && <div>{t('没有借取记录')}</div>
   }
     <Divider style={{ margin: '24px 0' }} />
     {
@@ -165,7 +166,7 @@ const ConfirmForm = ({
         (
           <Form.Item
             {...formItemLayout}
-            label={t("显示器")}
+            label={t('显示器')}
           >
             {getFieldDecorator('returnMonitorSize', {
               rules: [
@@ -178,6 +179,7 @@ const ConfirmForm = ({
                 <Select
                   mode="tags"
                   style={{ width: '100%' }}
+                  maxLength={100}
                   placeholder="19, 21"
                 >
                   {
@@ -195,7 +197,7 @@ const ConfirmForm = ({
       (
         <Form.Item
           {...formItemLayout}
-          label={t("电源适配器&电源线")}
+          label={t('电源适配器&电源线')}
         >
           {getFieldDecorator('returnAcPowerAdapter')(
             <Switch />
@@ -206,7 +208,7 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
-        <Form.Item {...formItemLayout} label={t("电脑锁")} >
+        <Form.Item {...formItemLayout} label={t('电脑锁')} >
           {getFieldDecorator('returnSecurityCable')(
             <Switch />
           )}
@@ -216,7 +218,7 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
-        <Form.Item {...formItemLayout} label={t("电脑包")}>
+        <Form.Item {...formItemLayout} label={t('电脑包')}>
           {getFieldDecorator('returnBag')(
             <Switch />
           )}
@@ -226,7 +228,7 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'laptop' || data.machineType === 'laptop') &&
       (
-        <Form.Item {...formItemLayout} label={t("鼠标")} >
+        <Form.Item {...formItemLayout} label={t('鼠标')} >
           {getFieldDecorator('returnMouse')(
             <Switch />
           )}
@@ -236,7 +238,7 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'desktop' || data.machineType === 'desktop') &&
       (
-        <Form.Item {...formItemLayout} label={t("键盘鼠标")} >
+        <Form.Item {...formItemLayout} label={t('键盘鼠标')} >
           {getFieldDecorator('returnMouseKeyboard')(
             <Switch />
           )}
@@ -246,7 +248,7 @@ const ConfirmForm = ({
     {
     (getFieldValue('machineType') === 'desktop' || data.machineType === 'desktop') &&
       (
-        <Form.Item {...formItemLayout} label={t("网线")} >
+        <Form.Item {...formItemLayout} label={t('网线')} >
           {getFieldDecorator('returnLanCable')(
             <Switch />
           )}
@@ -267,11 +269,11 @@ const ConfirmForm = ({
     >
       {onPrev && (
       <Button onClick={onPrev} style={{ margin: 8 }}>
-        {t("返回")}
+        {t('返回')}
       </Button>
     )}
       <Button type="primary" onClick={onValidateForm} loading={submitting}>
-        {t("保存")}
+        {t('保存')}
       </Button>
     </Form.Item>
   </Form>

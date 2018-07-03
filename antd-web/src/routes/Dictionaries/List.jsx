@@ -71,21 +71,21 @@ class TableList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label={t("分类")}>
+            <FormItem label={t('分类')}>
               {getFieldDecorator('category', {
               rules: [
                 {
                   message: t('请输入分类'),
                 },
               ],
-            })(<Input placeholder={t("请输入分类")} />)}
+            })(<Input placeholder={t('请输入分类')} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                {t("查询")}
+                {t('查询')}
               </Button>
             </span>
           </Col>
@@ -139,7 +139,7 @@ class TableList extends PureComponent {
                 t,
             })}
             >
-              {t("删除")}
+              {t('删除')}
               <Icon type="delete" />
             </a>
           </Fragment>
@@ -149,8 +149,8 @@ class TableList extends PureComponent {
 
     return (
       <PageHeaderLayout
-        title={t("数据字典")}
-        content={t("数据字典的管理")}
+        title={t('数据字典')}
+        content={t('数据字典的管理')}
       >
         <Card bordered={false}>
           <div className={styles.tableList}>

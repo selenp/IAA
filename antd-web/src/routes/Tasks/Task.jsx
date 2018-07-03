@@ -80,12 +80,12 @@ class Task extends PureComponent {
       data && (
         <Card bordered={false}>
           <DescriptionList size="large" style={{ marginBottom: 32 }}>
-            <Description term={t("主题")}>{data.category}</Description>
-            <Description term={t("状态")}>{data.progress}</Description>
-            <Description term={t("结束日期")}>
+            <Description term={t('主题')}>{data.category}</Description>
+            <Description term={t('状态')}>{data.progress}</Description>
+            <Description term={t('结束日期')}>
               {moment(data.dueDate).format('YYYY-MM-DD HH:mm')}
             </Description>
-            <Description term={t("发送给")}>{data.assignToRole}</Description>
+            <Description term={t('发送给')}>{data.assignToRole}</Description>
           </DescriptionList>
           {data.content}
         </Card>
@@ -107,7 +107,7 @@ class Task extends PureComponent {
     return (
       <Card bordered={false}>
         <Form onSubmit={this.handleSubmit} style={{ marginTop: 8 }}>
-          <FormItem label={<span>{t("结束日期")}</span>}>
+          <FormItem label={<span>{t('结束日期')}</span>}>
             {getFieldDecorator('dueDate', {
               initialValue: moment(this.state.data.dueDate),
               rules: [
@@ -116,9 +116,9 @@ class Task extends PureComponent {
                   message: t('请输入结束日期'),
                 },
               ],
-            })(<DatePicker showTime format="YYYY-MM-DD HH:mm" placeholder={t("请输入结束日期")} />)}
+            })(<DatePicker showTime format="YYYY-MM-DD HH:mm" placeholder={t('请输入结束日期')} />)}
           </FormItem>
-          <FormItem label={<span>{t("主题")}</span>}>
+          <FormItem label={<span>{t('主题')}</span>}>
             {getFieldDecorator('category', {
               initialValue: this.state.data.category,
               rules: [
@@ -128,12 +128,12 @@ class Task extends PureComponent {
                 },
               ],
             })(
-              <Select mode="combobox" style={{ width: '100%' }} placeholder={t("请选择或输入主题")}>
+              <Select mode="combobox" style={{ width: '100%' }} maxLength={100} placeholder={t('请选择或输入主题')}>
                 {taskCategories.map(d => <Option key={d}>{d}</Option>)}
               </Select>
             )}
           </FormItem>
-          <FormItem label={<span>{t("内容")}</span>}>
+          <FormItem label={<span>{t('内容')}</span>}>
             {getFieldDecorator('content', {
               initialValue: this.state.data.content,
               rules: [
@@ -142,9 +142,9 @@ class Task extends PureComponent {
                   message: t('请输入内容'),
                 },
               ],
-            })(<TextArea rows={20} placeholder={t("请输入内容")} />)}
+            })(<TextArea rows={20} placeholder={t('请输入内容')} />)}
           </FormItem>
-          <Form.Item label={t("指派给角色")}>
+          <Form.Item label={t('指派给角色')}>
             {getFieldDecorator('assignToRole', {
               initialValue: this.state.data.assignToRole,
               rules: [
@@ -154,14 +154,14 @@ class Task extends PureComponent {
                 },
               ],
             })(
-              <Select style={{ width: '100%' }} placeholder={t("请选择角色")}>
+              <Select style={{ width: '100%' }} placeholder={t('请选择角色')}>
                 {roles.map(d => <Option key={d}>{d}</Option>)}
               </Select>
             )}
           </Form.Item>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary" htmlType="submit" loading={submitting}>
-              {t("提交")}
+              {t('提交')}
             </Button>
             {this.state.editing &&
               this.props.match.params.id !== 'new' && (
@@ -172,11 +172,11 @@ class Task extends PureComponent {
                     })
                   }
                 >
-                  {t("取消")}
+                  {t('取消')}
                 </Button>
               )}
             {(!this.state.editing || this.props.match.params.id === 'new') && (
-              <Button onClick={() => this.props.dispatch(routerRedux.push('/tasks'))}>{t("返回")}</Button>
+              <Button onClick={() => this.props.dispatch(routerRedux.push('/tasks'))}>{t('返回')}</Button>
             )}
           </FormItem>
         </Form>
@@ -198,13 +198,13 @@ class Task extends PureComponent {
               })
             }
           >
-            {t("修改")}
+            {t('修改')}
           </Button>
         )}
       </div>
     );
     return (
-      <PageHeaderLayout title={t("详细页面")} action={action}>
+      <PageHeaderLayout title={t('详细页面')} action={action}>
         {this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>
     );

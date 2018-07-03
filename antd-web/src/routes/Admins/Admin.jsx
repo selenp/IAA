@@ -102,10 +102,12 @@ class Admin extends PureComponent {
   }
 
   handleSeachEid = (eid) => {
-    this.props.dispatch({
-      type: 'ldap/search',
-      uid: eid,
-    });
+    if (eid) {
+      this.props.dispatch({
+        type: 'ldap/search',
+        uid: eid,
+      });
+    }
   }
   handleInitLdap = (eid) => {
     this.props.dispatch({
@@ -121,9 +123,9 @@ class Admin extends PureComponent {
     return data && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
-          <Description term={t("姓名")}>{ldap.data.uid}</Description>
-          <Description term={t("eid")}>{data.userid}</Description>
-          <Description term={t("角色")}>{data.roles}</Description>
+          <Description term={t('姓名')}>{ldap.data.uid}</Description>
+          <Description term={t('eid')}>{data.userid}</Description>
+          <Description term={t('角色')}>{data.roles}</Description>
         </DescriptionList>
       </Card>
     );
@@ -171,17 +173,17 @@ class Admin extends PureComponent {
           }],
         })(
           <Search
-            placeholder={t("请输入EID")}
+            maxLength={100}
+            placeholder={t('请输入EID')}
             onSearch={value => this.handleSeachEid(value)}
             onChange={() => this.handleInitLdap()}
-
           />
         )}
           </FormItem>
-          <Form.Item {...formItemLayout} label={t("姓名")}>
-            {ldap.data.cn ? ldap.data.cn : '[等待EID的LDAP验证]'}
+          <Form.Item {...formItemLayout} label={t('姓名')}>
+            {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
           </Form.Item>
-          <Form.Item {...formItemLayout} label={t("角色")}>
+          <Form.Item {...formItemLayout} label={t('角色')}>
             {getFieldDecorator('roles', {
               initialValue: this.state.data.roles ? this.state.data.roles.split(',') : [],
               rules: [
@@ -194,7 +196,8 @@ class Admin extends PureComponent {
               <Select
                 mode="tags"
                 style={{ width: '100%' }}
-                placeholder={t("请输入或选择角色")}
+                maxLength={100}
+                placeholder={t('请输入或选择角色')}
               >
                 {
                   roles.map(d => (
@@ -205,14 +208,14 @@ class Admin extends PureComponent {
             )}
           </Form.Item>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary"  htmlType="submit" loading={submitting}> {t("提交")} </Button>
+            <Button type="primary"  htmlType="submit" loading={submitting}> {t('提交')} </Button>
             {
           this.state.editing && (this.props.match.params.id !== 'new') && (
             <Button
               onClick={() => this.setState({
                 editing: false,
               })}
-            >{t("取消")}
+            >{t('取消')}
             </Button>
           )
         }
@@ -220,7 +223,7 @@ class Admin extends PureComponent {
         (!this.state.editing || this.props.match.params.id === 'new') && (
           <Button
             onClick={() => this.props.dispatch(routerRedux.push('/system/admins'))}
-          >{t("返回")}
+          >{t('返回')}
           </Button>
         )
       }
@@ -242,7 +245,7 @@ class Admin extends PureComponent {
                 editing: true,
                 data: this.props.admin.data,
               })}
-            >{t("修改")}
+            >{t('修改')}
             </Button>
           )
         }
@@ -250,7 +253,7 @@ class Admin extends PureComponent {
     );
     return (
       <PageHeaderLayout
-        title={t("管理员详情页面")}
+        title={t('管理员详情页面')}
         action={action}
       >{this.state.editing ? this.renderEdit() : this.renderView()}
       </PageHeaderLayout>

@@ -185,6 +185,7 @@ i18n.use(LanguageDetector).init({
         "触发403":"Triggered 403",
         "触发500":"Triggered 500",
         "触发404":"Triggered 404",
+        "等待EID的LDAP验证":"The 'EID' should be verified via LDAP",
       },
     },
     zh: {
@@ -367,6 +368,7 @@ i18n.use(LanguageDetector).init({
         "触发403":"触发403",
         "触发500":"触发500",
         "触发404":"触发404",
+        "等待EID的LDAP验证":"等待EID的LDAP验证",
       },
     },
   fallbackLng: "en",

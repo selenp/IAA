@@ -65,8 +65,8 @@ class Step2 extends React.PureComponent {
     };
     return (
       <PageHeaderLayout
-        title={t("归还设备")}
-        content={t("操作不熟悉的用户，请在IT人员的指导下完成")}
+        title={t('归还设备')}
+        content={t('操作不熟悉的用户，请在IT人员的指导下完成')}
       >
         <Card bordered={false}>
           <Fragment>

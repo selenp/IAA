@@ -34,10 +34,12 @@ class Step1 extends React.PureComponent {
     });
   }
   handleSeachEid = (eid) => {
-    this.props.dispatch({
-      type: 'ldap/search',
-      uid: eid,
-    });
+    if (eid) {
+      this.props.dispatch({
+        type: 'ldap/search',
+        uid: eid,
+      });
+    }
   }
   handleInitLdap = (eid) => {
     this.props.dispatch({
@@ -91,10 +93,10 @@ class Step1 extends React.PureComponent {
         />
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
-          <h3>{t("说明")}</h3>
+          <h3>{t('说明')}</h3>
           <h4>...</h4>
           <p>
-            {t("如果需要，这里可以放一些关于产品的常见问题说明。")}
+            {t('如果需要，这里可以放一些关于产品的常见问题说明。')}
           </p>
         </div>
       </Fragment>

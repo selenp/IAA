@@ -74,7 +74,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={`${t("设备取还履历")}:${this.props.match.params.assettag}`} content="">
+      <PageHeaderLayout title={`${t('设备取还履历')}:${this.props.match.params.assettag}`} content="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <Table

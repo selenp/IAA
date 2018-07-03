@@ -94,23 +94,23 @@ class TableList extends PureComponent {
                     message: t('请输入EID'),
                   },
                 ],
-              })(<Input placeholder={t("请输入EID")} />)}
+              })(<Input placeholder={t('请输入EID')} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 <Icon type="search" />
-                {t("查询")}
+                {t('查询')}
               </Button>
               <Button type="dashed" style={{ marginLeft: 8 }} onClick={this.handleXlsx}>
                 <Icon type="download" />
-                {t("下载")}
+                {t('下载')}
               </Button>
               <Link to="/transfer/borrow">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  {t("设备取还")}
+                  {t('设备取还')}
                 </Button>
               </Link>
             </span>
@@ -178,7 +178,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t("设备取还")} content={t("设备取还履历")}>
+      <PageHeaderLayout title={t('设备取还')} content={t('设备取还履历')}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

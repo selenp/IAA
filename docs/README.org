@@ -425,6 +425,26 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
   - application.properties
 
 * 会议
+** <2018-07-03 Tue>
+*** DONE ldap功能发布完毕，测试通过
+    CLOSED: [2018-07-03 Tue 12:01]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-03 Tue 12:01]
+    :END:
+*** DONE url rewrite配置消失， 问题解决
+    CLOSED: [2018-07-03 Tue 12:01]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-03 Tue 12:01]
+    :END:
+    要确保配置文件web.config的存在
+*** DONE 数据库里面各个字段的长度，重新设置
+    CLOSED: [2018-07-03 Tue 12:01]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-03 Tue 12:01]
+    :END:
+*** TODO 又找到几个bug
+    - 各文字输入框的输入长度限制
+    - mssql的中文乱码问题
 ** <2018-06-28 Thu>
 *** DONE login功能：用户名和密码，使用ldap进行验证，系统内不留存密码
     CLOSED: [2018-06-28 Thu 16:32]

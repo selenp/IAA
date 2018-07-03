@@ -58,16 +58,20 @@ class Step1 extends React.PureComponent {
     });
   }
   handleSeachEid1 = (eid) => {
-    this.props.dispatch({
-      type: 'ldap2/search1',
-      uid: eid,
-    });
+    if (eid) {
+      this.props.dispatch({
+        type: 'ldap2/search1',
+        uid: eid,
+      });
+    }
   }
   handleSeachEid2 = (eid) => {
-    this.props.dispatch({
-      type: 'ldap2/search2',
-      uid: eid,
-    });
+    if (eid) {
+      this.props.dispatch({
+        type: 'ldap2/search2',
+        uid: eid,
+      });
+    }
   }
   handleInitLdap = (eid) => {
     this.props.dispatch({
@@ -112,7 +116,7 @@ class Step1 extends React.PureComponent {
         {task &&
           task.eid && (
             <div className={styles.desc}>
-              <h3>{t("说明")}</h3>
+              <h3>{t('说明')}</h3>
               <h4>{`${task.eid}: ${task.category}`}</h4>
               <pre>{task.content}</pre>
             </div>
