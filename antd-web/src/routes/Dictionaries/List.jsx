@@ -36,6 +36,17 @@ class TableList extends PureComponent {
     });
   }
 
+  onChange = ({current, pageSize}) => {
+    const { dispatch } = this.props;
+    this.setState({
+      page: current - 1,
+      size: pageSize,
+    }, () => dispatch({
+      type: 'dictionaries/fetchList',
+      payload: this.state,
+    }));
+  };
+
   handleSearch = e => {
     e.preventDefault();
 
@@ -51,17 +62,6 @@ class TableList extends PureComponent {
         payload: this.state,
       }));
     });
-  };
-
-  onChange = ({current, pageSize}) => {
-    const { dispatch } = this.props;
-    this.setState({
-      page: current - 1,
-      size: pageSize,
-    }, () => dispatch({
-      type: 'dictionaries/fetchList',
-      payload: this.state,
-    }));
   };
 
   renderSimpleForm() {

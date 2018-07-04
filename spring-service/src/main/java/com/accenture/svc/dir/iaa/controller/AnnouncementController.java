@@ -101,7 +101,7 @@ public class AnnouncementController extends AbstractController {
             return query.getRestriction();
         };
         if (xlsx) {
-            Iterable<Announcement> announcements = announcementRepository.findAll();
+            Iterable<Announcement> announcements = announcementRepository.findAll(spec);
             String fileName = "poi-generated-announcement.xlsx";
             XlsxUtils.write2Xlsx(new File(ofPath, fileName), new XlsxWriter<Announcement>() {
                 @Override

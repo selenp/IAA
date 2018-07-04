@@ -135,7 +135,7 @@ public class TransferEventController extends AbstractController {
             return query.getRestriction();
         };
         if (xlsx) {
-            Iterable<TransferEvent> transferEvents = transferEventRepository.findAll();
+            Iterable<TransferEvent> transferEvents = transferEventRepository.findAll(spec);
             String fileName = "poi-generated-transfer-events.xlsx";
             XlsxUtils.write2Xlsx(new File(ofPath, fileName), new XlsxWriter<TransferEvent>() {
                 @Override

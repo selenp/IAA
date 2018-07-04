@@ -68,9 +68,11 @@ class TableList extends PureComponent {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
 
-      dispatch({
-        type: 'announcements/initData',
-      });
+      if (!xlsx) {
+        dispatch({
+          type: 'announcements/initData',
+        });
+      }
 
       this.setState(
         {

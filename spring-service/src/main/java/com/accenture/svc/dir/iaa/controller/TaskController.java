@@ -120,7 +120,7 @@ public class TaskController extends AbstractController {
             return query.getRestriction();
         };
         if (xlsx) {
-            Iterable<Task> tasks = taskRepository.findAll();
+            Iterable<Task> tasks = taskRepository.findAll(spec);
             String fileName = "poi-generated-task.xlsx";
             XlsxUtils.write2Xlsx(new File(ofPath, fileName), new XlsxWriter<Task>() {
                 @Override
