@@ -11,6 +11,7 @@ const { Search } = Input;
 
 const InfoForm = ({
   t,
+  task,
   ldap2,
   styles,
   getFieldDecorator,
@@ -46,6 +47,7 @@ const InfoForm = ({
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('至EID')}>
       {getFieldDecorator('toEid', {
+        initialValue: task.eid,
         rules: [
           {
             required: true,

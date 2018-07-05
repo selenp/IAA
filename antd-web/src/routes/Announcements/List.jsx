@@ -132,7 +132,7 @@ class TableList extends PureComponent {
                 <Icon type="download" />
                 {t('下载')}
               </Button>
-              <Link to="/announcement/new">
+              <Link to="/system/announcement/new">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
                   {t('通知')}

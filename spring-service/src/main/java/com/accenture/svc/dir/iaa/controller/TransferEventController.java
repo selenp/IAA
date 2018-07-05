@@ -76,31 +76,37 @@ public class TransferEventController extends AbstractController {
             @PathVariable Long id,
             @PathVariable String io,
             @RequestBody String data) throws Exception {
-        TransferEvent e = transferEventRepository.findById(id).get();
+        TransferEvent event = transferEventRepository.findById(id).get();
 
-        String imageName = String.format("%s/transfer-%s-%s-%d-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), e.getToEid(), id, io);
+        String imageName = String.format("%s/transfer-%s-%s-%d-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), event.getToEid(), id, io);
         File image = ImageUtils.saveImage(imageName, data, ofPath);
 
         //save data to  signatureImage
-        e.setSignatureImage(imageName);
-        transferEventRepository.save(e);
+        event.setSignatureImage(imageName);
+        transferEventRepository.save(event);
 
+        StringBuffer body = new StringBuffer(512);
+        body.append("Dear: \nThe attachment is the table of equipment responsibilities. \n")
+                        .append(event.toReadable())
+                        .append('\n')
+                        .append('\n')
+                        .append("If you have any question, please contact the IT department.");
         new Thread(() -> {
-            sendMail(new String[]{Utils.eid2Email(e.getToEid()), Utils.eid2Email(e.getFromEid())}, image);
+            sendMail(new String[]{Utils.eid2Email(event.getToEid()), Utils.eid2Email(event.getFromEid())}, body.toString(), image);
         }).start();
-        return e;
+        return event;
     }
 
 
-    public void sendMail(String to[], File image) {
+    public void sendMail(String[] to, String body, File image) {
         MimeMessage message = this.sender.createMimeMessage();
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(fromEmail);
             helper.setTo(Utils.concatArray(to, systemEmails.split(",")));
-            helper.setSubject("Receipt：Ordinary user's device retrieval");
-            helper.setText("Dear user: \nThe attachment is the table of equipment responsibilities. If you have any question, please contact the IT department.");
+            helper.setSubject("Receipt：IT User's Device Retrieval");
+            helper.setText(body);
 
             helper.addAttachment(image.getName(), image);
 

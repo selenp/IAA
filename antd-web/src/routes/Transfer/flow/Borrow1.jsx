@@ -106,6 +106,7 @@ class Step1 extends React.PureComponent {
     return (
       <Fragment>
         <InfoForm
+          task={task}
           ldap2={ldap2}
           styles={styles}
           onValidateForm={onValidateForm}

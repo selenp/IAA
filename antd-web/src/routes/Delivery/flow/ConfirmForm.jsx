@@ -126,7 +126,6 @@ const ConfirmForm = ({
           {getFieldDecorator('laptopModel', {
           rules: [
             {
-              required: true,
               message: t('请输入笔记本型号'),
             },
           ],

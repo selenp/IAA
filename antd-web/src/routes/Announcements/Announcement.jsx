@@ -64,7 +64,7 @@ class Announcement extends PureComponent {
             id: this.props.match.params.id === 'new' ? null : this.props.match.params.id,
           },
           t,
-          redirect: `/announcements`,
+          redirect: `/system/announcements`,
         });
       }
     });
@@ -149,7 +149,7 @@ class Announcement extends PureComponent {
                 </Button>
               )}
             {(!this.state.editing || this.props.match.params.id === 'new') && (
-              <Button onClick={() => this.props.dispatch(routerRedux.push('/announcements'))}>
+              <Button onClick={() => this.props.dispatch(routerRedux.push('/system/announcements'))}>
                 {t('返回')}
               </Button>
             )}

@@ -133,5 +133,9 @@ public class TransferEvent {
                 ", taskId=" + taskId +
                 '}';
     }
+
+    public String toReadable() {
+        return "assetTags: " + assetTags;
+    }
 }
 

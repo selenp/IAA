@@ -373,5 +373,9 @@ public class Delivery {
     public void setReturnMouseKeyboard(Boolean returnMouseKeyboard) {
         this.returnMouseKeyboard = returnMouseKeyboard;
     }
+
+    public String toReadable() {
+        return "assetTag: " + assetTag;
+    }
 }
 

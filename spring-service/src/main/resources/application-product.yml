@@ -15,7 +15,7 @@ spring:
         format_sql: true
         type: trace
   mail:
-    username: 'is.isa.china.iw.assetmanagement@accenture.com'
+    username: 'is.isa.china.iw.assetsmanagement@accenture.com'
     host: 10.254.161.152
     port: 25
     properties:

@@ -41,6 +41,7 @@ import javax.naming.ldap.LdapContext;
 import javax.persistence.criteria.Predicate;
 
 class AbstractController {
+    static SimpleDateFormat yyyyMMDD = new SimpleDateFormat("yyyy-MM-dd");
     static SimpleDateFormat yyyyMM = new SimpleDateFormat("yyyy/MM");
     static SimpleDateFormat dd = new SimpleDateFormat("dd");
     Log log = LogFactory.getLog(AbstractController.class);

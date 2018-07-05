@@ -138,7 +138,6 @@ class Task extends PureComponent {
               initialValue: this.state.data.content,
               rules: [
                 {
-                  required: true,
                   message: t('请输入内容'),
                 },
               ],

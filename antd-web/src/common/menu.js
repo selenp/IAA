@@ -12,18 +12,13 @@ const menuData = [
     path: 'tasks',
   },
   {
-    name: '通知',
-    icon: 'info-circle-o',
-    path: 'announcements',
-  },
-  {
     name: '普通用户设备取还',
     icon: 'solution',
     path: 'deliveries/list',
     authority: (currentAuthority) => currentAuthority.split(',').indexOf('asset manager') > -1 ,
   },
   {
-    name: 'IT设备取还',
+    name: 'IT设备移交',
     icon: 'calculator',
     path: 'transfers/list',
     authority: (currentAuthority) => currentAuthority.split(',').indexOf('it staff') > -1 ,
@@ -33,6 +28,12 @@ const menuData = [
     icon: 'tool',
     path: 'system',
     children: [
+      {
+        name: '通知',
+        icon: 'info-circle-o',
+        path: 'announcements',
+        authority: (currentAuthority) => currentAuthority.split(',').indexOf('super admin') > -1 ,
+      },
       {
         name: '数据字典',
         icon: 'database',

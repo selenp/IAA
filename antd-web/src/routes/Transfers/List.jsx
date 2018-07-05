@@ -110,7 +110,7 @@ class TableList extends PureComponent {
               <Link to="/transfer/borrow">
                 <Button style={{ marginLeft: 8 }}>
                   <Icon type="plus" />
-                  {t('设备取还')}
+                  {t('设备移交')}
                 </Button>
               </Link>
             </span>
@@ -139,6 +139,7 @@ class TableList extends PureComponent {
       {
         title: t('时间'),
         dataIndex: 'borrowDate',
+        className: styles.dataTableCell,
         render: (val, row) =>
           row.signatureImage ? (
             <a href={`${FILE_URL}/${row.signatureImage}`} target="_blank">
@@ -151,6 +152,7 @@ class TableList extends PureComponent {
       },
       {
         title: t('设备编号'),
+        className: styles.dataTableCell,
         dataIndex: 'assetTags',
         render(val) {
           return val.split(',').map(v => (
@@ -162,14 +164,17 @@ class TableList extends PureComponent {
       },
       {
         title: t('自EID'),
+        className: styles.dataTableCell,
         dataIndex: 'fromEid',
       },
       {
         title: t('至EID'),
+        className: styles.dataTableCell,
         dataIndex: 'toEid',
       },
       {
         title: t('状态'),
+        className: styles.dataTableCell,
         dataIndex: 'status',
         render(val) {
           return <Badge status={progressMap[val]} text={t(progressTitle[val])} />;
@@ -178,7 +183,7 @@ class TableList extends PureComponent {
     ];
 
     return (
-      <PageHeaderLayout title={t('设备取还')} content={t('设备取还履历')}>
+      <PageHeaderLayout title={t('设备移交')} content={t('设备移交履历')}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>

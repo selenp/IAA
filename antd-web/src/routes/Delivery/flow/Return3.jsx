@@ -37,19 +37,19 @@ class Step3 extends React.PureComponent {
     ctx.font = '16px Courier';
     ctx.fillText(data.eid, 180, 130);
     ctx.fillText(data.businessUnit, 180, 168);
-    ctx.fillText(data.locationFloor, 180, 187);
+    ctx.fillText(data.locationFloor || '', 180, 187);
 
-    ctx.fillText(data.projectName, 520, 149);
-    ctx.fillText(data.locationBuilding, 520, 168);
-    ctx.fillText(data.locationSeat, 520, 187);
+    ctx.fillText(data.projectName || '', 520, 149);
+    ctx.fillText(data.locationBuilding || '', 520, 168);
+    ctx.fillText(data.locationSeat || '', 520, 187);
 
     ctx.fillText(data.assetTag, 180, 293);
-    ctx.fillText(data.serialTag, 520, 293);
+    ctx.fillText(data.serialTag.toUpperCase(), 520, 293);
 
     ctx.fillText('*', data.machineType === 'laptop' ? 277 : 611, 312);
 
     if (data.machineType === 'laptop') {
-      ctx.fillText(data.laptopModel, 180, 330);
+      ctx.fillText(data.laptopModel || '', 180, 330);
 
       ctx.fillText(data.returnAcPowerAdapter ? '*' : '', 342, 360);
       ctx.fillText(data.returnSecurityCable ? '*' : '', 342, 395);

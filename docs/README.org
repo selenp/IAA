@@ -425,6 +425,46 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
   - application.properties
 
 * 会议
+** <2018-07-05 Thu>
+*** DONE ipad上的右上角，logout，点击无反应
+    CLOSED: [2018-07-05 Thu 17:19]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-05 Thu 17:19]
+    :END:
+*** 用户借还， IT设备移交 画面
+**** DONE email的subject要加上，用户和日期
+     CLOSED: [2018-07-05 Thu 17:45]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-05 Thu 17:45]
+     :END:
+**** DONE 邮件body，assettag等信息写出来，方便邮件查询
+     CLOSED: [2018-07-05 Thu 18:04]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-05 Thu 18:04]
+     :END:
+**** DONE 页面默认值
+     CLOSED: [2018-07-05 Thu 23:59]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-05 Thu 23:59]
+     :END:
+     - 自：登录者
+     - 至：起task票的人，固定住
+**** DONE IT设备取还，文字向上对题
+     CLOSED: [2018-07-05 Thu 17:34]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-05 Thu 17:34]
+     :END:
+**** DONE 若干输入框，可以不用必填
+     CLOSED: [2018-07-05 Thu 23:37]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-05 Thu 23:37]
+     :END:
+*** NEXT 资产编号，将来会换成扫码枪，APP扫描等
+*** NEXT 被领走的设备：加入reminde，为什么还没有领走？？
+*** NEXT 用户来领取：自动找到设备
+*** NEXT 帮助用户安装好设备后，一定要登录入系统，备查
+*** NEXT IT领完了，默认安装中。。。
+
 ** <2018-07-03 Tue>
 *** DONE ldap功能发布完毕，测试通过
     CLOSED: [2018-07-03 Tue 12:01]
@@ -456,8 +496,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-06-28 Thu 16:32]
     :END:
-*** TODO 还有个别bug待处理，周一发布一下ldap的稳定版本
-    SCHEDULED: <2018-07-02 Mon>
+*** DONE 还有个别bug待处理，周一发布一下ldap的稳定版本
+    CLOSED: [2018-07-04 Wed 22:59] SCHEDULED: <2018-07-03 Tue>
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-04 Wed 22:59]
+    :END:
 ** <2018-06-27 Wed>
    SCHEDULED: <2018-06-27 Wed 14:00>
    - LOCATION:<#24 1F>

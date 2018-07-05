@@ -86,12 +86,12 @@ export const getRouterData = app => {
     '/task/:id': {
       component: dynamicWrapper(app, ['task', 'user'], () => import('../routes/Tasks/Task')),
     },
-    '/announcements': {
+    '/system/announcements': {
       component: dynamicWrapper(app, ['announcements', 'user'], () =>
         import('../routes/Announcements/List')
       ),
     },
-    '/announcement/:id': {
+    '/system/announcement/:id': {
       component: dynamicWrapper(app, ['announcement', 'user'], () =>
         import('../routes/Announcements/Announcement')
       ),

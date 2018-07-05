@@ -67,27 +67,34 @@ public class DeliveryController extends AbstractController {
             @PathVariable Long id,
             @PathVariable String io,
             @RequestBody String data) throws Exception {
-        Delivery e = deliveryRepository.findById(id).get();
+        Delivery delivery = deliveryRepository.findById(id).get();
 
-        String imageName = String.format("%s/delivery-%s-%s-%s-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), e.getAssetTag(), e.getEid(), io);
+        String imageName = String.format("%s/delivery-%s-%s-%s-%s.png", yyyyMM.format(new Date()), dd.format(new Date()), delivery.getAssetTag(), delivery.getEid(), io);
         File image = ImageUtils.saveImage(imageName, data, ofPath);
 
-        //save data to  signatureImage
+        //save data to signatureImage
         if ("borrow".equals(io)) {
-            e.setSignatureImage(imageName);
+            delivery.setSignatureImage(imageName);
         } else {
-            e.setReturnSignatureImage(imageName);
+            delivery.setReturnSignatureImage(imageName);
         }
-        deliveryRepository.save(e);
+        deliveryRepository.save(delivery);
 
+        String subject=String.format("[Receipt]:[%s] - %s 's Device Retrieval", yyyyMMDD.format(new Date()), delivery.getEid());
+        StringBuffer body = new StringBuffer(512);
+        body.append("Dear: \nThe attachment is the table of equipment responsibilities. \n")
+                .append(delivery.toReadable())
+                .append('\n')
+                .append('\n')
+            .append("If you have any question, please contact the IT department.\n");
         new Thread(() -> {
-            sendMail(new String[]{Utils.eid2Email(e.getEid())}, image);
+            sendMail(subject, new String[]{Utils.eid2Email(delivery.getEid())}, body.toString(), image);
         }).start();
 
-        return e;
+        return delivery;
     }
 
-    public void sendMail(String to[], File image) {
+    public void sendMail(String subject, String[] to, String body, File image) {
         MimeMessage message = this.sender.createMimeMessage();
 
         try {
@@ -95,8 +102,8 @@ public class DeliveryController extends AbstractController {
 
             helper.setFrom(fromEmail);
             helper.setTo(Utils.concatArray(to, systemEmails.split(",")));
-            helper.setSubject("Receipt：Ordinary user's device retrieval");
-            helper.setText("Dear user: \nThe attachment is the table of equipment responsibilities. If you have any question, please contact the IT department.");
+            helper.setSubject(subject);
+            helper.setText(body);
 
             helper.addAttachment(image.getName(), image);
 

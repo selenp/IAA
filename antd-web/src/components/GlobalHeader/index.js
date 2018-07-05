@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { translate } from "react-i18next";
-import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip } from 'antd';
+import { Button, Icon, Spin, Avatar, Divider } from 'antd';
 import Debounce from 'lodash-decorators/debounce';
 import { Link } from 'dva/router';
 import styles from './index.less';
@@ -33,13 +33,6 @@ class GlobalHeader extends PureComponent {
       onMenuClick,
       onNoticeClear,
     } = this.props;
-    const menu = (
-      <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item key="logout">
-          <Icon type="logout" />{t('退出登录')}
-        </Menu.Item>
-      </Menu>
-    );
     return (
       <div className={styles.header}>
         {isMobile && [
@@ -55,12 +48,12 @@ class GlobalHeader extends PureComponent {
         />
         <div className={styles.right}>
           {currentUser.cn ? (
-            <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
                 <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
-                <span className={styles.name}>{currentUser.cn}</span>
+                <Button type="dashed" onClick={() => onMenuClick({key: 'logout'})}>
+                  <span className={styles.name}>{currentUser.cn}</span>
+                </Button>
               </span>
-            </Dropdown>
           ) : (
             <Spin size="small" style={{ marginLeft: 8 }} />
           )}

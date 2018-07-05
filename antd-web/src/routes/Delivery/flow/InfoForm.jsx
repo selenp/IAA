@@ -52,7 +52,6 @@ const InfoForm = ({
       {getFieldDecorator('projectName', {
               rules: [
                 {
-                  required: true,
                   message: t('请输入或选择项目'),
                 },
               ],
@@ -98,7 +97,6 @@ const InfoForm = ({
       {getFieldDecorator('locationBuilding', {
               rules: [
                 {
-                  required: true,
                   message: t('请输入您办公地点的楼号'),
                 },
               ],
@@ -121,7 +119,6 @@ const InfoForm = ({
       {getFieldDecorator('locationFloor', {
               rules: [
                 {
-                  required: true,
                   message: t('请输入您办公地点的楼层'),
                 },
               ],
@@ -144,7 +141,6 @@ const InfoForm = ({
       {getFieldDecorator('locationSeat', {
               rules: [
                 {
-                  required: true,
                   message: t('请输入您办公地点的座位号'),
                 },
               ],

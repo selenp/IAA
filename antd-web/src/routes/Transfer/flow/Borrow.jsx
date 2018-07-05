@@ -31,7 +31,7 @@ class StepForm extends PureComponent {
     return (
       <PageHeaderLayout
         title={t('设备移交')}
-        content={t('IT人员之间的批量设备取还')}
+        content={t('IT人员之间的批量设备移交')}
       >
         <Card bordered={false}>
           <Fragment>
