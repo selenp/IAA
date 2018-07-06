@@ -426,6 +426,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
 
 * 会议
 ** <2018-07-05 Thu>
+*** DONE assetTag只可以输入： 大小写字母，数字，-_
+    CLOSED: [2018-07-06 Fri 08:51]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-06 Fri 08:51]
+    :END:
 *** DONE ipad上的右上角，logout，点击无反应
     CLOSED: [2018-07-05 Thu 17:19]
     :LOGBOOK:
@@ -442,14 +447,14 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
      :LOGBOOK:
      - State "DONE"       from "NEXT"       [2018-07-05 Thu 18:04]
      :END:
-**** DONE 页面默认值
+**** DONE 通过task迁移到移交页面， 项目默认值
      CLOSED: [2018-07-05 Thu 23:59]
      :LOGBOOK:
      - State "DONE"       from "NEXT"       [2018-07-05 Thu 23:59]
      :END:
      - 自：登录者
      - 至：起task票的人，固定住
-**** DONE IT设备取还，文字向上对题
+**** DONE IT设备取还，文字向上对齐
      CLOSED: [2018-07-05 Thu 17:34]
      :LOGBOOK:
      - State "DONE"       from "NEXT"       [2018-07-05 Thu 17:34]

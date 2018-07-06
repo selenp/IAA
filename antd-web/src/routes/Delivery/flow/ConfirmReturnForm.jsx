@@ -56,6 +56,10 @@ const ConfirmForm = ({
                 required: true,
                 message: t('请输入资产编号'),
               },
+              {
+                pattern: /^[A-Za-z0-9-_,]+$/,
+                message: t('请输入资产编号'),
+              },
             ],
             })(
               <Input maxLength={100} placeholder={t('请输入资产编号')} />
