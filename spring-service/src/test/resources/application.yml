@@ -2,9 +2,9 @@ server:
   port: 3050
 spring:
   datasource:
-    password: sa
     url: jdbc:h2:~/accenture-h2/equipment;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
+    password: sa
   jpa:
     show-sql: true
     hibernate:
@@ -22,6 +22,7 @@ spring:
     port: 587
     host: smtp.qiye.163.com
     username: 'no-reply04@accounts.tttalk.org'
+    person: 'no-reply'
     properties:
       mail:
         smtp:

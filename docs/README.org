@@ -387,7 +387,7 @@ insert into ADMIN (id, userid, roles) values (1000, 'ben', 'asset manager,super 
 
 #+BEGIN_SRC sh
 gradle build
-java -jar build/libs/accenture-iaa-20180611.jar
+java -jar build/libs/accenture-iaa-20180706.jar
 #+END_SRC
 
 ** Product Environment
@@ -401,7 +401,7 @@ npm run build
 *** spring-service
     - 编译
 #+BEGIN_SRC
-build/libs/accenture-iaa-20180611.jar
+build/libs/accenture-iaa-20180706.jar
 #+END_SRC
     - 确认 config/application.yml的参数
     - 正式环境里面, dictionary 表 system.ldap 的值如下
