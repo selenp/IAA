@@ -22,6 +22,7 @@ spring:
     port: 587
     host: smtp.qiye.163.com
     username: 'no-reply04@accounts.tttalk.org'
+    person: 'no-reply'
     properties:
       mail:
         smtp:

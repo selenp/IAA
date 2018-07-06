@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 @RunWith(SpringRunner.class)
@@ -22,6 +23,8 @@ public class SendMailTests {
     private String systemEmails;
     @Value("${spring.mail.username}")
     private String fromEmail;
+    @Value("${spring.mail.person}")
+    private String fromPerson;
 
     @Test
     public void sendSimpleMail() throws Exception {
@@ -29,10 +32,12 @@ public class SendMailTests {
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom(fromEmail);
+        InternetAddress from = new InternetAddress(fromEmail, fromPerson);
+        helper.setFrom(from);
+        helper.setCc(from);
         helper.setTo(systemEmails.split(","));
 
-        helper.setSubject("Receipt：Ordinary user's device retrieval");
+        helper.setSubject("Receipt：Ordinary User's Device Retrieval");
         helper.setText("Dear user: \nThe attachment is the table of equipment responsibilities. If you have any question, please contact the IT department.");
 
         String filename = "application.yml";

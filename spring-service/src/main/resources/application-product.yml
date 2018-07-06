@@ -16,6 +16,7 @@ spring:
         type: trace
   mail:
     username: 'is.isa.china.iw.assetsmanagement@accenture.com'
+    person: 'IS.ISA.China.IW.Assetsmanagement'
     host: 10.254.161.152
     port: 25
     properties:

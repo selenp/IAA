@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.criteria.Predicate;
 
@@ -100,7 +101,9 @@ public class DeliveryController extends AbstractController {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setFrom(fromEmail);
+            InternetAddress from = new InternetAddress(fromEmail, fromPerson);
+            helper.setFrom(from);
+            helper.setCc(from);
             helper.setTo(Utils.concatArray(to, systemEmails.split(",")));
             helper.setSubject(subject);
             helper.setText(body);

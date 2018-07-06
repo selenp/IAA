@@ -56,6 +56,8 @@ class AbstractController {
     String systemEmails;
     @Value("${spring.mail.username}")
     String fromEmail;
+    @Value("${spring.mail.person}")
+    String fromPerson;
     @Autowired
     AdminRepository adminRepository;
     @Autowired
