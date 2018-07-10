@@ -487,9 +487,13 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-03 Tue 12:01]
     :END:
-*** TODO 又找到几个bug
-    - 各文字输入框的输入长度限制
-    - mssql的中文乱码问题
+*** 又找到几个bug
+*** DONE 各文字输入框的输入长度限制
+    CLOSED: [2018-07-10 Tue 22:55]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:55]
+    :END:
+*** TODO mssql的中文乱码问题
 ** <2018-06-28 Thu>
 *** DONE login功能：用户名和密码，使用ldap进行验证，系统内不留存密码
     CLOSED: [2018-06-28 Thu 16:32]
@@ -515,8 +519,16 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     - 数据文件仍在，重新attach了一下
     - 重新设定了一下密码
 *** 需要做的
-**** TODO 测试，找bug - gaodi
-**** TODO 整合LDAP(周五之前)
+**** DONE 测试，找bug - gaodi
+     CLOSED: [2018-07-10 Tue 22:54]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+     :END:
+**** DONE 整合LDAP(周五之前)
+     CLOSED: [2018-07-10 Tue 22:54]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+     :END:
     - login
     - eid有效性验证
 ** <2018-06-12 Tue>
@@ -533,9 +545,21 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     - State "PROJECT"    from "DONE"       [2018-06-12 Tue 19:40]
     - State "DONE"       from "NEXT"       [2018-06-12 Tue 19:37]
     :END:
-*** TODO 英文翻译中70% -- gaodi
-*** TODO 各个功能正在最后测试中 -- gaodi
-*** TODO LDAP的动态配置暂时还没有找到方法能动态切换连接
+*** DONE 英文翻译中70% -- gaodi
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
+*** DONE 各个功能正在最后测试中 -- gaodi
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
+*** DONE LDAP的动态配置暂时还没有找到方法能动态切换连接
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
   - 都是系统初始化时定好的connection
   - 当前，是写在配置文件里面，需要的话修改参数保存，重新启动服务即可
 *** IIS的ReversepProxy设置，总是消失，不知道为什么
@@ -550,7 +574,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     - State "DONE"       from "NEXT"       [2018-06-08 Fri 22:31]
     :END:
 *** IIS的reverse proxy设置消失了，不知道怎么回事，又重新设置了一遍
-*** TODO 英文翻译中。。。
+*** DONE 英文翻译中。。。
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
 *** DONE LDAP取数据
     CLOSED: [2018-06-11 Mon 10:11]
     :LOGBOOK:
@@ -580,7 +608,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
      :LOGBOOK:
      - State "DONE"       from "NEXT"       [2018-06-05 Tue 17:43]
      :END:
-**** TODO 图片压缩到 200k左右，目前约1M
+**** DONE 图片压缩到 200k左右，目前约1M
+     CLOSED: [2018-07-10 Tue 22:54]
+     :LOGBOOK:
+     - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+     :END:
 *** 消息模块
 **** DONE 库管发布消息， 指定角色，在dashboard上显示
      CLOSED: [2018-06-07 Thu 12:46]
@@ -648,7 +680,13 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     - State "DONE"       from "NEXT"       [2018-06-08 Fri 00:05]
     :END:
 *** 周四之前完成功能，重新发布
-*** NEXT 下周一英文版
+*** DONE 下周一英文版
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "PROJECT"    [2018-07-10 Tue 22:54]
+    - State "PROJECT"    from "DONE"       [2018-07-10 Tue 22:54]
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
 *** DONE 写一下安装手顺
     CLOSED: [2018-06-11 Mon 10:12]
     :LOGBOOK:
@@ -680,7 +718,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-05-28 Mon 13:18]
     :END:
-*** TODO 中英文 版本
+*** DONE 中英文 版本
+    CLOSED: [2018-07-10 Tue 22:54]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-10 Tue 22:54]
+    :END:
 *** DONE 预约
     CLOSED: [2018-05-27 Sun 21:49]
     :LOGBOOK:

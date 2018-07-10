@@ -52,8 +52,6 @@ class AbstractController {
     String ofPath;
     @Value("${online.files.url}")
     String ofUrl;
-    @Value("${system.emails}")
-    String systemEmails;
     @Value("${spring.mail.username}")
     String fromEmail;
     @Value("${spring.mail.person}")

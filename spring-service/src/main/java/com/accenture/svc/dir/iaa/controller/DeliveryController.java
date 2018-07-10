@@ -104,7 +104,7 @@ public class DeliveryController extends AbstractController {
             InternetAddress from = new InternetAddress(fromEmail, fromPerson);
             helper.setFrom(from);
             helper.setCc(from);
-            helper.setTo(Utils.concatArray(to, systemEmails.split(",")));
+            helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(body);
 

@@ -42,5 +42,3 @@ admin:
   password:
     sha256:
       key: equipment
-system:
-  emails: 6055120@qq.com,oizhaolei@qq.com

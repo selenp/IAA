@@ -19,8 +19,6 @@ public class SendMailTests {
 
     @Autowired
     JavaMailSender sender;
-    @Value("${system.emails}")
-    private String systemEmails;
     @Value("${spring.mail.username}")
     private String fromEmail;
     @Value("${spring.mail.person}")
@@ -35,7 +33,7 @@ public class SendMailTests {
         InternetAddress from = new InternetAddress(fromEmail, fromPerson);
         helper.setFrom(from);
         helper.setCc(from);
-        helper.setTo(systemEmails.split(","));
+        helper.setTo("6055120@qq.com,oizhaolei@qq.com".split(","));
 
         helper.setSubject("Receipt：Ordinary User's Device Retrieval");
         helper.setText("Dear user: \nThe attachment is the table of equipment responsibilities. If you have any question, please contact the IT department.");
