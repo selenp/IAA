@@ -11,7 +11,7 @@ const AnnouncementItem = ({ item }) => (
           <span>{` - ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>
         </span>
       }
-      description={<div>{item.content}</div>}
+      description={<pre>{item.content}</pre>}
     />
   </List.Item>
 );

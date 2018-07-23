@@ -7,22 +7,31 @@
 #+OPTIONS: toc:2          only include two levels in TOC
 #+TITLE: IAA用户手册
 * 页面流程
-  http://localhost:3022/#/delivery/main
+   https://dlcgvva1001.dir.svc.accenture.com/#/delivery/main
 
 ** 主页面
    [[./main.png]]
 
+   - 推荐用iPad打开，放置在前台，供普通用户使用
+   - 普通用户可以自助“领取”和“归还”设备
+   - 可以切换中英文界面
+   - 管理员的话，可以点击“管理员登录”，进行其它操作
 ** 用户领取设备
    领取流程，共3个页面
 *** 领取人 填写信息
     [[./b1.png]]
-
+    - 普通用户自主输入自己的员工信息
+    - EID和部门为必填项，其它可以选填
+    - 输入EID之后，一定要点击查询图标，进行EID的有效性验证
+    - 输入完毕后，点击“下一步”，交给IT管理人员
 *** IT部门 填写设备信息
     [[./b2.png]]
-    - 其中：部门、项目可选择，可输入，数据还可以在后台维护
+    - IT管理员输入设备的相关信息
+    - 其中某些项目，随机型发生变化
 *** 双方确认并签字，发邮件
     [[./b3.png]]
-
+    - 普通用户和IT管理员分别在iPAD上签字
+    - 签名完毕后，此图片会以邮件方式发送给相关人员
 ** 用户归还设备
    - 先查询领取记录，没有的话“新建”也可
    - 根据记录，可以查看从前的签名图片
@@ -31,16 +40,32 @@
 
 ** 后台登录
    [[./a1.png]]
-   - 测试账户：zhaolei / zhaoleipass
+   - 测试环境下账户：ben / benpassword
+   - 正式环境下，管理员用自己的EID和员工密码进行登录
+   - 系统后台连接LDAP服务，进行EID和密码的有效性验证
+   - 本系统不保留用户的密码
+   - 登录成功后，管理员会根据自己的角色，显示相应的功能
+     - 超级管理员：super admin
+     - IT员工： it staff
+     - 资产管理员：asset manager
 ** Dashboard
-   指定给自己的任务
 
    [[./dashboard1.png]]
+   - 指定给自己的任务
+   - 自己相关的通知
+   - 右上角有当前管理员谢谢，点击可以退出登录
 
 ** 任务
-   自己相关的（自己发的，指定自己角色）任务
 
+ 基本使用场景是：
+   - IT管理人员需要从库房管理员那里取得一批设备后，才能进行系统的安装、调试等工作
+   - 从工作的优化角度来说，需要提前至少一套预约才能顺利取得设备
+   - IT管理员，可以新建一个任务，指定日期，以及详细设备信息，并且指定相关角色
+   - “保存”后，相关角色的员工就能看到有新的未完成的任务
    [[./task1.png]]
+   - 自己相关的（自己发的，指定自己角色）任务
+   - 可以直接设置任务的状态
+   - 点击这个任务，可以直接进入IT设备取还页面
 
    [[./task2.png]]
 ** IT部门 取还设备
@@ -374,6 +399,8 @@ npm start
 #+END_SRC
  - spring-service
 数据初始化：
+localhost:3050/h2-console/
+sa/sa
 #+BEGIN_SRC sql
 delete DICTIONARY where category like 'system.ldap.%';
 
@@ -389,8 +416,7 @@ insert into ADMIN (id, userid, roles) values (1000, 'ben', 'asset manager,super 
 #+END_SRC
 
 #+BEGIN_SRC sh
-gradle build
-java -jar build/libs/accenture-iaa-20180706.jar
+gradle bootRun
 #+END_SRC
 
 ** Product Environment
@@ -404,6 +430,7 @@ npm run build
 *** spring-service
     - 编译
 #+BEGIN_SRC
+gradle build
 build/libs/accenture-iaa-20180706.jar
 #+END_SRC
     - 确认 config/application.yml的参数
@@ -428,6 +455,18 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
   - application.properties
 
 * 会议
+** <2018-07-23 Mon>
+*** DONE mssql字符集问题解决
+    CLOSED: [2018-07-23 Mon 11:49]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-23 Mon 11:49]
+    :END:
+*** TODO 某用户登录不了
+*** DONE content的内容显示问题
+    CLOSED: [2018-07-23 Mon 20:05]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-23 Mon 20:05]
+    :END:
 ** <2018-07-05 Thu>
 *** DONE assetTag只可以输入： 大小写字母，数字，-_
     CLOSED: [2018-07-06 Fri 08:51]
