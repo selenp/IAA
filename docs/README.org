@@ -5,6 +5,7 @@
 #+CATEGORY: accenture-equipment
 
 #+OPTIONS: toc:2          only include two levels in TOC
+#+TITLE: IAA用户手册
 * 页面流程
   http://localhost:3022/#/delivery/main
 
@@ -76,6 +77,8 @@
    - 收发一览
    - 图片上载
    - excel导出
+** unit
+** e2e测试
 
 * API
 ** Account

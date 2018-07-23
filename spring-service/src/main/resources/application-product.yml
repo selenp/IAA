@@ -4,7 +4,7 @@ spring:
   datasource:
     username: iaa
     password: Gu0p1ng1234
-    url: jdbc:sqlserver://localhost:1433;databaseName=iaa
+    url: jdbc:sqlserver://localhost:1433;databaseName=iaa_2
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     show-sql: true
