@@ -37,7 +37,7 @@ function RouterConfig({ history, app }) {
                 return roles.indexOf('asset manager') > -1 || roles.indexOf('super admin') > -1 || roles.indexOf('it staff') > -1;
               }}
               redirectPath="/user/login"
-              />
+            />
           </Switch>
         </ConnectedRouter>
       </LocaleProvider>

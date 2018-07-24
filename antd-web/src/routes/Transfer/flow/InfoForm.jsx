@@ -14,6 +14,7 @@ const InfoForm = ({
   task,
   ldap2,
   styles,
+  data,
   getFieldDecorator,
   onValidateForm,
   formItemLayout,
@@ -44,7 +45,7 @@ const InfoForm = ({
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('姓名')}>
-      {ldap2.data1.cn ? ldap2.data1.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
+      {ldap2.data1.cn ? ldap2.data1.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击EID的“查询”按钮进行验证')}] </div>)}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('至EID')}>
       {getFieldDecorator('toEid', {
@@ -66,7 +67,7 @@ const InfoForm = ({
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('姓名')}>
-      {ldap2.data2.cn ? ldap2.data2.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
+      {ldap2.data2.cn ? ldap2.data2.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击EID的“查询”按钮进行验证')}] </div>)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}
@@ -76,9 +77,11 @@ const InfoForm = ({
         </span>
       }
     >
-      {getFieldDecorator('remarks')(
-        <TextArea style={{ minHeight: 32 }} placeholder={t('如有必要， 请输入一些备注信息')} rows={4} />
-      )}
+      {getFieldDecorator('remarks', {
+      initialValue: data.remarks,
+    })(
+      <TextArea style={{ minHeight: 32 }} placeholder={t('如有必要， 请输入一些备注信息')} rows={4} />
+    )}
     </Form.Item>
     <Form.Item
       wrapperCol={{

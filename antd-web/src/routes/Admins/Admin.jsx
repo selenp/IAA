@@ -181,7 +181,7 @@ class Admin extends PureComponent {
         )}
           </FormItem>
           <Form.Item {...formItemLayout} label={t('姓名')}>
-            {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
+            {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击EID的“查询”按钮进行验证')}] </div>)}
           </Form.Item>
           <Form.Item {...formItemLayout} label={t('角色')}>
             {getFieldDecorator('roles', {

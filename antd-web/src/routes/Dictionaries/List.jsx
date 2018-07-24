@@ -122,7 +122,7 @@ class TableList extends PureComponent {
           return (
             <pre>
               <Link to={`/system/dictionary/${row.id}`}>
-                {val.indexOf('password') > -1 ? '******' : val}
+                {row.category.indexOf('password') > -1 ? '******' : val}
               </Link>
             </pre>
           );

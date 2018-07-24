@@ -32,7 +32,7 @@ const MoreBtn = ({
     }
   >
     <a>
-    <Tag color={progressColor[item.progress]}>{t(progressTitle[item.progress])}</Tag>{' '}
+      <Tag color={progressColor[item.progress]}>{t(progressTitle[item.progress])}</Tag>{' '}
       <Icon type="down" />
     </a>
   </Dropdown>
@@ -51,12 +51,23 @@ const TaskItem = ({
     <List.Item.Meta
       title={
         <span>
-          <Link to={`/transfer/borrow/info?task=${item.id}`}>
-            {t('用户')}
-            <span>{` ${item.eid} `}</span>
-            {t('提交了一个任务')}
-            {` "${t(item.category)}" `}
-          </Link>
+          {
+            item.progress === 'finished' ? (
+              <div>
+                {t('用户')}
+                <span>{` ${item.eid} `}</span>
+                {t('提交了一个任务')}
+                {` "${t(item.category)}" `}
+              </div>
+            ) : (
+              <Link to={`/transfer/borrow/info?task=${item.id}`}>
+                {t('用户')}
+                <span>{` ${item.eid} `}</span>
+                {t('提交了一个任务')}
+                {` "${t(item.category)}" `}
+              </Link>
+            )
+                }
           &nbsp;
           <span>{`${t('希望日期')} ${moment(item.dueDate).format('YYYY-MM-DD')}`}</span>
         </span>

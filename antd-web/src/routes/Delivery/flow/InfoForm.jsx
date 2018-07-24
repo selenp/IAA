@@ -17,25 +17,26 @@ const InfoForm = ({
   t,
   ldap,
   styles,
+  data,
   getFieldDecorator,
   onValidateForm,
   formItemLayout,
   projectNames,
   businessUnits,
   locationBuildings,
-  locationFloors,
   handleSeachEid,
   handleInitLdap,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label="EID">
       {getFieldDecorator('eid', {
-              rules: [
-                {
-                  required: true,
-                  message: t('请输入EID'),
-                },
-              ],
+        initialValue: data.eid,
+        rules: [
+          {
+            required: true,
+            message: t('请输入EID'),
+          },
+        ],
         })(
           <Search
             maxLength={100}
@@ -47,32 +48,11 @@ const InfoForm = ({
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('姓名')}>
-    {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label={t('项目')}>
-      {getFieldDecorator('projectName', {
-              rules: [
-                {
-                  message: t('请输入或选择项目'),
-                },
-              ],
-            })(
-              <Select
-                mode="combobox"
-                style={{ width: '100%' }}
-                maxLength={100}
-                placeholder={t('请输入或选择项目')}
-              >
-                {
-                  projectNames.map(d => (
-                    <Option key={d}>{d}</Option>
-                  ))
-                }
-              </Select>
-            )}
+      {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击EID的“查询”按钮进行验证')}] </div>)}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('部门')}>
       {getFieldDecorator('businessUnit', {
+        initialValue: data.businessUnit,
               rules: [
                 {
                   required: true,
@@ -94,8 +74,32 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t('办公地点')}>
+    <Form.Item {...formItemLayout} label={t('项目')}>
+      {getFieldDecorator('projectName', {
+        initialValue: data.projectName,
+              rules: [
+                {
+                  message: t('请输入或选择项目'),
+                },
+              ],
+            })(
+              <Select
+                mode="combobox"
+                style={{ width: '100%' }}
+                maxLength={100}
+                placeholder={t('请输入或选择项目')}
+              >
+                {
+                  projectNames.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
+              </Select>
+            )}
+    </Form.Item>
+    <Form.Item {...formItemLayout} label={t('楼号')}>
       {getFieldDecorator('locationBuilding', {
+        initialValue: data.locationBuilding,
               rules: [
                 {
                   message: t('请输入您办公地点的楼号'),
@@ -116,30 +120,9 @@ const InfoForm = ({
               </Select>
             )}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t('楼层')}>
-      {getFieldDecorator('locationFloor', {
-              rules: [
-                {
-                  message: t('请输入您办公地点的楼层'),
-                },
-              ],
-      })(
-        <Select
-          mode="combobox"
-          style={{ width: '100%' }}
-          maxLength={100}
-          placeholder={t('请输入您办公地点的楼层')}
-        >
-          {
-                  locationFloors.map(d => (
-                    <Option key={d}>{d}</Option>
-                  ))
-                }
-        </Select>
-              )}
-    </Form.Item>
     <Form.Item {...formItemLayout} label={t('座位号')}>
       {getFieldDecorator('locationSeat', {
+        initialValue: data.locationSeat,
               rules: [
                 {
                   message: t('请输入您办公地点的座位号'),
@@ -155,12 +138,14 @@ const InfoForm = ({
         </span>
             }
     >
-      {getFieldDecorator('remarks')(
-        <TextArea
-          style={{ minHeight: 32 }}
-          placeholder={t('如有必要， 请输入一些备注信息')}
-          rows={4}
-        />
+      {getFieldDecorator('remarks', {
+        initialValue: data.remarks,
+            })(
+              <TextArea
+                style={{ minHeight: 32 }}
+                placeholder={t('如有必要， 请输入一些备注信息')}
+                rows={4}
+              />
             )}
     </Form.Item>
     <Form.Item

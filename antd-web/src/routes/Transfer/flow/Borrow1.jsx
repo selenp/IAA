@@ -14,40 +14,9 @@ const formItemLayout = {
     span: 19,
   },
 };
-const getQuery = (location, param) => {
-  let v = '';
-  if (location.search && location.search.startsWith('?')) {
-    v = location.search.split(/[\?#&]/).reduce((s, c) => {
-      const t = c.split('=');
-      s[t[0]] = t[1];
-      return s;
-    }, {})[param];
-    v = v ? decodeURIComponent(v) : '';
-  }
-  return v;
-};
 
 @Form.create()
 class Step1 extends React.PureComponent {
-  componentDidMount() {
-    const { dispatch, location } = this.props;
-
-    // search string
-    const taskId = getQuery(location, 'task');
-    if (taskId) {
-      dispatch({
-        type: 'task/fetch',
-        id: taskId,
-      });
-    }
-
-    dispatch({
-      type: 'transfer/initData',
-      payload: {
-        taskId,
-      },
-    });
-  }
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
@@ -86,7 +55,7 @@ class Step1 extends React.PureComponent {
 
   render() {
     const { t } = this.props;
-    const { form, dispatch, currentUser, task, ldap2 } = this.props;
+    const { form, data, dispatch, currentUser, task, ldap2 } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
       if (!ldap2.data1.cn || !ldap2.data2.cn) {
@@ -109,6 +78,7 @@ class Step1 extends React.PureComponent {
           task={task}
           ldap2={ldap2}
           styles={styles}
+          data={data}
           onValidateForm={onValidateForm}
           getFieldDecorator={getFieldDecorator}
           formItemLayout={formItemLayout}
@@ -132,7 +102,8 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ user, task, ldap2 }) => ({
+export default connect(({ transfer, user, task, ldap2 }) => ({
+  data: transfer.step,
   ldap2,
   currentUser: user.currentUser,
   task: task.data,

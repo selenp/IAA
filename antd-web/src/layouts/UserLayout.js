@@ -81,7 +81,7 @@ class UserLayout extends React.PureComponent {
               <Link to="/delivery/main">{t('设备取还')}</Link>
               <Link to="/">{t('管理员登录')}</Link>
               <a href="http://file.tttalk.org/tmp/equipment/README.html" target="_blank">
-                {t('使用说明')}
+                {t('使用手册')}
               </a>
             </div>
             <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>

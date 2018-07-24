@@ -144,6 +144,20 @@ class TableList extends PureComponent {
       </Form>
     );
   }
+  deleteAnnouncement(item, deleteFlag) {
+    const { dispatch, t } = this.props;
+    dispatch({
+      type: 'announcement/submit',
+      payload: {
+        ...item,
+        deleteFlag,
+      },
+      t,
+    });
+
+    item.deleteFlag = deleteFlag;
+    this.forceUpdate();
+  }
   render() {
     const { t } = this.props;
     const {
@@ -180,7 +194,12 @@ class TableList extends PureComponent {
               itemLayout="vertical"
               loadMore={loadMore}
               dataSource={list}
-              renderItem={item => <AnnouncementItem item={item} />}
+              renderItem={item => (
+                <AnnouncementItem
+                  item={item}
+                  deleteAnnouncement={(announcement, deleteFlag) => this.deleteAnnouncement(announcement, deleteFlag)}
+                />
+              )}
             />
           </div>
         </Card>

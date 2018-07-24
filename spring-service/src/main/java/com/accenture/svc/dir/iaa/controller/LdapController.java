@@ -45,7 +45,7 @@ public class LdapController extends AbstractController {
     public @ResponseBody
     Map<String, Object> search(@PathVariable String uid) {
         try {
-            Map<String, Object> conf = getLdapConf();
+            Map<String, Object> conf = getConf("system.ldap.%");
 
             LdapContext ctx = getLdapContext(
                     (String) conf.get("system.ldap.url"),

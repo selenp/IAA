@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { connect } from 'dva';
 import { translate } from "react-i18next";
 import { Route, Redirect, Switch } from 'dva/router';
 import { Card, Steps } from 'antd';
@@ -9,7 +10,13 @@ import styles from '../style.less';
 
 const { Step } = Steps;
 
+@connect()
 class StepForm extends PureComponent {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'delivery/initData',
+    });
+  }
   getCurrentStep() {
     const { location } = this.props;
     const { pathname } = location;

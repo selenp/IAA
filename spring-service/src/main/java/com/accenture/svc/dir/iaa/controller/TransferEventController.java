@@ -104,9 +104,9 @@ public class TransferEventController extends AbstractController {
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            InternetAddress from = new InternetAddress(fromEmail, fromPerson);
-            helper.setFrom(from);
-            helper.setCc(from);
+            Map<String, Object> conf = getConf("system.mail.%");
+            helper.setFrom((String)conf.get("system.mail.from"));
+            helper.setCc(((String)conf.get("system.mail.cc")).split(","));
             helper.setTo(to);
             helper.setSubject("Receipt：IT User's Device Retrieval");
             helper.setText(body);

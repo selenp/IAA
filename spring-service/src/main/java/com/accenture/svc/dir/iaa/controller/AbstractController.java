@@ -54,8 +54,6 @@ class AbstractController {
     String ofUrl;
     @Value("${spring.mail.username}")
     String fromEmail;
-    @Value("${spring.mail.person}")
-    String fromPerson;
     @Autowired
     AdminRepository adminRepository;
     @Autowired
@@ -100,22 +98,25 @@ class AbstractController {
         if (StringUtils.isEmpty(data)) {
             return;
         }
-        try {
-            Specification<Dictionary> spec = (Specification<Dictionary>) (root, query, cb) -> {
-                List<Predicate> list = new ArrayList<>();
-                list.add(cb.equal(root.get("category").as(String.class), category));
-                list.add(cb.equal(root.get("data").as(String.class), data));
+        Specification<Dictionary> spec = (Specification<Dictionary>) (root, query, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+            list.add(cb.equal(root.get("category").as(String.class), category));
+            list.add(cb.equal(root.get("data").as(String.class), data));
 
-                Predicate[] p2 = new Predicate[list.size()];
-                query.where(cb.and(list.toArray(p2)));
-                return query.getRestriction();
-            };
-            Optional<Dictionary> optDic = dictionaryRepository.findOne(spec);
+            Predicate[] p2 = new Predicate[list.size()];
+            query.where(cb.and(list.toArray(p2)));
+            return query.getRestriction();
+        };
+        Optional<Dictionary> optDic = dictionaryRepository.findOne(spec);
+        try {
+            Dictionary dic;
             if (optDic.isPresent()) {
-                dictionaryRepository.save(optDic.get().rankUp());
+                dic = optDic.get().rankUp();
             } else {
-                dictionaryRepository.save(Dictionary.as(category, categoryName, data));
+                dic = Dictionary.as(category, categoryName, data);
             }
+            log.info(dic);
+            dictionaryRepository.save(dic);
         } catch (Exception e) {
             log.error(e);
         }
@@ -148,9 +149,9 @@ class AbstractController {
         return map;
     }
 
-    Map<String, Object> getLdapConf() {
+    Map<String, Object> getConf(String pattern) {
         List<Dictionary> dictionaries = dictionaryRepository.findAll((Specification<Dictionary>) (root, query, cb) -> query
-                .where(cb.like(root.get("category").as(String.class), "system.ldap.%"))
+                .where(cb.like(root.get("category").as(String.class), pattern))
                 .getRestriction());
 
         Map<String, Object> map = new HashMap<>();

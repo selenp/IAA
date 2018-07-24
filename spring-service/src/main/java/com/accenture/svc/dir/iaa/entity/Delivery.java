@@ -22,9 +22,8 @@ public class Delivery {
     private String projectName;
     //  部门 Business Unit
     private String businessUnit;
-    //  办公地点 Location
+    //  楼号 Location
     private String locationBuilding;
-    private String locationFloor;
     private String locationSeat;
     //  日期 Effective Date
     private String borrowDate;
@@ -123,14 +122,6 @@ public class Delivery {
 
     public void setLocationBuilding(String locationBuilding) {
         this.locationBuilding = locationBuilding;
-    }
-
-    public String getLocationFloor() {
-        return locationFloor;
-    }
-
-    public void setLocationFloor(String locationFloor) {
-        this.locationFloor = locationFloor;
     }
 
     public String getLocationSeat() {
@@ -335,7 +326,7 @@ public class Delivery {
     }
 
     public String getLocation() {
-        return String.format("%s-%s-%s", locationBuilding, locationFloor, locationSeat);
+        return String.format("%s-%s", locationBuilding, locationSeat);
     }
 
     public String getLaptopModel() {

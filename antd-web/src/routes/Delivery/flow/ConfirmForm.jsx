@@ -36,8 +36,8 @@ const ConfirmForm = ({
     <Form.Item {...formItemLayout} label={t('部门')}>
       {data.businessUnit}
     </Form.Item>
-    <Form.Item {...formItemLayout} label={t('办公地点')}>
-      {`${data.locationBuilding || ''}-${data.locationFloor || ''}-${data.locationSeat || ''}`}
+    <Form.Item {...formItemLayout} label={t('楼号')}>
+      {`${data.locationBuilding || ''}-${data.locationSeat || ''}`}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('备注')}>
       {data.remarks}
@@ -108,7 +108,7 @@ const ConfirmForm = ({
                 mode="tags"
                 style={{ width: '100%' }}
                 maxLength={100}
-                placeholder="19, 21"
+                placeholder="19, 21*2"
               >
                 {
                   monitorSizes.map(d => (

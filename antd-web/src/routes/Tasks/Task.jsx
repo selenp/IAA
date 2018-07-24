@@ -82,8 +82,8 @@ class Task extends PureComponent {
           <DescriptionList size="large" style={{ marginBottom: 32 }}>
             <Description term={t('主题')}>{data.category}</Description>
             <Description term={t('状态')}>{data.progress}</Description>
-            <Description term={t('结束日期')}>
-              {moment(data.dueDate).format('YYYY-MM-DD HH:mm')}
+            <Description term={t('期望日期')}>
+              {moment(data.dueDate).format('YYYY-MM-DD')}
             </Description>
             <Description term={t('发送给')}>{data.assignToRole}</Description>
           </DescriptionList>
@@ -107,16 +107,19 @@ class Task extends PureComponent {
     return (
       <Card bordered={false}>
         <Form onSubmit={this.handleSubmit} style={{ marginTop: 8 }}>
-          <FormItem label={<span>{t('结束日期')}</span>}>
+          <FormItem
+            label={<span>{t('期望日期')}</span>}
+            help={t('默认请于期望日期的上午9点钟前处理设备移交')}
+          >
             {getFieldDecorator('dueDate', {
               initialValue: moment(this.state.data.dueDate),
               rules: [
                 {
                   required: true,
-                  message: t('请输入结束日期'),
+                  message: t('请输入期望日期'),
                 },
               ],
-            })(<DatePicker showTime format="YYYY-MM-DD HH:mm" placeholder={t('请输入结束日期')} />)}
+            })(<DatePicker format="YYYY-MM-DD" placeholder={t('请输入期望日期')} />)}
           </FormItem>
           <FormItem label={<span>{t('主题')}</span>}>
             {getFieldDecorator('category', {

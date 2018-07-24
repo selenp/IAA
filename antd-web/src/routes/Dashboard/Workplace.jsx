@@ -27,7 +27,7 @@ class Workplace extends PureComponent {
     dispatch({
       type: 'announcements/fetchList',
       payload: {
-        progresses: ['reserved', 'processing'].join(','),
+        deleteFlag: false,
       },
     });
   }

@@ -10,7 +10,7 @@
 <configuration>
   
   <!-- ID of the service. It should be unique accross the Windows system-->
-  <id>accenture-iaa-20180706</id>
+  <id>accenture-iaa-20180724</id>
   <!-- Display name of the service -->
   <name>IAA</name>
   <!-- Service description -->
@@ -18,6 +18,6 @@
   
   <!-- Path to the executable, which should be started -->
   <executable>java</executable>
-  <arguments>-jar accenture-iaa-20180706.jar</arguments>
+  <arguments>-jar accenture-iaa-20180724.jar</arguments>
 
 </configuration>

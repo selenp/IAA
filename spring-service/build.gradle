@@ -14,7 +14,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'accenture-iaa'
-    version = '20180706'
+    version = '20180724'
     launchScript()
 }
 

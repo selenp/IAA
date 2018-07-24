@@ -21,8 +21,6 @@ public class SendMailTests {
     JavaMailSender sender;
     @Value("${spring.mail.username}")
     private String fromEmail;
-    @Value("${spring.mail.person}")
-    private String fromPerson;
 
     @Test
     public void sendSimpleMail() throws Exception {
@@ -30,9 +28,8 @@ public class SendMailTests {
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        InternetAddress from = new InternetAddress(fromEmail, fromPerson);
-        helper.setFrom(from);
-        helper.setCc(from);
+        helper.setFrom(fromEmail);
+        helper.setCc(fromEmail);
         helper.setTo("6055120@qq.com,oizhaolei@qq.com".split(","));
 
         helper.setSubject("Receipt：Ordinary User's Device Retrieval");

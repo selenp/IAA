@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { connect } from 'dva';
 import { translate } from "react-i18next";
 import { Route, Redirect, Switch } from 'dva/router';
 import { Card, Steps } from 'antd';
@@ -9,7 +10,39 @@ import styles from '../style.less';
 
 const { Step } = Steps;
 
+const getQuery = (location, param) => {
+  let v = '';
+  if (location.search && location.search.startsWith('?')) {
+    v = location.search.split(/[\?#&]/).reduce((s, c) => {
+      const t = c.split('=');
+      s[t[0]] = t[1];
+      return s;
+    }, {})[param];
+    v = v ? decodeURIComponent(v) : '';
+  }
+  return v;
+};
+@connect()
 class StepForm extends PureComponent {
+  componentDidMount() {
+    const { dispatch, location } = this.props;
+
+    // search string
+    const taskId = getQuery(location, 'task');
+    if (taskId) {
+      dispatch({
+        type: 'task/fetch',
+        id: taskId,
+      });
+    }
+
+    dispatch({
+      type: 'transfer/initData',
+      payload: {
+        taskId,
+      },
+    });
+  }
   getCurrentStep() {
     const { location } = this.props;
     const { pathname } = location;

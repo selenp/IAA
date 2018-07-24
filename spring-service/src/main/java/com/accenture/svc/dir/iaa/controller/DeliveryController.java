@@ -58,7 +58,6 @@ public class DeliveryController extends AbstractController {
         mergeDictionary(dictionaryRepository, "businessUnit", "部门", e.getBusinessUnit());
         mergeDictionary(dictionaryRepository, "laptopModel", "笔记本型号", e.getLaptopModel());
         mergeDictionary(dictionaryRepository, "locationBuilding", "楼号", e.getLocationBuilding());
-        mergeDictionary(dictionaryRepository, "locationFloor", "楼层", e.getLocationFloor());
         return e;
     }
 
@@ -101,9 +100,9 @@ public class DeliveryController extends AbstractController {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            InternetAddress from = new InternetAddress(fromEmail, fromPerson);
-            helper.setFrom(from);
-            helper.setCc(from);
+            Map<String, Object> conf = getConf("system.mail.%");
+            helper.setFrom((String)conf.get("system.mail.from"));
+            helper.setCc(((String)conf.get("system.mail.cc")).split(","));
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(body);

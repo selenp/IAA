@@ -74,6 +74,7 @@ public class AnnouncementController extends AbstractController {
     Object getAll(
             @RequestHeader("Authorization") String authorization,
             @RequestParam(required = false) String eid,
+            @RequestParam(required = false) String deleteFlag,
             @RequestParam(required = false, defaultValue = "false") boolean xlsx,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) throws IOException {
@@ -94,6 +95,9 @@ public class AnnouncementController extends AbstractController {
 
             if (!StringUtils.isEmpty(eid)) {
                 list.add(cb.equal(root.get("eid").as(String.class), eid));
+            }
+            if (!StringUtils.isEmpty(deleteFlag)) {
+                list.add(cb.equal(root.get("deleteFlag").as(Boolean.class), Boolean.valueOf(deleteFlag)));
             }
 
             Predicate[] p2 = new Predicate[list.size()];

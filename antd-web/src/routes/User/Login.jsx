@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Alert } from 'antd';
-import QRCode from 'qrcode.react';
 
 import Login from 'components/Login';
 import styles from './Login.less';
@@ -51,7 +50,7 @@ class LoginPage extends Component {
     return (
       <div className={styles.main}>
         <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
-          <Tab key="account" tab={t('账户密码登录')}>
+          <Tab key="account" tab={t('EID登录')}>
             {login.status === 'error' &&
               login.type === 'account' &&
               !login.submitting &&
@@ -59,17 +58,11 @@ class LoginPage extends Component {
             <UserName name="userid" placeholder={t('您的EID')} />
             <Password name="password" placeholder={t('密码')} />
           </Tab>
-          <Tab key="scan" tab={t('扫码登录')}>
-            <QRCode
-              value="https://test.tttalk.org/mp/socket/a-fake-socket"
-              size={360}
-            />
-          </Tab>
           <Submit loading={submitting}>{t('登录')}</Submit>
         </Login>
         <div className={styles.desc}>
           <p>
-            {t('如果忘记密码，请联系上级管理员进行密码重置')}
+            {t('如果忘记EID密码，请联系上级管理员进行密码重置')}
           </p>
         </div>
       </div>
