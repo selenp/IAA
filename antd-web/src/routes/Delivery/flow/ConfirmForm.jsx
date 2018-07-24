@@ -37,7 +37,7 @@ const ConfirmForm = ({
       {data.businessUnit}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('办公地点')}>
-      {`${data.locationBuilding}-${data.locationFloor}-${data.locationSeat}`}
+      {`${data.locationBuilding || ''}-${data.locationFloor || ''}-${data.locationSeat || ''}`}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('备注')}>
       {data.remarks}

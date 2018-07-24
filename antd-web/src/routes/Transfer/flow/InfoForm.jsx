@@ -38,12 +38,13 @@ const InfoForm = ({
           maxLength={100}
           placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid1(value)}
+          onBlur={obj => handleSeachEid1(obj.target.value)}
           onChange={() => handleInitLdap1()}
         />
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('姓名')}>
-      {ldap2.data1.cn ? ldap2.data1.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
+      {ldap2.data1.cn ? ldap2.data1.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('至EID')}>
       {getFieldDecorator('toEid', {
@@ -59,12 +60,13 @@ const InfoForm = ({
           maxLength={100}
           placeholder={t('请输入EID')}
           onSearch={value => handleSeachEid2(value)}
+          onBlur={obj => handleSeachEid2(obj.target.value)}
           onChange={() => handleInitLdap2()}
         />
       )}
     </Form.Item>
     <Form.Item {...formItemLayout} label={t('姓名')}>
-      {ldap2.data2.cn ? ldap2.data2.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
+      {ldap2.data2.cn ? ldap2.data2.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
     </Form.Item>
     <Form.Item
       {...formItemLayout}

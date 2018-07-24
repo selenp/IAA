@@ -175,12 +175,13 @@ class Admin extends PureComponent {
             maxLength={100}
             placeholder={t('请输入EID')}
             onSearch={value => this.handleSeachEid(value)}
+            onBlur={obj => this.handleSeachEid(obj.target.value)}
             onChange={() => this.handleInitLdap()}
           />
         )}
           </FormItem>
           <Form.Item {...formItemLayout} label={t('姓名')}>
-            {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('等待EID的LDAP验证')}] </div>)}
+            {ldap.data.cn ? ldap.data.cn : (<div style={{color:'red', fontStyle:'italic'}}> [{t('点击查询按钮进行EID的验证')}] </div>)}
           </Form.Item>
           <Form.Item {...formItemLayout} label={t('角色')}>
             {getFieldDecorator('roles', {

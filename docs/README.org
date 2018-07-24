@@ -461,7 +461,27 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-23 Mon 11:49]
     :END:
-*** TODO 某用户登录不了
+*** DONE 某用户登录不了
+    CLOSED: [2018-07-24 Tue 10:28]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-24 Tue 10:28]
+    :END:
+*** TODO 需要有个脱离ldap的账户，能登进去修改ldap的地址
+*** NEXT login界面的优化问题
+*** DONE 各种undefined问题
+    CLOSED: [2018-07-24 Tue 11:16]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-24 Tue 11:16]
+    :END:
+*** DONE eid在lostfocus时，去验证
+    CLOSED: [2018-07-24 Tue 11:16]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-24 Tue 11:16]
+    :END:
+*** TODO 返回到第一步后，信息应该保留
+*** 备份，恢复机制
+*** 处理完毕 的不能跳入到
+*** NEXT ldap组
 *** DONE content的内容显示问题
     CLOSED: [2018-07-23 Mon 20:05]
     :LOGBOOK:
@@ -683,7 +703,7 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
      :LOGBOOK:
      - State "DONE"       from "NEXT"       [2018-06-05 Tue 22:43]
      :END:
-*** 设备编号
+*** 设备序列号
 **** DONE 点击，看到所有履历（用户借还，IT借还）
      CLOSED: [2018-06-07 Thu 17:18]
      :LOGBOOK:

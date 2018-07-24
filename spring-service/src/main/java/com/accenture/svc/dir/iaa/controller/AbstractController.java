@@ -100,20 +100,24 @@ class AbstractController {
         if (StringUtils.isEmpty(data)) {
             return;
         }
-        Specification<Dictionary> spec = (Specification<Dictionary>) (root, query, cb) -> {
-            List<Predicate> list = new ArrayList<>();
-            list.add(cb.equal(root.get("category").as(String.class), category));
-            list.add(cb.equal(root.get("data").as(String.class), data));
+        try {
+            Specification<Dictionary> spec = (Specification<Dictionary>) (root, query, cb) -> {
+                List<Predicate> list = new ArrayList<>();
+                list.add(cb.equal(root.get("category").as(String.class), category));
+                list.add(cb.equal(root.get("data").as(String.class), data));
 
-            Predicate[] p2 = new Predicate[list.size()];
-            query.where(cb.and(list.toArray(p2)));
-            return query.getRestriction();
-        };
-        Optional<Dictionary> optDic = dictionaryRepository.findOne(spec);
-        if (optDic.isPresent()) {
-            dictionaryRepository.save(optDic.get().rankUp());
-        } else {
-            dictionaryRepository.save(Dictionary.as(category, categoryName, data));
+                Predicate[] p2 = new Predicate[list.size()];
+                query.where(cb.and(list.toArray(p2)));
+                return query.getRestriction();
+            };
+            Optional<Dictionary> optDic = dictionaryRepository.findOne(spec);
+            if (optDic.isPresent()) {
+                dictionaryRepository.save(optDic.get().rankUp());
+            } else {
+                dictionaryRepository.save(Dictionary.as(category, categoryName, data));
+            }
+        } catch (Exception e) {
+            log.error(e);
         }
     }
 

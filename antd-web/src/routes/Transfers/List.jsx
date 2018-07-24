@@ -151,7 +151,7 @@ class TableList extends PureComponent {
           ),
       },
       {
-        title: t('设备编号'),
+        title: t('设备序列号'),
         className: styles.dataTableCell,
         dataIndex: 'assetTags',
         render(val) {

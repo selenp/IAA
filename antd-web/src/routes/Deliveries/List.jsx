@@ -123,14 +123,14 @@ class TableList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label={t('设备编号')}>
+            <FormItem label={t('设备序列号')}>
               {getFieldDecorator('assetTag', {
                 rules: [
                   {
-                    message: t('请输入设备编号'),
+                    message: t('请输入设备序列号'),
                   },
                 ],
-              })(<Input placeholder={t('请输入设备编号')} />)}
+              })(<Input placeholder={t('请输入设备序列号')} />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -218,7 +218,7 @@ class TableList extends PureComponent {
           ),
       },
       {
-        title:t('设备编号'),
+        title:t('设备序列号'),
         dataIndex: 'assetTag',
         render: v => <Link to={`/assettag/${encodeURIComponent(v)}`}>{v}</Link>,
       },

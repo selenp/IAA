@@ -122,7 +122,7 @@ class ResturnList extends PureComponent {
           ),
       },
       {
-        title: t('设备编号'),
+        title: t('设备序列号'),
         dataIndex: 'assetTag',
         render: v => <Link to={`/assettag/${encodeURIComponent(v)}`}>{v}</Link>,
       },
