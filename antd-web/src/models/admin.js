@@ -37,7 +37,7 @@ export default {
         data: payload,
       };
     },
-    deletedMember(state, { payload }) {
+    deletedMember(state) {
       return {
         data: {
           ...state.data,

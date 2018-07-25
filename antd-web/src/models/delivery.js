@@ -44,7 +44,7 @@ export default {
   },
 
   reducers: {
-    initData(state, { payload }) {
+    initData() {
       return {
         step: {
         },

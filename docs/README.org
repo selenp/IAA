@@ -469,6 +469,11 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-25 Wed 12:47]
     :END:
+*** DONE 图片压缩方法： GRAY，1100*850
+    CLOSED: [2018-07-25 Wed 20:22]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-25 Wed 20:22]
+    :END:
 ** <2018-07-24 Tue>
 *** DONE password不能明文显示
     CLOSED: [2018-07-24 Tue 17:41]

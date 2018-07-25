@@ -1,5 +1,5 @@
-import { queryEntities } from '../services/api';
 import { message } from 'antd';
+import { queryEntities } from '../services/api';
 import { FILE_URL } from '../utils/utils';
 
 export default {

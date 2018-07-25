@@ -1,5 +1,5 @@
-import { queryAdmins } from '../services/api';
 import { message } from 'antd';
+import { queryAdmins, deleteAdmin } from '../services/api';
 import { FILE_URL } from '../utils/utils';
 
 export default {
@@ -20,6 +20,14 @@ export default {
         payload: response,
       });
     },
+    *delete({ id, t }, { call, put }) {
+      yield call(deleteAdmin, id);
+      message.success(t('删除完毕'));
+      yield put({
+        type: 'remove',
+        id,
+      });
+    },
     *xlsx({ payload, t }, { call }) {
       const response = yield call(queryAdmins, payload);
       message.success(t('文件下载中。。。'));
@@ -29,6 +37,13 @@ export default {
   },
 
   reducers: {
+    remove(state, {id}) {
+      const newState = { ...state };
+      const tobeDelete = newState.data.list.findIndex((e) => e.id === id);
+      newState.data.list.splice(tobeDelete, 1);
+
+      return newState;
+    },
     save(state, { payload }) {
       return {
         ...state,

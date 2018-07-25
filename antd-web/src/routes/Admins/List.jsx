@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { translate } from "react-i18next";
 import { connect } from 'dva';
 import { Link } from 'dva/router';
@@ -181,6 +181,23 @@ class TableList extends PureComponent {
             </div>
           ));
         },
+      },
+      {
+        title: t('操作'),
+        width: 120,
+        render: (val, row) => (
+          <Fragment>
+            <a onClick={() => this.props.dispatch({
+                type: 'admins/delete',
+                id: row.id,
+                t,
+            })}
+            >
+              {t('删除')}
+              <Icon type="delete" />
+            </a>
+          </Fragment>
+        ),
       },
     ];
 

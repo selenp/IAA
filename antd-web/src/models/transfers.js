@@ -1,5 +1,5 @@
-import { queryTransfers } from '../services/api';
 import { message } from 'antd';
+import { queryTransfers } from '../services/api';
 import { FILE_URL } from '../utils/utils';
 
 export default {
