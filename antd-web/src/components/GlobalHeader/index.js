@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { translate } from "react-i18next";
-import { Button, Icon, Spin, Avatar, Divider } from 'antd';
+import { Button, Icon,  Radio, Spin, Avatar, Divider } from 'antd';
 import Debounce from 'lodash-decorators/debounce';
 import { Link } from 'dva/router';
 import styles from './index.less';
@@ -22,7 +22,11 @@ class GlobalHeader extends PureComponent {
     window.dispatchEvent(event);
   }
   render() {
-    const { t } = this.props;
+    const { t, i18n } = this.props;
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
+
     const {
       currentUser = {},
       collapsed,
@@ -47,6 +51,12 @@ class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
+          <span className={`${styles.action} ${styles.account}`}>
+            <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
+              <Radio.Button key="en" value="en">{t('en')}</Radio.Button>
+              <Radio.Button key="zh" value="zh">{t('zh')}</Radio.Button>
+            </Radio.Group>
+          </span>
           {currentUser.cn ? (
               <span className={`${styles.action} ${styles.account}`}>
                 <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />

@@ -191,11 +191,6 @@ class BasicLayout extends React.PureComponent {
     }
   };
   render() {
-    const { t, i18n } = this.props;
-    const changeLanguage = lng => {
-      i18n.changeLanguage(lng);
-    };
-
     const {
       currentUser,
       collapsed,
@@ -254,14 +249,6 @@ class BasicLayout extends React.PureComponent {
               <Route render={NotFound} />
             </Switch>
           </Content>
-          <div className={styles.globalFooter}>
-            <div className={styles.links}>
-            <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
-              <Radio.Button key="en" value="en">{t('en')}</Radio.Button>
-              <Radio.Button key="zh" value="zh">{t('zh')}</Radio.Button>
-            </Radio.Group>
-            </div>
-          </div>
         </Layout>
       </Layout>
     );

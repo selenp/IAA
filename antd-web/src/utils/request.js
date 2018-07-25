@@ -67,6 +67,11 @@ export default function request(url, options) {
     }
   }
 
+  if (url.indexOf('?') > -1) {
+    url = `${url}&t=${new Date().getTime()}`;
+  } else {
+    url = `${url}?t=${new Date().getTime()}`;
+  }
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => {

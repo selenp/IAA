@@ -463,13 +463,23 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
   - application.properties
 
 * 会议
+** <2018-07-25 Wed>
+*** DONE IE的cache问题
+    CLOSED: [2018-07-25 Wed 12:47]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-25 Wed 12:47]
+    :END:
 ** <2018-07-24 Tue>
 *** DONE password不能明文显示
     CLOSED: [2018-07-24 Tue 17:41]
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-24 Tue 17:41]
     :END:
-*** TODO footer在IE上，跑到页面中间去了
+*** DONE footer在IE上，跑到页面中间去了
+    CLOSED: [2018-07-25 Wed 12:47]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-25 Wed 12:47]
+    :END:
 *** DONE 楼层不要，合并到座位
     CLOSED: [2018-07-24 Tue 19:17]
     :LOGBOOK:

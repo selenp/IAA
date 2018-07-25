@@ -45,10 +45,7 @@ class UserLayout extends React.PureComponent {
     return title;
   }
   render() {
-    const { t, i18n } = this.props;
-    const changeLanguage = lng => {
-      i18n.changeLanguage(lng);
-    };
+    const { t } = this.props;
 
     const { routerData, match } = this.props;
     return (
@@ -84,10 +81,6 @@ class UserLayout extends React.PureComponent {
                 {t('使用手册')}
               </a>
             </div>
-            <Radio.Group defaultValue={i18n.language} onChange={(e) => changeLanguage(e.target.value)}>
-              <Radio.Button key="en" value="en">{t('en')}</Radio.Button>
-              <Radio.Button key="zh" value="zh">{t('zh')}</Radio.Button>
-            </Radio.Group>
           </div>
         </div>
       </DocumentTitle>

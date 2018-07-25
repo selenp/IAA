@@ -76,7 +76,7 @@ class Dictionary extends PureComponent {
     const { t } = this.props;
     const { dictionary: { data } } = this.props;
 
-    return data && (
+    return data && data.category && (
       <Card bordered={false}>
         <DescriptionList size="large" style={{ marginBottom: 32 }}>
           <Description term={t('分类')}>{data.category}</Description>
