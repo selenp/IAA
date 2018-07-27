@@ -17,12 +17,12 @@ class MainMenu extends Component {
       md: 12,
       lg: 12,
       xl: 12,
-      style: { marginBottom: 24 },
+      style: { marginBottom: 24, paddingLeft: 12, paddingRight: 12 },
     };
 
     return (
       <Fragment>
-        <Row gutter={24} style={{padding: 24}}>
+        <Row style={{padding: 24}}>
           <Col {...topColResponsiveProps}>
             <Link to="/delivery/borrow">
               <Button
