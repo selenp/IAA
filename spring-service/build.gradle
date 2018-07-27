@@ -33,6 +33,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mail')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.ldap:spring-ldap-core')
+    compile('javax.xml.bind:jaxb-api')
 
     compile files('libs/sqljdbc4-4.0.jar')
     compile "org.apache.poi:poi-ooxml:3.17"

@@ -185,7 +185,7 @@ class TableList extends PureComponent {
       {
         title: t('操作'),
         width: 120,
-        render: (val, row) => (
+        render: (val, row) => (row.userid !== this.props.currentUser.userid) && (
           <Fragment>
             <a onClick={() => this.props.dispatch({
                 type: 'admins/delete',
