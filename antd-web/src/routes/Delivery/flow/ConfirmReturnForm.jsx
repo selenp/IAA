@@ -135,27 +135,37 @@ const ConfirmForm = ({
           )}
         </Form.Item>
       ))}
-    {data.assetTag && (
+    {data.assetTag && data.machineType === 'desktop' && (
+    <Form.Item {...formItemLayout} label={t('显示器')} >
+        {data.monitorSize}
+    </Form.Item>
+  )}
+    {data.assetTag && data.machineType === 'laptop' && (
     <Form.Item {...formItemLayout} label={t('电源适配器&电源线')} >
       {data.acPowerAdapter?'Yes':'No'}
     </Form.Item>
   )}
-    {data.assetTag && (
+    {data.assetTag && data.machineType === 'laptop' && (
     <Form.Item {...formItemLayout} label={t('电脑锁')} >
       {data.securityCable?'Yes':'No'}
     </Form.Item>
   )}
-    {data.assetTag && (
+    {data.assetTag && data.machineType === 'laptop' && (
     <Form.Item {...formItemLayout} label={t('电脑包')}>
       {data.bag?'Yes':'No'}
     </Form.Item>
   )}
-    {data.assetTag && (
-    <Form.Item {...formItemLayout} label={t('鼠标')} >
+    {data.assetTag && data.machineType === 'laptop' && (
+    <Form.Item {...formItemLayout} label={t('鼠标')}>
+      {data.mouse?'Yes':'No'}
+    </Form.Item>
+  )}
+    {data.assetTag && data.machineType === 'desktop' && (
+    <Form.Item {...formItemLayout} label={t('键盘鼠标')} >
       {data.mouseKeyboard?'Yes':'No'}
     </Form.Item>
   )}
-    {data.assetTag && (
+    {data.assetTag && data.machineType === 'desktop' && (
     <Form.Item {...formItemLayout} label={t('网线')} >
       {data.lanCable?'Yes':'No'}
     </Form.Item>
@@ -172,6 +182,7 @@ const ConfirmForm = ({
             label={t('显示器')}
           >
             {getFieldDecorator('returnMonitorSize', {
+              initialValue: data.monitorSize,
               rules: [
                 {
                   required: true,
@@ -183,7 +194,7 @@ const ConfirmForm = ({
                   mode="tags"
                   style={{ width: '100%' }}
                   maxLength={100}
-                  placeholder="19, 21"
+                  placeholder="19, 21*2"
                 >
                   {
                   monitorSizes.map(d => (

@@ -13,14 +13,16 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(accountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        yield put(routerRedux.push('/'));
+      if (response) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: response,
+        });
+        // Login successfully
+        if (response.status === 'ok') {
+          reloadAuthorized();
+          yield put(routerRedux.push('/'));
+        }
       }
     },
     *logout(_, { put, select }) {

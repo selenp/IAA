@@ -485,7 +485,7 @@ npm run build
     - 编译
 #+BEGIN_SRC
 gradle build
-build/libs/accenture-iaa-20180724.jar
+build/libs/accenture-iaa-20180727.jar
 #+END_SRC
     - 确认 config/application.yml的参数
     - 正式环境里面, dictionary 表 system.ldap 的值如下
