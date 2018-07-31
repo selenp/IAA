@@ -42,11 +42,16 @@ class Step3 extends React.PureComponent {
     ctx.fillText(data.locationBuilding || '', 520, 168);
     ctx.fillText(data.locationSeat || '', 520, 187);
 
-    ctx.fillText(data.assetTag, 180, 293);
+    ctx.fillText(data.assetTag || '', 180, 293);
     ctx.fillText(data.serialTag ? data.serialTag.toUpperCase() : '', 520, 293);
 
-    ctx.fillText('*', data.machineType === 'laptop' ? 277 : 611, 312);
-
+    if (data.machineType === 'peripheral') {
+      ctx.fillText('*', 605, 427);
+    } else if(data.machineType === 'laptop') {
+      ctx.fillText('*', 277, 312);
+    } else if(data.machineType === 'desktop') {
+      ctx.fillText('*', 611, 312);
+    }
     if (data.machineType === 'laptop') {
       ctx.fillText(data.laptopModel || '', 180, 330);
 
@@ -58,6 +63,8 @@ class Step3 extends React.PureComponent {
       ctx.fillText(data.monitorSize, 600, 360);
       ctx.fillText(data.mouseKeyboard ? '*' : '', 673, 396);
       ctx.fillText(data.lanCable ? '*' : '', 673, 426);
+    } else if(data.machineType === 'peripheral'){
+      ctx.fillText(data.peripheralModel || '', 440, 460);
     }
 
 

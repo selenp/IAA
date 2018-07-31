@@ -25,6 +25,7 @@ const ConfirmForm = ({
   submitting,
   laptopModels,
   monitorSizes,
+  peripheralModels,
 }) => (
   <Form layout="horizontal" className={styles.stepForm}>
     <Form.Item {...formItemLayout} label={t('EID')}>
@@ -81,7 +82,7 @@ const ConfirmForm = ({
                   },
                 ],
               })(<Input maxLength={100} placeholder={t('请输入资产编号')} />)}
-      </Form.Item>
+        </Form.Item>
       )
     }
     {
@@ -242,6 +243,11 @@ const ConfirmForm = ({
                 maxLength={100}
                 placeholder={t('请输入配件信息')}
               >
+                {
+                  peripheralModels.map(d => (
+                    <Option key={d}>{d}</Option>
+                  ))
+                }
               </Select>
           )}
         </Form.Item>

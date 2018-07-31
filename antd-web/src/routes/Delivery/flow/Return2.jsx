@@ -32,6 +32,7 @@ class Step2 extends React.PureComponent {
       submitting,
       laptopModels,
       monitorSizes,
+      peripheralModels,
     } = this.props;
     const { getFieldDecorator, getFieldValue, validateFields } = form;
     const onPrev = () => {
@@ -70,6 +71,7 @@ class Step2 extends React.PureComponent {
           submitting={submitting}
           laptopModels={laptopModels}
           monitorSizes={monitorSizes}
+          peripheralModels={peripheralModels}
         />
       </Fragment>
     );
@@ -81,4 +83,5 @@ export default connect(({ delivery, loading, allDictionaries }) => ({
   data: delivery.step,
   laptopModels: map(groupBy(allDictionaries.data, 'category').laptopModel, v =>v.data),
   monitorSizes: map(groupBy(allDictionaries.data, 'category').monitorSize, v =>v.data),
+  peripheralModels:map(groupBy(allDictionaries.data, 'category').peripheralModel, v =>v.data),
 }))(translate("translations")(Step2));

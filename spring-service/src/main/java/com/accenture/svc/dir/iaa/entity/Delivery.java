@@ -151,7 +151,7 @@ public class Delivery {
     }
 
     public String getAssetTag() {
-        return assetTag;
+      return assetTag == null ? "" : assetTag;
     }
 
     public void setAssetTag(String assetTag) {

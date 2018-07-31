@@ -109,7 +109,7 @@ const ConfirmForm = ({
     {
     data.serialTag || data.machineType === 'peripheral' ? (
       <Form.Item {...formItemLayout} label={t('配件')}>
-        {data.peripheral}
+        {data.peripheralModel}
       </Form.Item>
     ) : (
       <Form.Item {...formItemLayout} label={t('配件')}>

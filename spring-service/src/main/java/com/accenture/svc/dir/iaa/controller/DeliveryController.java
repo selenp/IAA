@@ -58,6 +58,7 @@ public class DeliveryController extends AbstractController {
         mergeDictionary(dictionaryRepository, "businessUnit", "部门", e.getBusinessUnit());
         mergeDictionary(dictionaryRepository, "laptopModel", "笔记本型号", e.getLaptopModel());
         mergeDictionary(dictionaryRepository, "locationBuilding", "楼号", e.getLocationBuilding());
+        mergeDictionary(dictionaryRepository, "peripheralModel", "配件", e.getPeripheralModel());
         return e;
     }
 
