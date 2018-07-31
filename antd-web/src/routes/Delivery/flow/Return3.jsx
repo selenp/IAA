@@ -42,8 +42,8 @@ class Step3 extends React.PureComponent {
     ctx.fillText(data.locationBuilding || '', 520, 168);
     ctx.fillText(data.locationSeat || '', 520, 187);
 
-    ctx.fillText(data.assetTag, 180, 293);
-    ctx.fillText(data.serialTag.toUpperCase(), 520, 293);
+    ctx.fillText(data.assetTag || '', 180, 293);
+    ctx.fillText(data.serialTag ? data.serialTag.toUpperCase() : '', 520, 293);
 
     ctx.fillText('*', data.machineType === 'laptop' ? 277 : 611, 312);
 

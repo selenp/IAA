@@ -4,7 +4,7 @@
 #+HTML_HEAD: <style type="text/css">img{ max-width:98%; width: 800px }</style>
 #+CATEGORY: accenture-equipment
 
-#+OPTIONS: toc:2          only include two levels in TOC
+#+OPTIONS: toc:3          only include two levels in TOC
 #+TITLE: IAA用户手册
 * 页面流程
    https://dlcgvva1001.dir.svc.accenture.com/#/delivery/main
@@ -36,15 +36,13 @@
     - 普通用户和IT管理员分别在iPAD上签字
     - 签名完毕后，此图片会以邮件方式发送给相关人员
 ** 用户归还设备
+*** 设备取还一览
+    [[./main.png]]+待定
     - 先查询领取记录，没有的话“新建”也可
     - 根据记录，可以查看从前的签名图片
     - 根据记录，点击序列号可查看设备取还履历
     - 根据记录，点击待归还可以进入该设备的归还界面
-    [[./main.png]]+待定
-*** 设备取还一览
     [[./d1.png]]
-** 用户归还设备
-    归还流程，共3个页面
 *** 归还人 填写信息
     [[./main.png]]+待定
     - 如果从记录的归还连接处进入，可省略此步
@@ -240,7 +238,7 @@ Content-Type: application/json
    - GET /delivery/
    取还列表
 #+BEGIN_SRC sh
-GET http://localhost:3050/api/delivery/?eid=1
+GET http://localhost:3050/api/delivery/?eid=ben
 #GET http://localhost:3050/api/delivery/
 #+END_SRC
 
@@ -512,6 +510,12 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
   - application.properties
 
 * 会议
+** <2018-07-31 Tue>
+*** DONE 配件
+    CLOSED: [2018-07-31 Tue 11:16]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-07-31 Tue 11:16]
+    :END:
 ** <2018-07-25 Wed>
 *** DONE IE的cache问题
     CLOSED: [2018-07-25 Wed 12:47]

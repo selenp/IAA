@@ -75,6 +75,16 @@ public class Delivery {
     private String referenceNumber;
     //	备注 remarks
     private String remarks;
+    //	备注 peripheralModel
+    private String peripheralModel;
+
+    public String getPeripheralModel() {
+        return peripheralModel;
+    }
+
+    public void setPeripheralModel(String peripheralModel) {
+        this.peripheralModel = peripheralModel;
+    }
 
     public Long getId() {
         return id;

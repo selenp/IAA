@@ -43,30 +43,6 @@ const ConfirmForm = ({
       {data.remarks}
     </Form.Item>
     <Divider style={{ margin: '24px 0' }} />
-    <Form.Item {...formItemLayout} label={t('资产编号')}>
-      {getFieldDecorator('assetTag', {
-              rules: [
-                {
-                  required: true,
-                  message: t('请输入资产编号'),
-                },
-                {
-                  pattern: /^[A-Za-z0-9-_,]+$/,
-                  message: t('请输入资产编号'),
-                },
-              ],
-            })(<Input maxLength={100} placeholder={t('请输入资产编号')} />)}
-    </Form.Item>
-    <Form.Item {...formItemLayout} label={t('序列号')}>
-      {getFieldDecorator('serialTag', {
-              rules: [
-                {
-                  required: true,
-                  message: t('请输入序列号'),
-                },
-              ],
-            })(<Input maxLength={100} placeholder={t('请输入序列号')} />)}
-    </Form.Item>
     {
       data.machineType ? (
         <Form.Item {...formItemLayout} label={t('机型')}>
@@ -85,10 +61,43 @@ const ConfirmForm = ({
               <RadioGroup >
                 <Radio value="desktop">{t('台式机')}</Radio>
                 <Radio value="laptop">{t('笔记本')}</Radio>
+                <Radio value="peripheral">{t('配件')}</Radio>
               </RadioGroup>
           )}
         </Form.Item>
       )}
+    {
+      (getFieldValue('machineType') === 'desktop' || getFieldValue('machineType') === 'laptop') && (
+        <Form.Item {...formItemLayout} label={t('资产编号')}>
+          {getFieldDecorator('assetTag', {
+                rules: [
+                  {
+                    required: true,
+                    message: t('请输入资产编号'),
+                  },
+                  {
+                    pattern: /^[A-Za-z0-9-_,]+$/,
+                    message: t('请输入资产编号'),
+                  },
+                ],
+              })(<Input maxLength={100} placeholder={t('请输入资产编号')} />)}
+      </Form.Item>
+      )
+    }
+    {
+      (getFieldValue('machineType') === 'desktop' || getFieldValue('machineType') === 'laptop') && (
+        <Form.Item {...formItemLayout} label={t('序列号')}>
+          {getFieldDecorator('serialTag', {
+                rules: [
+                  {
+                    required: true,
+                    message: t('请输入序列号'),
+                  },
+                ],
+              })(<Input maxLength={100} placeholder={t('请输入序列号')} />)}
+        </Form.Item>
+      )
+    }
     {
       getFieldValue('machineType') === 'desktop' &&
         (
@@ -211,6 +220,31 @@ const ConfirmForm = ({
           <Switch />
         )}
       </Form.Item>
+)
+    }
+    {
+      getFieldValue('machineType') === 'peripheral' &&
+        (
+        <Form.Item
+          {...formItemLayout}
+          label={t('配件')}
+        >
+          {getFieldDecorator('peripheralModel', {
+          rules: [
+            {
+              message: t('请输入配件信息'),
+            },
+          ],
+            })(
+              <Select
+                mode="combobox"
+                style={{ width: '100%' }}
+                maxLength={100}
+                placeholder={t('请输入配件信息')}
+              >
+              </Select>
+          )}
+        </Form.Item>
 )
     }
     <Divider style={{ margin: '24px 0' }} />

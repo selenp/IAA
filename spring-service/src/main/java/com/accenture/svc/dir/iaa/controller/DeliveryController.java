@@ -185,7 +185,8 @@ public class DeliveryController extends AbstractController {
                             "日期 return_date",
                             "接受人 received_by",
                             "单号 reference_number",
-                            "备注 remarks"
+                            "备注 remarks",
+                            "配件 peripheralModel"
                     };
                 }
 
@@ -251,6 +252,8 @@ public class DeliveryController extends AbstractController {
                             return data.getReferenceNumber();
                         case 26:
                             return data.getRemarks();
+                        case 27:
+                            return data.getPeripheralModel();
                         default:
                             return "";
                     }

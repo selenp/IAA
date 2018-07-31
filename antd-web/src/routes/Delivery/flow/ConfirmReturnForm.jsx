@@ -48,7 +48,7 @@ const ConfirmForm = ({
         <Form.Item {...formItemLayout} label={t('资产编号')}>
           {data.assetTag}
         </Form.Item>
-      ) : (
+      ) : data.machineType !== 'peripheral' ? (
         <Form.Item {...formItemLayout} label={t('资产编号')}>
           {getFieldDecorator('assetTag', {
             rules: [
@@ -65,13 +65,13 @@ const ConfirmForm = ({
               <Input maxLength={100} placeholder={t('请输入资产编号')} />
           )}
         </Form.Item>
-      )}
+      ) : ''}
     {
     data.serialTag ? (
       <Form.Item {...formItemLayout} label={t('序列号')}>
         {data.serialTag}
       </Form.Item>
-    ) : (
+    ) : data.machineType !== 'peripheral' ? (
       <Form.Item {...formItemLayout} label={t('序列号')}>
         {getFieldDecorator('serialTag', {
           rules: [
@@ -82,7 +82,7 @@ const ConfirmForm = ({
           ],
         })(<Input maxLength={100} placeholder={t('请输入序列号')} />)}
       </Form.Item>
-    )}
+    ) : ''}
     {
     data.machineType ? (
       <Form.Item {...formItemLayout} label={t('机型')}>
@@ -101,8 +101,26 @@ const ConfirmForm = ({
             <RadioGroup >
               <Radio value="desktop">{t('台式机')}</Radio>
               <Radio value="laptop">{t('笔记本')}</Radio>
+              <Radio value="peripheral">{t('配件')}</Radio>
             </RadioGroup>
         )}
+      </Form.Item>
+    )}
+    {
+    data.serialTag || data.machineType === 'peripheral' ? (
+      <Form.Item {...formItemLayout} label={t('配件')}>
+        {data.peripheral}
+      </Form.Item>
+    ) : (
+      <Form.Item {...formItemLayout} label={t('配件')}>
+        {getFieldDecorator('peripheralModel', {
+          rules: [
+            {
+              required: true,
+              message: t('请输入配件信息'),
+            },
+          ],
+        })(<Input maxLength={100} placeholder={t('请输入配件信息')} />)}
       </Form.Item>
     )}
     {
@@ -170,8 +188,13 @@ const ConfirmForm = ({
       {data.lanCable?'Yes':'No'}
     </Form.Item>
   )}
+    {data.assetTag && (
+    <Form.Item {...formItemLayout} label={t('配件')} >
+      {data.peripheralModel?'Yes':'No'}
+    </Form.Item>
+  )}
     {
-    !data.assetTag && <div>{t('没有借取记录')}</div>
+    !data.assetTag || data.machineType === 'peripheral' && <div>{t('没有借取记录')}</div>
   }
     <Divider style={{ margin: '24px 0' }} />
     {
