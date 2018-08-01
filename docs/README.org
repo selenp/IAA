@@ -1,10 +1,11 @@
 #+LATEX_HEADER: \usepackage{fontspec}
 #+LATEX_HEADER: \setmainfont{Heiti SC}
+
 #+HTML_HEAD:  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1" />
 #+HTML_HEAD: <style type="text/css">img{ max-width:98%; width: 800px }</style>
 #+CATEGORY: accenture-equipment
 
-#+OPTIONS: toc:3          only include two levels in TOC
+#+OPTIONS: toc:2          only include two levels in TOC
 #+TITLE: IAA用户手册
 * 页面流程
    https://dlcgvva1001.dir.svc.accenture.com/#/delivery/main
@@ -37,25 +38,25 @@
     - 签名完毕后，此图片会以邮件方式发送给相关人员
 ** 用户归还设备
 *** 设备取还一览
-    [[./main.png]]+待定
+    [[./b4.png]]
     - 先查询领取记录，没有的话“新建”也可
     - 根据记录，可以查看从前的签名图片
     - 根据记录，点击序列号可查看设备取还履历
     - 根据记录，点击待归还可以进入该设备的归还界面
     [[./d1.png]]
 *** 归还人 填写信息
-    [[./main.png]]+待定
+    [[./b5.png]]
     - 如果从记录的归还连接处进入，可省略此步
     - 如果新建归还设备，则EID和部门为必填项，其它可以选填
     - 输入EID之后，一定要点击查询图标，进行EID的有效性验证
     - 输入完毕后，点击“下一步”，交给IT管理人员
 *** IT部门 填写设备信息
-    [[./main.png]]+待定
+    [[./b6.png]]
     - 显示器为必填项
     - 输入完毕后，点击“保存”
     - 如果为新建归还设备，需IT部门填写资产编号，序列号和机型，都为必填项，并且资产编号只能输入字母或数字，点击保存进入下一步
 *** 双方确认并签字，发邮件
-    [[./main.png]]+待定
+    [[./b7.png]]
     - 普通用户和IT管理员分别在iPAD上签字
     - 签名完毕后，此图片会以邮件方式发送给相关人员
 
@@ -87,7 +88,7 @@
    - 自己相关的（自己发的，指定自己角色）任务
    - 可以直接设置任务的状态，状态为处理完毕的任务，不能点击链接进入设备移交
    - 点击这个任务，可以直接进入IT设备移交页面
-   [[./main.png]]+待定
+   [[./task3.png]]
 
    [[./task2.png]]
 ** IT部门 设备移交
@@ -124,12 +125,12 @@
 
 ** 系统管理
 *** 通知管理
-    [[./main.png]]+待定
+    [[./u2.png]]
     - 根据EID查询发布的通知
     - 下载通知列表
     - 新增通知
     - 内容和指派角色必填
-    [[./main.png]]+待定
+    [[./u3.png]]
     - 新增的通知可选择归档，选择归档后不会在主页的通知界面栏显示
 *** 用户管理
     [[./u1.png]]
@@ -137,7 +138,7 @@
     - 新增按钮，新增用户
     - 点击EID可进入用户详情界面，可修改用户信息
     - 点击修改后EID和角色为必填项，点击查询图标进行验证
-    [[./main.png]]+待定
+    [[./u4.png]]
     - 删除非登录人员的用户信息
     - 点击EID可查看管理员详情并修改管理员信息
 
@@ -511,7 +512,10 @@ insert into ADMIN (id, userid, roles) values (1000, 'di.a.gao', 'asset manager,s
 
 * 会议
 ** <2018-07-31 Tue>
-*** DONE 配件
+*** DONE 设备类型：增加一个配件选项
+#+BEGIN_SRC sql
+alter table delivery add column peripheralModel varchar(200);
+#+END_SRC
     CLOSED: [2018-07-31 Tue 11:16]
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-31 Tue 11:16]
