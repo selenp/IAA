@@ -693,8 +693,11 @@ alter table delivery add column peripheralModel varchar(200);
     :LOGBOOK:
     - State "DONE"       from "NEXT"       [2018-07-04 Wed 22:59]
     :END:
-** <2018-06-27 Wed>
-   SCHEDULED: <2018-06-27 Wed 14:00>
+** DONE <2018-06-29 Fri>
+   CLOSED: [2018-08-02 Thu 16:56] SCHEDULED: <2018-06-27 Wed 14:00>
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2018-08-02 Thu 16:56]
+   :END:
    - LOCATION:<#24 1F>
 *** 更新了前端页面 front-end，修复了几个bug
 *** MSSQL数据库启动不了了
